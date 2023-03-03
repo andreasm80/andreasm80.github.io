@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>RBAC on From 0.985mhz... to several Ghz</title>
-    <link>https://yikes.guzware.net/tags/rbac/</link>
+    <link>https://andreasm80.github.io/tags/rbac/</link>
     <description>Recent content in RBAC on From 0.985mhz... to several Ghz</description>
     <generator>Hugo -- gohugo.io</generator>
-    <copyright>guzware.net</copyright>
-    <lastBuildDate>Sun, 23 Oct 2022 08:21:52 +0200</lastBuildDate><atom:link href="https://yikes.guzware.net/tags/rbac/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>Myself</copyright>
+    <lastBuildDate>Sun, 23 Oct 2022 08:21:52 +0200</lastBuildDate><atom:link href="https://andreasm80.github.io/tags/rbac/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>We Take a Look at the AKO Crds</title>
-      <link>https://yikes.guzware.net/2022/10/23/we-take-a-look-at-the-ako-crds/</link>
+      <link>https://andreasm80.github.io/2022/10/23/we-take-a-look-at-the-ako-crds/</link>
       <pubDate>Sun, 23 Oct 2022 08:21:52 +0200</pubDate>
       
-      <guid>https://yikes.guzware.net/2022/10/23/we-take-a-look-at-the-ako-crds/</guid>
+      <guid>https://andreasm80.github.io/2022/10/23/we-take-a-look-at-the-ako-crds/</guid>
       <description>
         
           
@@ -27,10 +27,10 @@ How does AKO work
     
     <item>
       <title>Running the Unifi Controller in Kubernetes</title>
-      <link>https://yikes.guzware.net/2022/10/23/running-the-unifi-controller-in-kubernetes/</link>
+      <link>https://andreasm80.github.io/2022/10/23/running-the-unifi-controller-in-kubernetes/</link>
       <pubDate>Sun, 23 Oct 2022 08:11:37 +0200</pubDate>
       
-      <guid>https://yikes.guzware.net/2022/10/23/running-the-unifi-controller-in-kubernetes/</guid>
+      <guid>https://andreasm80.github.io/2022/10/23/running-the-unifi-controller-in-kubernetes/</guid>
       <description>
         
           
@@ -43,10 +43,10 @@ How does AKO work
     
     <item>
       <title>How to Deploy Tanzu With vSphere</title>
-      <link>https://yikes.guzware.net/2022/10/23/how-to-deploy-tanzu-with-vsphere/</link>
+      <link>https://andreasm80.github.io/2022/10/23/how-to-deploy-tanzu-with-vsphere/</link>
       <pubDate>Sun, 23 Oct 2022 08:02:28 +0200</pubDate>
       
-      <guid>https://yikes.guzware.net/2022/10/23/how-to-deploy-tanzu-with-vsphere/</guid>
+      <guid>https://andreasm80.github.io/2022/10/23/how-to-deploy-tanzu-with-vsphere/</guid>
       <description>
         
           

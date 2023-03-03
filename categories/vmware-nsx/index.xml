@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>vmware nsx on From 0.985mhz... to several Ghz</title>
-    <link>https://yikes.guzware.net/categories/vmware-nsx/</link>
+    <link>https://andreasm80.github.io/categories/vmware-nsx/</link>
     <description>Recent content in vmware nsx on From 0.985mhz... to several Ghz</description>
     <generator>Hugo -- gohugo.io</generator>
-    <copyright>guzware.net</copyright>
-    <lastBuildDate>Sun, 13 Mar 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://yikes.guzware.net/categories/vmware-nsx/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>Myself</copyright>
+    <lastBuildDate>Sun, 13 Mar 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://andreasm80.github.io/categories/vmware-nsx/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Managing your Antrea K8s clusters running in VMC from your on-prem NSX Manager</title>
-      <link>https://yikes.guzware.net/2022/03/13/managing-your-antrea-k8s-clusters-running-in-vmc-from-your-on-prem-nsx-manager/</link>
+      <link>https://andreasm80.github.io/2022/03/13/managing-your-antrea-k8s-clusters-running-in-vmc-from-your-on-prem-nsx-manager/</link>
       <pubDate>Sun, 13 Mar 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://yikes.guzware.net/2022/03/13/managing-your-antrea-k8s-clusters-running-in-vmc-from-your-on-prem-nsx-manager/</guid>
+      <guid>https://andreasm80.github.io/2022/03/13/managing-your-antrea-k8s-clusters-running-in-vmc-from-your-on-prem-nsx-manager/</guid>
       <description>
         
           
@@ -25,10 +25,10 @@
     
     <item>
       <title>VMware NSX Application Platform</title>
-      <link>https://yikes.guzware.net/2022/01/18/vmware-nsx-application-platform/</link>
+      <link>https://andreasm80.github.io/2022/01/18/vmware-nsx-application-platform/</link>
       <pubDate>Tue, 18 Jan 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://yikes.guzware.net/2022/01/18/vmware-nsx-application-platform/</guid>
+      <guid>https://andreasm80.github.io/2022/01/18/vmware-nsx-application-platform/</guid>
       <description>
         
           
@@ -41,10 +41,10 @@
     
     <item>
       <title>VMware NSX IDS &amp; IPS</title>
-      <link>https://yikes.guzware.net/2021/10/19/vmware-nsx-ids-ips/</link>
+      <link>https://andreasm80.github.io/2021/10/19/vmware-nsx-ids-ips/</link>
       <pubDate>Tue, 19 Oct 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://yikes.guzware.net/2021/10/19/vmware-nsx-ids-ips/</guid>
+      <guid>https://andreasm80.github.io/2021/10/19/vmware-nsx-ids-ips/</guid>
       <description>
         
           
@@ -59,10 +59,10 @@ IDS = Intrusion Detection System IPS = Intrusion Prevention System Introduction 
     
     <item>
       <title>Microsegmentation with VMware NSX</title>
-      <link>https://yikes.guzware.net/2021/07/10/microsegmentation-with-vmware-nsx/</link>
+      <link>https://andreasm80.github.io/2021/07/10/microsegmentation-with-vmware-nsx/</link>
       <pubDate>Sat, 10 Jul 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://yikes.guzware.net/2021/07/10/microsegmentation-with-vmware-nsx/</guid>
+      <guid>https://andreasm80.github.io/2021/07/10/microsegmentation-with-vmware-nsx/</guid>
       <description>
         
           
@@ -75,10 +75,10 @@ IDS = Intrusion Detection System IPS = Intrusion Prevention System Introduction 
     
     <item>
       <title>NSX Intelligence - quick overview</title>
-      <link>https://yikes.guzware.net/2021/07/10/nsx-intelligence-quick-overview/</link>
+      <link>https://andreasm80.github.io/2021/07/10/nsx-intelligence-quick-overview/</link>
       <pubDate>Sat, 10 Jul 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://yikes.guzware.net/2021/07/10/nsx-intelligence-quick-overview/</guid>
+      <guid>https://andreasm80.github.io/2021/07/10/nsx-intelligence-quick-overview/</guid>
       <description>
         
           
@@ -92,10 +92,10 @@ NSX Intelligence is your tool for that. This post is just to show a couple of sc
     
     <item>
       <title>Deploy NSX-T 2.4 Edge Nodes on a N-VDS Logical Switch</title>
-      <link>https://yikes.guzware.net/2019/03/09/deploy-nsx-t-2.4-edge-nodes-on-a-n-vds-logical-switch/</link>
+      <link>https://andreasm80.github.io/2019/03/09/deploy-nsx-t-2.4-edge-nodes-on-a-n-vds-logical-switch/</link>
       <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://yikes.guzware.net/2019/03/09/deploy-nsx-t-2.4-edge-nodes-on-a-n-vds-logical-switch/</guid>
+      <guid>https://andreasm80.github.io/2019/03/09/deploy-nsx-t-2.4-edge-nodes-on-a-n-vds-logical-switch/</guid>
       <description>
         
           
@@ -109,10 +109,10 @@ But trying to do this from the NSX-T 2.4 manager GUI you will only have the opti
     
     <item>
       <title>&#34;General Error&#34; NSX-T Manager Firewall Section</title>
-      <link>https://yikes.guzware.net/2018/09/05/general-error-nsx-t-manager-firewall-section/</link>
+      <link>https://andreasm80.github.io/2018/09/05/general-error-nsx-t-manager-firewall-section/</link>
       <pubDate>Wed, 05 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://yikes.guzware.net/2018/09/05/general-error-nsx-t-manager-firewall-section/</guid>
+      <guid>https://andreasm80.github.io/2018/09/05/general-error-nsx-t-manager-firewall-section/</guid>
       <description>
         
           

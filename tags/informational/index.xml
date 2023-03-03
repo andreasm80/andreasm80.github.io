@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>informational on From 0.985mhz... to several Ghz</title>
-    <link>https://yikes.guzware.net/tags/informational/</link>
+    <link>https://andreasm80.github.io/tags/informational/</link>
     <description>Recent content in informational on From 0.985mhz... to several Ghz</description>
     <generator>Hugo -- gohugo.io</generator>
-    <copyright>guzware.net</copyright>
-    <lastBuildDate>Thu, 13 Oct 2022 21:56:15 +0200</lastBuildDate><atom:link href="https://yikes.guzware.net/tags/informational/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>Myself</copyright>
+    <lastBuildDate>Thu, 13 Oct 2022 21:56:15 +0200</lastBuildDate><atom:link href="https://andreasm80.github.io/tags/informational/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Antrea Network Policies</title>
-      <link>https://yikes.guzware.net/2021/07/10/antrea-network-policies/</link>
+      <link>https://andreasm80.github.io/2021/07/10/antrea-network-policies/</link>
       <pubDate>Sat, 10 Jul 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://yikes.guzware.net/2021/07/10/antrea-network-policies/</guid>
+      <guid>https://andreasm80.github.io/2021/07/10/antrea-network-policies/</guid>
       <description>
         
           
@@ -27,10 +27,10 @@ Container Network Interface = CNI Antrea Cluster Network Policies = ACNP Antrea 
     
     <item>
       <title>VMware Harbor Registry</title>
-      <link>https://yikes.guzware.net/2022/10/13/vmware-harbor-registry/</link>
+      <link>https://andreasm80.github.io/2022/10/13/vmware-harbor-registry/</link>
       <pubDate>Thu, 13 Oct 2022 21:56:15 +0200</pubDate>
       
-      <guid>https://yikes.guzware.net/2022/10/13/vmware-harbor-registry/</guid>
+      <guid>https://andreasm80.github.io/2022/10/13/vmware-harbor-registry/</guid>
       <description>
         
           
@@ -44,10 +44,10 @@ Quick introduction to Harbor Harbor is an open source registry that secures arti
     
     <item>
       <title>Managing your Antrea K8s clusters running in VMC from your on-prem NSX Manager</title>
-      <link>https://yikes.guzware.net/2022/03/13/managing-your-antrea-k8s-clusters-running-in-vmc-from-your-on-prem-nsx-manager/</link>
+      <link>https://andreasm80.github.io/2022/03/13/managing-your-antrea-k8s-clusters-running-in-vmc-from-your-on-prem-nsx-manager/</link>
       <pubDate>Sun, 13 Mar 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://yikes.guzware.net/2022/03/13/managing-your-antrea-k8s-clusters-running-in-vmc-from-your-on-prem-nsx-manager/</guid>
+      <guid>https://andreasm80.github.io/2022/03/13/managing-your-antrea-k8s-clusters-running-in-vmc-from-your-on-prem-nsx-manager/</guid>
       <description>
         
           
@@ -60,10 +60,10 @@ Quick introduction to Harbor Harbor is an open source registry that secures arti
     
     <item>
       <title>VMware NSX IDS &amp; IPS</title>
-      <link>https://yikes.guzware.net/2021/10/19/vmware-nsx-ids-ips/</link>
+      <link>https://andreasm80.github.io/2021/10/19/vmware-nsx-ids-ips/</link>
       <pubDate>Tue, 19 Oct 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://yikes.guzware.net/2021/10/19/vmware-nsx-ids-ips/</guid>
+      <guid>https://andreasm80.github.io/2021/10/19/vmware-nsx-ids-ips/</guid>
       <description>
         
           
@@ -78,10 +78,10 @@ IDS = Intrusion Detection System IPS = Intrusion Prevention System Introduction 
     
     <item>
       <title>Configure NSX Advanced Load Balancer (NSX-ALB) as DNS provider</title>
-      <link>https://yikes.guzware.net/2021/07/12/configure-nsx-advanced-load-balancer-nsx-alb-as-dns-provider/</link>
+      <link>https://andreasm80.github.io/2021/07/12/configure-nsx-advanced-load-balancer-nsx-alb-as-dns-provider/</link>
       <pubDate>Mon, 12 Jul 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://yikes.guzware.net/2021/07/12/configure-nsx-advanced-load-balancer-nsx-alb-as-dns-provider/</guid>
+      <guid>https://andreasm80.github.io/2021/07/12/configure-nsx-advanced-load-balancer-nsx-alb-as-dns-provider/</guid>
       <description>
         
           
@@ -95,10 +95,10 @@ If you have followed my other post about how to configure the AKO (Avi Kubernete
     
     <item>
       <title>Antrea - Kubernetes CNI</title>
-      <link>https://yikes.guzware.net/2021/07/10/antrea-kubernetes-cni/</link>
+      <link>https://andreasm80.github.io/2021/07/10/antrea-kubernetes-cni/</link>
       <pubDate>Sat, 10 Jul 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://yikes.guzware.net/2021/07/10/antrea-kubernetes-cni/</guid>
+      <guid>https://andreasm80.github.io/2021/07/10/antrea-kubernetes-cni/</guid>
       <description>
         
           
@@ -115,10 +115,10 @@ Antrea has a rich set of features such as:
     
     <item>
       <title>Microsegmentation with VMware NSX</title>
-      <link>https://yikes.guzware.net/2021/07/10/microsegmentation-with-vmware-nsx/</link>
+      <link>https://andreasm80.github.io/2021/07/10/microsegmentation-with-vmware-nsx/</link>
       <pubDate>Sat, 10 Jul 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://yikes.guzware.net/2021/07/10/microsegmentation-with-vmware-nsx/</guid>
+      <guid>https://andreasm80.github.io/2021/07/10/microsegmentation-with-vmware-nsx/</guid>
       <description>
         
           
@@ -131,10 +131,10 @@ Antrea has a rich set of features such as:
     
     <item>
       <title>NSX Intelligence - quick overview</title>
-      <link>https://yikes.guzware.net/2021/07/10/nsx-intelligence-quick-overview/</link>
+      <link>https://andreasm80.github.io/2021/07/10/nsx-intelligence-quick-overview/</link>
       <pubDate>Sat, 10 Jul 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://yikes.guzware.net/2021/07/10/nsx-intelligence-quick-overview/</guid>
+      <guid>https://andreasm80.github.io/2021/07/10/nsx-intelligence-quick-overview/</guid>
       <description>
         
           

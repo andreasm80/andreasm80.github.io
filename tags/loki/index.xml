@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>loki on From 0.985mhz... to several Ghz</title>
-    <link>https://yikes.guzware.net/tags/loki/</link>
+    <link>https://andreasm80.github.io/tags/loki/</link>
     <description>Recent content in loki on From 0.985mhz... to several Ghz</description>
     <generator>Hugo -- gohugo.io</generator>
-    <copyright>guzware.net</copyright>
-    <lastBuildDate>Wed, 19 Oct 2022 10:54:37 +0200</lastBuildDate><atom:link href="https://yikes.guzware.net/tags/loki/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>Myself</copyright>
+    <lastBuildDate>Wed, 19 Oct 2022 10:54:37 +0200</lastBuildDate><atom:link href="https://andreasm80.github.io/tags/loki/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Monitoring With Prometheus, Loki, Promtail and Grafana</title>
-      <link>https://yikes.guzware.net/2022/10/19/monitoring-with-prometheus-loki-promtail-and-grafana/</link>
+      <link>https://andreasm80.github.io/2022/10/19/monitoring-with-prometheus-loki-promtail-and-grafana/</link>
       <pubDate>Wed, 19 Oct 2022 10:54:37 +0200</pubDate>
       
-      <guid>https://yikes.guzware.net/2022/10/19/monitoring-with-prometheus-loki-promtail-and-grafana/</guid>
+      <guid>https://andreasm80.github.io/2022/10/19/monitoring-with-prometheus-loki-promtail-and-grafana/</guid>
       <description>
         
           

@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>nsx-t on From 0.985mhz... to several Ghz</title>
-    <link>https://yikes.guzware.net/categories/nsx-t/</link>
+    <link>https://andreasm80.github.io/categories/nsx-t/</link>
     <description>Recent content in nsx-t on From 0.985mhz... to several Ghz</description>
     <generator>Hugo -- gohugo.io</generator>
-    <copyright>guzware.net</copyright>
-    <lastBuildDate>Sat, 10 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://yikes.guzware.net/categories/nsx-t/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>Myself</copyright>
+    <lastBuildDate>Sat, 10 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://andreasm80.github.io/categories/nsx-t/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Microsegmentation with VMware NSX</title>
-      <link>https://yikes.guzware.net/2021/07/10/microsegmentation-with-vmware-nsx/</link>
+      <link>https://andreasm80.github.io/2021/07/10/microsegmentation-with-vmware-nsx/</link>
       <pubDate>Sat, 10 Jul 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://yikes.guzware.net/2021/07/10/microsegmentation-with-vmware-nsx/</guid>
+      <guid>https://andreasm80.github.io/2021/07/10/microsegmentation-with-vmware-nsx/</guid>
       <description>
         
           
@@ -25,10 +25,10 @@
     
     <item>
       <title>Deploy NSX-T 2.4 Edge Nodes on a N-VDS Logical Switch</title>
-      <link>https://yikes.guzware.net/2019/03/09/deploy-nsx-t-2.4-edge-nodes-on-a-n-vds-logical-switch/</link>
+      <link>https://andreasm80.github.io/2019/03/09/deploy-nsx-t-2.4-edge-nodes-on-a-n-vds-logical-switch/</link>
       <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://yikes.guzware.net/2019/03/09/deploy-nsx-t-2.4-edge-nodes-on-a-n-vds-logical-switch/</guid>
+      <guid>https://andreasm80.github.io/2019/03/09/deploy-nsx-t-2.4-edge-nodes-on-a-n-vds-logical-switch/</guid>
       <description>
         
           

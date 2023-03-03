@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Kubernetes on From 0.985mhz... to several Ghz</title>
-    <link>https://yikes.guzware.net/tags/kubernetes/</link>
+    <link>https://andreasm80.github.io/tags/kubernetes/</link>
     <description>Recent content in Kubernetes on From 0.985mhz... to several Ghz</description>
     <generator>Hugo -- gohugo.io</generator>
-    <copyright>guzware.net</copyright>
-    <lastBuildDate>Mon, 20 Feb 2023 15:42:54 +0100</lastBuildDate><atom:link href="https://yikes.guzware.net/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>Myself</copyright>
+    <lastBuildDate>Mon, 20 Feb 2023 15:42:54 +0100</lastBuildDate><atom:link href="https://andreasm80.github.io/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Antrea Egress</title>
-      <link>https://yikes.guzware.net/2023/02/20/antrea-egress/</link>
+      <link>https://andreasm80.github.io/2023/02/20/antrea-egress/</link>
       <pubDate>Mon, 20 Feb 2023 15:42:54 +0100</pubDate>
       
-      <guid>https://yikes.guzware.net/2023/02/20/antrea-egress/</guid>
+      <guid>https://andreasm80.github.io/2023/02/20/antrea-egress/</guid>
       <description>
         
           
@@ -26,10 +26,10 @@ Why does egress matter? Well, usually when the pods communicate out, they will u
     
     <item>
       <title>vSphere 8 with Tanzu using NSX-T &amp; Avi LoadBalancer</title>
-      <link>https://yikes.guzware.net/2022/10/26/vsphere-8-with-tanzu-using-nsx-t-avi-loadbalancer/</link>
+      <link>https://andreasm80.github.io/2022/10/26/vsphere-8-with-tanzu-using-nsx-t-avi-loadbalancer/</link>
       <pubDate>Wed, 26 Oct 2022 12:03:35 +0200</pubDate>
       
-      <guid>https://yikes.guzware.net/2022/10/26/vsphere-8-with-tanzu-using-nsx-t-avi-loadbalancer/</guid>
+      <guid>https://andreasm80.github.io/2022/10/26/vsphere-8-with-tanzu-using-nsx-t-avi-loadbalancer/</guid>
       <description>
         
           
@@ -42,10 +42,10 @@ Why does egress matter? Well, usually when the pods communicate out, they will u
     
     <item>
       <title>AKO Explained</title>
-      <link>https://yikes.guzware.net/2022/10/26/ako-explained/</link>
+      <link>https://andreasm80.github.io/2022/10/26/ako-explained/</link>
       <pubDate>Wed, 26 Oct 2022 12:02:39 +0200</pubDate>
       
-      <guid>https://yikes.guzware.net/2022/10/26/ako-explained/</guid>
+      <guid>https://andreasm80.github.io/2022/10/26/ako-explained/</guid>
       <description>
         
           

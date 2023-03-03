@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>howto on From 0.985mhz... to several Ghz</title>
-    <link>https://yikes.guzware.net/tags/howto/</link>
+    <link>https://andreasm80.github.io/tags/howto/</link>
     <description>Recent content in howto on From 0.985mhz... to several Ghz</description>
     <generator>Hugo -- gohugo.io</generator>
-    <copyright>guzware.net</copyright>
-    <lastBuildDate>Thu, 13 Oct 2022 21:56:15 +0200</lastBuildDate><atom:link href="https://yikes.guzware.net/tags/howto/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>Myself</copyright>
+    <lastBuildDate>Thu, 13 Oct 2022 21:56:15 +0200</lastBuildDate><atom:link href="https://andreasm80.github.io/tags/howto/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>VMware Harbor Registry</title>
-      <link>https://yikes.guzware.net/2022/10/13/vmware-harbor-registry/</link>
+      <link>https://andreasm80.github.io/2022/10/13/vmware-harbor-registry/</link>
       <pubDate>Thu, 13 Oct 2022 21:56:15 +0200</pubDate>
       
-      <guid>https://yikes.guzware.net/2022/10/13/vmware-harbor-registry/</guid>
+      <guid>https://andreasm80.github.io/2022/10/13/vmware-harbor-registry/</guid>
       <description>
         
           
@@ -26,10 +26,10 @@ Quick introduction to Harbor Harbor is an open source registry that secures arti
     
     <item>
       <title>Hugo in Kubernetes</title>
-      <link>https://yikes.guzware.net/2022/10/12/hugo-in-kubernetes/</link>
+      <link>https://andreasm80.github.io/2022/10/12/hugo-in-kubernetes/</link>
       <pubDate>Wed, 12 Oct 2022 08:28:23 +0200</pubDate>
       
-      <guid>https://yikes.guzware.net/2022/10/12/hugo-in-kubernetes/</guid>
+      <guid>https://andreasm80.github.io/2022/10/12/hugo-in-kubernetes/</guid>
       <description>
         
           
@@ -44,10 +44,10 @@ Kubernetes cluster, obviously, consisting of several workers for the the &amp;qu
     
     <item>
       <title>Pinniped Authentication Service</title>
-      <link>https://yikes.guzware.net/2022/10/11/pinniped-authentication-service/</link>
+      <link>https://andreasm80.github.io/2022/10/11/pinniped-authentication-service/</link>
       <pubDate>Tue, 11 Oct 2022 22:39:07 +0200</pubDate>
       
-      <guid>https://yikes.guzware.net/2022/10/11/pinniped-authentication-service/</guid>
+      <guid>https://andreasm80.github.io/2022/10/11/pinniped-authentication-service/</guid>
       <description>
         
           
@@ -62,10 +62,10 @@ Pinniped introduction
     
     <item>
       <title>Cert Manager and Letsencrypt</title>
-      <link>https://yikes.guzware.net/2022/10/11/cert-manager-and-letsencrypt/</link>
+      <link>https://andreasm80.github.io/2022/10/11/cert-manager-and-letsencrypt/</link>
       <pubDate>Tue, 11 Oct 2022 22:33:41 +0200</pubDate>
       
-      <guid>https://yikes.guzware.net/2022/10/11/cert-manager-and-letsencrypt/</guid>
+      <guid>https://andreasm80.github.io/2022/10/11/cert-manager-and-letsencrypt/</guid>
       <description>
         
           
@@ -81,10 +81,10 @@ It will ensure certificates are valid and up to date, and attempt to renew certi
     
     <item>
       <title>NSX Advanced LoadBalancer with Antrea on Native K8s</title>
-      <link>https://yikes.guzware.net/2020/10/08/nsx-advanced-loadbalancer-with-antrea-on-native-k8s/</link>
+      <link>https://andreasm80.github.io/2020/10/08/nsx-advanced-loadbalancer-with-antrea-on-native-k8s/</link>
       <pubDate>Thu, 08 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://yikes.guzware.net/2020/10/08/nsx-advanced-loadbalancer-with-antrea-on-native-k8s/</guid>
+      <guid>https://andreasm80.github.io/2020/10/08/nsx-advanced-loadbalancer-with-antrea-on-native-k8s/</guid>
       <description>
         
           
