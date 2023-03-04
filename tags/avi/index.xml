@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Avi on From 0.985mhz... to several Ghz</title>
-    <link>https://andreasm80.github.io/tags/avi/</link>
+    <link>https://blog.andreasm.io/tags/avi/</link>
     <description>Recent content in Avi on From 0.985mhz... to several Ghz</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Myself</copyright>
-    <lastBuildDate>Wed, 26 Oct 2022 12:03:35 +0200</lastBuildDate><atom:link href="https://andreasm80.github.io/tags/avi/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 26 Oct 2022 12:03:35 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/avi/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>vSphere 8 with Tanzu using NSX-T &amp; Avi LoadBalancer</title>
-      <link>https://andreasm80.github.io/2022/10/26/vsphere-8-with-tanzu-using-nsx-t-avi-loadbalancer/</link>
+      <link>https://blog.andreasm.io/2022/10/26/vsphere-8-with-tanzu-using-nsx-t-avi-loadbalancer/</link>
       <pubDate>Wed, 26 Oct 2022 12:03:35 +0200</pubDate>
       
-      <guid>https://andreasm80.github.io/2022/10/26/vsphere-8-with-tanzu-using-nsx-t-avi-loadbalancer/</guid>
+      <guid>https://blog.andreasm.io/2022/10/26/vsphere-8-with-tanzu-using-nsx-t-avi-loadbalancer/</guid>
       <description>
         
           

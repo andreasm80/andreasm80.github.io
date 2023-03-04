@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>configurations on From 0.985mhz... to several Ghz</title>
-    <link>https://andreasm80.github.io/tags/configurations/</link>
+    <link>https://blog.andreasm.io/tags/configurations/</link>
     <description>Recent content in configurations on From 0.985mhz... to several Ghz</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Myself</copyright>
-    <lastBuildDate>Mon, 12 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://andreasm80.github.io/tags/configurations/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 12 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/configurations/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Configure NSX Advanced Load Balancer (NSX-ALB) as DNS provider</title>
-      <link>https://andreasm80.github.io/2021/07/12/configure-nsx-advanced-load-balancer-nsx-alb-as-dns-provider/</link>
+      <link>https://blog.andreasm.io/2021/07/12/configure-nsx-advanced-load-balancer-nsx-alb-as-dns-provider/</link>
       <pubDate>Mon, 12 Jul 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://andreasm80.github.io/2021/07/12/configure-nsx-advanced-load-balancer-nsx-alb-as-dns-provider/</guid>
+      <guid>https://blog.andreasm.io/2021/07/12/configure-nsx-advanced-load-balancer-nsx-alb-as-dns-provider/</guid>
       <description>
         
           
@@ -26,10 +26,10 @@ If you have followed my other post about how to configure the AKO (Avi Kubernete
     
     <item>
       <title>Kubernetes Persistent Volumes with NFS</title>
-      <link>https://andreasm80.github.io/2021/07/12/kubernetes-persistent-volumes-with-nfs/</link>
+      <link>https://blog.andreasm.io/2021/07/12/kubernetes-persistent-volumes-with-nfs/</link>
       <pubDate>Mon, 12 Jul 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://andreasm80.github.io/2021/07/12/kubernetes-persistent-volumes-with-nfs/</guid>
+      <guid>https://blog.andreasm.io/2021/07/12/kubernetes-persistent-volumes-with-nfs/</guid>
       <description>
         
           
@@ -42,10 +42,10 @@ If you have followed my other post about how to configure the AKO (Avi Kubernete
     
     <item>
       <title>K8s Ingress with NSX Advanced Load Balancer</title>
-      <link>https://andreasm80.github.io/2021/07/11/k8s-ingress-with-nsx-advanced-load-balancer/</link>
+      <link>https://blog.andreasm.io/2021/07/11/k8s-ingress-with-nsx-advanced-load-balancer/</link>
       <pubDate>Sun, 11 Jul 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://andreasm80.github.io/2021/07/11/k8s-ingress-with-nsx-advanced-load-balancer/</guid>
+      <guid>https://blog.andreasm.io/2021/07/11/k8s-ingress-with-nsx-advanced-load-balancer/</guid>
       <description>
         
           
@@ -60,10 +60,10 @@ This post will try to cover the basics of how to use NSX Advanced LoadBalancer b
     
     <item>
       <title>Deploy NSX-T 2.4 Edge Nodes on a N-VDS Logical Switch</title>
-      <link>https://andreasm80.github.io/2019/03/09/deploy-nsx-t-2.4-edge-nodes-on-a-n-vds-logical-switch/</link>
+      <link>https://blog.andreasm.io/2019/03/09/deploy-nsx-t-2.4-edge-nodes-on-a-n-vds-logical-switch/</link>
       <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://andreasm80.github.io/2019/03/09/deploy-nsx-t-2.4-edge-nodes-on-a-n-vds-logical-switch/</guid>
+      <guid>https://blog.andreasm.io/2019/03/09/deploy-nsx-t-2.4-edge-nodes-on-a-n-vds-logical-switch/</guid>
       <description>
         
           

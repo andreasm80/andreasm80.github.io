@@ -2,293 +2,293 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://andreasm80.github.io/2021/07/10/antrea-network-policies/</loc>
+    <loc>https://blog.andreasm.io/2021/07/10/antrea-network-policies/</loc>
     <lastmod>2021-07-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/tags/antrea/</loc>
+    <loc>https://blog.andreasm.io/tags/antrea/</loc>
     <lastmod>2023-02-20T15:42:54+01:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/2023/02/20/antrea-egress/</loc>
+    <loc>https://blog.andreasm.io/2023/02/20/antrea-egress/</loc>
     <lastmod>2023-02-20T15:42:54+01:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/categories/</loc>
+    <loc>https://blog.andreasm.io/categories/</loc>
     <lastmod>2023-02-20T15:42:54+01:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/</loc>
+    <loc>https://blog.andreasm.io/</loc>
     <lastmod>2023-02-20T15:42:54+01:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/categories/kubernetes/</loc>
+    <loc>https://blog.andreasm.io/categories/kubernetes/</loc>
     <lastmod>2023-02-20T15:42:54+01:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/tags/kubernetes/</loc>
+    <loc>https://blog.andreasm.io/tags/kubernetes/</loc>
     <lastmod>2023-02-20T15:42:54+01:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/categories/networking/</loc>
+    <loc>https://blog.andreasm.io/categories/networking/</loc>
     <lastmod>2023-02-20T15:42:54+01:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/post/</loc>
+    <loc>https://blog.andreasm.io/post/</loc>
     <lastmod>2023-02-20T15:42:54+01:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/tags/</loc>
+    <loc>https://blog.andreasm.io/tags/</loc>
     <lastmod>2023-02-20T15:42:54+01:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/tags/tanzu/</loc>
+    <loc>https://blog.andreasm.io/tags/tanzu/</loc>
     <lastmod>2023-02-20T15:42:54+01:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/tags/k8s/</loc>
+    <loc>https://blog.andreasm.io/tags/k8s/</loc>
     <lastmod>2022-10-26T12:06:08+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/categories/tanzu/</loc>
+    <loc>https://blog.andreasm.io/categories/tanzu/</loc>
     <lastmod>2022-10-26T12:06:08+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/2022/10/26/vsphere-8-with-tanzu-using-vds-and-avi-loadbalancer/</loc>
+    <loc>https://blog.andreasm.io/2022/10/26/vsphere-8-with-tanzu-using-vds-and-avi-loadbalancer/</loc>
     <lastmod>2022-10-26T12:06:08+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/tags/avi/</loc>
+    <loc>https://blog.andreasm.io/tags/avi/</loc>
     <lastmod>2022-10-26T12:03:35+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/tags/nsx/</loc>
+    <loc>https://blog.andreasm.io/tags/nsx/</loc>
     <lastmod>2022-10-26T12:03:35+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/2022/10/26/vsphere-8-with-tanzu-using-nsx-t-avi-loadbalancer/</loc>
+    <loc>https://blog.andreasm.io/2022/10/26/vsphere-8-with-tanzu-using-nsx-t-avi-loadbalancer/</loc>
     <lastmod>2022-10-26T12:03:35+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/2022/10/26/ako-explained/</loc>
+    <loc>https://blog.andreasm.io/2022/10/26/ako-explained/</loc>
     <lastmod>2022-10-26T12:02:39+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/tags/ingress/</loc>
+    <loc>https://blog.andreasm.io/tags/ingress/</loc>
     <lastmod>2022-10-26T12:02:39+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/categories/ingress/</loc>
+    <loc>https://blog.andreasm.io/categories/ingress/</loc>
     <lastmod>2022-10-26T12:02:39+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/tags/loadbalancing/</loc>
+    <loc>https://blog.andreasm.io/tags/loadbalancing/</loc>
     <lastmod>2022-10-26T12:02:39+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/tags/ako/</loc>
+    <loc>https://blog.andreasm.io/tags/ako/</loc>
     <lastmod>2022-10-23T08:22:35+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/tags/amko/</loc>
+    <loc>https://blog.andreasm.io/tags/amko/</loc>
     <lastmod>2022-10-23T08:22:35+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/categories/gslb/</loc>
+    <loc>https://blog.andreasm.io/categories/gslb/</loc>
     <lastmod>2022-10-23T08:22:35+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/2022/10/23/gslb-with-ako-amko-nsx-advanced-loadbalancer/</loc>
+    <loc>https://blog.andreasm.io/2022/10/23/gslb-with-ako-amko-nsx-advanced-loadbalancer/</loc>
     <lastmod>2022-10-23T08:22:35+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/tags/nsx-advanced-loadbalancer/</loc>
+    <loc>https://blog.andreasm.io/tags/nsx-advanced-loadbalancer/</loc>
     <lastmod>2022-10-23T08:22:35+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/tags/authentication/</loc>
+    <loc>https://blog.andreasm.io/tags/authentication/</loc>
     <lastmod>2022-10-23T08:21:52+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/tags/cert-manager/</loc>
+    <loc>https://blog.andreasm.io/tags/cert-manager/</loc>
     <lastmod>2022-10-23T08:21:52+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/tags/rbac/</loc>
+    <loc>https://blog.andreasm.io/tags/rbac/</loc>
     <lastmod>2022-10-23T08:21:52+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/2022/10/23/we-take-a-look-at-the-ako-crds/</loc>
+    <loc>https://blog.andreasm.io/2022/10/23/we-take-a-look-at-the-ako-crds/</loc>
     <lastmod>2022-10-23T08:21:52+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/2022/10/23/running-the-unifi-controller-in-kubernetes/</loc>
+    <loc>https://blog.andreasm.io/2022/10/23/running-the-unifi-controller-in-kubernetes/</loc>
     <lastmod>2022-10-23T08:11:37+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/2022/10/23/how-to-deploy-tanzu-with-vsphere/</loc>
+    <loc>https://blog.andreasm.io/2022/10/23/how-to-deploy-tanzu-with-vsphere/</loc>
     <lastmod>2022-10-23T08:02:28+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/tags/grafana/</loc>
+    <loc>https://blog.andreasm.io/tags/grafana/</loc>
     <lastmod>2022-10-19T10:54:37+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/categories/logging/</loc>
+    <loc>https://blog.andreasm.io/categories/logging/</loc>
     <lastmod>2022-10-19T10:54:37+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/tags/loki/</loc>
+    <loc>https://blog.andreasm.io/tags/loki/</loc>
     <lastmod>2022-10-19T10:54:37+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/categories/monitoring/</loc>
+    <loc>https://blog.andreasm.io/categories/monitoring/</loc>
     <lastmod>2022-10-19T10:54:37+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/2022/10/19/monitoring-with-prometheus-loki-promtail-and-grafana/</loc>
+    <loc>https://blog.andreasm.io/2022/10/19/monitoring-with-prometheus-loki-promtail-and-grafana/</loc>
     <lastmod>2022-10-19T10:54:37+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/tags/prometheus/</loc>
+    <loc>https://blog.andreasm.io/tags/prometheus/</loc>
     <lastmod>2022-10-19T10:54:37+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/tags/promtail/</loc>
+    <loc>https://blog.andreasm.io/tags/promtail/</loc>
     <lastmod>2022-10-19T10:54:37+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/categories/docker/</loc>
+    <loc>https://blog.andreasm.io/categories/docker/</loc>
     <lastmod>2022-10-13T21:56:15+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/categories/harbor/</loc>
+    <loc>https://blog.andreasm.io/categories/harbor/</loc>
     <lastmod>2022-10-13T21:56:15+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/categories/helm/</loc>
+    <loc>https://blog.andreasm.io/categories/helm/</loc>
     <lastmod>2022-10-13T21:56:15+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/tags/howto/</loc>
+    <loc>https://blog.andreasm.io/tags/howto/</loc>
     <lastmod>2022-10-13T21:56:15+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/tags/informational/</loc>
+    <loc>https://blog.andreasm.io/tags/informational/</loc>
     <lastmod>2022-10-13T21:56:15+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/2022/10/13/vmware-harbor-registry/</loc>
+    <loc>https://blog.andreasm.io/2022/10/13/vmware-harbor-registry/</loc>
     <lastmod>2022-10-13T21:56:15+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/categories/blog/</loc>
+    <loc>https://blog.andreasm.io/categories/blog/</loc>
     <lastmod>2022-10-12T08:28:23+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/categories/hugo/</loc>
+    <loc>https://blog.andreasm.io/categories/hugo/</loc>
     <lastmod>2022-10-12T08:28:23+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/2022/10/12/hugo-in-kubernetes/</loc>
+    <loc>https://blog.andreasm.io/2022/10/12/hugo-in-kubernetes/</loc>
     <lastmod>2022-10-12T08:28:23+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/tags/just-for-fun/</loc>
+    <loc>https://blog.andreasm.io/tags/just-for-fun/</loc>
     <lastmod>2022-10-12T08:28:23+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/categories/pinniped/</loc>
+    <loc>https://blog.andreasm.io/categories/pinniped/</loc>
     <lastmod>2022-10-11T22:39:07+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/2022/10/11/pinniped-authentication-service/</loc>
+    <loc>https://blog.andreasm.io/2022/10/11/pinniped-authentication-service/</loc>
     <lastmod>2022-10-11T22:39:07+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/2022/10/11/cert-manager-and-letsencrypt/</loc>
+    <loc>https://blog.andreasm.io/2022/10/11/cert-manager-and-letsencrypt/</loc>
     <lastmod>2022-10-11T22:33:41+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/categories/antrea/</loc>
+    <loc>https://blog.andreasm.io/categories/antrea/</loc>
     <lastmod>2022-10-11T21:38:27+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/tags/cni/</loc>
+    <loc>https://blog.andreasm.io/tags/cni/</loc>
     <lastmod>2022-10-11T21:38:27+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/tags/network-policies/</loc>
+    <loc>https://blog.andreasm.io/tags/network-policies/</loc>
     <lastmod>2022-10-11T21:38:27+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/categories/nsx/</loc>
+    <loc>https://blog.andreasm.io/categories/nsx/</loc>
     <lastmod>2022-10-11T21:38:27+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/2022/10/11/nsx-antrea-integration/</loc>
+    <loc>https://blog.andreasm.io/2022/10/11/nsx-antrea-integration/</loc>
     <lastmod>2022-10-11T21:38:27+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/tags/security/</loc>
+    <loc>https://blog.andreasm.io/tags/security/</loc>
     <lastmod>2022-10-11T21:38:27+02:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/2022/03/13/managing-your-antrea-k8s-clusters-running-in-vmc-from-your-on-prem-nsx-manager/</loc>
+    <loc>https://blog.andreasm.io/2022/03/13/managing-your-antrea-k8s-clusters-running-in-vmc-from-your-on-prem-nsx-manager/</loc>
     <lastmod>2022-03-13T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/categories/vmware-cloud/</loc>
+    <loc>https://blog.andreasm.io/categories/vmware-cloud/</loc>
     <lastmod>2022-03-13T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/categories/vmware-nsx/</loc>
+    <loc>https://blog.andreasm.io/categories/vmware-nsx/</loc>
     <lastmod>2022-03-13T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/tags/configuration/</loc>
+    <loc>https://blog.andreasm.io/tags/configuration/</loc>
     <lastmod>2022-01-18T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/tags/deployment/</loc>
+    <loc>https://blog.andreasm.io/tags/deployment/</loc>
     <lastmod>2022-01-18T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/categories/nsx-application-platform/</loc>
+    <loc>https://blog.andreasm.io/categories/nsx-application-platform/</loc>
     <lastmod>2022-01-18T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/2022/01/18/vmware-nsx-application-platform/</loc>
+    <loc>https://blog.andreasm.io/2022/01/18/vmware-nsx-application-platform/</loc>
     <lastmod>2022-01-18T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/2021/10/19/my-lab/</loc>
+    <loc>https://blog.andreasm.io/2021/10/19/my-lab/</loc>
     <lastmod>2021-10-19T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/2021/10/19/vmware-nsx-ids-ips/</loc>
+    <loc>https://blog.andreasm.io/2021/10/19/vmware-nsx-ids-ips/</loc>
     <lastmod>2021-10-19T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/categories/homeautomation/</loc>
+    <loc>https://blog.andreasm.io/categories/homeautomation/</loc>
     <lastmod>2021-07-14T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/2021/07/14/the-home-automation-category/</loc>
+    <loc>https://blog.andreasm.io/2021/07/14/the-home-automation-category/</loc>
     <lastmod>2021-07-14T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/tags/tipstricks/</loc>
+    <loc>https://blog.andreasm.io/tags/tipstricks/</loc>
     <lastmod>2021-07-14T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/tags/configurations/</loc>
+    <loc>https://blog.andreasm.io/tags/configurations/</loc>
     <lastmod>2021-07-12T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/2021/07/12/configure-nsx-advanced-load-balancer-nsx-alb-as-dns-provider/</loc>
+    <loc>https://blog.andreasm.io/2021/07/12/configure-nsx-advanced-load-balancer-nsx-alb-as-dns-provider/</loc>
     <lastmod>2021-07-12T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/2021/07/12/kubernetes-persistent-volumes-with-nfs/</loc>
+    <loc>https://blog.andreasm.io/2021/07/12/kubernetes-persistent-volumes-with-nfs/</loc>
     <lastmod>2021-07-12T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/categories/nsx-advanced-loadbalancer/</loc>
+    <loc>https://blog.andreasm.io/categories/nsx-advanced-loadbalancer/</loc>
     <lastmod>2021-07-12T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/categories/ako/</loc>
+    <loc>https://blog.andreasm.io/categories/ako/</loc>
     <lastmod>2021-07-11T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/categories/avi/</loc>
+    <loc>https://blog.andreasm.io/categories/avi/</loc>
     <lastmod>2021-07-11T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/2021/07/11/k8s-ingress-with-nsx-advanced-load-balancer/</loc>
+    <loc>https://blog.andreasm.io/2021/07/11/k8s-ingress-with-nsx-advanced-load-balancer/</loc>
     <lastmod>2021-07-11T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/2021/07/10/antrea-kubernetes-cni/</loc>
+    <loc>https://blog.andreasm.io/2021/07/10/antrea-kubernetes-cni/</loc>
     <lastmod>2021-07-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/categories/kubernetesnetworking/</loc>
+    <loc>https://blog.andreasm.io/categories/kubernetesnetworking/</loc>
     <lastmod>2021-07-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/2021/07/10/microsegmentation-with-vmware-nsx/</loc>
+    <loc>https://blog.andreasm.io/2021/07/10/microsegmentation-with-vmware-nsx/</loc>
     <lastmod>2021-07-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/2021/07/10/nsx-intelligence-quick-overview/</loc>
+    <loc>https://blog.andreasm.io/2021/07/10/nsx-intelligence-quick-overview/</loc>
     <lastmod>2021-07-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/categories/nsx-t/</loc>
+    <loc>https://blog.andreasm.io/categories/nsx-t/</loc>
     <lastmod>2021-07-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/categories/security/</loc>
+    <loc>https://blog.andreasm.io/categories/security/</loc>
     <lastmod>2021-07-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/categories/vmare-nsx-intelligence/</loc>
+    <loc>https://blog.andreasm.io/categories/vmare-nsx-intelligence/</loc>
     <lastmod>2021-07-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/2020/10/08/nsx-advanced-loadbalancer-with-antrea-on-native-k8s/</loc>
+    <loc>https://blog.andreasm.io/2020/10/08/nsx-advanced-loadbalancer-with-antrea-on-native-k8s/</loc>
     <lastmod>2020-10-08T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/2019/03/09/deploy-nsx-t-2.4-edge-nodes-on-a-n-vds-logical-switch/</loc>
+    <loc>https://blog.andreasm.io/2019/03/09/deploy-nsx-t-2.4-edge-nodes-on-a-n-vds-logical-switch/</loc>
     <lastmod>2019-03-09T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/2018/09/05/general-error-nsx-t-manager-firewall-section/</loc>
+    <loc>https://blog.andreasm.io/2018/09/05/general-error-nsx-t-manager-firewall-section/</loc>
     <lastmod>2018-09-05T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/tags/issues/</loc>
+    <loc>https://blog.andreasm.io/tags/issues/</loc>
     <lastmod>2018-09-05T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/tags/troubleshooting/</loc>
+    <loc>https://blog.andreasm.io/tags/troubleshooting/</loc>
     <lastmod>2018-09-05T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/tags/fails/</loc>
+    <loc>https://blog.andreasm.io/tags/fails/</loc>
     <lastmod>2017-04-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/categories/vsphere/</loc>
+    <loc>https://blog.andreasm.io/categories/vsphere/</loc>
     <lastmod>2017-04-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/2017/04/10/vsphere-replication-6.1.2-vcenter-plugin-fails-after-upgrade-vcenter-6.0-u3/</loc>
+    <loc>https://blog.andreasm.io/2017/04/10/vsphere-replication-6.1.2-vcenter-plugin-fails-after-upgrade-vcenter-6.0-u3/</loc>
     <lastmod>2017-04-10T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/about/</loc>
+    <loc>https://blog.andreasm.io/about/</loc>
     <lastmod>2016-07-14T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/page/2016-07-14-about/</loc>
+    <loc>https://blog.andreasm.io/page/2016-07-14-about/</loc>
     <lastmod>2016-07-14T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/page/</loc>
+    <loc>https://blog.andreasm.io/page/</loc>
     <lastmod>2016-07-14T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://andreasm80.github.io/search/</loc>
+    <loc>https://blog.andreasm.io/search/</loc>
   </url><url>
-    <loc>https://andreasm80.github.io/series/</loc>
+    <loc>https://blog.andreasm.io/series/</loc>
   </url>
 </urlset>

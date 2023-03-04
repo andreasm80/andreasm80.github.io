@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts on From 0.985mhz... to several Ghz</title>
-    <link>https://andreasm80.github.io/post/</link>
+    <link>https://blog.andreasm.io/post/</link>
     <description>Recent content in Posts on From 0.985mhz... to several Ghz</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Myself</copyright>
-    <lastBuildDate>Mon, 20 Feb 2023 15:42:54 +0100</lastBuildDate><atom:link href="https://andreasm80.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 20 Feb 2023 15:42:54 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/post/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Antrea Network Policies</title>
-      <link>https://andreasm80.github.io/2021/07/10/antrea-network-policies/</link>
+      <link>https://blog.andreasm.io/2021/07/10/antrea-network-policies/</link>
       <pubDate>Sat, 10 Jul 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://andreasm80.github.io/2021/07/10/antrea-network-policies/</guid>
+      <guid>https://blog.andreasm.io/2021/07/10/antrea-network-policies/</guid>
       <description>
         
           
@@ -27,10 +27,10 @@ Container Network Interface = CNI Antrea Cluster Network Policies = ACNP Antrea 
     
     <item>
       <title>Antrea Egress</title>
-      <link>https://andreasm80.github.io/2023/02/20/antrea-egress/</link>
+      <link>https://blog.andreasm.io/2023/02/20/antrea-egress/</link>
       <pubDate>Mon, 20 Feb 2023 15:42:54 +0100</pubDate>
       
-      <guid>https://andreasm80.github.io/2023/02/20/antrea-egress/</guid>
+      <guid>https://blog.andreasm.io/2023/02/20/antrea-egress/</guid>
       <description>
         
           
@@ -44,10 +44,10 @@ Why does egress matter? Well, usually when the pods communicate out, they will u
     
     <item>
       <title>vSphere 8 with Tanzu using VDS and Avi Loadbalancer</title>
-      <link>https://andreasm80.github.io/2022/10/26/vsphere-8-with-tanzu-using-vds-and-avi-loadbalancer/</link>
+      <link>https://blog.andreasm.io/2022/10/26/vsphere-8-with-tanzu-using-vds-and-avi-loadbalancer/</link>
       <pubDate>Wed, 26 Oct 2022 12:06:08 +0200</pubDate>
       
-      <guid>https://andreasm80.github.io/2022/10/26/vsphere-8-with-tanzu-using-vds-and-avi-loadbalancer/</guid>
+      <guid>https://blog.andreasm.io/2022/10/26/vsphere-8-with-tanzu-using-vds-and-avi-loadbalancer/</guid>
       <description>
         
           
@@ -60,10 +60,10 @@ Why does egress matter? Well, usually when the pods communicate out, they will u
     
     <item>
       <title>vSphere 8 with Tanzu using NSX-T &amp; Avi LoadBalancer</title>
-      <link>https://andreasm80.github.io/2022/10/26/vsphere-8-with-tanzu-using-nsx-t-avi-loadbalancer/</link>
+      <link>https://blog.andreasm.io/2022/10/26/vsphere-8-with-tanzu-using-nsx-t-avi-loadbalancer/</link>
       <pubDate>Wed, 26 Oct 2022 12:03:35 +0200</pubDate>
       
-      <guid>https://andreasm80.github.io/2022/10/26/vsphere-8-with-tanzu-using-nsx-t-avi-loadbalancer/</guid>
+      <guid>https://blog.andreasm.io/2022/10/26/vsphere-8-with-tanzu-using-nsx-t-avi-loadbalancer/</guid>
       <description>
         
           
@@ -76,10 +76,10 @@ Why does egress matter? Well, usually when the pods communicate out, they will u
     
     <item>
       <title>AKO Explained</title>
-      <link>https://andreasm80.github.io/2022/10/26/ako-explained/</link>
+      <link>https://blog.andreasm.io/2022/10/26/ako-explained/</link>
       <pubDate>Wed, 26 Oct 2022 12:02:39 +0200</pubDate>
       
-      <guid>https://andreasm80.github.io/2022/10/26/ako-explained/</guid>
+      <guid>https://blog.andreasm.io/2022/10/26/ako-explained/</guid>
       <description>
         
           
@@ -93,10 +93,10 @@ How to install AKO AKO is very easy installed with Helm. Four basic steps needs 
     
     <item>
       <title>GSLB With AKO &amp; AMKO - NSX Advanced LoadBalancer</title>
-      <link>https://andreasm80.github.io/2022/10/23/gslb-with-ako-amko-nsx-advanced-loadbalancer/</link>
+      <link>https://blog.andreasm.io/2022/10/23/gslb-with-ako-amko-nsx-advanced-loadbalancer/</link>
       <pubDate>Sun, 23 Oct 2022 08:22:35 +0200</pubDate>
       
-      <guid>https://andreasm80.github.io/2022/10/23/gslb-with-ako-amko-nsx-advanced-loadbalancer/</guid>
+      <guid>https://blog.andreasm.io/2022/10/23/gslb-with-ako-amko-nsx-advanced-loadbalancer/</guid>
       <description>
         
           
@@ -109,10 +109,10 @@ How to install AKO AKO is very easy installed with Helm. Four basic steps needs 
     
     <item>
       <title>We Take a Look at the AKO Crds</title>
-      <link>https://andreasm80.github.io/2022/10/23/we-take-a-look-at-the-ako-crds/</link>
+      <link>https://blog.andreasm.io/2022/10/23/we-take-a-look-at-the-ako-crds/</link>
       <pubDate>Sun, 23 Oct 2022 08:21:52 +0200</pubDate>
       
-      <guid>https://andreasm80.github.io/2022/10/23/we-take-a-look-at-the-ako-crds/</guid>
+      <guid>https://blog.andreasm.io/2022/10/23/we-take-a-look-at-the-ako-crds/</guid>
       <description>
         
           
@@ -127,10 +127,10 @@ How does AKO work
     
     <item>
       <title>Running the Unifi Controller in Kubernetes</title>
-      <link>https://andreasm80.github.io/2022/10/23/running-the-unifi-controller-in-kubernetes/</link>
+      <link>https://blog.andreasm.io/2022/10/23/running-the-unifi-controller-in-kubernetes/</link>
       <pubDate>Sun, 23 Oct 2022 08:11:37 +0200</pubDate>
       
-      <guid>https://andreasm80.github.io/2022/10/23/running-the-unifi-controller-in-kubernetes/</guid>
+      <guid>https://blog.andreasm.io/2022/10/23/running-the-unifi-controller-in-kubernetes/</guid>
       <description>
         
           
@@ -143,10 +143,10 @@ How does AKO work
     
     <item>
       <title>How to Deploy Tanzu With vSphere</title>
-      <link>https://andreasm80.github.io/2022/10/23/how-to-deploy-tanzu-with-vsphere/</link>
+      <link>https://blog.andreasm.io/2022/10/23/how-to-deploy-tanzu-with-vsphere/</link>
       <pubDate>Sun, 23 Oct 2022 08:02:28 +0200</pubDate>
       
-      <guid>https://andreasm80.github.io/2022/10/23/how-to-deploy-tanzu-with-vsphere/</guid>
+      <guid>https://blog.andreasm.io/2022/10/23/how-to-deploy-tanzu-with-vsphere/</guid>
       <description>
         
           
@@ -159,10 +159,10 @@ How does AKO work
     
     <item>
       <title>Monitoring With Prometheus, Loki, Promtail and Grafana</title>
-      <link>https://andreasm80.github.io/2022/10/19/monitoring-with-prometheus-loki-promtail-and-grafana/</link>
+      <link>https://blog.andreasm.io/2022/10/19/monitoring-with-prometheus-loki-promtail-and-grafana/</link>
       <pubDate>Wed, 19 Oct 2022 10:54:37 +0200</pubDate>
       
-      <guid>https://andreasm80.github.io/2022/10/19/monitoring-with-prometheus-loki-promtail-and-grafana/</guid>
+      <guid>https://blog.andreasm.io/2022/10/19/monitoring-with-prometheus-loki-promtail-and-grafana/</guid>
       <description>
         
           
@@ -176,10 +176,10 @@ Sources used in this article: Bitnami, Grafana and Kube-Prometheus-Stack
     
     <item>
       <title>VMware Harbor Registry</title>
-      <link>https://andreasm80.github.io/2022/10/13/vmware-harbor-registry/</link>
+      <link>https://blog.andreasm.io/2022/10/13/vmware-harbor-registry/</link>
       <pubDate>Thu, 13 Oct 2022 21:56:15 +0200</pubDate>
       
-      <guid>https://andreasm80.github.io/2022/10/13/vmware-harbor-registry/</guid>
+      <guid>https://blog.andreasm.io/2022/10/13/vmware-harbor-registry/</guid>
       <description>
         
           
@@ -193,10 +193,10 @@ Quick introduction to Harbor Harbor is an open source registry that secures arti
     
     <item>
       <title>Hugo in Kubernetes</title>
-      <link>https://andreasm80.github.io/2022/10/12/hugo-in-kubernetes/</link>
+      <link>https://blog.andreasm.io/2022/10/12/hugo-in-kubernetes/</link>
       <pubDate>Wed, 12 Oct 2022 08:28:23 +0200</pubDate>
       
-      <guid>https://andreasm80.github.io/2022/10/12/hugo-in-kubernetes/</guid>
+      <guid>https://blog.andreasm.io/2022/10/12/hugo-in-kubernetes/</guid>
       <description>
         
           
@@ -211,10 +211,10 @@ Kubernetes cluster, obviously, consisting of several workers for the the &amp;qu
     
     <item>
       <title>Pinniped Authentication Service</title>
-      <link>https://andreasm80.github.io/2022/10/11/pinniped-authentication-service/</link>
+      <link>https://blog.andreasm.io/2022/10/11/pinniped-authentication-service/</link>
       <pubDate>Tue, 11 Oct 2022 22:39:07 +0200</pubDate>
       
-      <guid>https://andreasm80.github.io/2022/10/11/pinniped-authentication-service/</guid>
+      <guid>https://blog.andreasm.io/2022/10/11/pinniped-authentication-service/</guid>
       <description>
         
           
@@ -229,10 +229,10 @@ Pinniped introduction
     
     <item>
       <title>Cert Manager and Letsencrypt</title>
-      <link>https://andreasm80.github.io/2022/10/11/cert-manager-and-letsencrypt/</link>
+      <link>https://blog.andreasm.io/2022/10/11/cert-manager-and-letsencrypt/</link>
       <pubDate>Tue, 11 Oct 2022 22:33:41 +0200</pubDate>
       
-      <guid>https://andreasm80.github.io/2022/10/11/cert-manager-and-letsencrypt/</guid>
+      <guid>https://blog.andreasm.io/2022/10/11/cert-manager-and-letsencrypt/</guid>
       <description>
         
           
@@ -248,10 +248,10 @@ It will ensure certificates are valid and up to date, and attempt to renew certi
     
     <item>
       <title>NSX Antrea Integration</title>
-      <link>https://andreasm80.github.io/2022/10/11/nsx-antrea-integration/</link>
+      <link>https://blog.andreasm.io/2022/10/11/nsx-antrea-integration/</link>
       <pubDate>Tue, 11 Oct 2022 21:38:27 +0200</pubDate>
       
-      <guid>https://andreasm80.github.io/2022/10/11/nsx-antrea-integration/</guid>
+      <guid>https://blog.andreasm.io/2022/10/11/nsx-antrea-integration/</guid>
       <description>
         
           
@@ -265,10 +265,10 @@ For many years VMware NSX has help many customer secure their workload by using 
     
     <item>
       <title>Managing your Antrea K8s clusters running in VMC from your on-prem NSX Manager</title>
-      <link>https://andreasm80.github.io/2022/03/13/managing-your-antrea-k8s-clusters-running-in-vmc-from-your-on-prem-nsx-manager/</link>
+      <link>https://blog.andreasm.io/2022/03/13/managing-your-antrea-k8s-clusters-running-in-vmc-from-your-on-prem-nsx-manager/</link>
       <pubDate>Sun, 13 Mar 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://andreasm80.github.io/2022/03/13/managing-your-antrea-k8s-clusters-running-in-vmc-from-your-on-prem-nsx-manager/</guid>
+      <guid>https://blog.andreasm.io/2022/03/13/managing-your-antrea-k8s-clusters-running-in-vmc-from-your-on-prem-nsx-manager/</guid>
       <description>
         
           
@@ -281,10 +281,10 @@ For many years VMware NSX has help many customer secure their workload by using 
     
     <item>
       <title>VMware NSX Application Platform</title>
-      <link>https://andreasm80.github.io/2022/01/18/vmware-nsx-application-platform/</link>
+      <link>https://blog.andreasm.io/2022/01/18/vmware-nsx-application-platform/</link>
       <pubDate>Tue, 18 Jan 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://andreasm80.github.io/2022/01/18/vmware-nsx-application-platform/</guid>
+      <guid>https://blog.andreasm.io/2022/01/18/vmware-nsx-application-platform/</guid>
       <description>
         
           
@@ -297,10 +297,10 @@ For many years VMware NSX has help many customer secure their workload by using 
     
     <item>
       <title>My LAB</title>
-      <link>https://andreasm80.github.io/2021/10/19/my-lab/</link>
+      <link>https://blog.andreasm.io/2021/10/19/my-lab/</link>
       <pubDate>Tue, 19 Oct 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://andreasm80.github.io/2021/10/19/my-lab/</guid>
+      <guid>https://blog.andreasm.io/2021/10/19/my-lab/</guid>
       <description>
         
           
@@ -314,10 +314,10 @@ Lab overview/connectivity - physical, logical and hybrid It is nice to have an o
     
     <item>
       <title>VMware NSX IDS &amp; IPS</title>
-      <link>https://andreasm80.github.io/2021/10/19/vmware-nsx-ids-ips/</link>
+      <link>https://blog.andreasm.io/2021/10/19/vmware-nsx-ids-ips/</link>
       <pubDate>Tue, 19 Oct 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://andreasm80.github.io/2021/10/19/vmware-nsx-ids-ips/</guid>
+      <guid>https://blog.andreasm.io/2021/10/19/vmware-nsx-ids-ips/</guid>
       <description>
         
           
@@ -332,10 +332,10 @@ IDS = Intrusion Detection System IPS = Intrusion Prevention System Introduction 
     
     <item>
       <title>The Home Automation category</title>
-      <link>https://andreasm80.github.io/2021/07/14/the-home-automation-category/</link>
+      <link>https://blog.andreasm.io/2021/07/14/the-home-automation-category/</link>
       <pubDate>Wed, 14 Jul 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://andreasm80.github.io/2021/07/14/the-home-automation-category/</guid>
+      <guid>https://blog.andreasm.io/2021/07/14/the-home-automation-category/</guid>
       <description>
         
           
@@ -348,10 +348,10 @@ IDS = Intrusion Detection System IPS = Intrusion Prevention System Introduction 
     
     <item>
       <title>Configure NSX Advanced Load Balancer (NSX-ALB) as DNS provider</title>
-      <link>https://andreasm80.github.io/2021/07/12/configure-nsx-advanced-load-balancer-nsx-alb-as-dns-provider/</link>
+      <link>https://blog.andreasm.io/2021/07/12/configure-nsx-advanced-load-balancer-nsx-alb-as-dns-provider/</link>
       <pubDate>Mon, 12 Jul 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://andreasm80.github.io/2021/07/12/configure-nsx-advanced-load-balancer-nsx-alb-as-dns-provider/</guid>
+      <guid>https://blog.andreasm.io/2021/07/12/configure-nsx-advanced-load-balancer-nsx-alb-as-dns-provider/</guid>
       <description>
         
           
@@ -365,10 +365,10 @@ If you have followed my other post about how to configure the AKO (Avi Kubernete
     
     <item>
       <title>Kubernetes Persistent Volumes with NFS</title>
-      <link>https://andreasm80.github.io/2021/07/12/kubernetes-persistent-volumes-with-nfs/</link>
+      <link>https://blog.andreasm.io/2021/07/12/kubernetes-persistent-volumes-with-nfs/</link>
       <pubDate>Mon, 12 Jul 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://andreasm80.github.io/2021/07/12/kubernetes-persistent-volumes-with-nfs/</guid>
+      <guid>https://blog.andreasm.io/2021/07/12/kubernetes-persistent-volumes-with-nfs/</guid>
       <description>
         
           
@@ -381,10 +381,10 @@ If you have followed my other post about how to configure the AKO (Avi Kubernete
     
     <item>
       <title>K8s Ingress with NSX Advanced Load Balancer</title>
-      <link>https://andreasm80.github.io/2021/07/11/k8s-ingress-with-nsx-advanced-load-balancer/</link>
+      <link>https://blog.andreasm.io/2021/07/11/k8s-ingress-with-nsx-advanced-load-balancer/</link>
       <pubDate>Sun, 11 Jul 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://andreasm80.github.io/2021/07/11/k8s-ingress-with-nsx-advanced-load-balancer/</guid>
+      <guid>https://blog.andreasm.io/2021/07/11/k8s-ingress-with-nsx-advanced-load-balancer/</guid>
       <description>
         
           
@@ -399,10 +399,10 @@ This post will try to cover the basics of how to use NSX Advanced LoadBalancer b
     
     <item>
       <title>Antrea - Kubernetes CNI</title>
-      <link>https://andreasm80.github.io/2021/07/10/antrea-kubernetes-cni/</link>
+      <link>https://blog.andreasm.io/2021/07/10/antrea-kubernetes-cni/</link>
       <pubDate>Sat, 10 Jul 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://andreasm80.github.io/2021/07/10/antrea-kubernetes-cni/</guid>
+      <guid>https://blog.andreasm.io/2021/07/10/antrea-kubernetes-cni/</guid>
       <description>
         
           
@@ -419,10 +419,10 @@ Antrea has a rich set of features such as:
     
     <item>
       <title>Microsegmentation with VMware NSX</title>
-      <link>https://andreasm80.github.io/2021/07/10/microsegmentation-with-vmware-nsx/</link>
+      <link>https://blog.andreasm.io/2021/07/10/microsegmentation-with-vmware-nsx/</link>
       <pubDate>Sat, 10 Jul 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://andreasm80.github.io/2021/07/10/microsegmentation-with-vmware-nsx/</guid>
+      <guid>https://blog.andreasm.io/2021/07/10/microsegmentation-with-vmware-nsx/</guid>
       <description>
         
           
@@ -435,10 +435,10 @@ Antrea has a rich set of features such as:
     
     <item>
       <title>NSX Intelligence - quick overview</title>
-      <link>https://andreasm80.github.io/2021/07/10/nsx-intelligence-quick-overview/</link>
+      <link>https://blog.andreasm.io/2021/07/10/nsx-intelligence-quick-overview/</link>
       <pubDate>Sat, 10 Jul 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://andreasm80.github.io/2021/07/10/nsx-intelligence-quick-overview/</guid>
+      <guid>https://blog.andreasm.io/2021/07/10/nsx-intelligence-quick-overview/</guid>
       <description>
         
           
@@ -452,10 +452,10 @@ NSX Intelligence is your tool for that. This post is just to show a couple of sc
     
     <item>
       <title>NSX Advanced LoadBalancer with Antrea on Native K8s</title>
-      <link>https://andreasm80.github.io/2020/10/08/nsx-advanced-loadbalancer-with-antrea-on-native-k8s/</link>
+      <link>https://blog.andreasm.io/2020/10/08/nsx-advanced-loadbalancer-with-antrea-on-native-k8s/</link>
       <pubDate>Thu, 08 Oct 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://andreasm80.github.io/2020/10/08/nsx-advanced-loadbalancer-with-antrea-on-native-k8s/</guid>
+      <guid>https://blog.andreasm.io/2020/10/08/nsx-advanced-loadbalancer-with-antrea-on-native-k8s/</guid>
       <description>
         
           
@@ -470,10 +470,10 @@ NSX Advanced Load Balancer = NSX ALB Avi Kubernetes Operator = AKO Kubernetes = 
     
     <item>
       <title>Deploy NSX-T 2.4 Edge Nodes on a N-VDS Logical Switch</title>
-      <link>https://andreasm80.github.io/2019/03/09/deploy-nsx-t-2.4-edge-nodes-on-a-n-vds-logical-switch/</link>
+      <link>https://blog.andreasm.io/2019/03/09/deploy-nsx-t-2.4-edge-nodes-on-a-n-vds-logical-switch/</link>
       <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://andreasm80.github.io/2019/03/09/deploy-nsx-t-2.4-edge-nodes-on-a-n-vds-logical-switch/</guid>
+      <guid>https://blog.andreasm.io/2019/03/09/deploy-nsx-t-2.4-edge-nodes-on-a-n-vds-logical-switch/</guid>
       <description>
         
           
@@ -487,10 +487,10 @@ But trying to do this from the NSX-T 2.4 manager GUI you will only have the opti
     
     <item>
       <title>&#34;General Error&#34; NSX-T Manager Firewall Section</title>
-      <link>https://andreasm80.github.io/2018/09/05/general-error-nsx-t-manager-firewall-section/</link>
+      <link>https://blog.andreasm.io/2018/09/05/general-error-nsx-t-manager-firewall-section/</link>
       <pubDate>Wed, 05 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://andreasm80.github.io/2018/09/05/general-error-nsx-t-manager-firewall-section/</guid>
+      <guid>https://blog.andreasm.io/2018/09/05/general-error-nsx-t-manager-firewall-section/</guid>
       <description>
         
           
@@ -504,10 +504,10 @@ If you have upgraded the fix is straight forward.
     
     <item>
       <title>vSphere Replication 6.1.2 vCenter plugin fails after upgrade (vCenter 6.0 U3)</title>
-      <link>https://andreasm80.github.io/2017/04/10/vsphere-replication-6.1.2-vcenter-plugin-fails-after-upgrade-vcenter-6.0-u3/</link>
+      <link>https://blog.andreasm.io/2017/04/10/vsphere-replication-6.1.2-vcenter-plugin-fails-after-upgrade-vcenter-6.0-u3/</link>
       <pubDate>Mon, 10 Apr 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://andreasm80.github.io/2017/04/10/vsphere-replication-6.1.2-vcenter-plugin-fails-after-upgrade-vcenter-6.0-u3/</guid>
+      <guid>https://blog.andreasm.io/2017/04/10/vsphere-replication-6.1.2-vcenter-plugin-fails-after-upgrade-vcenter-6.0-u3/</guid>
       <description>
         
           
