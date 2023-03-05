@@ -120,7 +120,7 @@
 </span>
     <span class="post_date">
       04-03-2023</span>
-    <span class="post_time"> · 7 min read</span><span>&nbsp;· <a href='https://blog.andreasm.io/tags/github/' title="github" class="post_tag button button_translucent">github
+    <span class="post_time"> · 8 min read</span><span>&nbsp;· <a href='https://blog.andreasm.io/tags/github/' title="github" class="post_tag button button_translucent">github
         </a><a href='https://blog.andreasm.io/tags/static-site-generator/' title="static-site-generator" class="post_tag button button_translucent">static-site-generator
         </a><a href='https://blog.andreasm.io/tags/hugo/' title="hugo" class="post_tag button button_translucent">hugo
         </a>
@@ -143,7 +143,7 @@
         <li><a href="#new-machine---set-up-environment">New machine - set up environment</a></li>
       </ul>
     </li>
-    <li><a href="#custom-domain">Custom domain</a></li>
+    <li><a href="#custom-domain---github-pages">Custom domain - Github Pages</a></li>
   </ul>
 </nav>
       </div>
@@ -267,16 +267,55 @@ Check the repo it is pointing to:</p>
 </span></span><span class="line"><span class="ln">3</span><span class="cl">origin	git@github.com:andreasm80/andreasm80.github.io.git <span class="o">(</span>push<span class="o">)</span>
 </span></span></code></pre></div><p>Check if there is something new or untracked here:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">git status
+</span></span><span class="line"><span class="ln">2</span><span class="cl">Untracked files:
+</span></span><span class="line"><span class="ln">3</span><span class="cl">  <span class="o">(</span>use <span class="s2">&#34;git add &lt;file&gt;...&#34;</span> to include in what will be committed<span class="o">)</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">	2023/03/04/hosting-my-blog-on-github/
+</span></span><span class="line"><span class="ln">5</span><span class="cl">	tags/static-site-generator/
+</span></span><span class="line"><span class="ln">6</span><span class="cl">
+</span></span><span class="line"><span class="ln">7</span><span class="cl">no changes added to commit <span class="o">(</span>use <span class="s2">&#34;git add&#34;</span> and/or <span class="s2">&#34;git commit -a&#34;</span><span class="o">)</span>
 </span></span></code></pre></div><p>Run the following commands:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">git add .
-</span></span><span class="line"><span class="ln">2</span><span class="cl">git commit -s -m <span class="s2">&#34;added content&#34;</span>
-</span></span><span class="line"><span class="ln">3</span><span class="cl">git push
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl">git add .
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">Changes to be committed:
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">  <span class="o">(</span>use <span class="s2">&#34;git restore --staged &lt;file&gt;...&#34;</span> to unstage<span class="o">)</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">	new file:   content/post/2023-03-04-running-hugo-on-github/images/GitHub-Logo300px.png
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">	new file:   content/post/2023-03-04-running-hugo-on-github/images/image-20230305091118809.png
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">	new file:   content/post/2023-03-04-running-hugo-on-github/images/image-20230305091558280.png
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">	new file:   content/post/2023-03-04-running-hugo-on-github/images/image-20230305092142364.png
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">	new file:   content/post/2023-03-04-running-hugo-on-github/images/image-20230305094906285.png
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">	new file:   content/post/2023-03-04-running-hugo-on-github/images/image-20230305100514339.png
+</span></span><span class="line"><span class="ln">10</span><span class="cl">	new file:   content/post/2023-03-04-running-hugo-on-github/images/image-20230305100657366.png
+</span></span><span class="line"><span class="ln">11</span><span class="cl">	new file:   content/post/2023-03-04-running-hugo-on-github/images/image-20230305100847587.png
+</span></span><span class="line"><span class="ln">12</span><span class="cl">	new file:   content/post/2023-03-04-running-hugo-on-github/images/image-20230305101357702.png
+</span></span><span class="line"><span class="ln">13</span><span class="cl">	new file:   content/post/2023-03-04-running-hugo-on-github/images/image-20230305112013507.png
+</span></span><span class="line"><span class="ln">14</span><span class="cl">	new file:   content/post/2023-03-04-running-hugo-on-github/images/image-20230305112521903.png
+</span></span><span class="line"><span class="ln">15</span><span class="cl">	new file:   content/post/2023-03-04-running-hugo-on-github/images/image-20230305113016848.png
+</span></span><span class="line"><span class="ln">16</span><span class="cl">	new file:   content/post/2023-03-04-running-hugo-on-github/images/image-20230305113102660.png
+</span></span><span class="line"><span class="ln">17</span><span class="cl">	new file:   content/post/2023-03-04-running-hugo-on-github/index.md
+</span></span><span class="line"><span class="ln">18</span><span class="cl">	modified:   public
+</span></span><span class="line"><span class="ln">19</span><span class="cl">
+</span></span><span class="line"><span class="ln">20</span><span class="cl">
+</span></span><span class="line"><span class="ln">21</span><span class="cl">git commit -s -m <span class="s2">&#34;added content&#34;</span>
+</span></span><span class="line"><span class="ln">22</span><span class="cl">git push
 </span></span></code></pre></div><p>Now Github should start build your blog-page. This can be seen under <em>Actions</em> here:</p>
 <img src=images/image-20230305112521903.png style="width:600px" />
-<h3 id="new-machine---set-up-environment">New machine - set up environment</h3>
-<p>git clone, thats it.. no need to activate git submodules etc..</p>
-<p>git clone --recurse-submodules <a href="mailto:git@github.com">git@github.com</a>:andreasm80/blog.local.git</p>
-<h2 id="custom-domain">Custom domain</h2>
+<p>Updating my blog with this content:</p>
+<img src=images/image-20230305113016848.png style="width:600px" />
+<img src=images/image-20230305113102660.png style="width:600px" />
+<p>For backup reasons it could also be smart to commit and push the blog.local folder also.</p>
+<p>Go back one level (from public to blog.local folder, root)</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">git status
+</span></span><span class="line"><span class="ln">2</span><span class="cl">git add .
+</span></span><span class="line"><span class="ln">3</span><span class="cl">git commit -s -m <span class="s2">&#34;added-content&#34;</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">git push
+</span></span></code></pre></div><h3 id="new-machine---set-up-environment">New machine - set up environment</h3>
+<p>If you need to start from scratch, you have a new machine or whatever you dont have to go through all the steps above, you only need to add the SSH key, creating the git config -global settings. After that It is just as simple as doing this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">git clone --recurse-submodules git@github.com:andreasm80/blog.local.git <span class="c1">#this will also clone submodules</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="c1"># then it is just regular git commands:</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">git add .
+</span></span><span class="line"><span class="ln">4</span><span class="cl">git commit -s -m <span class="s2">&#34;message&#34;</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">git push
+</span></span></code></pre></div><h2 id="custom-domain---github-pages">Custom domain - Github Pages</h2>
+<p>If you head over to settings in your Github Pages repository:</p>
 
     </div>
 
