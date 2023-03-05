@@ -1,22 +1,59 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Avi on From 0.985mhz... to several Ghz</title>
+    <title>avi on From 0.985mhz... to several Ghz</title>
     <link>https://blog.andreasm.io/tags/avi/</link>
-    <description>Recent content in Avi on From 0.985mhz... to several Ghz</description>
+    <description>Recent content in avi on From 0.985mhz... to several Ghz</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Myself</copyright>
-    <lastBuildDate>Wed, 26 Oct 2022 12:03:35 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/avi/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 12 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/avi/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>vSphere 8 with Tanzu using NSX-T &amp; Avi LoadBalancer</title>
-      <link>https://blog.andreasm.io/2022/10/26/vsphere-8-with-tanzu-using-nsx-t-avi-loadbalancer/</link>
-      <pubDate>Wed, 26 Oct 2022 12:03:35 +0200</pubDate>
+      <title>Configure NSX Advanced Load Balancer (NSX-ALB) as DNS provider</title>
+      <link>https://blog.andreasm.io/2021/07/12/configure-nsx-advanced-load-balancer-nsx-alb-as-dns-provider/</link>
+      <pubDate>Mon, 12 Jul 2021 00:00:00 +0000</pubDate>
       
-      <guid>https://blog.andreasm.io/2022/10/26/vsphere-8-with-tanzu-using-nsx-t-avi-loadbalancer/</guid>
+      <guid>https://blog.andreasm.io/2021/07/12/configure-nsx-advanced-load-balancer-nsx-alb-as-dns-provider/</guid>
       <description>
         
           
-            Deploy Tanzu in vSphere 8 with NSX and Avi Loadbalancer: This post will go through how to install Tanzu in vSphere 8 using NSX networking (including built in L4 loadbalancer) and Avi as L7 loadbalancer. The goal is to deploy Tanzu by using NSX for all networking needs, including the Kubernetes Api endpoint (L4) and utilize Avi as loadbalancer for all L7 (Ingress). The deployment of Tanzu with NSX is an automated process, but it does not include L7 loadbalancing.
+            NSX ALB has a very useful feature built-in, to function as DNS server for your domains defined in your NSX-ALB environment. Meaning that all host-records will be automatically resolved by fqdn as soon as the service is created.
+If you have followed my other post about how to configure the AKO (Avi Kubernetes Operator) http://yikes.guzware.net/2020/10/08/ako-with-antrea-on-native-k8s-cluster/ you are familiar with creating DNS profiles in NSX-ALB. The first step in configuring NSX-ALB as DNS provider is to configure one or more domain names in NSX-ALB.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>K8s Ingress with NSX Advanced Load Balancer</title>
+      <link>https://blog.andreasm.io/2021/07/11/k8s-ingress-with-nsx-advanced-load-balancer/</link>
+      <pubDate>Sun, 11 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.andreasm.io/2021/07/11/k8s-ingress-with-nsx-advanced-load-balancer/</guid>
+      <description>
+        
+          
+            Abbreviations used in this article:
+NSX Advanced Load Balancer = NSX-ALB K8s = Kubernetes (8 letters between the K and s in Kubernetes) SSL = Secure Sockets Layer AKO = Avi Kubernetes Operator (AVI now a VMware product called NSX Advanced Load Balancer) In one of my previous posts I wrote about how to install and configure AKO (Avi Kubernetes Operator) to use as Service type LoadBalancer.
+This post will try to cover the basics of how to use NSX Advanced LoadBalancer by using AKO to handle our Ingress requests (ingress-controller).
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>NSX Advanced LoadBalancer with Antrea on Native K8s</title>
+      <link>https://blog.andreasm.io/2020/10/08/nsx-advanced-loadbalancer-with-antrea-on-native-k8s/</link>
+      <pubDate>Thu, 08 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.andreasm.io/2020/10/08/nsx-advanced-loadbalancer-with-antrea-on-native-k8s/</guid>
+      <description>
+        
+          
+            This post will cover the steps to bring up a Kubernetes cluster in Ubuntu, then how to install and configure Antrea as CNI and how to install and configure NSX Advanced Load Balancer to use as a servicetype Load Balancer in the k8s environment with the use of Avi Kubernetes Operator.
+Abbreviations used in this post:
+NSX Advanced Load Balancer = NSX ALB Avi Kubernetes Operator = AKO Kubernetes = k8s Container Network Interface = CNI Load Balancer = lb Introduction to this post When working with pods in a k8s cluster there is often the use of nodePort, clusterIP and LoadBalancer.
           
           
         

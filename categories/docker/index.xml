@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>docker on From 0.985mhz... to several Ghz</title>
+    <title>Docker on From 0.985mhz... to several Ghz</title>
     <link>https://blog.andreasm.io/categories/docker/</link>
-    <description>Recent content in docker on From 0.985mhz... to several Ghz</description>
+    <description>Recent content in Docker on From 0.985mhz... to several Ghz</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Myself</copyright>
     <lastBuildDate>Thu, 13 Oct 2022 21:56:15 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/docker/index.xml" rel="self" type="application/rss+xml" />
