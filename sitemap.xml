@@ -5,16 +5,43 @@
     <loc>https://blog.andreasm.io/2021/07/10/antrea-network-policies/</loc>
     <lastmod>2021-07-10T00:00:00+00:00</lastmod>
   </url><url>
+    <loc>https://blog.andreasm.io/categories/blog/</loc>
+    <lastmod>2023-03-04T21:31:03+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/categories/</loc>
+    <lastmod>2023-03-04T21:31:03+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/</loc>
+    <lastmod>2023-03-04T21:31:03+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/github/</loc>
+    <lastmod>2023-03-04T21:31:03+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/categories/github/</loc>
+    <lastmod>2023-03-04T21:31:03+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/2023/03/04/hosting-my-blog-on-github/</loc>
+    <lastmod>2023-03-04T21:31:03+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/hugo/</loc>
+    <lastmod>2023-03-04T21:31:03+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/categories/hugo/</loc>
+    <lastmod>2023-03-04T21:31:03+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/post/</loc>
+    <lastmod>2023-03-04T21:31:03+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/static-site-generator/</loc>
+    <lastmod>2023-03-04T21:31:03+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/</loc>
+    <lastmod>2023-03-04T21:31:03+01:00</lastmod>
+  </url><url>
     <loc>https://blog.andreasm.io/tags/antrea/</loc>
     <lastmod>2023-02-20T15:42:54+01:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/2023/02/20/antrea-egress/</loc>
-    <lastmod>2023-02-20T15:42:54+01:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/categories/</loc>
-    <lastmod>2023-02-20T15:42:54+01:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/</loc>
     <lastmod>2023-02-20T15:42:54+01:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/categories/kubernetes/</loc>
@@ -24,12 +51,6 @@
     <lastmod>2023-02-20T15:42:54+01:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/categories/networking/</loc>
-    <lastmod>2023-02-20T15:42:54+01:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/post/</loc>
-    <lastmod>2023-02-20T15:42:54+01:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/tags/</loc>
     <lastmod>2023-02-20T15:42:54+01:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/tags/tanzu/</loc>
@@ -136,12 +157,6 @@
   </url><url>
     <loc>https://blog.andreasm.io/2022/10/13/vmware-harbor-registry/</loc>
     <lastmod>2022-10-13T21:56:15+02:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/categories/blog/</loc>
-    <lastmod>2022-10-12T08:28:23+02:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/categories/hugo/</loc>
-    <lastmod>2022-10-12T08:28:23+02:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/2022/10/12/hugo-in-kubernetes/</loc>
     <lastmod>2022-10-12T08:28:23+02:00</lastmod>

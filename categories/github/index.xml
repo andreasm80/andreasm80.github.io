@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>github on From 0.985mhz... to several Ghz</title>
+    <title>Github on From 0.985mhz... to several Ghz</title>
     <link>https://blog.andreasm.io/categories/github/</link>
-    <description>Recent content in github on From 0.985mhz... to several Ghz</description>
+    <description>Recent content in Github on From 0.985mhz... to several Ghz</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Myself</copyright>
-    <lastBuildDate>Sat, 04 Mar 2023 20:15:22 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/github/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 04 Mar 2023 21:31:03 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/github/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>2023 03 04 Running Hugo on Github</title>
-      <link>https://blog.andreasm.io/2023/03/04/2023-03-04-running-hugo-on-github/</link>
-      <pubDate>Sat, 04 Mar 2023 20:15:22 +0100</pubDate>
+      <title>Hosting my blog on Github</title>
+      <link>https://blog.andreasm.io/2023/03/04/hosting-my-blog-on-github/</link>
+      <pubDate>Sat, 04 Mar 2023 21:31:03 +0100</pubDate>
       
-      <guid>https://blog.andreasm.io/2023/03/04/2023-03-04-running-hugo-on-github/</guid>
+      <guid>https://blog.andreasm.io/2023/03/04/hosting-my-blog-on-github/</guid>
       <description>
         
           
-            TOPICS: 
+            Hugo on Github: I have been running my blog page locally on Kubernetes for a long time now. And it has worked very well. But one always have to try something new, and I have always wanted to explore the option to host it on Github to have one maintenance task less to worry about. To get started with this I got some absolutely great help from my colleague Robert who put me into the right track to get this project rolling.
           
           
         
