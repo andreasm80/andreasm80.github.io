@@ -120,7 +120,7 @@
 </span>
     <span class="post_date">
       04-03-2023</span>
-    <span class="post_time"> · 8 min read</span><span>&nbsp;· <a href='https://blog.andreasm.io/tags/github/' title="github" class="post_tag button button_translucent">github
+    <span class="post_time"> · 9 min read</span><span>&nbsp;· <a href='https://blog.andreasm.io/tags/github/' title="github" class="post_tag button button_translucent">github
         </a><a href='https://blog.andreasm.io/tags/static-site-generator/' title="static-site-generator" class="post_tag button button_translucent">static-site-generator
         </a><a href='https://blog.andreasm.io/tags/hugo/' title="hugo" class="post_tag button button_translucent">hugo
         </a>
@@ -315,7 +315,21 @@ Check the repo it is pointing to:</p>
 </span></span><span class="line"><span class="ln">4</span><span class="cl">git commit -s -m <span class="s2">&#34;message&#34;</span>
 </span></span><span class="line"><span class="ln">5</span><span class="cl">git push
 </span></span></code></pre></div><h2 id="custom-domain---github-pages">Custom domain - Github Pages</h2>
-<p>If you head over to settings in your Github Pages repository:</p>
+<p>If you would like to present your Github Page (aka blog page) on a different domain you happen to own head over to settings in your Github Pages repository:</p>
+<img src=images/image-20230305212330371.png style="width:600px" />
+<p>The on the left side click on <em>Pages</em></p>
+<img src=images/image-20230305212538007.png style="width:300px" />
+<p>And in <em>Pages</em> type in your custom domain here and enable Enforce HTTPS:</p>
+<img src=images/image-20230305213002385.png style="width:800px" />
+<p>When you click save Github will place a file called CNAME in the root of your Github pages repository (mine andreasm80.github.io)  where the content is the dns record you have entered in the Custom Domain field above. So you would need to fetch this locally with git to be in sync again.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1"># you can either enter your submodule(s) directory and run:</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">git fetch 
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="c1"># or you can stay in the &#34;root&#34; folder and enter:</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">git submodule foreach <span class="s1">&#39;git fetch&#39;</span> 
+</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="c1">#which will do a fetch on all submodules</span>
+</span></span></code></pre></div><p>Now you need to go to your DNS provider and add a CNAME pointing to your Gitub pages repository name, in my case that is andreasm80.github.io. So I have created this cname record:</p>
+<img src=images/image-20230305213919671.png style="width:700px" />
+<p>Github will manage the certificate for your Github Page, so you dont have to worry about that either. After some minutes/hours (depending on how fast DNS is updated) your blog page will be resolved on the custom domain. Mine is <a href="https://blog.andreasm.io">https://blog.andreasm.io</a></p>
 
     </div>
 
