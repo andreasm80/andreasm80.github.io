@@ -277,7 +277,7 @@ Prepare your yamls for both the staging key and production key.</p>
 </span></span><span class="line"><span class="ln">2</span><span class="cl">NAME               READY   SECRET                AGE
 </span></span><span class="line"><span class="ln">3</span><span class="cl">name-tls-staging   True    name-tls-staging      8d
 </span></span></code></pre></div><p>Please note that it can take a couple of minutes before the certificate is ready. This applies for production also.</p>
-<p>If everything went well, delete your staging certificate and apply your production certificate with the production yaml. 
+<p>If everything went well, delete your staging certificate and apply your production certificate with the production yaml.
 Thats it. Now Cert-Manager will take care of updating your certificate for your, sit back and enjoy your applications with your always up to date certificates.</p>
 <h2 id="troubleshooting-tips-commands">Troubleshooting tips, commands</h2>
 <p>If something should fail there is a couple of commands you can use to figure out whats going on.</p>
@@ -328,6 +328,9 @@ Thats it. Now Cert-Manager will take care of updating your certificate for your,
         <a href="https://blog.andreasm.io/2021/07/10/antrea-network-policies/" class="nav-link" title="Antrea Network Policies">Antrea Network Policies</a>
       </li>
       <li>
+        <a href="https://blog.andreasm.io/2023/03/22/tanzu-kubernetes-grid-2.1/" class="nav-link" title="Tanzu Kubernetes Grid 2.1">Tanzu Kubernetes Grid 2.1</a>
+      </li>
+      <li>
         <a href="https://blog.andreasm.io/2023/03/04/hosting-my-blog-on-github/" class="nav-link" title="Hosting my blog on Github">Hosting my blog on Github</a>
       </li>
       <li>
@@ -345,16 +348,13 @@ Thats it. Now Cert-Manager will take care of updating your certificate for your,
       <li>
         <a href="https://blog.andreasm.io/2022/10/23/gslb-with-ako-amko-nsx-advanced-loadbalancer/" class="nav-link" title="GSLB With AKO &amp; AMKO - NSX Advanced LoadBalancer">GSLB With AKO &amp; AMKO - NSX Advanced LoadBalancer</a>
       </li>
-      <li>
-        <a href="https://blog.andreasm.io/2022/10/23/we-take-a-look-at-the-ako-crds/" class="nav-link" title="We Take a Look at the AKO Crds">We Take a Look at the AKO Crds</a>
-      </li>
     </ul>
     <div>
       <h2 class="mt-4 taxonomy" id="categories-section">Categories</h2>
       <nav class="tags_nav">
         <a href='https://blog.andreasm.io/categories/kubernetes/' class="post_tag button button_translucent" title="kubernetes">
           KUBERNETES
-          <span class="button_tally">20</span>
+          <span class="button_tally">21</span>
         </a>
         
         <a href='https://blog.andreasm.io/categories/networking/' class="post_tag button button_translucent" title="networking">
@@ -382,13 +382,13 @@ Thats it. Now Cert-Manager will take care of updating your certificate for your,
           <span class="button_tally">4</span>
         </a>
         
-        <a href='https://blog.andreasm.io/categories/nsx/' class="post_tag button button_translucent" title="nsx">
-          NSX
-          <span class="button_tally">3</span>
-        </a>
-        
         <a href='https://blog.andreasm.io/categories/tanzu/' class="post_tag button button_translucent" title="tanzu">
           TANZU
+          <span class="button_tally">4</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/nsx/' class="post_tag button button_translucent" title="nsx">
+          NSX
           <span class="button_tally">3</span>
         </a>
         
@@ -468,7 +468,7 @@ Thats it. Now Cert-Manager will take care of updating your certificate for your,
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/kubernetes/' class=" post_tag button button_translucent" data-position=20 title="kubernetes">KUBERNETES<span class="button_tally">20</span>
+            <a href='https://blog.andreasm.io/categories/kubernetes/' class=" post_tag button button_translucent" data-position=21 title="kubernetes">KUBERNETES<span class="button_tally">21</span>
             </a>
             
             
@@ -516,7 +516,7 @@ Thats it. Now Cert-Manager will take care of updating your certificate for your,
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/tanzu/' class=" post_tag button button_translucent" data-position=3 title="tanzu">TANZU<span class="button_tally">3</span>
+            <a href='https://blog.andreasm.io/categories/tanzu/' class=" post_tag button button_translucent" data-position=4 title="tanzu">TANZU<span class="button_tally">4</span>
             </a>
             
             
@@ -553,21 +553,21 @@ Thats it. Now Cert-Manager will take care of updating your certificate for your,
       <nav class="tags_nav">
         <a href='https://blog.andreasm.io/tags/kubernetes/' class="post_tag button button_translucent" title="kubernetes">
           KUBERNETES
-          <span class="button_tally">12</span>
+          <span class="button_tally">13</span>
         </a>
         
         <a href='https://blog.andreasm.io/tags/ako/' class="post_tag button button_translucent" title="ako">
           AKO
-          <span class="button_tally">6</span>
-        </a>
-        
-        <a href='https://blog.andreasm.io/tags/antrea/' class="post_tag button button_translucent" title="antrea">
-          ANTREA
-          <span class="button_tally">6</span>
+          <span class="button_tally">7</span>
         </a>
         
         <a href='https://blog.andreasm.io/tags/nsx/' class="post_tag button button_translucent" title="nsx">
           NSX
+          <span class="button_tally">7</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/antrea/' class="post_tag button button_translucent" title="antrea">
+          ANTREA
           <span class="button_tally">6</span>
         </a>
         
@@ -576,23 +576,23 @@ Thats it. Now Cert-Manager will take care of updating your certificate for your,
           <span class="button_tally">5</span>
         </a>
         
+        <a href='https://blog.andreasm.io/tags/avi/' class="post_tag button button_translucent" title="avi">
+          AVI
+          <span class="button_tally">4</span>
+        </a>
+        
         <a href='https://blog.andreasm.io/tags/ingress/' class="post_tag button button_translucent" title="ingress">
           INGRESS
           <span class="button_tally">4</span>
         </a>
         
-        <a href='https://blog.andreasm.io/tags/avi/' class="post_tag button button_translucent" title="avi">
-          AVI
-          <span class="button_tally">3</span>
+        <a href='https://blog.andreasm.io/tags/tanzu/' class="post_tag button button_translucent" title="tanzu">
+          TANZU
+          <span class="button_tally">4</span>
         </a>
         
         <a href='https://blog.andreasm.io/tags/loadbalancing/' class="post_tag button button_translucent" title="loadbalancing">
           LOADBALANCING
-          <span class="button_tally">3</span>
-        </a>
-        
-        <a href='https://blog.andreasm.io/tags/tanzu/' class="post_tag button button_translucent" title="tanzu">
-          TANZU
           <span class="button_tally">3</span>
         </a>
         
@@ -627,7 +627,7 @@ Thats it. Now Cert-Manager will take care of updating your certificate for your,
         <div class="post_tags">
           <div class="tags_list">
             
-            <a href='https://blog.andreasm.io/tags/ako/' class=" post_tag button button_translucent" data-position=6 title="ako">AKO<span class="button_tally">6</span>
+            <a href='https://blog.andreasm.io/tags/ako/' class=" post_tag button button_translucent" data-position=7 title="ako">AKO<span class="button_tally">7</span>
             </a>
             
             
@@ -647,7 +647,7 @@ Thats it. Now Cert-Manager will take care of updating your certificate for your,
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/avi/' class=" post_tag button button_translucent" data-position=3 title="avi">AVI<span class="button_tally">3</span>
+            <a href='https://blog.andreasm.io/tags/avi/' class=" post_tag button button_translucent" data-position=4 title="avi">AVI<span class="button_tally">4</span>
             </a>
             
             
@@ -715,7 +715,7 @@ Thats it. Now Cert-Manager will take care of updating your certificate for your,
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/kubernetes/' class=" post_tag button button_translucent" data-position=12 title="kubernetes">KUBERNETES<span class="button_tally">12</span>
+            <a href='https://blog.andreasm.io/tags/kubernetes/' class=" post_tag button button_translucent" data-position=13 title="kubernetes">KUBERNETES<span class="button_tally">13</span>
             </a>
             
             
@@ -747,7 +747,7 @@ Thats it. Now Cert-Manager will take care of updating your certificate for your,
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/nsx/' class=" post_tag button button_translucent" data-position=6 title="nsx">NSX<span class="button_tally">6</span>
+            <a href='https://blog.andreasm.io/tags/nsx/' class=" post_tag button button_translucent" data-position=7 title="nsx">NSX<span class="button_tally">7</span>
             </a>
             
             
@@ -795,7 +795,11 @@ Thats it. Now Cert-Manager will take care of updating your certificate for your,
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/tanzu/' class=" post_tag button button_translucent" data-position=3 title="tanzu">TANZU<span class="button_tally">3</span>
+            <a href='https://blog.andreasm.io/tags/tanzu/' class=" post_tag button button_translucent" data-position=4 title="tanzu">TANZU<span class="button_tally">4</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/tkg-2.1/' class=" post_tag button button_translucent" data-position=1 title="tkg-2.1">TKG-2.1<span class="button_tally">1</span>
             </a>
             
             

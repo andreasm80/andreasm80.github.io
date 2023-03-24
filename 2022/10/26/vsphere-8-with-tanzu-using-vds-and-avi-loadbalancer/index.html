@@ -188,7 +188,7 @@ Then start populate the relevant vCenter information for your vCenter:
 <img src=images/image-20230130172122543.png style="width:800px" />
 <p>When the dialog relaunches select the management network and ip address management. I have opted for DHCP (I have DHCP in my mgmt network, if not we can leverage Avi as IPAM provider for the mgmt network also.) This is used for the SE's mgmt interface.
 <img src=images/image-20230130172702929.png style="width:800px" /></p>
-<p>Click save for now. 
+<p>Click save for now.
 Head over to the Template section to add IPAM and DNS.</p>
 <img src=images/image-20230130173029483.png style="width:500px" />
 <p>When using vCenter clouds the different portgroups is automatically added under networks. We need to configure some of them. But for now just create the IPAM and DNS profiles and we configure the networks later accordingly.</p>
@@ -218,7 +218,7 @@ Click edit all the way to the right:
 <img src=images/image-20230130175127675.png style="width:1000px" /></p>
 <p>If you want a specific range for SE and a specific for VIP do like this:
 <img src=images/image-20230130175331727.png style="width:800px" /></p>
-<p>Common for both is to deselect the DHCP Enabled option. 
+<p>Common for both is to deselect the DHCP Enabled option.
 What we have done now is to tell Avi that Avi is responsible for IP allocation to our SE's when they are deployed and configured to give them each their IP in the Frontend network, and also &quot;carve&quot; out an IP for the VIP when a Virtual Service is created and IP allocation for that service is selected to auto-allocate.
 The same would go if you decided to not use DHCP for mgmt IP, you would need to defined the network and select only &quot;Use for Service Engine&quot; (no VIPs in the management network)</p>
 <h3 id="avi-service-engine-group">Avi service engine group</h3>
@@ -231,7 +231,7 @@ The same would go if you decided to not use DHCP for mgmt IP, you would need to 
 <p>Here we select our vSphere cluster for the SE placement, vSphere shared storage, and the Prefix and vCenter folder placement (if you want).
 Now that is done.</p>
 <h3 id="avi-vrf-context">Avi VRF context</h3>
-<p>Now we need to create a static route for the SE dataplane to know which gateway will take them to the &quot;backend-pool&quot; (the services they are acting as loadbalancer for). This is usually the gateway for the networks in their respective subnet as the dataplane is residing in. 
+<p>Now we need to create a static route for the SE dataplane to know which gateway will take them to the &quot;backend-pool&quot; (the services they are acting as loadbalancer for). This is usually the gateway for the networks in their respective subnet as the dataplane is residing in.
 Here I prepare the route for the Frontend network, and also the Workload network (so it is already done when moving to the step of enabling L7).
 <img src=images/image-20230130184925780.png style="width:1000px" /></p>
 <h3 id="avi-controller-ssl-certificate-for-tanzu-integration">Avi controller SSL certificate for Tanzu &quot;integration&quot;</h3>
@@ -273,10 +273,10 @@ Step 2: Select Cluster Deployment, give the supervisor cluster a name and give i
 <p>Paste the content in the Server Certificate field above (step 4)
 Step 5: Management Network
 <img src=images/image-20230130192801347.png style="widht:1000px" />
-Here we fill in the required information for the Supervisor nodes. Management IP for the nodes themselves (needs connectivity to both vCenter and ESXi hosts, could be in the same mgmt network as vCenter and ESXi). Select the corresponding vds portgroup, select either static or DHCP if you want to use DHCP. 
+Here we fill in the required information for the Supervisor nodes. Management IP for the nodes themselves (needs connectivity to both vCenter and ESXi hosts, could be in the same mgmt network as vCenter and ESXi). Select the corresponding vds portgroup, select either static or DHCP if you want to use DHCP.
 Step 6: Workload Network
 <img src=images/image-20230130193116257.png style="width:1000px" /></p>
-<p>Select the correct vds portgroup for the workload network. The supervisor and the workload nodes will be placed here. Can be static or DHCP. Leave the default &quot;Internal Network for Kubernetes Services&quot;, that is for the internal services (clusterIP etc inside the K8s clusters, they will never be exposed outside). Fill in the necessary config if you go with static. 
+<p>Select the correct vds portgroup for the workload network. The supervisor and the workload nodes will be placed here. Can be static or DHCP. Leave the default &quot;Internal Network for Kubernetes Services&quot;, that is for the internal services (clusterIP etc inside the K8s clusters, they will never be exposed outside). Fill in the necessary config if you go with static.
 Step 7: Review and Confirm and optionally give the Supervisor endpoint a DNS name which you later can register in your DNS service when we have the L4 IP for the kubernetes API endpoint. Click finish:</p>
 <img src=images/image-20230130193458959.png style="width:900px" />
 <p>The whole summary:
@@ -860,6 +860,9 @@ Switch context to your vSphere Namespace, edit an antreaconfig, apply it.</p>
         <a href="https://blog.andreasm.io/2021/07/10/antrea-network-policies/" class="nav-link" title="Antrea Network Policies">Antrea Network Policies</a>
       </li>
       <li>
+        <a href="https://blog.andreasm.io/2023/03/22/tanzu-kubernetes-grid-2.1/" class="nav-link" title="Tanzu Kubernetes Grid 2.1">Tanzu Kubernetes Grid 2.1</a>
+      </li>
+      <li>
         <a href="https://blog.andreasm.io/2023/03/04/hosting-my-blog-on-github/" class="nav-link" title="Hosting my blog on Github">Hosting my blog on Github</a>
       </li>
       <li>
@@ -877,16 +880,13 @@ Switch context to your vSphere Namespace, edit an antreaconfig, apply it.</p>
       <li>
         <a href="https://blog.andreasm.io/2022/10/23/gslb-with-ako-amko-nsx-advanced-loadbalancer/" class="nav-link" title="GSLB With AKO &amp; AMKO - NSX Advanced LoadBalancer">GSLB With AKO &amp; AMKO - NSX Advanced LoadBalancer</a>
       </li>
-      <li>
-        <a href="https://blog.andreasm.io/2022/10/23/we-take-a-look-at-the-ako-crds/" class="nav-link" title="We Take a Look at the AKO Crds">We Take a Look at the AKO Crds</a>
-      </li>
     </ul>
     <div>
       <h2 class="mt-4 taxonomy" id="categories-section">Categories</h2>
       <nav class="tags_nav">
         <a href='https://blog.andreasm.io/categories/kubernetes/' class="post_tag button button_translucent" title="kubernetes">
           KUBERNETES
-          <span class="button_tally">20</span>
+          <span class="button_tally">21</span>
         </a>
         
         <a href='https://blog.andreasm.io/categories/networking/' class="post_tag button button_translucent" title="networking">
@@ -914,13 +914,13 @@ Switch context to your vSphere Namespace, edit an antreaconfig, apply it.</p>
           <span class="button_tally">4</span>
         </a>
         
-        <a href='https://blog.andreasm.io/categories/nsx/' class="post_tag button button_translucent" title="nsx">
-          NSX
-          <span class="button_tally">3</span>
-        </a>
-        
         <a href='https://blog.andreasm.io/categories/tanzu/' class="post_tag button button_translucent" title="tanzu">
           TANZU
+          <span class="button_tally">4</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/nsx/' class="post_tag button button_translucent" title="nsx">
+          NSX
           <span class="button_tally">3</span>
         </a>
         
@@ -1000,7 +1000,7 @@ Switch context to your vSphere Namespace, edit an antreaconfig, apply it.</p>
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/kubernetes/' class=" post_tag button button_translucent" data-position=20 title="kubernetes">KUBERNETES<span class="button_tally">20</span>
+            <a href='https://blog.andreasm.io/categories/kubernetes/' class=" post_tag button button_translucent" data-position=21 title="kubernetes">KUBERNETES<span class="button_tally">21</span>
             </a>
             
             
@@ -1048,7 +1048,7 @@ Switch context to your vSphere Namespace, edit an antreaconfig, apply it.</p>
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/tanzu/' class=" post_tag button button_translucent" data-position=3 title="tanzu">TANZU<span class="button_tally">3</span>
+            <a href='https://blog.andreasm.io/categories/tanzu/' class=" post_tag button button_translucent" data-position=4 title="tanzu">TANZU<span class="button_tally">4</span>
             </a>
             
             
@@ -1085,21 +1085,21 @@ Switch context to your vSphere Namespace, edit an antreaconfig, apply it.</p>
       <nav class="tags_nav">
         <a href='https://blog.andreasm.io/tags/kubernetes/' class="post_tag button button_translucent" title="kubernetes">
           KUBERNETES
-          <span class="button_tally">12</span>
+          <span class="button_tally">13</span>
         </a>
         
         <a href='https://blog.andreasm.io/tags/ako/' class="post_tag button button_translucent" title="ako">
           AKO
-          <span class="button_tally">6</span>
-        </a>
-        
-        <a href='https://blog.andreasm.io/tags/antrea/' class="post_tag button button_translucent" title="antrea">
-          ANTREA
-          <span class="button_tally">6</span>
+          <span class="button_tally">7</span>
         </a>
         
         <a href='https://blog.andreasm.io/tags/nsx/' class="post_tag button button_translucent" title="nsx">
           NSX
+          <span class="button_tally">7</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/antrea/' class="post_tag button button_translucent" title="antrea">
+          ANTREA
           <span class="button_tally">6</span>
         </a>
         
@@ -1108,23 +1108,23 @@ Switch context to your vSphere Namespace, edit an antreaconfig, apply it.</p>
           <span class="button_tally">5</span>
         </a>
         
+        <a href='https://blog.andreasm.io/tags/avi/' class="post_tag button button_translucent" title="avi">
+          AVI
+          <span class="button_tally">4</span>
+        </a>
+        
         <a href='https://blog.andreasm.io/tags/ingress/' class="post_tag button button_translucent" title="ingress">
           INGRESS
           <span class="button_tally">4</span>
         </a>
         
-        <a href='https://blog.andreasm.io/tags/avi/' class="post_tag button button_translucent" title="avi">
-          AVI
-          <span class="button_tally">3</span>
+        <a href='https://blog.andreasm.io/tags/tanzu/' class="post_tag button button_translucent" title="tanzu">
+          TANZU
+          <span class="button_tally">4</span>
         </a>
         
         <a href='https://blog.andreasm.io/tags/loadbalancing/' class="post_tag button button_translucent" title="loadbalancing">
           LOADBALANCING
-          <span class="button_tally">3</span>
-        </a>
-        
-        <a href='https://blog.andreasm.io/tags/tanzu/' class="post_tag button button_translucent" title="tanzu">
-          TANZU
           <span class="button_tally">3</span>
         </a>
         
@@ -1159,7 +1159,7 @@ Switch context to your vSphere Namespace, edit an antreaconfig, apply it.</p>
         <div class="post_tags">
           <div class="tags_list">
             
-            <a href='https://blog.andreasm.io/tags/ako/' class=" post_tag button button_translucent" data-position=6 title="ako">AKO<span class="button_tally">6</span>
+            <a href='https://blog.andreasm.io/tags/ako/' class=" post_tag button button_translucent" data-position=7 title="ako">AKO<span class="button_tally">7</span>
             </a>
             
             
@@ -1179,7 +1179,7 @@ Switch context to your vSphere Namespace, edit an antreaconfig, apply it.</p>
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/avi/' class=" post_tag button button_translucent" data-position=3 title="avi">AVI<span class="button_tally">3</span>
+            <a href='https://blog.andreasm.io/tags/avi/' class=" post_tag button button_translucent" data-position=4 title="avi">AVI<span class="button_tally">4</span>
             </a>
             
             
@@ -1247,7 +1247,7 @@ Switch context to your vSphere Namespace, edit an antreaconfig, apply it.</p>
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/kubernetes/' class=" post_tag button button_translucent" data-position=12 title="kubernetes">KUBERNETES<span class="button_tally">12</span>
+            <a href='https://blog.andreasm.io/tags/kubernetes/' class=" post_tag button button_translucent" data-position=13 title="kubernetes">KUBERNETES<span class="button_tally">13</span>
             </a>
             
             
@@ -1279,7 +1279,7 @@ Switch context to your vSphere Namespace, edit an antreaconfig, apply it.</p>
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/nsx/' class=" post_tag button button_translucent" data-position=6 title="nsx">NSX<span class="button_tally">6</span>
+            <a href='https://blog.andreasm.io/tags/nsx/' class=" post_tag button button_translucent" data-position=7 title="nsx">NSX<span class="button_tally">7</span>
             </a>
             
             
@@ -1327,7 +1327,11 @@ Switch context to your vSphere Namespace, edit an antreaconfig, apply it.</p>
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/tanzu/' class=" post_tag button button_translucent" data-position=3 title="tanzu">TANZU<span class="button_tally">3</span>
+            <a href='https://blog.andreasm.io/tags/tanzu/' class=" post_tag button button_translucent" data-position=4 title="tanzu">TANZU<span class="button_tally">4</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/tkg-2.1/' class=" post_tag button button_translucent" data-position=1 title="tkg-2.1">TKG-2.1<span class="button_tally">1</span>
             </a>
             
             

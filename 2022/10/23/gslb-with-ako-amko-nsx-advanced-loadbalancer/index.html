@@ -162,12 +162,12 @@ It should look like this on both controllers when everything is up and ready for
 <img src=images/image-20221115143831355.png style="width:1000px" />
 It should be reflected on the secondary controller as well, except there will be no option to edit.</p>
 <h2 id="time-to-deploy-amko-in-k8s">Time to deploy AMKO in K8s</h2>
-<p>AMKO can be deployed in two ways. It can be sufficient with only one instance of AMKO deployed in your primary k8s cluster, or you can go the federation approach and deploy AMKO in all your clusters that you want to use GSLB on. Then you will end up with one master instance of AMKO and &quot;followers&quot; or federation member on the others. One of the benefit is that you can promote one of the follower members if the primary is lost. 
+<p>AMKO can be deployed in two ways. It can be sufficient with only one instance of AMKO deployed in your primary k8s cluster, or you can go the federation approach and deploy AMKO in all your clusters that you want to use GSLB on. Then you will end up with one master instance of AMKO and &quot;followers&quot; or federation member on the others. One of the benefit is that you can promote one of the follower members if the primary is lost.
 I will go with the simple approach, deploy AMKO once, in my primary k8s cluster in my home-lab.</p>
 <img src=images/image-20221115115946070.png style="width:1000px" />
 <h3 id="amko-preparations-before-deploy-with-helm">AMKO preparations before deploy with Helm</h3>
-<p>AMKO will be deployed by using Helm, so if Helm is not installed do that. 
-To successfully install AMKO there is a couple of things to be done. First, decide which is your primary cluster (where to deploy AMKO). When you have decided that (the easy step) then you need to prepare a secret that contains the context/clusters/users for all the k8s clusters you want to use GSLB on. 
+<p>AMKO will be deployed by using Helm, so if Helm is not installed do that.
+To successfully install AMKO there is a couple of things to be done. First, decide which is your primary cluster (where to deploy AMKO). When you have decided that (the easy step) then you need to prepare a secret that contains the context/clusters/users for all the k8s clusters you want to use GSLB on.
 An example file can be found <a href="https://github.com/avinetworks/avi-helm-charts/blob/master/docs/AMKO/kubeconfig.md">here</a>. Create this content in a regular file and name the file <code>gslb-members</code>. The naming of the file is important, if you name it differently AMKO will fail as it cant find the secret. I have tried to find a variable that is able override this in the value.yaml for the Helm chart but has not succeeded, so I went with the default naming. When that is populated with the k8s clusters you want, we need to create a secret in our primary k8s cluster like this: <code>kubectl create secret generic gslb-config-secret --from-file gslb-members -n avi-system</code>. The namespace here is the namespace where AKO is already deployed in.</p>
 <p>This should give you a secret like this:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">gslb-config-secret                      Opaque                                <span class="m">1</span>      20h
@@ -349,7 +349,7 @@ The Helm repo for AMKO is already added if AKO has been installed using Helm, th
 </span></span><span class="line"><span class="ln">16</span><span class="cl">global-gdp   20h
 </span></span></code></pre></div><p>AMKO is up and running. Time create a GSLB service</p>
 <h2 id="create-gslb-service">Create GSLB service</h2>
-<p>You probably already have a bunch of ingress services running, and to make them GSLB &quot;aware&quot; there is not much to be done to achieve that. 
+<p>You probably already have a bunch of ingress services running, and to make them GSLB &quot;aware&quot; there is not much to be done to achieve that.
 If you noticed in our value.yaml for the AMKO Helm chart we defined this:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln">1</span><span class="cl"><span class="nt">globalDeploymentPolicy</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="w">  </span><span class="c"># appSelector takes the form of:</span><span class="w">
@@ -446,8 +446,8 @@ Screenshot below is when both sites have applied their GSLB services:
 </span></span></span><span class="line"><span class="ln">39</span><span class="cl"><span class="w">    </span><span class="nt">gslb</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="ln">40</span><span class="cl"><span class="w">      </span><span class="nt">fqdn</span><span class="p">:</span><span class="w"> </span><span class="l">fruit.gslb.guzware.net  </span><span class="w"> </span><span class="c">##### Common for both sites</span><span class="w">
 </span></span></span></code></pre></div><p>When this is applied Avi will go ahead and put this into the same GSLB service as above, and the screenshot above will be true.</p>
-<p>Now I have the same application deployed in both sites, but equally available whether I am sitting in my home-lab or at the remote-site. 
-There is a bunch of parameters that can be tuned, which I will not go into now (maybe getting back to this and update with further possibilities with GSLB). But one of them can be LoadBalancing algorithms such as Geo Location Source. Say I want the application to be accessed from clients as close to the application as possible. And should one of the sites become unavailable it will still be accessible from one of the sites that are still online. Very cool indeed. For the sake of the demo I am about to show the only thing I change in the default GSLB settings is the TTL, I am setting it to 2 seconds so I can showcase that the application is being load balanced between both sites. Default algorithm is Round-Robin so it should balance between them regardless of the latency difference (accessing the application from my home network in my home lab vs from my home network in the remote-site which has several ms in distance). 
+<p>Now I have the same application deployed in both sites, but equally available whether I am sitting in my home-lab or at the remote-site.
+There is a bunch of parameters that can be tuned, which I will not go into now (maybe getting back to this and update with further possibilities with GSLB). But one of them can be LoadBalancing algorithms such as Geo Location Source. Say I want the application to be accessed from clients as close to the application as possible. And should one of the sites become unavailable it will still be accessible from one of the sites that are still online. Very cool indeed. For the sake of the demo I am about to show the only thing I change in the default GSLB settings is the TTL, I am setting it to 2 seconds so I can showcase that the application is being load balanced between both sites. Default algorithm is Round-Robin so it should balance between them regardless of the latency difference (accessing the application from my home network in my home lab vs from my home network in the remote-site which has several ms in distance).
 Heres where I am setting these settings:
 <img src=images/image-20221115145714718.png style="width:1000px" /></p>
 <img src=images/image-20221115150022532.png style="width:700px" />
@@ -462,7 +462,7 @@ Let me try to access the application from my browser using the gslb fqdn: <em>fr
 <img src=images/image-20221115152805493.png style="width:700px" /></p>
 <p>Notice the change in ip address but also the latency in ms</p>
 <p>Now I can go ahead and disable one of the site to simulate failover, and the application is still available on the same FQDN. So many possibilities with GSLB.</p>
-<p>Thats it then. NSX ALB, AKO with AMKO between two sites, same application available in two physical location, redundancy, scale-out, availability. 
+<p>Thats it then. NSX ALB, AKO with AMKO between two sites, same application available in two physical location, redundancy, scale-out, availability.
 Stay tuned for more updates in advanced settings - in the future 😄</p>
 
     </div>
@@ -502,6 +502,9 @@ Stay tuned for more updates in advanced settings - in the future 😄</p>
         <a href="https://blog.andreasm.io/2021/07/10/antrea-network-policies/" class="nav-link" title="Antrea Network Policies">Antrea Network Policies</a>
       </li>
       <li>
+        <a href="https://blog.andreasm.io/2023/03/22/tanzu-kubernetes-grid-2.1/" class="nav-link" title="Tanzu Kubernetes Grid 2.1">Tanzu Kubernetes Grid 2.1</a>
+      </li>
+      <li>
         <a href="https://blog.andreasm.io/2023/03/04/hosting-my-blog-on-github/" class="nav-link" title="Hosting my blog on Github">Hosting my blog on Github</a>
       </li>
       <li>
@@ -519,16 +522,13 @@ Stay tuned for more updates in advanced settings - in the future 😄</p>
       <li>
         <a href="https://blog.andreasm.io/2022/10/23/gslb-with-ako-amko-nsx-advanced-loadbalancer/" class="nav-link" title="GSLB With AKO &amp; AMKO - NSX Advanced LoadBalancer">GSLB With AKO &amp; AMKO - NSX Advanced LoadBalancer</a>
       </li>
-      <li>
-        <a href="https://blog.andreasm.io/2022/10/23/we-take-a-look-at-the-ako-crds/" class="nav-link" title="We Take a Look at the AKO Crds">We Take a Look at the AKO Crds</a>
-      </li>
     </ul>
     <div>
       <h2 class="mt-4 taxonomy" id="categories-section">Categories</h2>
       <nav class="tags_nav">
         <a href='https://blog.andreasm.io/categories/kubernetes/' class="post_tag button button_translucent" title="kubernetes">
           KUBERNETES
-          <span class="button_tally">20</span>
+          <span class="button_tally">21</span>
         </a>
         
         <a href='https://blog.andreasm.io/categories/networking/' class="post_tag button button_translucent" title="networking">
@@ -556,13 +556,13 @@ Stay tuned for more updates in advanced settings - in the future 😄</p>
           <span class="button_tally">4</span>
         </a>
         
-        <a href='https://blog.andreasm.io/categories/nsx/' class="post_tag button button_translucent" title="nsx">
-          NSX
-          <span class="button_tally">3</span>
-        </a>
-        
         <a href='https://blog.andreasm.io/categories/tanzu/' class="post_tag button button_translucent" title="tanzu">
           TANZU
+          <span class="button_tally">4</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/nsx/' class="post_tag button button_translucent" title="nsx">
+          NSX
           <span class="button_tally">3</span>
         </a>
         
@@ -642,7 +642,7 @@ Stay tuned for more updates in advanced settings - in the future 😄</p>
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/kubernetes/' class=" post_tag button button_translucent" data-position=20 title="kubernetes">KUBERNETES<span class="button_tally">20</span>
+            <a href='https://blog.andreasm.io/categories/kubernetes/' class=" post_tag button button_translucent" data-position=21 title="kubernetes">KUBERNETES<span class="button_tally">21</span>
             </a>
             
             
@@ -690,7 +690,7 @@ Stay tuned for more updates in advanced settings - in the future 😄</p>
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/tanzu/' class=" post_tag button button_translucent" data-position=3 title="tanzu">TANZU<span class="button_tally">3</span>
+            <a href='https://blog.andreasm.io/categories/tanzu/' class=" post_tag button button_translucent" data-position=4 title="tanzu">TANZU<span class="button_tally">4</span>
             </a>
             
             
@@ -727,21 +727,21 @@ Stay tuned for more updates in advanced settings - in the future 😄</p>
       <nav class="tags_nav">
         <a href='https://blog.andreasm.io/tags/kubernetes/' class="post_tag button button_translucent" title="kubernetes">
           KUBERNETES
-          <span class="button_tally">12</span>
+          <span class="button_tally">13</span>
         </a>
         
         <a href='https://blog.andreasm.io/tags/ako/' class="post_tag button button_translucent" title="ako">
           AKO
-          <span class="button_tally">6</span>
-        </a>
-        
-        <a href='https://blog.andreasm.io/tags/antrea/' class="post_tag button button_translucent" title="antrea">
-          ANTREA
-          <span class="button_tally">6</span>
+          <span class="button_tally">7</span>
         </a>
         
         <a href='https://blog.andreasm.io/tags/nsx/' class="post_tag button button_translucent" title="nsx">
           NSX
+          <span class="button_tally">7</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/antrea/' class="post_tag button button_translucent" title="antrea">
+          ANTREA
           <span class="button_tally">6</span>
         </a>
         
@@ -750,23 +750,23 @@ Stay tuned for more updates in advanced settings - in the future 😄</p>
           <span class="button_tally">5</span>
         </a>
         
+        <a href='https://blog.andreasm.io/tags/avi/' class="post_tag button button_translucent" title="avi">
+          AVI
+          <span class="button_tally">4</span>
+        </a>
+        
         <a href='https://blog.andreasm.io/tags/ingress/' class="post_tag button button_translucent" title="ingress">
           INGRESS
           <span class="button_tally">4</span>
         </a>
         
-        <a href='https://blog.andreasm.io/tags/avi/' class="post_tag button button_translucent" title="avi">
-          AVI
-          <span class="button_tally">3</span>
+        <a href='https://blog.andreasm.io/tags/tanzu/' class="post_tag button button_translucent" title="tanzu">
+          TANZU
+          <span class="button_tally">4</span>
         </a>
         
         <a href='https://blog.andreasm.io/tags/loadbalancing/' class="post_tag button button_translucent" title="loadbalancing">
           LOADBALANCING
-          <span class="button_tally">3</span>
-        </a>
-        
-        <a href='https://blog.andreasm.io/tags/tanzu/' class="post_tag button button_translucent" title="tanzu">
-          TANZU
           <span class="button_tally">3</span>
         </a>
         
@@ -801,7 +801,7 @@ Stay tuned for more updates in advanced settings - in the future 😄</p>
         <div class="post_tags">
           <div class="tags_list">
             
-            <a href='https://blog.andreasm.io/tags/ako/' class=" post_tag button button_translucent" data-position=6 title="ako">AKO<span class="button_tally">6</span>
+            <a href='https://blog.andreasm.io/tags/ako/' class=" post_tag button button_translucent" data-position=7 title="ako">AKO<span class="button_tally">7</span>
             </a>
             
             
@@ -821,7 +821,7 @@ Stay tuned for more updates in advanced settings - in the future 😄</p>
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/avi/' class=" post_tag button button_translucent" data-position=3 title="avi">AVI<span class="button_tally">3</span>
+            <a href='https://blog.andreasm.io/tags/avi/' class=" post_tag button button_translucent" data-position=4 title="avi">AVI<span class="button_tally">4</span>
             </a>
             
             
@@ -889,7 +889,7 @@ Stay tuned for more updates in advanced settings - in the future 😄</p>
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/kubernetes/' class=" post_tag button button_translucent" data-position=12 title="kubernetes">KUBERNETES<span class="button_tally">12</span>
+            <a href='https://blog.andreasm.io/tags/kubernetes/' class=" post_tag button button_translucent" data-position=13 title="kubernetes">KUBERNETES<span class="button_tally">13</span>
             </a>
             
             
@@ -921,7 +921,7 @@ Stay tuned for more updates in advanced settings - in the future 😄</p>
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/nsx/' class=" post_tag button button_translucent" data-position=6 title="nsx">NSX<span class="button_tally">6</span>
+            <a href='https://blog.andreasm.io/tags/nsx/' class=" post_tag button button_translucent" data-position=7 title="nsx">NSX<span class="button_tally">7</span>
             </a>
             
             
@@ -969,7 +969,11 @@ Stay tuned for more updates in advanced settings - in the future 😄</p>
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/tanzu/' class=" post_tag button button_translucent" data-position=3 title="tanzu">TANZU<span class="button_tally">3</span>
+            <a href='https://blog.andreasm.io/tags/tanzu/' class=" post_tag button button_translucent" data-position=4 title="tanzu">TANZU<span class="button_tally">4</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/tkg-2.1/' class=" post_tag button button_translucent" data-position=1 title="tkg-2.1">TKG-2.1<span class="button_tally">1</span>
             </a>
             
             

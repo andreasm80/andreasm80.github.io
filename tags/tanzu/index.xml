@@ -6,7 +6,24 @@
     <description>Recent content in tanzu on From 0.985mhz... to several Ghz</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Myself</copyright>
-    <lastBuildDate>Mon, 20 Feb 2023 15:42:54 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/tanzu/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 22 Mar 2023 09:24:01 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/tanzu/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Tanzu Kubernetes Grid 2.1</title>
+      <link>https://blog.andreasm.io/2023/03/22/tanzu-kubernetes-grid-2.1/</link>
+      <pubDate>Wed, 22 Mar 2023 09:24:01 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/2023/03/22/tanzu-kubernetes-grid-2.1/</guid>
+      <description>
+        
+          
+            Tanzu Kubernetes Grid This post will go through how to deploy TKG 2.1, the management cluster, a workload cluster (or two), and the necessary preparations to be done on the underlaying infrastructure to support TKG 2.1. In this post I will use vSphere 8 with vSAN, Avi LoadBalancer, and NSX. So what we want to end up with it something like this:
+Preparations before deployment This post will assume the following:
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>Antrea Egress</title>
       <link>https://blog.andreasm.io/2023/02/20/antrea-egress/</link>

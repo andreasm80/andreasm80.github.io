@@ -172,7 +172,7 @@
     
     <div class="post_body"><p>This blog post will cover how <em>I</em> wanted to deploy Hugo to host my blog-page.</p>
 <h2 id="preparations">Preparations</h2>
-<p>To achieve what I wanted, deploy an highly available Hugo hosted blog page, I decided to run Hugo in Kubernetes. 
+<p>To achieve what I wanted, deploy an highly available Hugo hosted blog page, I decided to run Hugo in Kubernetes.
 For that I needed</p>
 <ul>
 <li>Kubernetes cluster, obviously, consisting of several workers for the the &quot;hugo&quot; pods to run on (already covered <a href="https://yikes.guzware.net/2020/10/08/nsx-advanced-loadbalancer-with-antrea-on-native-k8s/#prepare-the-worker-and-master-nodes">here</a>.</li>
@@ -211,7 +211,7 @@ For that I needed</p>
 </span></span><span class="line"><span class="ln">25</span><span class="cl">
 </span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="c1"># The container will listen on port 80 using the TCP protocol.</span>
 </span></span><span class="line"><span class="ln">27</span><span class="cl">EXPOSE <span class="m">80</span>
-</span></span></code></pre></div><p><em>Credits for the Dockerfile as it was initially taken from <a href="https://www.linode.com/docs/guides/deploy-container-image-to-kubernetes/#create-the-dockerfile">here</a></em>. 
+</span></span></code></pre></div><p><em>Credits for the Dockerfile as it was initially taken from <a href="https://www.linode.com/docs/guides/deploy-container-image-to-kubernetes/#create-the-dockerfile">here</a></em>.
 I have updated it, and done some modifications to it.</p>
 <p>Before building the image with docker, install docker by following this <a href="https://docs.docker.com/engine/install/ubuntu/">guide</a>.</p>
 <h3 id="build-the-docker-image">Build the docker image</h3>
@@ -227,7 +227,7 @@ I have updated it, and done some modifications to it.</p>
 </span></span></code></pre></div><h4 id="place-the-image-somewhere-easily-accessible">Place the image somewhere easily accessible</h4>
 <p>Now that I have my image I need to make sure it is easily accessible for my Kubernetes workers so they can download the image and deploy it. For that I can use the local docker registry pr control node and worker node. Meaning I need to load the image into all workers and control plane nodes. Not so smooth way to to do it. This is the approach for such a method:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">docker save -o &lt;path <span class="k">for</span> generated tar file&gt; &lt;image name&gt; <span class="c1">#needs to be done on the machine you built the image. Example: docker save -o /home/username/hugo-image.v1.tar hugo-image:v1</span>
-</span></span></code></pre></div><p>This will &quot;download&quot; the image from the local docker repository and create tar file. This tar file needs to be copied to all my workers and additional control plane nodes with scp or other methods I find suitable. 
+</span></span></code></pre></div><p>This will &quot;download&quot; the image from the local docker repository and create tar file. This tar file needs to be copied to all my workers and additional control plane nodes with scp or other methods I find suitable.
 When that is done I need to upload the tar to each of their local docker repository with the following command:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">docker -i load /home/username/hugo-image.v1.tar
 </span></span></code></pre></div><p>It is ok to know about this process if you are in non-internet environments etc, but even in non-internet environment we can do this with a private registry. And thats where Harbor can come to the rescue <a href="https://yikes.guzware.net/2022/10/13/vmware-harbor-registry/">link</a>.</p>
@@ -286,7 +286,7 @@ I could also use Docker <a href="https://hub.docker.com/">hub</a>. Create an acc
 </span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">    </span><span class="nt">tier</span><span class="p">:</span><span class="w"> </span><span class="l">web</span><span class="w">
 </span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">  </span><span class="nt">ports</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">    </span>- <span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">80</span><span class="w">
-</span></span></span></code></pre></div><p>Can be saved as a separate &quot;service.yaml&quot; file or pasted into one yaml file. 
+</span></span></span></code></pre></div><p>Can be saved as a separate &quot;service.yaml&quot; file or pasted into one yaml file.
 But instead of pointing to my workers IP addresses to read the content each time I wanted to expose it with an Ingress by using AKO and Avi LoadBalancer. This is how I done that:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">networking.k8s.io/v1</span><span class="w">
 </span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Ingress</span><span class="w">
@@ -410,7 +410,7 @@ Will I be able to access my hugo page on yikes.guzware.net ... well yes, otherwi
 <h2 id="creating-and-updating-content">Creating and updating content</h2>
 <p>A blog page without content is not so interesting. So just some quick comments on how I create content, and update them.</p>
 <p>I use <a href="https://typora.io/">Typora</a> creating and editing my *.md files. While working with the post (such as now) I run hugo in &quot;server-mode&quot; whith this command: <code>hugo server</code>. If I run this command on of my linux virtual machines through SSH I want to reach the server from my laptop so I add the parameter <code>--bind=ip-of-linux-vm</code> and I can access the page from my laptop on the ip of the linux VM and port 1313. When I am done with the article/post for the day I generated the web-page with the command <code>hugo -D -v</code>.
-The updated content of my public folder after I have generated the page is mirrored to the NFS path that is used in my PVC shown above and my containers picks up the updated content instantly. 
+The updated content of my public folder after I have generated the page is mirrored to the NFS path that is used in my PVC shown above and my containers picks up the updated content instantly.
 Thats how I do, it works and I find it easy to maintain and operate. And, if one of my workers fails, I have more pods still available on the remaining workers. If a pod fails Kubernetes will just take care of that for me as I have declared a set of pods(replicas) that should run. If I run my Kubernetes environment in Tanzu and one of my workers fails, that will also be automatically taken care of.</p>
 
     </div>
@@ -450,6 +450,9 @@ Thats how I do, it works and I find it easy to maintain and operate. And, if one
         <a href="https://blog.andreasm.io/2021/07/10/antrea-network-policies/" class="nav-link" title="Antrea Network Policies">Antrea Network Policies</a>
       </li>
       <li>
+        <a href="https://blog.andreasm.io/2023/03/22/tanzu-kubernetes-grid-2.1/" class="nav-link" title="Tanzu Kubernetes Grid 2.1">Tanzu Kubernetes Grid 2.1</a>
+      </li>
+      <li>
         <a href="https://blog.andreasm.io/2023/03/04/hosting-my-blog-on-github/" class="nav-link" title="Hosting my blog on Github">Hosting my blog on Github</a>
       </li>
       <li>
@@ -467,16 +470,13 @@ Thats how I do, it works and I find it easy to maintain and operate. And, if one
       <li>
         <a href="https://blog.andreasm.io/2022/10/23/gslb-with-ako-amko-nsx-advanced-loadbalancer/" class="nav-link" title="GSLB With AKO &amp; AMKO - NSX Advanced LoadBalancer">GSLB With AKO &amp; AMKO - NSX Advanced LoadBalancer</a>
       </li>
-      <li>
-        <a href="https://blog.andreasm.io/2022/10/23/we-take-a-look-at-the-ako-crds/" class="nav-link" title="We Take a Look at the AKO Crds">We Take a Look at the AKO Crds</a>
-      </li>
     </ul>
     <div>
       <h2 class="mt-4 taxonomy" id="categories-section">Categories</h2>
       <nav class="tags_nav">
         <a href='https://blog.andreasm.io/categories/kubernetes/' class="post_tag button button_translucent" title="kubernetes">
           KUBERNETES
-          <span class="button_tally">20</span>
+          <span class="button_tally">21</span>
         </a>
         
         <a href='https://blog.andreasm.io/categories/networking/' class="post_tag button button_translucent" title="networking">
@@ -504,13 +504,13 @@ Thats how I do, it works and I find it easy to maintain and operate. And, if one
           <span class="button_tally">4</span>
         </a>
         
-        <a href='https://blog.andreasm.io/categories/nsx/' class="post_tag button button_translucent" title="nsx">
-          NSX
-          <span class="button_tally">3</span>
-        </a>
-        
         <a href='https://blog.andreasm.io/categories/tanzu/' class="post_tag button button_translucent" title="tanzu">
           TANZU
+          <span class="button_tally">4</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/nsx/' class="post_tag button button_translucent" title="nsx">
+          NSX
           <span class="button_tally">3</span>
         </a>
         
@@ -590,7 +590,7 @@ Thats how I do, it works and I find it easy to maintain and operate. And, if one
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/kubernetes/' class=" post_tag button button_translucent" data-position=20 title="kubernetes">KUBERNETES<span class="button_tally">20</span>
+            <a href='https://blog.andreasm.io/categories/kubernetes/' class=" post_tag button button_translucent" data-position=21 title="kubernetes">KUBERNETES<span class="button_tally">21</span>
             </a>
             
             
@@ -638,7 +638,7 @@ Thats how I do, it works and I find it easy to maintain and operate. And, if one
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/tanzu/' class=" post_tag button button_translucent" data-position=3 title="tanzu">TANZU<span class="button_tally">3</span>
+            <a href='https://blog.andreasm.io/categories/tanzu/' class=" post_tag button button_translucent" data-position=4 title="tanzu">TANZU<span class="button_tally">4</span>
             </a>
             
             
@@ -675,21 +675,21 @@ Thats how I do, it works and I find it easy to maintain and operate. And, if one
       <nav class="tags_nav">
         <a href='https://blog.andreasm.io/tags/kubernetes/' class="post_tag button button_translucent" title="kubernetes">
           KUBERNETES
-          <span class="button_tally">12</span>
+          <span class="button_tally">13</span>
         </a>
         
         <a href='https://blog.andreasm.io/tags/ako/' class="post_tag button button_translucent" title="ako">
           AKO
-          <span class="button_tally">6</span>
-        </a>
-        
-        <a href='https://blog.andreasm.io/tags/antrea/' class="post_tag button button_translucent" title="antrea">
-          ANTREA
-          <span class="button_tally">6</span>
+          <span class="button_tally">7</span>
         </a>
         
         <a href='https://blog.andreasm.io/tags/nsx/' class="post_tag button button_translucent" title="nsx">
           NSX
+          <span class="button_tally">7</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/antrea/' class="post_tag button button_translucent" title="antrea">
+          ANTREA
           <span class="button_tally">6</span>
         </a>
         
@@ -698,23 +698,23 @@ Thats how I do, it works and I find it easy to maintain and operate. And, if one
           <span class="button_tally">5</span>
         </a>
         
+        <a href='https://blog.andreasm.io/tags/avi/' class="post_tag button button_translucent" title="avi">
+          AVI
+          <span class="button_tally">4</span>
+        </a>
+        
         <a href='https://blog.andreasm.io/tags/ingress/' class="post_tag button button_translucent" title="ingress">
           INGRESS
           <span class="button_tally">4</span>
         </a>
         
-        <a href='https://blog.andreasm.io/tags/avi/' class="post_tag button button_translucent" title="avi">
-          AVI
-          <span class="button_tally">3</span>
+        <a href='https://blog.andreasm.io/tags/tanzu/' class="post_tag button button_translucent" title="tanzu">
+          TANZU
+          <span class="button_tally">4</span>
         </a>
         
         <a href='https://blog.andreasm.io/tags/loadbalancing/' class="post_tag button button_translucent" title="loadbalancing">
           LOADBALANCING
-          <span class="button_tally">3</span>
-        </a>
-        
-        <a href='https://blog.andreasm.io/tags/tanzu/' class="post_tag button button_translucent" title="tanzu">
-          TANZU
           <span class="button_tally">3</span>
         </a>
         
@@ -749,7 +749,7 @@ Thats how I do, it works and I find it easy to maintain and operate. And, if one
         <div class="post_tags">
           <div class="tags_list">
             
-            <a href='https://blog.andreasm.io/tags/ako/' class=" post_tag button button_translucent" data-position=6 title="ako">AKO<span class="button_tally">6</span>
+            <a href='https://blog.andreasm.io/tags/ako/' class=" post_tag button button_translucent" data-position=7 title="ako">AKO<span class="button_tally">7</span>
             </a>
             
             
@@ -769,7 +769,7 @@ Thats how I do, it works and I find it easy to maintain and operate. And, if one
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/avi/' class=" post_tag button button_translucent" data-position=3 title="avi">AVI<span class="button_tally">3</span>
+            <a href='https://blog.andreasm.io/tags/avi/' class=" post_tag button button_translucent" data-position=4 title="avi">AVI<span class="button_tally">4</span>
             </a>
             
             
@@ -837,7 +837,7 @@ Thats how I do, it works and I find it easy to maintain and operate. And, if one
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/kubernetes/' class=" post_tag button button_translucent" data-position=12 title="kubernetes">KUBERNETES<span class="button_tally">12</span>
+            <a href='https://blog.andreasm.io/tags/kubernetes/' class=" post_tag button button_translucent" data-position=13 title="kubernetes">KUBERNETES<span class="button_tally">13</span>
             </a>
             
             
@@ -869,7 +869,7 @@ Thats how I do, it works and I find it easy to maintain and operate. And, if one
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/nsx/' class=" post_tag button button_translucent" data-position=6 title="nsx">NSX<span class="button_tally">6</span>
+            <a href='https://blog.andreasm.io/tags/nsx/' class=" post_tag button button_translucent" data-position=7 title="nsx">NSX<span class="button_tally">7</span>
             </a>
             
             
@@ -917,7 +917,11 @@ Thats how I do, it works and I find it easy to maintain and operate. And, if one
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/tanzu/' class=" post_tag button button_translucent" data-position=3 title="tanzu">TANZU<span class="button_tally">3</span>
+            <a href='https://blog.andreasm.io/tags/tanzu/' class=" post_tag button button_translucent" data-position=4 title="tanzu">TANZU<span class="button_tally">4</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/tkg-2.1/' class=" post_tag button button_translucent" data-position=1 title="tkg-2.1">TKG-2.1<span class="button_tally">1</span>
             </a>
             
             

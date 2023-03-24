@@ -173,7 +173,7 @@ The following components will be touched upon in this post: NSX, Tanzu, TKC, AKO
 <img src=images/image-20230208103317524.png style="width:1000px" alt="Initial diagram" /></p>
 <h2 id="preparations---nsx-config">Preparations - NSX config</h2>
 <p>This post assumes a working vSphere environment with storage configured, vMotion network, vSAN (if using vSAN), HA, DRS enabled and configured.
-So this step will cover the basic NSX config for this use-case. NSX will need some network configured in the physical environment like the Geneve Tunnel VLAN, Uplink VLAN(s) for our T0 in addition to the most likely already defined management network for the placement of NSX managers, NSX edges and Avi controller and/or SE's. 
+So this step will cover the basic NSX config for this use-case. NSX will need some network configured in the physical environment like the Geneve Tunnel VLAN, Uplink VLAN(s) for our T0 in addition to the most likely already defined management network for the placement of NSX managers, NSX edges and Avi controller and/or SE's.
 So lets jump in.</p>
 <h3 id="initial-configs-in-the-nsx-manager">Initial configs in the NSX manager</h3>
 <p>The first NSX manager is already deployed. Accept the EULA and skip the NSX tutorial:</p>
@@ -186,7 +186,7 @@ So lets jump in.</p>
 <img src=images/image-20230214133146676.png style="width:500px" /></p>
 <p>After some minutes, try to log in via your new cluster IP. All the configs I will do will be used with this IP. It does not matter if you go directly to the NSX manager itself or the cluster IP for this post.</p>
 <p>After cluster IP is done, we need to add a Compute Manager which in our case is the vCenter server (not that you have any option besides vCenter).
-Still under System, go to Fabric expand and find Compute Manager. 
+Still under System, go to Fabric expand and find Compute Manager.
 From there click Add Compute Manager:</p>
 <img src=images/image-20230214133648776.png style="width:400px" />
 <p>Fill in the necessary information for your vCenter and make sure Service Account and Enable Trust is enabled.
@@ -200,7 +200,7 @@ From there click Add Compute Manager:</p>
 <img src=images/image-20230214135616265.png style="width:900px" />
 <img src=images/image-20230214135729832.png style="width:900px" />
 <h3 id="nsx-profiles-uplink-transport-zones-and-transport-node-profiles">NSX Profiles: Uplink, Transport Zones and Transport Node Profiles</h3>
-<p>In NSX there is a couple of profiles that needs to be configured, profiles for the Transport nodes, Edge transport nodes, transport zones. Instead of configuring things individually NSX uses profiles so we have a consistent and central place to configure multiple components from. 
+<p>In NSX there is a couple of profiles that needs to be configured, profiles for the Transport nodes, Edge transport nodes, transport zones. Instead of configuring things individually NSX uses profiles so we have a consistent and central place to configure multiple components from.
 Let start with the Uplink profiles:
 Under Fabric head over to Profiles.</p>
 <img src=images/image-20230214145120302.png style="width:400px" />
@@ -224,7 +224,7 @@ Under Fabric head over to Profiles.</p>
 <p>Common for both Transport Zones is VLAN.</p>
 <p>Now the last Transport Zone for now - the Overlay TZ (this one is easy):</p>
 <img src=images/image-20230214151438827.png style="width:500px" />
-<p>The next step would be to create the Transport Node Profile, but first we need to create an IP-Pool for the TEP addresses. 
+<p>The next step would be to create the Transport Node Profile, but first we need to create an IP-Pool for the TEP addresses.
 Head over to <em>Networking</em> and <em>IP Address Pools</em> :</p>
 <img src=images/image-20230214151909478.png style="width:400px" />
 <p>Add IP address pool:</p>
@@ -247,7 +247,7 @@ Head over to <em>Networking</em> and <em>IP Address Pools</em> :</p>
 <img src=images/image-20230214154230533.png style="width:700px" />
 <h3 id="deploy-nsx-edges">Deploy NSX Edges</h3>
 <p>Deploying a Edge is quite straight forward, and is done from the NSX manager under System -&gt;Fabric -&gt;Nodes -&gt;Edge Transport Nodes</p>
-<p>But I need to create two VLAN segments for Edge &quot;data-path/uplink interfaces. As I want to use the same VLAN for both Host Tep and Edge TEP I need to do that. These two segments will only be used for the actual Edge VMs, not the T0 I am going to create later. In my lab I am using VLAN 1013 for TEP and VLAN 1014 and 1015 for T0 Uplink 1 and 2. 
+<p>But I need to create two VLAN segments for Edge &quot;data-path/uplink interfaces. As I want to use the same VLAN for both Host Tep and Edge TEP I need to do that. These two segments will only be used for the actual Edge VMs, not the T0 I am going to create later. In my lab I am using VLAN 1013 for TEP and VLAN 1014 and 1015 for T0 Uplink 1 and 2.
 So that means the first VLAN segment I create will have the VLAN Trunk range 1013-1014 and the second VLAN segment will use VLAN trunk 1013,1015
 Head over to the Networking section/Segments in the NSX UI click Add Segment:</p>
 <img src=images/image-20230222084712557.png style="width:800" />
@@ -313,7 +313,7 @@ Head over to the Networking section/Segments in the NSX UI click Add Segment:</p
 <p>In NSX there is a neat map over the Network Topology in NSX:</p>
 <img src=images/image-20230223082517559.png style="width:1000px" />
 <h2 id="deploy-tanzu-with-nsx">Deploy Tanzu with NSX</h2>
-<p>Now that networking with NSX is configured and the foundation is ready. Its time to deploy the Supervisor cluster, or enable WCP, Workload Management. 
+<p>Now that networking with NSX is configured and the foundation is ready. Its time to deploy the Supervisor cluster, or enable WCP, Workload Management.
 Head over to the <em>hamburger</em> menu in top left corner in your vCenter and select * Workload Management*</p>
 <img src=images/image-20230223085130672.png style="width:300px" />
 <p>Click on <em>Get Started</em></p>
@@ -411,7 +411,7 @@ Click create blue button right side.</p>
 <img src=images/image-20230224135202476.png style="width:800px" />
 <p>Add a default route under Static Route and point to the gateway used for the SE dataplane <em>ls-avi-generic-se-data</em> . This is used for the SE's to know where to go to reach the different pools it will loadbalance.</p>
 <p>Next we need to define the different networks for the SE's to use (the dataplane network). Head over to Infrastructure -&gt; Networks (again select correct cloud from dropdown)</p>
-<p>If there is workload running in these networks they can already be auto-detected, if not you need to create them. 
+<p>If there is workload running in these networks they can already be auto-detected, if not you need to create them.
 <img src=images/image-20230224135608366.png style="width:800px" /></p>
 <p>In my lab I rely on Avi as the IPAM provider for my different services, a very useful feature in Avi. So the two networks we need to create/and or edit is the <em>ls-avi-se-mgmt</em> and the <em>ls-avi-generic-se-data</em></p>
 <p>First out is the <em>ls-avi-se-mgmt</em></p>
@@ -440,7 +440,7 @@ Lets start with the IPAM profile. Click create right corner and select IPAM Prof
 <p>Save</p>
 <p>Now Avi is prepared and configured to handle requests from AKO on L7 service Ingress. Next step will be to deploy configure and deploy AKO in our TKC cluster. But first some short words around Avi DNS service.</p>
 <h3 id="avi-dns-service">Avi DNS service</h3>
-<p>Getting a virtual service with a VIP is easy with Avi, but often we need a DNS record on these VS'es. Avi has a built in DNS service which automatically register a DNS record for your services. The simplest way to make this work out of the box is to create a Forward Zone in your DNS server to the DNS Service IP for a specific subdomain or domain. Then Avi will handle the DNS requests for these specific domains. To make use of Avi DNS service we should dedicate a SE group for this service, and create a dedicated VIP network for it. As we should use a dedicated SE group for the DNS service it would be nice to also have a dedicated SE dataplane network for these SE's. So follow the steps I have done above to create a SE network for the SE service SE's  and add this to your cloud. The VIP network also needs to be added to the IPAM Profile created earlier. A note on the additional SE network, this also requires a dedicated T1 router in the NSX environment. So in your NSX environment create an additional T1 router, create segment for the DNS SE datanetwork. 
+<p>Getting a virtual service with a VIP is easy with Avi, but often we need a DNS record on these VS'es. Avi has a built in DNS service which automatically register a DNS record for your services. The simplest way to make this work out of the box is to create a Forward Zone in your DNS server to the DNS Service IP for a specific subdomain or domain. Then Avi will handle the DNS requests for these specific domains. To make use of Avi DNS service we should dedicate a SE group for this service, and create a dedicated VIP network for it. As we should use a dedicated SE group for the DNS service it would be nice to also have a dedicated SE dataplane network for these SE's. So follow the steps I have done above to create a SE network for the SE service SE's  and add this to your cloud. The VIP network also needs to be added to the IPAM Profile created earlier. A note on the additional SE network, this also requires a dedicated T1 router in the NSX environment. So in your NSX environment create an additional T1 router, create segment for the DNS SE datanetwork.
 This is how to enable the DNS service in Avi after you have prepared the networks, and IPAM profile:</p>
 <p>Head over to Administration -&gt; Settings -&gt; DNS Service:</p>
 <img src=images/image-20230301082948513.png style="width:400px" />
@@ -669,6 +669,9 @@ the only difference is how the value.yaml for AKO is configured. Below is how I 
         <a href="https://blog.andreasm.io/2021/07/10/antrea-network-policies/" class="nav-link" title="Antrea Network Policies">Antrea Network Policies</a>
       </li>
       <li>
+        <a href="https://blog.andreasm.io/2023/03/22/tanzu-kubernetes-grid-2.1/" class="nav-link" title="Tanzu Kubernetes Grid 2.1">Tanzu Kubernetes Grid 2.1</a>
+      </li>
+      <li>
         <a href="https://blog.andreasm.io/2023/03/04/hosting-my-blog-on-github/" class="nav-link" title="Hosting my blog on Github">Hosting my blog on Github</a>
       </li>
       <li>
@@ -686,16 +689,13 @@ the only difference is how the value.yaml for AKO is configured. Below is how I 
       <li>
         <a href="https://blog.andreasm.io/2022/10/23/gslb-with-ako-amko-nsx-advanced-loadbalancer/" class="nav-link" title="GSLB With AKO &amp; AMKO - NSX Advanced LoadBalancer">GSLB With AKO &amp; AMKO - NSX Advanced LoadBalancer</a>
       </li>
-      <li>
-        <a href="https://blog.andreasm.io/2022/10/23/we-take-a-look-at-the-ako-crds/" class="nav-link" title="We Take a Look at the AKO Crds">We Take a Look at the AKO Crds</a>
-      </li>
     </ul>
     <div>
       <h2 class="mt-4 taxonomy" id="categories-section">Categories</h2>
       <nav class="tags_nav">
         <a href='https://blog.andreasm.io/categories/kubernetes/' class="post_tag button button_translucent" title="kubernetes">
           KUBERNETES
-          <span class="button_tally">20</span>
+          <span class="button_tally">21</span>
         </a>
         
         <a href='https://blog.andreasm.io/categories/networking/' class="post_tag button button_translucent" title="networking">
@@ -723,13 +723,13 @@ the only difference is how the value.yaml for AKO is configured. Below is how I 
           <span class="button_tally">4</span>
         </a>
         
-        <a href='https://blog.andreasm.io/categories/nsx/' class="post_tag button button_translucent" title="nsx">
-          NSX
-          <span class="button_tally">3</span>
-        </a>
-        
         <a href='https://blog.andreasm.io/categories/tanzu/' class="post_tag button button_translucent" title="tanzu">
           TANZU
+          <span class="button_tally">4</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/nsx/' class="post_tag button button_translucent" title="nsx">
+          NSX
           <span class="button_tally">3</span>
         </a>
         
@@ -809,7 +809,7 @@ the only difference is how the value.yaml for AKO is configured. Below is how I 
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/kubernetes/' class=" post_tag button button_translucent" data-position=20 title="kubernetes">KUBERNETES<span class="button_tally">20</span>
+            <a href='https://blog.andreasm.io/categories/kubernetes/' class=" post_tag button button_translucent" data-position=21 title="kubernetes">KUBERNETES<span class="button_tally">21</span>
             </a>
             
             
@@ -857,7 +857,7 @@ the only difference is how the value.yaml for AKO is configured. Below is how I 
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/tanzu/' class=" post_tag button button_translucent" data-position=3 title="tanzu">TANZU<span class="button_tally">3</span>
+            <a href='https://blog.andreasm.io/categories/tanzu/' class=" post_tag button button_translucent" data-position=4 title="tanzu">TANZU<span class="button_tally">4</span>
             </a>
             
             
@@ -894,21 +894,21 @@ the only difference is how the value.yaml for AKO is configured. Below is how I 
       <nav class="tags_nav">
         <a href='https://blog.andreasm.io/tags/kubernetes/' class="post_tag button button_translucent" title="kubernetes">
           KUBERNETES
-          <span class="button_tally">12</span>
+          <span class="button_tally">13</span>
         </a>
         
         <a href='https://blog.andreasm.io/tags/ako/' class="post_tag button button_translucent" title="ako">
           AKO
-          <span class="button_tally">6</span>
-        </a>
-        
-        <a href='https://blog.andreasm.io/tags/antrea/' class="post_tag button button_translucent" title="antrea">
-          ANTREA
-          <span class="button_tally">6</span>
+          <span class="button_tally">7</span>
         </a>
         
         <a href='https://blog.andreasm.io/tags/nsx/' class="post_tag button button_translucent" title="nsx">
           NSX
+          <span class="button_tally">7</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/antrea/' class="post_tag button button_translucent" title="antrea">
+          ANTREA
           <span class="button_tally">6</span>
         </a>
         
@@ -917,23 +917,23 @@ the only difference is how the value.yaml for AKO is configured. Below is how I 
           <span class="button_tally">5</span>
         </a>
         
+        <a href='https://blog.andreasm.io/tags/avi/' class="post_tag button button_translucent" title="avi">
+          AVI
+          <span class="button_tally">4</span>
+        </a>
+        
         <a href='https://blog.andreasm.io/tags/ingress/' class="post_tag button button_translucent" title="ingress">
           INGRESS
           <span class="button_tally">4</span>
         </a>
         
-        <a href='https://blog.andreasm.io/tags/avi/' class="post_tag button button_translucent" title="avi">
-          AVI
-          <span class="button_tally">3</span>
+        <a href='https://blog.andreasm.io/tags/tanzu/' class="post_tag button button_translucent" title="tanzu">
+          TANZU
+          <span class="button_tally">4</span>
         </a>
         
         <a href='https://blog.andreasm.io/tags/loadbalancing/' class="post_tag button button_translucent" title="loadbalancing">
           LOADBALANCING
-          <span class="button_tally">3</span>
-        </a>
-        
-        <a href='https://blog.andreasm.io/tags/tanzu/' class="post_tag button button_translucent" title="tanzu">
-          TANZU
           <span class="button_tally">3</span>
         </a>
         
@@ -968,7 +968,7 @@ the only difference is how the value.yaml for AKO is configured. Below is how I 
         <div class="post_tags">
           <div class="tags_list">
             
-            <a href='https://blog.andreasm.io/tags/ako/' class=" post_tag button button_translucent" data-position=6 title="ako">AKO<span class="button_tally">6</span>
+            <a href='https://blog.andreasm.io/tags/ako/' class=" post_tag button button_translucent" data-position=7 title="ako">AKO<span class="button_tally">7</span>
             </a>
             
             
@@ -988,7 +988,7 @@ the only difference is how the value.yaml for AKO is configured. Below is how I 
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/avi/' class=" post_tag button button_translucent" data-position=3 title="avi">AVI<span class="button_tally">3</span>
+            <a href='https://blog.andreasm.io/tags/avi/' class=" post_tag button button_translucent" data-position=4 title="avi">AVI<span class="button_tally">4</span>
             </a>
             
             
@@ -1056,7 +1056,7 @@ the only difference is how the value.yaml for AKO is configured. Below is how I 
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/kubernetes/' class=" post_tag button button_translucent" data-position=12 title="kubernetes">KUBERNETES<span class="button_tally">12</span>
+            <a href='https://blog.andreasm.io/tags/kubernetes/' class=" post_tag button button_translucent" data-position=13 title="kubernetes">KUBERNETES<span class="button_tally">13</span>
             </a>
             
             
@@ -1088,7 +1088,7 @@ the only difference is how the value.yaml for AKO is configured. Below is how I 
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/nsx/' class=" post_tag button button_translucent" data-position=6 title="nsx">NSX<span class="button_tally">6</span>
+            <a href='https://blog.andreasm.io/tags/nsx/' class=" post_tag button button_translucent" data-position=7 title="nsx">NSX<span class="button_tally">7</span>
             </a>
             
             
@@ -1136,7 +1136,11 @@ the only difference is how the value.yaml for AKO is configured. Below is how I 
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/tanzu/' class=" post_tag button button_translucent" data-position=3 title="tanzu">TANZU<span class="button_tally">3</span>
+            <a href='https://blog.andreasm.io/tags/tanzu/' class=" post_tag button button_translucent" data-position=4 title="tanzu">TANZU<span class="button_tally">4</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/tkg-2.1/' class=" post_tag button button_translucent" data-position=1 title="tkg-2.1">TKG-2.1<span class="button_tally">1</span>
             </a>
             
             
