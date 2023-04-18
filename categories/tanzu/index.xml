@@ -6,7 +6,23 @@
     <description>Recent content in Tanzu on From 0.985mhz... to several Ghz</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Myself</copyright>
-    <lastBuildDate>Wed, 22 Mar 2023 09:24:01 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/tanzu/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 14 Apr 2023 13:24:41 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/tanzu/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Tanzu with vSphere and different Tier-0s</title>
+      <link>https://blog.andreasm.io/2023/04/14/tanzu-with-vsphere-and-different-tier-0s/</link>
+      <pubDate>Fri, 14 Apr 2023 13:24:41 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2023/04/14/tanzu-with-vsphere-and-different-tier-0s/</guid>
+      <description>
+        
+          
+            Tanzu with vSphere using NSX with multiple T0s In this post I will go through how to configure Tanzu with different T0 routers in NSX for separation and network isolation. The first part will involve spinning up dedicated NSX Tier-0s by utlizing several NSX Edges and NSX Edge Clusters. The second part will involve using NSX VRF. Same needs, two different approaches, and some different configs in NSX. In vSphere with Tanzu with NSX we have the option to override network setting pr vSphere Namespace.
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>Tanzu Kubernetes Grid 2.1</title>
       <link>https://blog.andreasm.io/2023/03/22/tanzu-kubernetes-grid-2.1/</link>

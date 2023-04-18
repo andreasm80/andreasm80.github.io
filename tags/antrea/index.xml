@@ -8,24 +8,6 @@
     <copyright>Myself</copyright>
     <lastBuildDate>Mon, 20 Feb 2023 15:42:54 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/antrea/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Antrea Network Policies</title>
-      <link>https://blog.andreasm.io/2021/07/10/antrea-network-policies/</link>
-      <pubDate>Sat, 10 Jul 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.andreasm.io/2021/07/10/antrea-network-policies/</guid>
-      <description>
-        
-          
-            This post will go through the Antrea-native policy resources and how to use them to secure your Kubernetes environment combined with K8s network policies.
-Abbreviations used in this article:
-Container Network Interface = CNI Antrea Cluster Network Policies = ACNP Antrea Network Policies = ANP Kubernetes Network Policies = K8s policies or KNP When it comes to securing your K8s infrastructure it can be done in several layers in the infrastructure as a whole.
-          
-          
-        
-      </description>
-    </item>
-    
-    <item>
       <title>Antrea Egress</title>
       <link>https://blog.andreasm.io/2023/02/20/antrea-egress/</link>
       <pubDate>Mon, 20 Feb 2023 15:42:54 +0100</pubDate>
@@ -89,6 +71,24 @@ For more details head over to:
 https://antrea.io/ and https://github.com/antrea-io/antrea
 First of, Antrea is a CNI. CNI stands for Container Network Interface. As the world moves into Kubernetes more and more, we need a good CNI to support everything from network to security within Kubernetes. Thats where Antrea comes into play.
 Antrea has a rich set of features such as:
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Antrea Network Policies</title>
+      <link>https://blog.andreasm.io/2021/07/10/antrea-network-policies/</link>
+      <pubDate>Sat, 10 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.andreasm.io/2021/07/10/antrea-network-policies/</guid>
+      <description>
+        
+          
+            This post will go through the Antrea-native policy resources and how to use them to secure your Kubernetes environment combined with K8s network policies.
+Abbreviations used in this article:
+Container Network Interface = CNI Antrea Cluster Network Policies = ACNP Antrea Network Policies = ANP Kubernetes Network Policies = K8s policies or KNP When it comes to securing your K8s infrastructure it can be done in several layers in the infrastructure as a whole.
           
           
         

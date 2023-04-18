@@ -8,24 +8,6 @@
     <copyright>Myself</copyright>
     <lastBuildDate>Sun, 13 Mar 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/security/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Antrea Network Policies</title>
-      <link>https://blog.andreasm.io/2021/07/10/antrea-network-policies/</link>
-      <pubDate>Sat, 10 Jul 2021 00:00:00 +0000</pubDate>
-      
-      <guid>https://blog.andreasm.io/2021/07/10/antrea-network-policies/</guid>
-      <description>
-        
-          
-            This post will go through the Antrea-native policy resources and how to use them to secure your Kubernetes environment combined with K8s network policies.
-Abbreviations used in this article:
-Container Network Interface = CNI Antrea Cluster Network Policies = ACNP Antrea Network Policies = ANP Kubernetes Network Policies = K8s policies or KNP When it comes to securing your K8s infrastructure it can be done in several layers in the infrastructure as a whole.
-          
-          
-        
-      </description>
-    </item>
-    
-    <item>
       <title>Managing your Antrea K8s clusters running in VMC from your on-prem NSX Manager</title>
       <link>https://blog.andreasm.io/2022/03/13/managing-your-antrea-k8s-clusters-running-in-vmc-from-your-on-prem-nsx-manager/</link>
       <pubDate>Sun, 13 Mar 2022 00:00:00 +0000</pubDate>
@@ -53,6 +35,24 @@ Container Network Interface = CNI Antrea Cluster Network Policies = ACNP Antrea 
             This post will go through the IDS/IPS built-in feature of the NSX distributed firewall.
 Abbreviations used in this article:
 IDS = Intrusion Detection System IPS = Intrusion Prevention System Introduction to VMware NSX distributed IDS &amp;amp; IPS Before we dive into how to configure and use the distributed IDS and IPS feature in NSX let me just go through the basics where I compare the traditional approach with IDS/IPS and the NSX distributed IDS/IPS.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Antrea Network Policies</title>
+      <link>https://blog.andreasm.io/2021/07/10/antrea-network-policies/</link>
+      <pubDate>Sat, 10 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.andreasm.io/2021/07/10/antrea-network-policies/</guid>
+      <description>
+        
+          
+            This post will go through the Antrea-native policy resources and how to use them to secure your Kubernetes environment combined with K8s network policies.
+Abbreviations used in this article:
+Container Network Interface = CNI Antrea Cluster Network Policies = ACNP Antrea Network Policies = ANP Kubernetes Network Policies = K8s policies or KNP When it comes to securing your K8s infrastructure it can be done in several layers in the infrastructure as a whole.
           
           
         

@@ -1,0 +1,1136 @@
+
+<!DOCTYPE html>
+<html
+  lang="en"
+  data-figures=""
+  
+    class="page"
+  
+  
+  
+    data-mode="dim"
+  >
+  <head>
+<title>Tanzu with vSphere and different Tier-0s | From 0.985mhz... to several Ghz</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TVPYDVE8KR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TVPYDVE8KR');
+</script>
+
+
+
+  
+<meta property="og:locale" content="en" />
+
+<meta property="og:type" content="article">
+<meta name="description" content="Article description." />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:creator" content="">
+<meta name="twitter:title" content="Tanzu with vSphere and different Tier-0s" />
+<meta name="twitter:image" content="https://blog.andreasm.io/2023/04/14/tanzu-with-vsphere-and-different-tier-0s/images/logo-vmware-tanzu.png"/>
+<meta property="og:url" content="https://blog.andreasm.io/2023/04/14/tanzu-with-vsphere-and-different-tier-0s/" />
+<meta property="og:title" content="Tanzu with vSphere and different Tier-0s" />
+<meta property="og:description" content="Article description." />
+<meta property="og:image" content="https://blog.andreasm.io/2023/04/14/tanzu-with-vsphere-and-different-tier-0s/images/logo-vmware-tanzu.png" />
+  <meta name="keywords" content="nsx,vmware,kubernetes" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.andreasm.io/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.andreasm.io/icons/favicon-32x32.png">
+<link rel="manifest" href="https://blog.andreasm.io/icons/site.webmanifest">
+
+<link rel="canonical" href="https://blog.andreasm.io/2023/04/14/tanzu-with-vsphere-and-different-tier-0s/">
+
+
+
+<link rel="preload" href="https://blog.andreasm.io/css/styles.6c67fa3a7f5290a2facfb027358dd2bdb5450d04b8de427c8a74d79f524a7fb716b470b14b6ba95f1b7cf3aa9a2219a7294a6adeaf16a1080f432eae45d8c03c.css" integrity = "sha512-bGf6On9SkKL6z7AnNY3SvbVFDQS43kJ8inTXn1JKf7cWtHCxS2upXxt886qaIhmnKUpq3q8WoQgPQy6uRdjAPA==" as="style" crossorigin="anonymous">
+
+
+
+<link rel="preload" href="https://blog.andreasm.io/en/js/bundle.5548d358738600c857a1f05f0459418da7143d4426c66a08bf3f15ded1b39dd2136bf104a559247a909fc4dcc45b8e06bad0870ece4c71ee5303d30550def8bd.js" as="script" integrity=
+"sha512-VUjTWHOGAMhXofBfBFlBjacUPUQmxmoIvz8V3tGzndITa/EEpVkkepCfxNzEW44GutCHDs5Mce5TA9MFUN74vQ==" crossorigin="anonymous">
+
+
+<link rel="stylesheet" type="text/css" href="https://blog.andreasm.io/css/styles.6c67fa3a7f5290a2facfb027358dd2bdb5450d04b8de427c8a74d79f524a7fb716b470b14b6ba95f1b7cf3aa9a2219a7294a6adeaf16a1080f432eae45d8c03c.css" integrity="sha512-bGf6On9SkKL6z7AnNY3SvbVFDQS43kJ8inTXn1JKf7cWtHCxS2upXxt886qaIhmnKUpq3q8WoQgPQy6uRdjAPA==" crossorigin="anonymous">
+
+
+  </head>
+  <body
+    data-code="7"
+    data-lines="false"
+    id="documentTop"
+    data-lang="en"
+  >
+
+<header class="nav_header" >
+  <nav class="nav"><a href='https://blog.andreasm.io/' class="nav_brand nav_item" title="From 0.985mhz... to several Ghz">
+  <img src="https://blog.andreasm.io/quote3.png" class="logo" alt="From 0.985mhz... to several Ghz">
+  <div class="nav_close">
+    <div><svg class="icon">
+  <title>open-menu</title>
+  <use xlink:href="#open-menu"></use>
+</svg>
+<svg class="icon">
+  <title>closeme</title>
+  <use xlink:href="#closeme"></use>
+</svg>
+</div>
+  </div>
+</a>
+
+    <div class='nav_body nav_body_left'>
+      
+      
+      
+        
+
+  <div class="nav_parent">
+    <a href="https://blog.andreasm.io/" class="nav_item" title="Home">Home </a>
+  </div>
+  <div class="nav_parent">
+    <a href="https://blog.andreasm.io/about/" class="nav_item" title="About">About </a>
+  </div>
+      
+<div class='follow'>
+<div class="color_mode">
+  <input type="checkbox" class="color_choice" id="mode">
+</div>
+
+</div>
+
+    </div>
+  </nav>
+</header>
+
+    <main>
+  
+<div class="grid-inverse wrap content">
+  <article class="post_content">
+    <h1 class="post_title">Tanzu with vSphere and different Tier-0s</h1>
+  <div class="post_meta">
+    <span><svg class="icon">
+  <title>calendar</title>
+  <use xlink:href="#calendar"></use>
+</svg>
+</span>
+    <span class="post_date">
+      14-04-2023</span>
+    <span class="post_time"> · 17 min read</span><span>&nbsp;· <a href='https://blog.andreasm.io/tags/nsx/' title="nsx" class="post_tag button button_translucent">nsx
+        </a><a href='https://blog.andreasm.io/tags/tanzu/' title="tanzu" class="post_tag button button_translucent">tanzu
+        </a><a href='https://blog.andreasm.io/tags/network/' title="network" class="post_tag button button_translucent">network
+        </a>
+    </span>
+  </div>
+
+      <div class="post_toc">
+        <h2>Overview</h2>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#nsx-and-tanzu-configurations-with-different-individual-tier-0s">NSX and Tanzu configurations with different individual Tier-0s</a>
+      <ul>
+        <li><a href="#deploy-new-edges-to-support-a-new-tier-0">Deploy new Edge(s) to support a new Tier-0</a></li>
+        <li><a href="#create-a-vsphere-namespace-to-use-our-new-tier-0">Create a vSphere Namespace to use our new Tier-0</a></li>
+      </ul>
+    </li>
+    <li><a href="#nsx-and-tanzu-configurations-with-nsx-vrf">NSX and Tanzu configurations with NSX VRF</a>
+      <ul>
+        <li><a href="#configure-vrf-tier-0-in-nsx">Configure VRF Tier-0 in NSX</a></li>
+        <li><a href="#create-a-vsphere-namespace-to-use-our-new-vrf-tier-0">Create a vSphere Namespace to use our new VRF Tier-0</a></li>
+      </ul>
+    </li>
+    <li><a href="#firewall-openings---network-diagram">Firewall openings - network diagram</a></li>
+    <li><a href="#troubleshooting">Troubleshooting</a>
+      <ul>
+        <li><a href="#ssh-supervisor-vm">SSH Supervisor VM</a></li>
+        <li><a href="#ssh-tkc-nodes">SSH TKC nodes</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </div>
+    
+    <div class="post_body"><h1 id="tanzu-with-vsphere-using-nsx-with-multiple-t0s">Tanzu with vSphere using NSX with multiple T0s</h1>
+<p>In this post I will go through how to configure Tanzu with different T0 routers in NSX for separation and network isolation.
+The first part will involve spinning up dedicated NSX Tier-0s by utlizing several NSX Edges and NSX Edge Clusters. The second part will involve using NSX VRF. Same needs, two different approaches, and some different configs in NSX. In vSphere with Tanzu with NSX we have the option to override network setting pr vSphere Namespace. That means we can place TKC clusters on different subnets/segments in NSX for ip separation, but we can also override and define separate NSX Tier-0 routers for separation all the way out to the physical infrastructure.</p>
+<p>The end-goal would be something like this (high level):</p>
+<img src=images/image-20230414134727247.png style="width:1000px" />
+<h2 id="nsx-and-tanzu-configurations-with-different-individual-tier-0s">NSX and Tanzu configurations with different individual Tier-0s</h2>
+<p>In this post I will assume a working NSX with the &quot;first&quot; T0 alredy peered and configured with BGP to its upstream router and Tanzu environment configured and running and maybe a couple of TKC clusters deployed in the &quot;original/initial&quot; Namespace/Workload Network. In other words a fully functional Tanzu with vSphere environment.
+My lab is looking like this &quot;networking wise&quot;:</p>
+<img src=images/image-20230414150018939.png style="width:600px" />
+<p>In my lab I use the following IP addresses for the following components:</p>
+<ul>
+<li>Tanzu Management network: 10.13.10.0/24 - connected to a NSX Overlay segment - manually created by me</li>
+<li>Tanzu Workload network (the initial Workload network): 10.13.96.0/20 (could be much smaller) - will be created automatically as a NSX overlay segment.</li>
+<li>Ingress: 10.13.200.0/24</li>
+<li>Egress: 10.13.201.0/24 I am doing NAT on this network (important to have in mind for later)</li>
+<li>The first Tier-0 has been configured to use uplinks on vlan 1304 in the following cidr: 10.13.4.0/24</li>
+<li>The second (new) Tier-0 will be using uplink on vlan 1305 in the follwing cidr: 10.13.5.0/24</li>
+</ul>
+<p>Using dedicated Tier-0 means we need to deploy additional edges, either in the same NSX edge cluster or a new edge cluster. This can generate some compute and admin overhead. But in some environments its not &quot;allowed&quot; to share two different network classifications over same devices. So we need separate edges for our different Tier-0s. But again, with TKGs we cant deploy our TKC clusters on other vSphere clusters than our Supervisor cluster has been configured on, so the different TKC cluster will end up on the same shared compute nodes (ESXi). But networking wise they are fully separated.</p>
+<h3 id="deploy-new-edges-to-support-a-new-tier-0">Deploy new Edge(s) to support a new Tier-0</h3>
+<p>As this is my lab, I will not deploy redundant amount of Edges, but will stick with one Edge just to get connectivity up and working. NSX Edge do not support more than 1 SR T0 pr Edge, so we need 1:1 mapping between the SR T0 and Edge. And take into consideration if running this in production we must accommodate potential edge failovers, so we should atleast have two edges responsible for a T0. If running two Tier-0 in an edge cluster we should have 4 edges (if one of them fail).<br>
+The first thing we need to do is to deploy a new Edge vm from the NSX manager. The new edge will be part of my &quot;common&quot; overlay transportzone as I cant deploy any TKC cluster on other vSphere clusters than where my Supervisor cluster has been enabled. For the VLAN transportzones one can reuse the existing Edge vlan transportzone and the same profile so they get their correct TEP VLAN. For the Uplinks it can be same VLAN trunkport (VDS or NSX VLAN segment) if the vlan trunk range includes the VLAN for the new T0 uplink.</p>
+<p>So my new edge for this second T0 will be deployed like this:</p>
+<img src=images/image-20230414144118736.png style="width:700px" />
+<img src=images/image-20230414144300850.png style="width:600px" />
+<p>After the Edge has been deployed its time to create a Edge cluster.
+<img src=images/image-20230414144431614.png style="width:600px" /></p>
+<p>Now we need to create a new segment for the coming new Tier-0 router.
+<img src=images/image-20230414144707087.png style="width:800px" /></p>
+<p>The segment has been configured to use the edge-vlan-transportzone, and with the vlan I will be using to peer with the upstream router.</p>
+<p>Now we can go ahead and create the new Tier-0:</p>
+<img src=images/image-20230414152027299.png style="width:800px" />
+<p>Give the Tier-0 a name, select your new Edge cluster. Save and go back to edit it.
+We need to add a interface:
+<img src=images/image-20230414152204319.png style="width:700px" /></p>
+<p>Give the interface a name, IP address and select the segment we create above for the new Tier-0 uplink.
+Select the Edge node and Save
+Now we have a interface, to test if it is up and running you can ping it from your upstream router.
+Next configure BGP and the BGP peering with your upstream router:</p>
+<img src=images/image-20230414152420114.png style="width:700px" />
+<p>The last thing we need to do in our newly created Tier-0 is to create a static route that can help us reach the Workload Network on the Supervisor Control Plane nodes. The TKC cluster need this connectivity.
+Click on Routing -&gt; Static Routes and add the following route (svc workload network):</p>
+<img src=images/image-20230414152757615.png style="width:700px" />
+<p>And the next-hop is defined with the ip of the other (first) Tier-0 interface on the &quot;linknett&quot; between the T0s (not configured yet):</p>
+<img src=images/image-20230414152955696.png style="width:700px" />
+<p>Add and Save. In my lab I like to create these routes in the T0s themselves instead of in the physical router. It could be done from there also.</p>
+<p>Now on the first Tier-0 we need a second or two interface (depending on the number of edges) and create a static route there also.
+The second interface will need to be in the same segment as the new Tier-0 or a dedicated link-net/segment so the Tier-0s can exchange routes between each other there. I just took the lazy approach and reused the same uplink segment my new T0 is already been configured to use. Then I saved a couple of clicks.
+In the first Tier-0 this is the new interface:</p>
+<img src=images/image-20230414153644055.png style="width:700px" />
+<p>Name it, ip address in the same range as the uplink for the new Tier-0 and same segment used in the new T0.
+Select the edge(s) that will have this/these new interface(s).
+Save.</p>
+<p>Next up is the route:
+This route (dmz I have called it) should point to the TKC workload network cidr we decide to use. The correct cidr is something we get when we create the vSphere Namespace (it is base on the Subnet prefix you configure)</p>
+<img src=images/image-20230414153901023.png style="width:700px" />
+<p>And next-hop (yes you guessed correct) is the uplink interface on the new Tier-0.</p>
+<img src=images/image-20230414154020667.png style="width:700px" />
+<p>So we should have something like this now:</p>
+<img src=images/image-20230414154511864.png style="width:700px" />
+<p>As mentioned above, these routes is maybe easier to create after we have created the vSphere Network with the correct network definition as we can see them being realized in the NSX manager.</p>
+<p>***By adding these static routes on the T0 level as I have done, means this traffic will never leave the Tier-0s, it will go over the linknet between the Tier-0 ***</p>
+<h3 id="create-a-vsphere-namespace-to-use-our-new-tier-0">Create a vSphere Namespace to use our new Tier-0</h3>
+<p>Head over to vCenter -Workload Management and create a new Namespace:</p>
+<img src=images/image-20230414155025700.png style="width:500px" />
+<img src=images/image-20230414155222954.png style="width:700px" />
+<p>Give the NS a dns compliant name, select the <em>Override Supervisor network settings</em>. From the dropdown select our new Tier-0 router.
+Uncheck NAT (dont need NAT). Fill in the IP addresses you want to use for the TKC worker nodes, and then the ingress cidr you want.</p>
+<p>Click Create. Wait a couple of second and head over to NSX and check what has been created there.</p>
+<p>In the NSX Manager you should now see the following:</p>
+<p>Network Topology:</p>
+<img src=images/image-20230418155511027.png style="width:1000px" />
+<p>Segments</p>
+<img src=images/image-20230414155535867.png style="width:1000px" />
+<p>This network is always created pr vSphere Namespace and is reserved for vSphere Pods/vSphere Services.
+A second segment is created which is of our interest:</p>
+<img src=images/image-20230414155729832.png style="width:1000px" />
+<p>This is where our first TKC Nodes in this vSphere Namespace will be placed. And we can now get the correct cidr for our static routes created above. The subnet here is 10.13.51.32727 as NSX is showing is the GW address to be 10.13.51.33/27.</p>
+<p>Under LoadBalancing we also got a new object:</p>
+<img src=images/image-20230414155956341.png style="width:1000px" />
+<p>This is our Ingress for the TKC API.</p>
+<img src=images/image-20230414160053703.png style="width:1000px" />
+<p>Under Tier-1 gateways we have a new Tier-1 gateway:</p>
+<img src=images/image-20230414160704104.png style="width:1000px" />
+<p>(Strangely enough placed in the old Edge cluster).</p>
+<p>Now it is time to deploy your new TKC cluster with the new Tier-0. Its the same procedure as every other TKC cluster. Give it a name and place it in the correct Namespace:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">cluster.x-k8s.io/v1beta1</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Cluster</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">stc-tkc-cluster-dmz</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">stc-ns-dmz</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">  </span><span class="nt">clusterNetwork</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">    </span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">      </span><span class="nt">cidrBlocks</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;20.30.0.0/16&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">    </span><span class="nt">pods</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">      </span><span class="nt">cidrBlocks</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;20.40.0.0/16&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">    </span><span class="nt">serviceDomain</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;cluster.local&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">  </span><span class="nt">topology</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l">tanzukubernetescluster</span><span class="w">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l">v1.23.8---vmware.2-tkg.2-zshippable</span><span class="w">
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w">    </span><span class="nt">controlPlane</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w">      </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w">      </span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w">        </span><span class="nt">annotations</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w">          </span><span class="nt">run.tanzu.vmware.com/resolve-os-image</span><span class="p">:</span><span class="w"> </span><span class="l">os-name=ubuntu</span><span class="w">
+</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="w">    </span><span class="nt">workers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="w">      </span><span class="nt">machineDeployments</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="w">        </span>- <span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l">node-pool</span><span class="w">
+</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">node-pool-01</span><span class="w">
+</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="w">          </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="w">          </span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="w">            </span><span class="nt">annotations</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="w">              </span><span class="nt">run.tanzu.vmware.com/resolve-os-image</span><span class="p">:</span><span class="w"> </span><span class="l">os-name=ubuntu</span><span class="w">
+</span></span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="w">    </span><span class="nt">variables</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">30</span><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">vmClass</span><span class="w">
+</span></span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="w">        </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l">best-effort-small</span><span class="w"> </span><span class="c">#machineclass, get the available classes by running &#39;k get virtualmachineclass&#39; in vSphere ns context</span><span class="w">
+</span></span></span><span class="line"><span class="ln">32</span><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">storageClass</span><span class="w">
+</span></span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="w">        </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l">vsan-default-storage-policy</span><span class="w">
+</span></span></span></code></pre></div><p>Then it is just running:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">kubectl apply -f yaml.file
+</span></span></code></pre></div><p>And a couple of minutes later (if all preps have been done correctly) you should have a new TKC cluster using the new T0.</p>
+<img src=images/image-20230414161125662.png style="width:600px" />
+<h2 id="nsx-and-tanzu-configurations-with-nsx-vrf">NSX and Tanzu configurations with NSX VRF</h2>
+<p>In NSX-T 3.0 VRF was a new feature, and configuring it was a bit cumbersome, but already from NSX-T 3.1 adding and configuring a VRF Tier-0 is very straightforward. The benefit of using VRF is that it does not dictate the requirement of additional NSX Edges, and we can create many VRF T0s. We can &quot;reuse&quot; the same Edges that has already been configured with a Tier-0. Instead a VRF T0 will be linked to that already existing Tier-0 which will then be the Parent Tier-0. Some settings will be inherited from the parent Tier-0 like BGP AS number. But we can achieve ip-separation by using individual uplinks on the VRF Tier-0s and peer to different upstream routers than our parent Tier-0. The VRF Tier0 will have its own Tier-1 linked to it. So all the way from the physical world to the VM we have a dedicated ip network. To be able to configure VRF Tier-0 we need to make sure the uplinks our Edges have been configured with have the correct vlan trunk range so we can create dedicated VRF Tier0 uplink segments in their respective vlan. The VRF Tier0 will use the same &quot;physical&quot; uplinks as the Edges have been configured with, but using different VLAN for the Tier-0 uplinks. I will go through how I configre VRF T0 in my environment. Pr default there is no route leakage between the parent Tier-0 and the VRF-T0 created, if you want to exhange routes between them we need to create those static routes ourselves. Read more about NSX VRF <a href="https://docs.vmware.com/en/VMware-NSX/4.1/administration/GUID-8C060C35-1AD2-4B71-AB15-C551F392E528.html">here</a>.</p>
+<p>In this part of my lab I use the following IP addresses for the following components:</p>
+<ul>
+<li>Tanzu Management network: 172.21.103.0/24 - connected to a VDS port group - manually created by me</li>
+<li>Tanzu Workload network (the initial Workload network): 10.103.100.0/23 - will be created automatically as a NSX overlay segment.</li>
+<li>Ingress: 10.103.200.0/24</li>
+<li>Egress: 10.103.201.0/24 I am doing NAT on this network (important to have in mind for later)</li>
+<li>The first Tier-0 has been configured to use uplinks on vlan 1034 in the following cidr: 10.103.4.0/24</li>
+<li>The VRF Tier-0 will be using uplink on vlan 1035 in the follwing cidr: 10.103.5.0/24</li>
+</ul>
+<p>Here is a digram showing high-level how VRF-T0 looks like:</p>
+<img src=images/image-20230417154949894.png style="width:700px" />
+<p>The Edge VM network config:</p>
+<img src=images/image-20230417152224112.png style="width:700px" />
+<h3 id="configure-vrf-tier-0-in-nsx">Configure VRF Tier-0 in NSX</h3>
+<p>Head over the NSX manager -&gt; Networking -&gt; Tier-0 Gateways and click Add Gateway:</p>
+<img src=images/image-20230417155258313.png style="width:300px" />
+<p>Then give it a name and select the parent Tier0:</p>
+<img src=images/image-20230417155430904.png style="width:10000px" />
+<p>Click save.</p>
+<p>Now head over to Segments and create the VRF-Tier0 Uplink segment:</p>
+<img src=images/image-20230417155648842.png style="width:1000px" />
+<p>Give it a name, select the Edge VLAN Transportzone and enter the VLAN for the VRF T0-uplink (you can also create a vlan Trunk range here instead of creating two distinct segments for both uplinks). In my lab I will only use one uplink.</p>
+<p>Click save</p>
+<p>Now head back to your VRF T0 again and add a interface:</p>
+<img src=images/image-20230417155959414.png style="width:1000px" />
+<p>Give it a name, select external, enter the IP for the uplink you will use to peer with your upstream router, then select the segment created earlier. Select the Edge that will get this interface. Notice also the Access VLAN ID field. There is no need to enter the VLAN here as we only defined one VLAN in our segment, had we created a VLAN range we need to define a VLAN here. It discovers the correct VLAN as we can see. Click save. Remember that for this VLAN to &quot;come through&quot; the Edge needs to be on a trunk-port that allows this VLAN.</p>
+<p>You can verify the L2 connectivity from your router:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">root@cpodrouter-v7n31 <span class="o">[</span> ~ <span class="o">]</span><span class="c1"># ping 10.103.5.10</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">PING 10.103.5.10 <span class="o">(</span>10.103.5.10<span class="o">)</span> 56<span class="o">(</span>84<span class="o">)</span> bytes of data.
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="m">64</span> bytes from 10.103.5.10: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">1</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">64</span> <span class="nv">time</span><span class="o">=</span>4.42 ms
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="m">64</span> bytes from 10.103.5.10: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">2</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">64</span> <span class="nv">time</span><span class="o">=</span>0.627 ms
+</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="m">64</span> bytes from 10.103.5.10: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">3</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">64</span> <span class="nv">time</span><span class="o">=</span>0.776 ms
+</span></span><span class="line"><span class="ln">6</span><span class="cl">^C
+</span></span><span class="line"><span class="ln">7</span><span class="cl">--- 10.103.5.10 ping statistics ---
+</span></span><span class="line"><span class="ln">8</span><span class="cl"><span class="m">3</span> packets transmitted, <span class="m">3</span> received, 0% packet loss, <span class="nb">time</span> 10ms
+</span></span><span class="line"><span class="ln">9</span><span class="cl">rtt min/avg/max/mdev <span class="o">=</span> 0.627/1.939/4.416/1.752 ms
+</span></span></code></pre></div><p>Now that we have verified that its time for BGP to configured in our upstream router and in our VRF Tier-0.
+I have already configured my upstream router to accept my VRF T0 as a BGP neighbour, I just need to confgure BGP on my new VRF Tier-0.
+In the VRF Tier-0 go to BGP and add a bgp neighbour (notice that we need to enable BGP, not enabled by default, and you cant change the BGP as number):</p>
+<img src=images/image-20230417160843473.png style="width:800px" />
+<p>Click save.</p>
+<img src=images/image-20230417161021895.png style="width:800px" />
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">Neighbor        V         AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd
+</span></span><span class="line"><span class="ln">2</span><span class="cl">10.103.4.10     <span class="m">4</span> <span class="m">66803</span>     <span class="m">336</span>     <span class="m">345</span>        <span class="m">0</span>    <span class="m">0</span>    <span class="m">0</span> 05:30:33        <span class="m">3</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">10.103.5.10     <span class="m">4</span> <span class="m">66803</span>       <span class="m">2</span>      <span class="m">19</span>        <span class="m">0</span>    <span class="m">0</span>    <span class="m">0</span> 00:01:38        <span class="m">0</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">172.20.0.1      <span class="m">4</span> <span class="m">65700</span>     <span class="m">445</span>     <span class="m">437</span>        <span class="m">0</span>    <span class="m">0</span>    <span class="m">0</span> 07:09:43       <span class="m">74</span>
+</span></span></code></pre></div><p>My new neighbour has jouined the party. Now just make sure it will advertise the needed networks. Lets configure that:
+In the VRF T0, click <em>route re-distribution</em> and SET</p>
+<img src=images/image-20230417161348185.png style="width:800px" />
+<p>Now my new VRF-Tier 0 is ready to route and accept new linked Tier-1s. How does it look like in the NSX map?</p>
+<img src=images/image-20230417161652315.png style="width:800px" />
+<p>Looking good.</p>
+<p>Let us get back to this picture when we have deployed a TKC cluster on it.</p>
+<h3 id="create-a-vsphere-namespace-to-use-our-new-vrf-tier-0">Create a vSphere Namespace to use our new VRF Tier-0</h3>
+<p>This will be the same approach as above <a href="">here</a> only difference is we are selecting a VRF Tier0 instead.
+<img src=images/image-20230417162054851.png style="width:600px" /></p>
+<p>Here I have selected the VRF Tier-0 and defined the network for it. I have disabled NAT.</p>
+<p>Now what have happened in NSX? Lets have a look.
+The network topology has been updated:</p>
+<img src=images/image-20230417162350912.png style="width:800px" />
+<p>A new Tier-1 has been created:</p>
+<img src=images/image-20230417162441926.png style="width:1000px" />
+<p>And ofcourse the loadbalancer interface:</p>
+<img src=images/image-20230417162629489.png style="width:1000px" />
+<p>But the most interesting part is the static routes being created. Let us have a look at these.</p>
+<p>In the VRF T0 it has created two additonal static routes:</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="image-20230417162553365"
+      
+        class="image_figure image_internal image_processed"
+        width="834"
+        height="316"
+        src="/2023/04/14/tanzu-with-vsphere-and-different-tier-0s/images/image-20230417162553365.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>Those to routes above points to the Supervisor Workload network and the Supervisor Ingress network. Next hop is:</p>
+<img src=images/image-20230417163423129.png style="width:800px" />
+<p>These are the Tier0-Tier-1 transit net interface:</p>
+<img src=images/image-20230417163927367.png style="width:600px" />
+<p>What static routes have been configured on the parent Tier-0?</p>
+<img src=images/image-20230417164050932.png style="width:700px" />
+<p>And next-hop is:</p>
+<img src=images/image-20230417164144549.png style="width:700px" />
+<p>These routes are pointing to the new vSphere Namespace network, and Ingress network we defined to use the new VRF-Tier0.</p>
+<p>High-level overview of the static routes being created automatically by NCP:</p>
+<img src=images/image-20230418093546154.png style="width:800px" />
+<p>When the TKC cluster is deployed the NSX map will look like this:</p>
+<img src=images/image-20230418090040430.png style="width:800px" />
+<p>A new segment as been added (vnet-domain-c8:5135e3cc-aca4-4c99-8f9f-903e68496937-wdc-ns-1-vrf-wdc-cl-58aaa-0), which is the segment where the TKC workers have been placed. Notice that it is using a /27 subnet as defined in the Namespace Subnet Prefix above. The first segment (/27 chunk) (seg-domain-xxxxx) is always reserved for the Supervisor Services/vSphere Pods. As I decided not to use NAT I can reach the worker nodes IP addresses directly from my management jumpbox (if allowed routing/firewall wise). Note that ping is default disabled/blocked. So to test connectivity try port 22 with SSH/curl/telnet etc.</p>
+<img src=images/image-20230418092127980.png style="width:800px" />
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">andreasm@linuxvm01:~/tkgs_vsphere7$ ssh 10.103.51.34
+</span></span><span class="line"><span class="ln">2</span><span class="cl">The authenticity of host <span class="s1">&#39;10.103.51.34 (10.103.51.34)&#39;</span> can<span class="err">&#39;</span>t be established.
+</span></span><span class="line"><span class="ln">3</span><span class="cl">ECDSA key fingerprint is SHA256:qonxA8ySCbic0YcCAg9i2pLM9Wpb+8+UGpAcU1qAXHs.
+</span></span><span class="line"><span class="ln">4</span><span class="cl">Are you sure you want to <span class="k">continue</span> connecting <span class="o">(</span>yes/no/<span class="o">[</span>fingerprint<span class="o">])</span>?
+</span></span></code></pre></div><p>But before you can reach it directly you need to allow this with a firewall rule in NSX as there is a default block rule here:</p>
+<img src=images/image-20230418091059470.png style="width:1000px" />
+<p>In order to &quot;override&quot; this rule we need to create a rule earlier in the NSX Distributed Firewall. Below is just a test rule I created, its far to open/liberal of course:</p>
+<img src=images/image-20230418091309242.png style="width:1000px" />
+<p>The group membership in the above rules is just the vnet-domain-c8:5135e3cc-aca4-4c99-8f9f-903e68496937-wdc-ns-1-vrf-wdc-cl-58aaa-0 segment where my TKC workers in this namespace will reside. So if I scale down/up this cluster the content will be dynamically updated. I dont have to update the rule or security group, its done automatic.</p>
+<h2 id="firewall-openings---network-diagram">Firewall openings - network diagram</h2>
+<img src=images/image-20230418134119924.png style="width:1000px" />
+<p>I will get back and update this section with a table and update the diagram with more details.</p>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<p>To troubleshoot networking scenarios with Tanzu it can sometimes help to SSH into the Supervisor Controlplane VMs and the TKC worker nodes. When I tested out this multi Tier-0 setup I had an issue that only the control plane node of my TKC cluster were being spun up, it never came to deploying the worker nodes. I knew it had to do with connectivity between the Supervisor and TKC.
+I used NSX Traceflow to verify that connectivity worked as intended which my traceflow in NSX did show me, but still it did not work. So sometimes it is better to see whats going on from the workloads perspective themselves.</p>
+<h3 id="ssh-supervisor-vm">SSH Supervisor VM</h3>
+<p>To log in to the Supervisor VMs we need the root password. This password can be retreived from the vCenter server. SSH into the vCenter server:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl">root@vcsa <span class="o">[</span> /lib/vmware-wcp <span class="o">]</span><span class="c1"># ./decryptK8Pwd.py</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">Read key from file
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">Connected to PSQL
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">Cluster: domain-c35:dd5825a9-8f62-4823-9347-a9723b6800d5
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">IP: 172.21.102.81
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">PWD: PASSWORD-IS-HERE
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">------------------------------------------------------------
+</span></span><span class="line"><span class="ln">10</span><span class="cl">
+</span></span><span class="line"><span class="ln">11</span><span class="cl">Cluster: domain-c8:dd5825a9-8f62-4823-9347-a9723b6800d5
+</span></span><span class="line"><span class="ln">12</span><span class="cl">IP: 10.101.10.21
+</span></span><span class="line"><span class="ln">13</span><span class="cl">PWD: PASSWORD-IS-HERE
+</span></span><span class="line"><span class="ln">14</span><span class="cl">------------------------------------------------------------
+</span></span></code></pre></div><p>Now that we have the root password one can log into the Supervisor VM with SSH and password through the Management Interface (the Workload Interface IP is probably behind NAT so is not reachable OOB):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">andreasm@andreasm:~/from_ubuntu_vm/tkgs/tkgs-stc-cpod$ ssh root@10.101.10.22
+</span></span><span class="line"><span class="ln">2</span><span class="cl">The authenticity of host <span class="s1">&#39;10.101.10.22 (10.101.10.22)&#39;</span> can<span class="err">&#39;</span>t be established.
+</span></span><span class="line"><span class="ln">3</span><span class="cl">ED25519 key fingerprint is SHA256:vmeHlDgquXrZTK3yyevmY2QfISW1WNoTC5TZJblw1J4.
+</span></span><span class="line"><span class="ln">4</span><span class="cl">This key is not known by any other names
+</span></span><span class="line"><span class="ln">5</span><span class="cl">Are you sure you want to <span class="k">continue</span> connecting <span class="o">(</span>yes/no/<span class="o">[</span>fingerprint<span class="o">])</span>?
+</span></span></code></pre></div><p>And from in here we can use some basic troubleshooting tools to verify if the different networks can be reached from the Supervisor VM. In the example below I try to verify if it can reach the K8s API VIP for the TKC cluster deployed behind the new Tier-0. I am adding <em>--interface eth1</em> as I want to specifically use the Workload Network interface on the SVM.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">curl --interface eth1 https://10.13.52.1:6443
+</span></span></code></pre></div><p>The respons should be immediate, if not you have network reachability issues:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">curl: <span class="o">(</span>28<span class="o">)</span> Failed to connect to 10.13.52.1 port <span class="m">6443</span> after <span class="m">131108</span> ms: Couldn<span class="err">&#39;</span>t connect to server
+</span></span></code></pre></div><p>What you should see is this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">root@423470e48788edd2cd24398f794c5f7b <span class="o">[</span> ~ <span class="o">]</span><span class="c1"># curl --interface eth1 https://10.13.52.1:6443</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">curl: <span class="o">(</span>60<span class="o">)</span> SSL certificate problem: unable to get <span class="nb">local</span> issuer certificate
+</span></span><span class="line"><span class="ln">3</span><span class="cl">More details here: https://curl.se/docs/sslcerts.html
+</span></span><span class="line"><span class="ln">4</span><span class="cl">
+</span></span><span class="line"><span class="ln">5</span><span class="cl">curl failed to verify the legitimacy of the server and therefore could not
+</span></span><span class="line"><span class="ln">6</span><span class="cl">establish a secure connection to it. To learn more about this situation and
+</span></span><span class="line"><span class="ln">7</span><span class="cl">how to fix it, please visit the web page mentioned above.
+</span></span></code></pre></div><h3 id="ssh-tkc-nodes">SSH TKC nodes</h3>
+<p>The nodes in a TKC cluster can also be SSH'ed into. If you dont do NAT on your vSphere Namespace network they can be reach directly on their IPs (if from where your SSH jumpbox is allowed routing wise/firewall wise). But if you are NAT'ing then you have to place your SSH jumpbox in the same segment as the TKC nodes you want to SSH into. Or add a second interface on your jumpbox placed in this network. The segment is created in NSX and is called something like this:</p>
+<img src=images/image-20230415093000226.png style="width:800px" />
+<p>To get the password for the TKC nodes you can get them with kubectl like this:
+Put yourselves in the context of the namespace where your workload nodes is deployed:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">andreasm@andreasm:~$ vsphere-kubectl login --server<span class="o">=</span>10.101.11.2 --insecure-skip-tls-verify --vsphere-username<span class="o">=</span>andreasm@cpod-nsxam-wdc.az-wdc.cloud-garage.net --tanzu-kubernetes-cluster-namespace ns-wdc-1-nat
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">andreasm@andreasm:~$ k config current-context
+</span></span><span class="line"><span class="ln">2</span><span class="cl">tkc-cluster-nat
+</span></span></code></pre></div><p>Then get the SSH secret:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl">andreasm@andreasm:~$ k get secrets
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">NAME                                                   TYPE                                  DATA   AGE
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">default-token-fqvbp                                    kubernetes.io/service-account-token   <span class="m">3</span>      127d
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">tkc-cluster-1-antrea-data-values                       Opaque                                <span class="m">1</span>      127d
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">tkc-cluster-1-auth-svc-cert                            kubernetes.io/tls                     <span class="m">3</span>      127d
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">tkc-cluster-1-ca                                       cluster.x-k8s.io/secret               <span class="m">2</span>      127d
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">tkc-cluster-1-capabilities-package                     clusterbootstrap-secret               <span class="m">1</span>      127d
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">tkc-cluster-1-encryption                               Opaque                                <span class="m">1</span>      127d
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">tkc-cluster-1-etcd                                     cluster.x-k8s.io/secret               <span class="m">2</span>      127d
+</span></span><span class="line"><span class="ln">10</span><span class="cl">tkc-cluster-1-extensions-ca                            kubernetes.io/tls                     <span class="m">3</span>      127d
+</span></span><span class="line"><span class="ln">11</span><span class="cl">tkc-cluster-1-guest-cluster-auth-service-data-values   Opaque                                <span class="m">1</span>      127d
+</span></span><span class="line"><span class="ln">12</span><span class="cl">tkc-cluster-1-kapp-controller-data-values              Opaque                                <span class="m">2</span>      127d
+</span></span><span class="line"><span class="ln">13</span><span class="cl">tkc-cluster-1-kubeconfig                               cluster.x-k8s.io/secret               <span class="m">1</span>      127d
+</span></span><span class="line"><span class="ln">14</span><span class="cl">tkc-cluster-1-metrics-server-package                   clusterbootstrap-secret               <span class="m">0</span>      127d
+</span></span><span class="line"><span class="ln">15</span><span class="cl">tkc-cluster-1-node-pool-01-bootstrap-j2r7s-fgmm2       cluster.x-k8s.io/secret               <span class="m">2</span>      42h
+</span></span><span class="line"><span class="ln">16</span><span class="cl">tkc-cluster-1-node-pool-01-bootstrap-j2r7s-r5lcm       cluster.x-k8s.io/secret               <span class="m">2</span>      42h
+</span></span><span class="line"><span class="ln">17</span><span class="cl">tkc-cluster-1-node-pool-01-bootstrap-j2r7s-w96ft       cluster.x-k8s.io/secret               <span class="m">2</span>      42h
+</span></span><span class="line"><span class="ln">18</span><span class="cl">tkc-cluster-1-pinniped-package                         clusterbootstrap-secret               <span class="m">1</span>      127d
+</span></span><span class="line"><span class="ln">19</span><span class="cl">tkc-cluster-1-proxy                                    cluster.x-k8s.io/secret               <span class="m">2</span>      127d
+</span></span><span class="line"><span class="ln">20</span><span class="cl">tkc-cluster-1-sa                                       cluster.x-k8s.io/secret               <span class="m">2</span>      127d
+</span></span><span class="line"><span class="ln">21</span><span class="cl">tkc-cluster-1-secretgen-controller-package             clusterbootstrap-secret               <span class="m">0</span>      127d
+</span></span><span class="line"><span class="ln">22</span><span class="cl">tkc-cluster-1-ssh                                      kubernetes.io/ssh-auth                <span class="m">1</span>      127d
+</span></span><span class="line"><span class="ln">23</span><span class="cl">tkc-cluster-1-ssh-password                             Opaque                                <span class="m">1</span>      127d
+</span></span><span class="line"><span class="ln">24</span><span class="cl">tkc-cluster-1-ssh-password-hashed                      Opaque                                <span class="m">1</span>      127d
+</span></span></code></pre></div><p>I am interested in this one:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">tkc-cluster-1-ssh-password
+</span></span></code></pre></div><p>So I will go ahead and retrieve the content of it:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl">andreasm@andreasm:~$ k get secrets tkc-cluster-1-ssh-password -oyaml
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">apiVersion: v1
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">data:
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">  ssh-passwordkey: aSx--redacted---KJS<span class="o">=</span>    <span class="c1">#Here is the ssh password in base64</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">kind: Secret
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">metadata:
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">  creationTimestamp: <span class="s2">&#34;2022-12-08T10:52:28Z&#34;</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">  name: tkc-cluster-1-ssh-password
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">  namespace: stc-tkc-ns-1
+</span></span><span class="line"><span class="ln">10</span><span class="cl">  ownerReferences:
+</span></span><span class="line"><span class="ln">11</span><span class="cl">  - apiVersion: cluster.x-k8s.io/v1beta1
+</span></span><span class="line"><span class="ln">12</span><span class="cl">    kind: Cluster
+</span></span><span class="line"><span class="ln">13</span><span class="cl">    name: tkc-cluster-1
+</span></span><span class="line"><span class="ln">14</span><span class="cl">    uid: 4a9c6137-0223-46d8-96d2-ab3564e375fc
+</span></span><span class="line"><span class="ln">15</span><span class="cl">  resourceVersion: <span class="s2">&#34;499590&#34;</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">  uid: 75b163a3-4e62-4b33-93de-ae46ee314751
+</span></span><span class="line"><span class="ln">17</span><span class="cl">type: Opaque
+</span></span></code></pre></div><p>Now I just need to decode the base64 encoded pasword:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">andreasm@andreasm:~$ <span class="nb">echo</span> <span class="s1">&#39;aSx--redacted---KJS=&#39;</span> <span class="p">|</span>base64 --decode
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="nv">passwordinplaintexthere</span><span class="o">=</span>andreasm@andreasm:~$
+</span></span></code></pre></div><p>Now we can use this password to log in to the TKC nodes with the user: vmware-system-user</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">ssh vmware-system-user@10.101.51.34
+</span></span></code></pre></div>
+    </div>
+
+
+
+
+  </article>
+<aside class="sidebar">
+  <section class="sidebar_inner">
+    <br>
+    
+  
+  <div class="search">
+    <input type="search" class="search_field form_field" placeholder='Search...' id="find" autocomplete="off" data-scope='post'>
+    <label for="find" class="search_label"><svg class="icon">
+  <title>search</title>
+  <use xlink:href="#search"></use>
+</svg>
+
+    </label>
+    
+    <div class="search_results results"></div>
+  </div>
+
+        <h2>Hi there</h2>
+      <div class="author_bio">
+        This blog is a WIP, sometimes I just throw up some topics for myself to remember to be finished later. Stay tuned...
+      </div>
+      <a href='https://blog.andreasm.io/about/' class="button mt-1" role="button" title='Read More'>Read More</a>
+
+    
+    
+    <h2 class="mt-4">Recent Posts</h2>
+    <ul class="flex-column">
+      <li>
+        <a href="https://blog.andreasm.io/2023/04/14/tanzu-with-vsphere-and-different-tier-0s/" class="nav-link" title="Tanzu with vSphere and different Tier-0s">Tanzu with vSphere and different Tier-0s</a>
+      </li>
+      <li>
+        <a href="https://blog.andreasm.io/2023/03/22/tanzu-kubernetes-grid-2.1/" class="nav-link" title="Tanzu Kubernetes Grid 2.1">Tanzu Kubernetes Grid 2.1</a>
+      </li>
+      <li>
+        <a href="https://blog.andreasm.io/2023/03/04/hosting-my-blog-on-github/" class="nav-link" title="Hosting my blog on Github">Hosting my blog on Github</a>
+      </li>
+      <li>
+        <a href="https://blog.andreasm.io/2023/02/20/antrea-egress/" class="nav-link" title="Antrea Egress">Antrea Egress</a>
+      </li>
+      <li>
+        <a href="https://blog.andreasm.io/2022/10/26/vsphere-8-with-tanzu-using-vds-and-avi-loadbalancer/" class="nav-link" title="vSphere 8 with Tanzu using VDS and Avi Loadbalancer">vSphere 8 with Tanzu using VDS and Avi Loadbalancer</a>
+      </li>
+      <li>
+        <a href="https://blog.andreasm.io/2022/10/26/vsphere-8-with-tanzu-using-nsx-t-avi-loadbalancer/" class="nav-link" title="vSphere 8 with Tanzu using NSX-T &amp; Avi LoadBalancer">vSphere 8 with Tanzu using NSX-T &amp; Avi LoadBalancer</a>
+      </li>
+      <li>
+        <a href="https://blog.andreasm.io/2022/10/26/ako-explained/" class="nav-link" title="AKO Explained">AKO Explained</a>
+      </li>
+      <li>
+        <a href="https://blog.andreasm.io/2022/10/23/gslb-with-ako-amko-nsx-advanced-loadbalancer/" class="nav-link" title="GSLB With AKO &amp; AMKO - NSX Advanced LoadBalancer">GSLB With AKO &amp; AMKO - NSX Advanced LoadBalancer</a>
+      </li>
+    </ul>
+    <div>
+      <h2 class="mt-4 taxonomy" id="categories-section">Categories</h2>
+      <nav class="tags_nav">
+        <a href='https://blog.andreasm.io/categories/kubernetes/' class="post_tag button button_translucent" title="kubernetes">
+          KUBERNETES
+          <span class="button_tally">22</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/networking/' class="post_tag button button_translucent" title="networking">
+          NETWORKING
+          <span class="button_tally">15</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/loadbalancing/' class="post_tag button button_translucent" title="loadbalancing">
+          LOADBALANCING
+          <span class="button_tally">6</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/tanzu/' class="post_tag button button_translucent" title="tanzu">
+          TANZU
+          <span class="button_tally">5</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/avi/' class="post_tag button button_translucent" title="avi">
+          AVI
+          <span class="button_tally">4</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/cni/' class="post_tag button button_translucent" title="cni">
+          CNI
+          <span class="button_tally">4</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/security/' class="post_tag button button_translucent" title="security">
+          SECURITY
+          <span class="button_tally">4</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/nsx/' class="post_tag button button_translucent" title="nsx">
+          NSX
+          <span class="button_tally">3</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/blog/' class="post_tag button button_translucent" title="blog">
+          BLOG
+          <span class="button_tally">2</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/vmware-nsx/' class="post_tag button button_translucent" title="vmware-nsx">
+          VMWARE-NSX
+          <span class="button_tally">2</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/certificate/' class="post_tag button button_translucent" title="certificate">
+          CERTIFICATE
+          <span class="button_tally">1</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/docker/' class="post_tag button button_translucent" title="docker">
+          DOCKER
+          <span class="button_tally">1</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/github/' class="post_tag button button_translucent" title="github">
+          GITHUB
+          <span class="button_tally">1</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/harbor/' class="post_tag button button_translucent" title="harbor">
+          HARBOR
+          <span class="button_tally">1</span>
+        </a>
+        
+        
+        <br>
+        <div class="post_tags_toggle button">All Categories</div>
+        <div class="post_tags">
+          <div class="tags_list">
+            
+            <a href='https://blog.andreasm.io/categories/avi/' class=" post_tag button button_translucent" data-position=4 title="avi">AVI<span class="button_tally">4</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/blog/' class=" post_tag button button_translucent" data-position=2 title="blog">BLOG<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/certificate/' class=" post_tag button button_translucent" data-position=1 title="certificate">CERTIFICATE<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/cni/' class=" post_tag button button_translucent" data-position=4 title="cni">CNI<span class="button_tally">4</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/docker/' class=" post_tag button button_translucent" data-position=1 title="docker">DOCKER<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/github/' class=" post_tag button button_translucent" data-position=1 title="github">GITHUB<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/harbor/' class=" post_tag button button_translucent" data-position=1 title="harbor">HARBOR<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/helm/' class=" post_tag button button_translucent" data-position=1 title="helm">HELM<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/home-automation/' class=" post_tag button button_translucent" data-position=1 title="home-automation">HOME-AUTOMATION<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/hugo/' class=" post_tag button button_translucent" data-position=1 title="hugo">HUGO<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/kubernetes/' class=" post_tag button button_translucent" data-position=22 title="kubernetes">KUBERNETES<span class="button_tally">22</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/loadbalancing/' class=" post_tag button button_translucent" data-position=6 title="loadbalancing">LOADBALANCING<span class="button_tally">6</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/logging/' class=" post_tag button button_translucent" data-position=1 title="logging">LOGGING<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/monitoring/' class=" post_tag button button_translucent" data-position=1 title="monitoring">MONITORING<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/netowkring/' class=" post_tag button button_translucent" data-position=1 title="netowkring">NETOWKRING<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/networking/' class=" post_tag button button_translucent" data-position=15 title="networking">NETWORKING<span class="button_tally">15</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/nsx/' class=" post_tag button button_translucent" data-position=3 title="nsx">NSX<span class="button_tally">3</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/nsx-t/' class=" post_tag button button_translucent" data-position=1 title="nsx-t">NSX-T<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/pinniped/' class=" post_tag button button_translucent" data-position=1 title="pinniped">PINNIPED<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/rbac/' class=" post_tag button button_translucent" data-position=1 title="rbac">RBAC<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/security/' class=" post_tag button button_translucent" data-position=4 title="security">SECURITY<span class="button_tally">4</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/storage/' class=" post_tag button button_translucent" data-position=1 title="storage">STORAGE<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/tanzu/' class=" post_tag button button_translucent" data-position=5 title="tanzu">TANZU<span class="button_tally">5</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/troubleshooting/' class=" post_tag button button_translucent" data-position=1 title="troubleshooting">TROUBLESHOOTING<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/virtualization/' class=" post_tag button button_translucent" data-position=1 title="virtualization">VIRTUALIZATION<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/vmare-nsx-intelligence/' class=" post_tag button button_translucent" data-position=1 title="vmare-nsx-intelligence">VMARE-NSX-INTELLIGENCE<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/vmware-cloud/' class=" post_tag button button_translucent" data-position=1 title="vmware-cloud">VMWARE-CLOUD<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/vmware-nsx/' class=" post_tag button button_translucent" data-position=2 title="vmware-nsx">VMWARE-NSX<span class="button_tally">2</span>
+            </a>
+            
+            <div class="tags_sort"><span title="sort alphabetically">[A~Z]</span><span title="sort by count">[0~9]</span>
+            </div>
+            <span class="tags_hide"><svg class="icon">
+            <use xlink:href="#closeme"></use>
+          </svg></span>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div>
+      <h2 class="mt-4 taxonomy" id="tags-section">Tags</h2>
+      <nav class="tags_nav">
+        <a href='https://blog.andreasm.io/tags/kubernetes/' class="post_tag button button_translucent" title="kubernetes">
+          KUBERNETES
+          <span class="button_tally">13</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/nsx/' class="post_tag button button_translucent" title="nsx">
+          NSX
+          <span class="button_tally">8</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/ako/' class="post_tag button button_translucent" title="ako">
+          AKO
+          <span class="button_tally">7</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/antrea/' class="post_tag button button_translucent" title="antrea">
+          ANTREA
+          <span class="button_tally">6</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/security/' class="post_tag button button_translucent" title="security">
+          SECURITY
+          <span class="button_tally">5</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/tanzu/' class="post_tag button button_translucent" title="tanzu">
+          TANZU
+          <span class="button_tally">5</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/avi/' class="post_tag button button_translucent" title="avi">
+          AVI
+          <span class="button_tally">4</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/ingress/' class="post_tag button button_translucent" title="ingress">
+          INGRESS
+          <span class="button_tally">4</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/loadbalancing/' class="post_tag button button_translucent" title="loadbalancing">
+          LOADBALANCING
+          <span class="button_tally">3</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/docker/' class="post_tag button button_translucent" title="docker">
+          DOCKER
+          <span class="button_tally">2</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/hugo/' class="post_tag button button_translucent" title="hugo">
+          HUGO
+          <span class="button_tally">2</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/informational/' class="post_tag button button_translucent" title="informational">
+          INFORMATIONAL
+          <span class="button_tally">2</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/network/' class="post_tag button button_translucent" title="network">
+          NETWORK
+          <span class="button_tally">2</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/network-policies/' class="post_tag button button_translucent" title="network-policies">
+          NETWORK-POLICIES
+          <span class="button_tally">2</span>
+        </a>
+        
+        
+        <br>
+        <div class="post_tags_toggle button">All Tags</div>
+        <div class="post_tags">
+          <div class="tags_list">
+            
+            <a href='https://blog.andreasm.io/tags/ako/' class=" post_tag button button_translucent" data-position=7 title="ako">AKO<span class="button_tally">7</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/amko/' class=" post_tag button button_translucent" data-position=1 title="amko">AMKO<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/antrea/' class=" post_tag button button_translucent" data-position=6 title="antrea">ANTREA<span class="button_tally">6</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/authentication/' class=" post_tag button button_translucent" data-position=1 title="authentication">AUTHENTICATION<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/automation/' class=" post_tag button button_translucent" data-position=1 title="automation">AUTOMATION<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/avi/' class=" post_tag button button_translucent" data-position=4 title="avi">AVI<span class="button_tally">4</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/cert-manager/' class=" post_tag button button_translucent" data-position=1 title="cert-manager">CERT-MANAGER<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/certificate/' class=" post_tag button button_translucent" data-position=1 title="certificate">CERTIFICATE<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/custom-resource-definitions/' class=" post_tag button button_translucent" data-position=1 title="custom-resource-definitions">CUSTOM-RESOURCE-DEFINITIONS<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/distributed-firewall/' class=" post_tag button button_translucent" data-position=1 title="distributed-firewall">DISTRIBUTED-FIREWALL<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/dns-service/' class=" post_tag button button_translucent" data-position=1 title="dns-service">DNS-SERVICE<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/docker/' class=" post_tag button button_translucent" data-position=2 title="docker">DOCKER<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/github/' class=" post_tag button button_translucent" data-position=1 title="github">GITHUB<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/grafana/' class=" post_tag button button_translucent" data-position=1 title="grafana">GRAFANA<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/gslb/' class=" post_tag button button_translucent" data-position=1 title="gslb">GSLB<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/harbor/' class=" post_tag button button_translucent" data-position=1 title="harbor">HARBOR<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/home-assistant/' class=" post_tag button button_translucent" data-position=1 title="home-assistant">HOME-ASSISTANT<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/hugo/' class=" post_tag button button_translucent" data-position=2 title="hugo">HUGO<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/ids/' class=" post_tag button button_translucent" data-position=1 title="ids">IDS<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/informational/' class=" post_tag button button_translucent" data-position=2 title="informational">INFORMATIONAL<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/ingress/' class=" post_tag button button_translucent" data-position=4 title="ingress">INGRESS<span class="button_tally">4</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/ips/' class=" post_tag button button_translucent" data-position=1 title="ips">IPS<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/kubernetes/' class=" post_tag button button_translucent" data-position=13 title="kubernetes">KUBERNETES<span class="button_tally">13</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/loadbalancer/' class=" post_tag button button_translucent" data-position=1 title="loadbalancer">LOADBALANCER<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/loadbalancing/' class=" post_tag button button_translucent" data-position=3 title="loadbalancing">LOADBALANCING<span class="button_tally">3</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/lodbalancing/' class=" post_tag button button_translucent" data-position=1 title="lodbalancing">LODBALANCING<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/loki/' class=" post_tag button button_translucent" data-position=1 title="loki">LOKI<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/network/' class=" post_tag button button_translucent" data-position=2 title="network">NETWORK<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/network-policies/' class=" post_tag button button_translucent" data-position=2 title="network-policies">NETWORK-POLICIES<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/nfs/' class=" post_tag button button_translucent" data-position=1 title="nfs">NFS<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/nsx/' class=" post_tag button button_translucent" data-position=8 title="nsx">NSX<span class="button_tally">8</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/nsx-application-platform/' class=" post_tag button button_translucent" data-position=1 title="nsx-application-platform">NSX-APPLICATION-PLATFORM<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/persistent-storage/' class=" post_tag button button_translucent" data-position=1 title="persistent-storage">PERSISTENT-STORAGE<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/pinniped/' class=" post_tag button button_translucent" data-position=1 title="pinniped">PINNIPED<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/prometheus/' class=" post_tag button button_translucent" data-position=1 title="prometheus">PROMETHEUS<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/promtail/' class=" post_tag button button_translucent" data-position=1 title="promtail">PROMTAIL<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/pvc/' class=" post_tag button button_translucent" data-position=1 title="pvc">PVC<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/rbac/' class=" post_tag button button_translucent" data-position=1 title="rbac">RBAC<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/registry/' class=" post_tag button button_translucent" data-position=1 title="registry">REGISTRY<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/security/' class=" post_tag button button_translucent" data-position=5 title="security">SECURITY<span class="button_tally">5</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/static-content-generator/' class=" post_tag button button_translucent" data-position=1 title="static-content-generator">STATIC-CONTENT-GENERATOR<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/static-site-generator/' class=" post_tag button button_translucent" data-position=1 title="static-site-generator">STATIC-SITE-GENERATOR<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/tanzu/' class=" post_tag button button_translucent" data-position=5 title="tanzu">TANZU<span class="button_tally">5</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/tkg-2.1/' class=" post_tag button button_translucent" data-position=1 title="tkg-2.1">TKG-2.1<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/troubleshooting/' class=" post_tag button button_translucent" data-position=2 title="troubleshooting">TROUBLESHOOTING<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/unifi/' class=" post_tag button button_translucent" data-position=1 title="unifi">UNIFI<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/vmconaws/' class=" post_tag button button_translucent" data-position=1 title="vmconaws">VMCONAWS<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/vsphere/' class=" post_tag button button_translucent" data-position=1 title="vsphere">VSPHERE<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/vsphere-replication/' class=" post_tag button button_translucent" data-position=1 title="vsphere-replication">VSPHERE-REPLICATION<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/zwave/' class=" post_tag button button_translucent" data-position=1 title="zwave">ZWAVE<span class="button_tally">1</span>
+            </a>
+            
+            <div class="tags_sort"><span title="sort alphabetically">[A~Z]</span><span title="sort by count">[0~9]</span>
+            </div>
+            <span class="tags_hide"><svg class="icon">
+            <use xlink:href="#closeme"></use>
+          </svg></span>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </section>
+</aside>
+
+  
+</div>
+    </main><svg width="0" height="0" class="hidden">
+  <symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="facebook">
+    <path d="M437 0H75C33.648 0 0 33.648 0 75v362c0 41.352 33.648 75 75 75h151V331h-60v-90h60v-61c0-49.629 40.371-90 90-90h91v90h-91v61h91l-15 90h-76v181h121c41.352 0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zm0 0"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18.001 18.001" id="twitter">
+    <path d="M15.891 4.013c.808-.496 1.343-1.173 1.605-2.034a8.68 8.68 0 0 1-2.351.861c-.703-.756-1.593-1.14-2.66-1.14-1.043 0-1.924.366-2.643 1.078a3.56 3.56 0 0 0-1.076 2.605c0 .309.039.585.117.819-3.076-.105-5.622-1.381-7.628-3.837-.34.601-.51 1.213-.51 1.846 0 1.301.549 2.332 1.645 3.089-.625-.053-1.176-.211-1.645-.47 0 .929.273 1.705.82 2.388a3.623 3.623 0 0 0 2.115 1.291c-.312.08-.641.118-.979.118-.312 0-.533-.026-.664-.083.23.757.664 1.371 1.291 1.841a3.652 3.652 0 0 0 2.152.743C4.148 14.173 2.625 14.69.902 14.69c-.422 0-.721-.006-.902-.038 1.697 1.102 3.586 1.649 5.676 1.649 2.139 0 4.029-.542 5.674-1.626 1.645-1.078 2.859-2.408 3.639-3.974a10.77 10.77 0 0 0 1.172-4.892v-.468a7.788 7.788 0 0 0 1.84-1.921 8.142 8.142 0 0 1-2.11.593z"
+      ></path>
+  </symbol>
+  <symbol aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="mail">
+    <path  d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="calendar">
+    <path d="M452 40h-24V0h-40v40H124V0H84v40H60C26.916 40 0 66.916 0 100v352c0 33.084 26.916 60 60 60h392c33.084 0 60-26.916 60-60V100c0-33.084-26.916-60-60-60zm20 412c0 11.028-8.972 20-20 20H60c-11.028 0-20-8.972-20-20V188h432v264zm0-304H40v-48c0-11.028 8.972-20 20-20h24v40h40V80h264v40h40V80h24c11.028 0 20 8.972 20 20v48z"></path>
+    <path d="M76 230h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zM76 310h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zM76 390h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zm80-80h40v40h-40z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="github">
+    <path d="M255.968 5.329C114.624 5.329 0 120.401 0 262.353c0 113.536 73.344 209.856 175.104 243.872 12.8 2.368 17.472-5.568 17.472-12.384 0-6.112-.224-22.272-.352-43.712-71.2 15.52-86.24-34.464-86.24-34.464-11.616-29.696-28.416-37.6-28.416-37.6-23.264-15.936 1.728-15.616 1.728-15.616 25.696 1.824 39.2 26.496 39.2 26.496 22.848 39.264 59.936 27.936 74.528 21.344 2.304-16.608 8.928-27.936 16.256-34.368-56.832-6.496-116.608-28.544-116.608-127.008 0-28.064 9.984-51.008 26.368-68.992-2.656-6.496-11.424-32.64 2.496-68 0 0 21.504-6.912 70.4 26.336 20.416-5.696 42.304-8.544 64.096-8.64 21.728.128 43.648 2.944 64.096 8.672 48.864-33.248 70.336-26.336 70.336-26.336 13.952 35.392 5.184 61.504 2.56 68 16.416 17.984 26.304 40.928 26.304 68.992 0 98.72-59.84 120.448-116.864 126.816 9.184 7.936 17.376 23.616 17.376 47.584 0 34.368-.32 62.08-.32 70.496 0 6.88 4.608 14.88 17.6 12.352C438.72 472.145 512 375.857 512 262.353 512 120.401 397.376 5.329 255.968 5.329z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 212 212" id="gitlab">
+    <path d="M12.3 74.7h54L43.3 3c-1-3.6-6.4-3.6-7.6 0L12.3 74.8z" />
+    <path d="M12.3 74.7L.5 111c-1 3.2 0 6.8 3 8.8l101.6 74-92.5-119z"/>
+    <path d="M105 193.7l-38.6-119h-54l92.7 119z"/>
+    <path d="M105 193.7l38.7-119H66.4l38.7 119z"/>
+    <path d="M105 193.7l38.7-119H198l-93 119z"/>
+    <path d="M198 74.7l11.6 36.2c1 3 0 6.6-3 8.6l-101.5 74 93-119z"/>
+    <path d="M198 74.7h-54.3L167 3c1.2-3.6 6.4-3.6 7.6 0L198 74.8z"/> 
+  </symbol>
+  <symbol viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="rss">
+    <circle cx="3.429" cy="20.571" r="3.429"></circle>
+    <path d="M11.429 24h4.57C15.999 15.179 8.821 8.001 0 8v4.572c6.302.001 11.429 5.126 11.429 11.428z"></path>
+    <path d="M24 24C24 10.766 13.234 0 0 0v4.571c10.714 0 19.43 8.714 19.43 19.429z"></path>
+  </symbol>
+  <symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="linkedin">
+    <path d="M437 0H75C33.648 0 0 33.648 0 75v362c0 41.352 33.648 75 75 75h362c41.352 0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zM181 406h-60V196h60zm0-240h-60v-60h60zm210 240h-60V286c0-16.54-13.46-30-30-30s-30 13.46-30 30v120h-60V196h60v11.309C286.719 202.422 296.93 196 316 196c40.691.043 75 36.547 75 79.688zm0 0"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 612 612" id="to-top">
+    <path d="M604.501 440.509L325.398 134.956c-5.331-5.357-12.423-7.627-19.386-7.27-6.989-.357-14.056 1.913-19.387 7.27L7.499 440.509c-9.999 10.024-9.999 26.298 0 36.323s26.223 10.024 36.222 0l262.293-287.164L568.28 476.832c9.999 10.024 26.222 10.024 36.221 0 9.999-10.023 9.999-26.298 0-36.323z"></path>
+  </symbol>
+  <symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="carly">
+    <path d="M504.971 239.029L448 182.059V84c0-46.317-37.682-84-84-84h-44c-13.255 0-24 10.745-24 24s10.745 24 24 24h44c19.851 0 36 16.149 36 36v108c0 6.365 2.529 12.47 7.029 16.971L454.059 256l-47.029 47.029A24.002 24.002 0 0 0 400 320v108c0 19.851-16.149 36-36 36h-44c-13.255 0-24 10.745-24 24s10.745 24 24 24h44c46.318 0 84-37.683 84-84v-98.059l56.971-56.971c9.372-9.372 9.372-24.568 0-33.941zM112 192V84c0-19.851 16.149-36 36-36h44c13.255 0 24-10.745 24-24S205.255 0 192 0h-44c-46.318 0-84 37.683-84 84v98.059l-56.971 56.97c-9.373 9.373-9.373 24.568 0 33.941L64 329.941V428c0 46.317 37.682 84 84 84h44c13.255 0 24-10.745 24-24s-10.745-24-24-24h-44c-19.851 0-36-16.149-36-36V320c0-6.365-2.529-12.47-7.029-16.971L57.941 256l47.029-47.029A24.002 24.002 0 0 0 112 192z"></path>
+  </symbol>
+  <symbol viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="copy">
+    <path d="M23 2.75A2.75 2.75 0 0 0 20.25 0H8.75A2.75 2.75 0 0 0 6 2.75v13.5A2.75 2.75 0 0 0 8.75 19h11.5A2.75 2.75 0 0 0 23 16.25zM18.25 14.5h-7.5a.75.75 0 0 1 0-1.5h7.5a.75.75 0 0 1 0 1.5zm0-3h-7.5a.75.75 0 0 1 0-1.5h7.5a.75.75 0 0 1 0 1.5zm0-3h-7.5a.75.75 0 0 1 0-1.5h7.5a.75.75 0 0 1 0 1.5z"></path>
+    <path d="M8.75 20.5a4.255 4.255 0 0 1-4.25-4.25V2.75c0-.086.02-.166.025-.25H3.75A2.752 2.752 0 0 0 1 5.25v16A2.752 2.752 0 0 0 3.75 24h12a2.752 2.752 0 0 0 2.75-2.75v-.75z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.001 512.001" id="closeme">
+    <path d="M284.286 256.002L506.143 34.144c7.811-7.811 7.811-20.475 0-28.285-7.811-7.81-20.475-7.811-28.285 0L256 227.717 34.143 5.859c-7.811-7.811-20.475-7.811-28.285 0-7.81 7.811-7.811 20.475 0 28.285l221.857 221.857L5.858 477.859c-7.811 7.811-7.811 20.475 0 28.285a19.938 19.938 0 0 0 14.143 5.857 19.94 19.94 0 0 0 14.143-5.857L256 284.287l221.857 221.857c3.905 3.905 9.024 5.857 14.143 5.857s10.237-1.952 14.143-5.857c7.811-7.811 7.811-20.475 0-28.285L284.286 256.002z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="open-menu">
+    <path d="M492 236H20c-11.046 0-20 8.954-20 20s8.954 20 20 20h472c11.046 0 20-8.954 20-20s-8.954-20-20-20zm0-160H20C8.954 76 0 84.954 0 96s8.954 20 20 20h472c11.046 0 20-8.954 20-20s-8.954-20-20-20zm0 320H20c-11.046 0-20 8.954-20 20s8.954 20 20 20h472c11.046 0 20-8.954 20-20s-8.954-20-20-20z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="instagram">
+    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id=youtube>
+    <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="stackoverflow">
+    <path d="M21 27v-8h3v11H0V19h3v8h18z"></path><path d="M17.1.2L15 1.8l7.9 10.6 2.1-1.6L17.1.2zm3.7 14.7L10.6 6.4l1.7-2 10.2 8.5-1.7 2zM7.2 12.3l12 5.6 1.1-2.4-12-5.6-1.1 2.4zm-1.8 6.8l13.56 1.96.17-2.38-13.26-2.55-.47 2.97zM19 25H5v-3h14v3z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="xing">
+    <path d="M18.188 0c-.517 0-.741.325-.927.66 0 0-7.455 13.224-7.702 13.657.015.024 4.919 9.023 4.919 9.023.17.308.436.66.967.66h3.454c.211 0 .375-.078.463-.22.089-.151.089-.346-.009-.536l-4.879-8.916c-.004-.006-.004-.016 0-.022L22.139.756c.095-.191.097-.387.006-.535C22.056.078 21.894 0 21.686 0h-3.498zM3.648 4.74c-.211 0-.385.074-.473.216-.09.149-.078.339.02.531l2.34 4.05c.004.01.004.016 0 .021L1.86 16.051c-.099.188-.093.381 0 .529.085.142.239.234.45.234h3.461c.518 0 .766-.348.945-.667l3.734-6.609-2.378-4.155c-.172-.315-.434-.659-.962-.659H3.648v.016z"/>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 71 55" id="discord">
+    <path d="M60.1045 4.8978C55.5792 2.8214 50.7265 1.2916 45.6527 0.41542C45.5603 0.39851 45.468 0.440769 45.4204 0.525289C44.7963 1.6353 44.105 3.0834 43.6209 4.2216C38.1637 3.4046 32.7345 3.4046 27.3892 4.2216C26.905 3.0581 26.1886 1.6353 25.5617 0.525289C25.5141 0.443589 25.4218 0.40133 25.3294 0.41542C20.2584 1.2888 15.4057 2.8186 10.8776 4.8978C10.8384 4.9147 10.8048 4.9429 10.7825 4.9795C1.57795 18.7309 -0.943561 32.1443 0.293408 45.3914C0.299005 45.4562 0.335386 45.5182 0.385761 45.5576C6.45866 50.0174 12.3413 52.7249 18.1147 54.5195C18.2071 54.5477 18.305 54.5139 18.3638 54.4378C19.7295 52.5728 20.9469 50.6063 21.9907 48.5383C22.0523 48.4172 21.9935 48.2735 21.8676 48.2256C19.9366 47.4931 18.0979 46.6 16.3292 45.5858C16.1893 45.5041 16.1781 45.304 16.3068 45.2082C16.679 44.9293 17.0513 44.6391 17.4067 44.3461C17.471 44.2926 17.5606 44.2813 17.6362 44.3151C29.2558 49.6202 41.8354 49.6202 53.3179 44.3151C53.3935 44.2785 53.4831 44.2898 53.5502 44.3433C53.9057 44.6363 54.2779 44.9293 54.6529 45.2082C54.7816 45.304 54.7732 45.5041 54.6333 45.5858C52.8646 46.6197 51.0259 47.4931 49.0921 48.2228C48.9662 48.2707 48.9102 48.4172 48.9718 48.5383C50.038 50.6034 51.2554 52.5699 52.5959 54.435C52.6519 54.5139 52.7526 54.5477 52.845 54.5195C58.6464 52.7249 64.529 50.0174 70.6019 45.5576C70.6551 45.5182 70.6887 45.459 70.6943 45.3942C72.1747 30.0791 68.2147 16.7757 60.1968 4.9823C60.1772 4.9429 60.1437 4.9147 60.1045 4.8978ZM23.7259 37.3253C20.2276 37.3253 17.3451 34.1136 17.3451 30.1693C17.3451 26.225 20.1717 23.0133 23.7259 23.0133C27.308 23.0133 30.1626 26.2532 30.1066 30.1693C30.1066 34.1136 27.28 37.3253 23.7259 37.3253ZM47.3178 37.3253C43.8196 37.3253 40.9371 34.1136 40.9371 30.1693C40.9371 26.225 43.7636 23.0133 47.3178 23.0133C50.9 23.0133 53.7545 26.2532 53.6986 30.1693C53.6986 34.1136 50.9 37.3253 47.3178 37.3253Z"/>
+  </symbol>
+</svg>
+
+
+<footer class="footer">
+  <div class="footer_inner wrap pale">
+    <img src='https://blog.andreasm.io/icons/apple-touch-icon.png' class="icon icon_2 transparent" alt="From 0.985mhz... to several Ghz">
+    <p>Copyright&nbsp;2016-&nbsp;<span class="year"></span>&nbsp;FROM 0.985MHZ... TO SEVERAL GHZ. All Rights Reserved</p><a class="to_top" href="#documentTop">
+  <svg class="icon">
+  <title>to-top</title>
+  <use xlink:href="#to-top"></use>
+</svg>
+
+</a>
+
+  </div>
+</footer>
+
+<script type="text/javascript" src="https://blog.andreasm.io/en/js/bundle.5548d358738600c857a1f05f0459418da7143d4426c66a08bf3f15ded1b39dd2136bf104a559247a909fc4dcc45b8e06bad0870ece4c71ee5303d30550def8bd.js" integrity="sha512-VUjTWHOGAMhXofBfBFlBjacUPUQmxmoIvz8V3tGzndITa/EEpVkkepCfxNzEW44GutCHDs5Mce5TA9MFUN74vQ==" crossorigin="anonymous"></script>
+
+  <script src="https://blog.andreasm.io/js/search.min.df4d84e4983f0c71dd495e07a09815d920553c3ddf3d0767801c73373573aa17e1b489e4453272dbf4ce2a38a3d01a10b170744e50dd6bec85a598221867ba9a.js"></script>
+
+  </body>
+</html>

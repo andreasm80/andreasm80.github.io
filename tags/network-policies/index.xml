@@ -8,6 +8,23 @@
     <copyright>Myself</copyright>
     <lastBuildDate>Tue, 11 Oct 2022 21:38:27 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/network-policies/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>NSX Antrea Integration</title>
+      <link>https://blog.andreasm.io/2022/10/11/nsx-antrea-integration/</link>
+      <pubDate>Tue, 11 Oct 2022 21:38:27 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2022/10/11/nsx-antrea-integration/</guid>
+      <description>
+        
+          
+            What is the NSX Antrea integration Assumptions: I assume that the reader is aware of what Antrea is, and what a CNI is and also what NSX is. If not head over here to read more on Antrea and here to read more on NSX.
+For many years VMware NSX has help many customer secure their workload by using the NSX Distributed Firewall. As NSX has evolved over the years the different platform it supports has also broadened, from virtual machines, bare metal server, cloud workload and kubernetes pods.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
       <title>Antrea Network Policies</title>
       <link>https://blog.andreasm.io/2021/07/10/antrea-network-policies/</link>
       <pubDate>Sat, 10 Jul 2021 00:00:00 +0000</pubDate>
@@ -19,23 +36,6 @@
             This post will go through the Antrea-native policy resources and how to use them to secure your Kubernetes environment combined with K8s network policies.
 Abbreviations used in this article:
 Container Network Interface = CNI Antrea Cluster Network Policies = ACNP Antrea Network Policies = ANP Kubernetes Network Policies = K8s policies or KNP When it comes to securing your K8s infrastructure it can be done in several layers in the infrastructure as a whole.
-          
-          
-        
-      </description>
-    </item>
-    
-    <item>
-      <title>NSX Antrea Integration</title>
-      <link>https://blog.andreasm.io/2022/10/11/nsx-antrea-integration/</link>
-      <pubDate>Tue, 11 Oct 2022 21:38:27 +0200</pubDate>
-      
-      <guid>https://blog.andreasm.io/2022/10/11/nsx-antrea-integration/</guid>
-      <description>
-        
-          
-            What is the NSX Antrea integration Assumptions: I assume that the reader is aware of what Antrea is, and what a CNI is and also what NSX is. If not head over here to read more on Antrea and here to read more on NSX.
-For many years VMware NSX has help many customer secure their workload by using the NSX Distributed Firewall. As NSX has evolved over the years the different platform it supports has also broadened, from virtual machines, bare metal server, cloud workload and kubernetes pods.
           
           
         

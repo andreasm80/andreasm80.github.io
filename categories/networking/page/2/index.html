@@ -443,7 +443,7 @@ First of, Antrea is a CNI. CNI stands for Container Network Interface. As the wo
   <div class="excerpt">
     <div class="excerpt_header">
       <h3 class="post_link">
-        <a href="https://blog.andreasm.io/2020/10/08/nsx-advanced-loadbalancer-with-antrea-on-native-k8s/" title="NSX Advanced LoadBalancer with Antrea on Native K8s">NSX Advanced LoadBalancer with Antrea on Native K8s</a>
+        <a href="https://blog.andreasm.io/2021/07/10/antrea-network-policies/" title="Antrea Network Policies">Antrea Network Policies</a>
       </h3>
       
   <div class="post_meta">
@@ -453,11 +453,10 @@ First of, Antrea is a CNI. CNI stands for Container Network Interface. As the wo
 </svg>
 </span>
     <span class="post_date">
-      08-10-2020</span>
-    <span class="post_time"> · 12 min read</span><span>&nbsp;· <a href='https://blog.andreasm.io/tags/kubernetes/' title="kubernetes" class="post_tag button button_translucent">kubernetes
-        </a><a href='https://blog.andreasm.io/tags/avi/' title="avi" class="post_tag button button_translucent">avi
-        </a><a href='https://blog.andreasm.io/tags/ako/' title="ako" class="post_tag button button_translucent">ako
+      10-07-2021</span>
+    <span class="post_time"> · 19 min read</span><span>&nbsp;· <a href='https://blog.andreasm.io/tags/network-policies/' title="network-policies" class="post_tag button button_translucent">network-policies
         </a><a href='https://blog.andreasm.io/tags/antrea/' title="antrea" class="post_tag button button_translucent">antrea
+        </a><a href='https://blog.andreasm.io/tags/security/' title="security" class="post_tag button button_translucent">security
         </a>
     </span>
   </div>
@@ -473,16 +472,16 @@ First of, Antrea is a CNI. CNI stands for Container Network Interface. As the wo
         
         
         
-        
+        <source srcset="/2021/07/10/antrea-network-policies/images/antrea-stacked-color3.webp" type="image/webp">
         
         
     <img
       loading="lazy"
       decoding="async"
-      alt="NSX Advanced LoadBalancer with Antrea on Native K8s"
+      alt="Antrea Network Policies"
       
         class="image_figure image_thumbnail image_internal image_unprocessed"
-        src="/2020/10/08/nsx-advanced-loadbalancer-with-antrea-on-native-k8s/images/avi-networks-now-part-of-vmware.png"
+        src="/2021/07/10/antrea-network-policies/images/antrea-stacked-color3.webp"
       
       
     />
@@ -494,11 +493,12 @@ First of, Antrea is a CNI. CNI stands for Container Network Interface. As the wo
       
         <div class="pale">
           
-            <p>This post will cover the steps to bring up a Kubernetes cluster in Ubuntu, then how to install and configure Antrea as CNI and how to install and configure NSX Advanced Load Balancer to use as a servicetype Load Balancer in the k8s environment with the use of Avi Kubernetes Operator.
-Abbreviations used in this post: …</p>
+            <p>This post will go through the Antrea-native policy resources and how to use them to secure your Kubernetes environment combined with K8s network policies.
+Abbreviations used in this article:
+Container Network Interface = CNI Antrea Cluster Network Policies = ACNP Antrea Network Policies = ANP Kubernetes Network …</p>
           
           <br>
-          <a href="https://blog.andreasm.io/2020/10/08/nsx-advanced-loadbalancer-with-antrea-on-native-k8s/" title="Read More" class="excerpt_more button">Read More</a>
+          <a href="https://blog.andreasm.io/2021/07/10/antrea-network-policies/" title="Read More" class="excerpt_more button">Read More</a>
         </div>
       </div>
     </div>
@@ -559,7 +559,7 @@ Abbreviations used in this post: …</p>
     <h2 class="mt-4">Recent Posts</h2>
     <ul class="flex-column">
       <li>
-        <a href="https://blog.andreasm.io/2021/07/10/antrea-network-policies/" class="nav-link" title="Antrea Network Policies">Antrea Network Policies</a>
+        <a href="https://blog.andreasm.io/2023/04/14/tanzu-with-vsphere-and-different-tier-0s/" class="nav-link" title="Tanzu with vSphere and different Tier-0s">Tanzu with vSphere and different Tier-0s</a>
       </li>
       <li>
         <a href="https://blog.andreasm.io/2023/03/22/tanzu-kubernetes-grid-2.1/" class="nav-link" title="Tanzu Kubernetes Grid 2.1">Tanzu Kubernetes Grid 2.1</a>
@@ -588,17 +588,22 @@ Abbreviations used in this post: …</p>
       <nav class="tags_nav">
         <a href='https://blog.andreasm.io/categories/kubernetes/' class="post_tag button button_translucent" title="kubernetes">
           KUBERNETES
-          <span class="button_tally">21</span>
+          <span class="button_tally">22</span>
         </a>
         
         <a href='https://blog.andreasm.io/categories/networking/' class="post_tag button button_translucent" title="networking">
           NETWORKING
-          <span class="button_tally">14</span>
+          <span class="button_tally">15</span>
         </a>
         
         <a href='https://blog.andreasm.io/categories/loadbalancing/' class="post_tag button button_translucent" title="loadbalancing">
           LOADBALANCING
           <span class="button_tally">6</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/tanzu/' class="post_tag button button_translucent" title="tanzu">
+          TANZU
+          <span class="button_tally">5</span>
         </a>
         
         <a href='https://blog.andreasm.io/categories/avi/' class="post_tag button button_translucent" title="avi">
@@ -613,11 +618,6 @@ Abbreviations used in this post: …</p>
         
         <a href='https://blog.andreasm.io/categories/security/' class="post_tag button button_translucent" title="security">
           SECURITY
-          <span class="button_tally">4</span>
-        </a>
-        
-        <a href='https://blog.andreasm.io/categories/tanzu/' class="post_tag button button_translucent" title="tanzu">
-          TANZU
           <span class="button_tally">4</span>
         </a>
         
@@ -702,7 +702,7 @@ Abbreviations used in this post: …</p>
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/kubernetes/' class=" post_tag button button_translucent" data-position=21 title="kubernetes">KUBERNETES<span class="button_tally">21</span>
+            <a href='https://blog.andreasm.io/categories/kubernetes/' class=" post_tag button button_translucent" data-position=22 title="kubernetes">KUBERNETES<span class="button_tally">22</span>
             </a>
             
             
@@ -722,7 +722,7 @@ Abbreviations used in this post: …</p>
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/networking/' class=" post_tag button button_translucent" data-position=14 title="networking">NETWORKING<span class="button_tally">14</span>
+            <a href='https://blog.andreasm.io/categories/networking/' class=" post_tag button button_translucent" data-position=15 title="networking">NETWORKING<span class="button_tally">15</span>
             </a>
             
             
@@ -750,7 +750,7 @@ Abbreviations used in this post: …</p>
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/tanzu/' class=" post_tag button button_translucent" data-position=4 title="tanzu">TANZU<span class="button_tally">4</span>
+            <a href='https://blog.andreasm.io/categories/tanzu/' class=" post_tag button button_translucent" data-position=5 title="tanzu">TANZU<span class="button_tally">5</span>
             </a>
             
             
@@ -790,13 +790,13 @@ Abbreviations used in this post: …</p>
           <span class="button_tally">13</span>
         </a>
         
-        <a href='https://blog.andreasm.io/tags/ako/' class="post_tag button button_translucent" title="ako">
-          AKO
-          <span class="button_tally">7</span>
-        </a>
-        
         <a href='https://blog.andreasm.io/tags/nsx/' class="post_tag button button_translucent" title="nsx">
           NSX
+          <span class="button_tally">8</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/ako/' class="post_tag button button_translucent" title="ako">
+          AKO
           <span class="button_tally">7</span>
         </a>
         
@@ -810,6 +810,11 @@ Abbreviations used in this post: …</p>
           <span class="button_tally">5</span>
         </a>
         
+        <a href='https://blog.andreasm.io/tags/tanzu/' class="post_tag button button_translucent" title="tanzu">
+          TANZU
+          <span class="button_tally">5</span>
+        </a>
+        
         <a href='https://blog.andreasm.io/tags/avi/' class="post_tag button button_translucent" title="avi">
           AVI
           <span class="button_tally">4</span>
@@ -817,11 +822,6 @@ Abbreviations used in this post: …</p>
         
         <a href='https://blog.andreasm.io/tags/ingress/' class="post_tag button button_translucent" title="ingress">
           INGRESS
-          <span class="button_tally">4</span>
-        </a>
-        
-        <a href='https://blog.andreasm.io/tags/tanzu/' class="post_tag button button_translucent" title="tanzu">
-          TANZU
           <span class="button_tally">4</span>
         </a>
         
@@ -845,13 +845,13 @@ Abbreviations used in this post: …</p>
           <span class="button_tally">2</span>
         </a>
         
-        <a href='https://blog.andreasm.io/tags/network-policies/' class="post_tag button button_translucent" title="network-policies">
-          NETWORK-POLICIES
+        <a href='https://blog.andreasm.io/tags/network/' class="post_tag button button_translucent" title="network">
+          NETWORK
           <span class="button_tally">2</span>
         </a>
         
-        <a href='https://blog.andreasm.io/tags/troubleshooting/' class="post_tag button button_translucent" title="troubleshooting">
-          TROUBLESHOOTING
+        <a href='https://blog.andreasm.io/tags/network-policies/' class="post_tag button button_translucent" title="network-policies">
+          NETWORK-POLICIES
           <span class="button_tally">2</span>
         </a>
         
@@ -969,7 +969,7 @@ Abbreviations used in this post: …</p>
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/network/' class=" post_tag button button_translucent" data-position=1 title="network">NETWORK<span class="button_tally">1</span>
+            <a href='https://blog.andreasm.io/tags/network/' class=" post_tag button button_translucent" data-position=2 title="network">NETWORK<span class="button_tally">2</span>
             </a>
             
             
@@ -981,7 +981,7 @@ Abbreviations used in this post: …</p>
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/nsx/' class=" post_tag button button_translucent" data-position=7 title="nsx">NSX<span class="button_tally">7</span>
+            <a href='https://blog.andreasm.io/tags/nsx/' class=" post_tag button button_translucent" data-position=8 title="nsx">NSX<span class="button_tally">8</span>
             </a>
             
             
@@ -1029,7 +1029,7 @@ Abbreviations used in this post: …</p>
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/tanzu/' class=" post_tag button button_translucent" data-position=4 title="tanzu">TANZU<span class="button_tally">4</span>
+            <a href='https://blog.andreasm.io/tags/tanzu/' class=" post_tag button button_translucent" data-position=5 title="tanzu">TANZU<span class="button_tally">5</span>
             </a>
             
             
