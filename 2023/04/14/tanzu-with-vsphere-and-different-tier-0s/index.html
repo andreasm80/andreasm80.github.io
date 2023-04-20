@@ -120,7 +120,7 @@
 </span>
     <span class="post_date">
       14-04-2023</span>
-    <span class="post_time"> · 17 min read</span><span>&nbsp;· <a href='https://blog.andreasm.io/tags/nsx/' title="nsx" class="post_tag button button_translucent">nsx
+    <span class="post_time"> · 23 min read</span><span>&nbsp;· <a href='https://blog.andreasm.io/tags/nsx/' title="nsx" class="post_tag button button_translucent">nsx
         </a><a href='https://blog.andreasm.io/tags/tanzu/' title="tanzu" class="post_tag button button_translucent">tanzu
         </a><a href='https://blog.andreasm.io/tags/network/' title="network" class="post_tag button button_translucent">network
         </a>
@@ -150,6 +150,8 @@
         <li><a href="#ssh-tkc-nodes">SSH TKC nodes</a></li>
       </ul>
     </li>
+    <li><a href="#dcli---vmware-datacenter-cli">DCLI - VMware Datacenter CLI</a></li>
+    <li><a href="#vcenter-api---with-postman">vCenter API - with Postman</a></li>
   </ul>
 </nav>
       </div>
@@ -333,7 +335,7 @@ In the VRF T0, click <em>route re-distribution</em> and SET</p>
 <p>Looking good.</p>
 <p>Let us get back to this picture when we have deployed a TKC cluster on it.</p>
 <h3 id="create-a-vsphere-namespace-to-use-our-new-vrf-tier-0">Create a vSphere Namespace to use our new VRF Tier-0</h3>
-<p>This will be the same approach as above <a href="">here</a> only difference is we are selecting a VRF Tier0 instead.
+<p>This will be the same approach as above <a href="https://blog.andreasm.io/2023/04/14/tanzu-with-vsphere-and-different-tier-0s/#create-a-vsphere-namespace-to-use-our-new-tier-0">here</a> only difference is we are selecting a VRF Tier0 instead.
 <img src=images/image-20230417162054851.png style="width:600px" /></p>
 <p>Here I have selected the VRF Tier-0 and defined the network for it. I have disabled NAT.</p>
 <p>Now what have happened in NSX? Lets have a look.
@@ -495,7 +497,201 @@ Put yourselves in the context of the namespace where your workload nodes is depl
 </span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="nv">passwordinplaintexthere</span><span class="o">=</span>andreasm@andreasm:~$
 </span></span></code></pre></div><p>Now we can use this password to log in to the TKC nodes with the user: vmware-system-user</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">ssh vmware-system-user@10.101.51.34
-</span></span></code></pre></div>
+</span></span></code></pre></div><h2 id="dcli---vmware-datacenter-cli">DCLI - VMware Datacenter CLI</h2>
+<p>If you happen to find different tasks easier to perform from CLI instead of GUI I will show here how to create a new vSphere Namespace by using DCLI from the VCSA appliance (vCenter Server). For more information and reference on dcli look <a href="https://developer.vmware.com/web/tool/3.0.0/vmware-datacenter-cli">here</a>.</p>
+<p>Log in to your vCenter hosting your Supervisor Cluster with SSH and enter shell:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl">andreasm@andreasm:~/$ ssh root@vcsa.cpod-v7n31.az-wdc.cloud-garage.net
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">VMware vCenter Server 7.0.3.01000
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">Type: vCenter Server with an embedded Platform Services Controller
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="o">(</span>root@vcsa.cpod-v7n31.az-wdc.cloud-garage.net<span class="o">)</span> Password:
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">Connected to service
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">
+</span></span><span class="line"><span class="ln">10</span><span class="cl">    * List APIs: <span class="s2">&#34;help api list&#34;</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">    * List Plugins: <span class="s2">&#34;help pi list&#34;</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">    * Launch BASH: <span class="s2">&#34;shell&#34;</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">
+</span></span><span class="line"><span class="ln">14</span><span class="cl">Command&gt; shell
+</span></span><span class="line"><span class="ln">15</span><span class="cl">Shell access is granted to root
+</span></span><span class="line"><span class="ln">16</span><span class="cl">root@vcsa <span class="o">[</span> ~ <span class="o">]</span><span class="c1">#</span>
+</span></span></code></pre></div><p>Type *dcli --help&quot; to see some options:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl">root@vcsa <span class="o">[</span> ~ <span class="o">]</span><span class="c1"># dcli --help</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">usage: dcli <span class="o">[</span>+server SERVER<span class="o">]</span> <span class="o">[</span>+vmc-server<span class="o">]</span> <span class="o">[</span>+nsx-server <span class="o">[</span>NSX_SERVER<span class="o">]]</span> <span class="o">[</span>+org-id ORG_ID<span class="o">]</span> <span class="o">[</span>+sddc-id SDDC_ID<span class="o">]</span> <span class="o">[</span>+interactive<span class="o">]</span> <span class="o">[</span>+prompt PROMPT<span class="o">]</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">            <span class="o">[</span>+skip-server-verification <span class="p">|</span> +cacert-file CACERT_FILE<span class="o">]</span> <span class="o">[</span>+username USERNAME<span class="o">]</span> <span class="o">[</span>+password PASSWORD<span class="o">]</span> <span class="o">[</span>+logout<span class="o">]</span> <span class="o">[</span>+filter FILTER <span class="o">[</span>FILTER ...<span class="o">]]</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">            <span class="o">[</span>+formatter <span class="o">{</span>yaml,yamlc,table,xml,xmlc,json,jsonc,jsonp,html,htmlc,csv<span class="o">}]</span> <span class="o">[</span>+verbose<span class="o">]</span> <span class="o">[</span>+log-level <span class="o">{</span>debug,info,warning,error<span class="o">}]</span> <span class="o">[</span>+log-file LOG_FILE<span class="o">]</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">            <span class="o">[</span>+generate-json-input<span class="o">]</span> <span class="o">[</span>+generate-required-json-input<span class="o">]</span> <span class="o">[</span>+json-input JSON_INPUT<span class="o">]</span> <span class="o">[</span>+credstore-file CREDSTORE_FILE<span class="o">]</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">            <span class="o">[</span>+credstore-add <span class="p">|</span> +credstore-list <span class="p">|</span> +credstore-remove<span class="o">]</span> <span class="o">[</span>+session-manager SESSION_MANAGER<span class="o">]</span> <span class="o">[</span>+configuration-file CONFIGURATION_FILE<span class="o">]</span> <span class="o">[</span>+more<span class="o">]</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">            <span class="o">[</span>args <span class="o">[</span>args ...<span class="o">]]</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">VMware Datacenter Command Line Interface
+</span></span><span class="line"><span class="ln">10</span><span class="cl">
+</span></span><span class="line"><span class="ln">11</span><span class="cl">positional arguments:
+</span></span><span class="line"><span class="ln">12</span><span class="cl">  args                  CLI <span class="nb">command</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">
+</span></span><span class="line"><span class="ln">14</span><span class="cl">optional arguments:
+</span></span><span class="line"><span class="ln">15</span><span class="cl">  +server SERVER        Specify VAPI Server IP address/DNS name <span class="o">(</span>default: <span class="s1">&#39;http://localhost/api&#39;</span><span class="o">)</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">  +vmc-server           Switch to indicate connection to VMC server <span class="o">(</span>default VMC URL: <span class="s1">&#39;https://vmc.vmware.com&#39;</span><span class="o">)</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">  +nsx-server <span class="o">[</span>NSX_SERVER<span class="o">]</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">                        Specify NSX on VMC Server or on-prem instance IP address/DNS name <span class="o">(</span>default: <span class="s1">&#39;None&#39;</span><span class="o">)</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">  +org-id ORG_ID        Specify VMC organization id to connect to NSX instance. Works together with +sddc-id. <span class="o">(</span>default: <span class="s1">&#39;None&#39;</span><span class="o">)</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl">  +sddc-id SDDC_ID      Specify VMC SDDC id to connect to NSX instance. Works together with +org-id. <span class="o">(</span>default: <span class="s1">&#39;None&#39;</span><span class="o">)</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl">  +interactive          Open a CLI shell to invoke commands
+</span></span><span class="line"><span class="ln">22</span><span class="cl">  +prompt PROMPT        Prompt <span class="k">for</span> cli shell <span class="o">(</span>default: dcli&gt; <span class="o">)</span>
+</span></span><span class="line"><span class="ln">23</span><span class="cl">  +skip-server-verification
+</span></span><span class="line"><span class="ln">24</span><span class="cl">                        Skip server SSL verification process <span class="o">(</span>default: False<span class="o">)</span>
+</span></span><span class="line"><span class="ln">25</span><span class="cl">  +cacert-file CACERT_FILE
+</span></span><span class="line"><span class="ln">26</span><span class="cl">                        Specify the certificate authority certificates <span class="k">for</span> validating SSL connections <span class="o">(</span>format: PEM<span class="o">)</span> <span class="o">(</span>default: <span class="s1">&#39;&#39;</span><span class="o">)</span>
+</span></span><span class="line"><span class="ln">27</span><span class="cl">  +username USERNAME    Specify the username <span class="k">for</span> login <span class="o">(</span>default: <span class="s1">&#39;&#39;</span><span class="o">)</span>
+</span></span><span class="line"><span class="ln">28</span><span class="cl">  +password PASSWORD    Specify password explicitly <span class="o">(</span>default: False<span class="o">)</span>
+</span></span><span class="line"><span class="ln">29</span><span class="cl">  +logout               Requests delete session and remove from credentials store <span class="k">if</span> stored. <span class="o">(</span>default: False<span class="o">)</span>
+</span></span><span class="line"><span class="ln">30</span><span class="cl">  +filter FILTER <span class="o">[</span>FILTER ...<span class="o">]</span>
+</span></span><span class="line"><span class="ln">31</span><span class="cl">                        Provide JMESPath expression to filter <span class="nb">command</span> output. More info on JMESPath here: http://jmespath.org
+</span></span><span class="line"><span class="ln">32</span><span class="cl">  +formatter <span class="o">{</span>yaml,yamlc,table,xml,xmlc,json,jsonc,jsonp,html,htmlc,csv<span class="o">}</span>
+</span></span><span class="line"><span class="ln">33</span><span class="cl">                        Specify the formatter to use to format the <span class="nb">command</span> output
+</span></span><span class="line"><span class="ln">34</span><span class="cl">  +verbose              Prints verbose output
+</span></span><span class="line"><span class="ln">35</span><span class="cl">  +log-level <span class="o">{</span>debug,info,warning,error<span class="o">}</span>
+</span></span><span class="line"><span class="ln">36</span><span class="cl">                        Specify the verbosity <span class="k">for</span> log file. <span class="o">(</span>default: <span class="s1">&#39;info&#39;</span><span class="o">)</span>
+</span></span><span class="line"><span class="ln">37</span><span class="cl">  +log-file LOG_FILE    Specify dcli log file <span class="o">(</span>default: <span class="s1">&#39;/var/log/vmware/vapi/dcli.log&#39;</span><span class="o">)</span>
+</span></span><span class="line"><span class="ln">38</span><span class="cl">  +generate-json-input  Generate <span class="nb">command</span> input template in json
+</span></span><span class="line"><span class="ln">39</span><span class="cl">  +generate-required-json-input
+</span></span><span class="line"><span class="ln">40</span><span class="cl">                        Generate <span class="nb">command</span> input template in json <span class="k">for</span> required fields only
+</span></span><span class="line"><span class="ln">41</span><span class="cl">  +json-input JSON_INPUT
+</span></span><span class="line"><span class="ln">42</span><span class="cl">                        Specifies json value or a json file <span class="k">for</span> <span class="nb">command</span> input
+</span></span><span class="line"><span class="ln">43</span><span class="cl">  +credstore-file CREDSTORE_FILE
+</span></span><span class="line"><span class="ln">44</span><span class="cl">                        Specify the dcli credential store file <span class="o">(</span>default: <span class="s1">&#39;/root/.dcli/.dcli_credstore&#39;</span><span class="o">)</span>
+</span></span><span class="line"><span class="ln">45</span><span class="cl">  +credstore-add        Store the login credentials in credential store without prompting
+</span></span><span class="line"><span class="ln">46</span><span class="cl">  +credstore-list       List the login credentials stored in credential store
+</span></span><span class="line"><span class="ln">47</span><span class="cl">  +credstore-remove     Remove login credentials from credential store
+</span></span><span class="line"><span class="ln">48</span><span class="cl">  +session-manager SESSION_MANAGER
+</span></span><span class="line"><span class="ln">49</span><span class="cl">                        Specify the session manager <span class="k">for</span> credential store remove operation
+</span></span><span class="line"><span class="ln">50</span><span class="cl">  +configuration-file CONFIGURATION_FILE
+</span></span><span class="line"><span class="ln">51</span><span class="cl">                        Specify the dcli configuration store file <span class="o">(</span>default: <span class="s1">&#39;/root/.dcli/.dcli_configuration&#39;</span><span class="o">)</span>
+</span></span><span class="line"><span class="ln">52</span><span class="cl">  +more                 Flag <span class="k">for</span> page-wise output
+</span></span><span class="line"><span class="ln">53</span><span class="cl">root@vcsa <span class="o">[</span> ~ <span class="o">]</span><span class="c1">#</span>
+</span></span></code></pre></div><p>Enter DCLI interactive mode:
+<strong>All commands in dcli have autocomplete</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl">root@vcsa <span class="o">[</span> ~ <span class="o">]</span><span class="c1"># dcli +i +server vcsa.cpod-nsxam-stc.az-stc.cloud-garage.net +skip-server-verification</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">Welcome to VMware Datacenter CLI <span class="o">(</span>DCLI<span class="o">)</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">usage: &lt;namespaces&gt; &lt;command&gt;
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">To auto-complete and browse DCLI namespaces:   <span class="o">[</span>TAB<span class="o">]</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">If you need more <span class="nb">help</span> <span class="k">for</span> a command:           vcenter vm get --help
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">If you need more <span class="nb">help</span> <span class="k">for</span> a namespace:         vcenter vm --help
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">To execute dcli internal command: env
+</span></span><span class="line"><span class="ln">10</span><span class="cl">For detailed information on DCLI usage visit:  http://vmware.com/go/dcli
+</span></span><span class="line"><span class="ln">11</span><span class="cl">
+</span></span><span class="line"><span class="ln">12</span><span class="cl">dcli&gt;
+</span></span></code></pre></div><p>Below shows how autocomplete works:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl">root@vcsa <span class="o">[</span> ~ <span class="o">]</span><span class="c1"># dcli +i +server vcsa.cpod-nsxam-stc.az-stc.cloud-garage.net +skip-server-verification</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">Welcome to VMware Datacenter CLI <span class="o">(</span>DCLI<span class="o">)</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">usage: &lt;namespaces&gt; &lt;command&gt;
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">To auto-complete and browse DCLI namespaces:   <span class="o">[</span>TAB<span class="o">]</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">If you need more <span class="nb">help</span> <span class="k">for</span> a command:           vcenter vm get --help
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">If you need more <span class="nb">help</span> <span class="k">for</span> a namespace:         vcenter vm --help
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">To execute dcli internal command: env
+</span></span><span class="line"><span class="ln">10</span><span class="cl">For detailed information on DCLI usage visit:  http://vmware.com/go/dcli
+</span></span><span class="line"><span class="ln">11</span><span class="cl">
+</span></span><span class="line"><span class="ln">12</span><span class="cl">dcli&gt; com vmware vcenter n
+</span></span><span class="line"><span class="ln">13</span><span class="cl">                           &gt; namespacemanagement
+</span></span><span class="line"><span class="ln">14</span><span class="cl">                           &gt; namespaces
+</span></span><span class="line"><span class="ln">15</span><span class="cl">                           &gt; network
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">dcli&gt; com vmware vcenter namespaces instances list
+</span></span><span class="line"><span class="ln">2</span><span class="cl">                                               list
+</span></span><span class="line"><span class="ln">3</span><span class="cl">                                               getv2
+</span></span><span class="line"><span class="ln">4</span><span class="cl">                                               update
+</span></span><span class="line"><span class="ln">5</span><span class="cl">                                               delete
+</span></span><span class="line"><span class="ln">6</span><span class="cl">                                               listv2
+</span></span><span class="line"><span class="ln">7</span><span class="cl">                                               createv2
+</span></span><span class="line"><span class="ln">8</span><span class="cl">                                               <span class="nb">set</span>
+</span></span></code></pre></div><p>We can tab to autocomplete and/or use the &quot;dropdown&quot; list to scroll through the different options. Nice feature.</p>
+<p>Create a vSphere Namespace from DCLI, selecting a VRF T0, configure name, network etc (as you would do from the GUI of vCenter in Workload Management):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">dcli&gt; com vmware vcenter namespaces instances create --cluster domain-c8 --namespace stc-cluster-vrf2 --namespace-network-network-ingress-cidrs <span class="s1">&#39;[{&#34;address&#34;: &#34;10.13.54.
+</span></span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="s1">0&#34;, &#34;prefix&#34;:24}]&#39;</span> --namespace-network-network-load-balancer-size SMALL --namespace-network-network-namespace-network-cidrs <span class="s1">&#39;[{&#34;address&#34;: &#34;10.13.53.0&#34;, &#34;prefix&#34;:24}]&#39;</span> -
+</span></span><span class="line"><span class="ln">3</span><span class="cl">-namespace-network-network-provider NSXT_CONTAINER_PLUGIN --namespace-network-network-nsx-tier0-gateway vrf-1 --namespace-network-network-routed-mode <span class="nb">true</span> --namespace-n
+</span></span><span class="line"><span class="ln">4</span><span class="cl">etwork-network-subnet-prefix-length <span class="m">28</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl">dcli&gt;
+</span></span></code></pre></div><p>To get the --cluster domain id run this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl">dcli&gt; com vmware vcenter namespaces instances list
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="p">|</span>---------<span class="p">|</span>-----------------------------------<span class="p">|</span>----------------<span class="p">|</span>-----------<span class="p">|</span>----------------------<span class="p">|</span>-------------<span class="p">|</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="p">|</span>cluster  <span class="p">|</span>stats                              <span class="p">|</span>namespace       <span class="p">|</span>description<span class="p">|</span>self_service_namespace<span class="p">|</span>config_status<span class="p">|</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="p">|</span>---------<span class="p">|</span>-----------------------------------<span class="p">|</span>----------------<span class="p">|</span>-----------<span class="p">|</span>----------------------<span class="p">|</span>-------------<span class="p">|</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="p">|</span>domain-c8<span class="o">||</span>--------<span class="p">|</span>-----------<span class="p">|</span>------------<span class="o">||</span>stc-cluster-vrf <span class="p">|</span>           <span class="p">|</span>False                 <span class="p">|</span>RUNNING      <span class="p">|</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="p">|</span>         <span class="o">||</span>cpu_used<span class="p">|</span>memory_used<span class="p">|</span>storage_used<span class="o">||</span>                <span class="p">|</span>           <span class="p">|</span>                      <span class="p">|</span>             <span class="p">|</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="p">|</span>         <span class="o">||</span>--------<span class="p">|</span>-----------<span class="p">|</span>------------<span class="o">||</span>                <span class="p">|</span>           <span class="p">|</span>                      <span class="p">|</span>             <span class="p">|</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="p">|</span>         <span class="o">||</span><span class="m">0</span>       <span class="p">|</span><span class="m">0</span>          <span class="p">|</span><span class="m">0</span>           <span class="o">||</span>                <span class="p">|</span>           <span class="p">|</span>                      <span class="p">|</span>             <span class="p">|</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="p">|</span>         <span class="o">||</span>--------<span class="p">|</span>-----------<span class="p">|</span>------------<span class="o">||</span>                <span class="p">|</span>           <span class="p">|</span>                      <span class="p">|</span>             <span class="p">|</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="p">|</span>domain-c8<span class="o">||</span>--------<span class="p">|</span>-----------<span class="p">|</span>------------<span class="o">||</span>stc-cluster-vrf2<span class="p">|</span>           <span class="p">|</span>False                 <span class="p">|</span>RUNNING      <span class="p">|</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="p">|</span>         <span class="o">||</span>cpu_used<span class="p">|</span>memory_used<span class="p">|</span>storage_used<span class="o">||</span>                <span class="p">|</span>           <span class="p">|</span>                      <span class="p">|</span>             <span class="p">|</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="p">|</span>         <span class="o">||</span>--------<span class="p">|</span>-----------<span class="p">|</span>------------<span class="o">||</span>                <span class="p">|</span>           <span class="p">|</span>                      <span class="p">|</span>             <span class="p">|</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="p">|</span>         <span class="o">||</span><span class="m">0</span>       <span class="p">|</span><span class="m">0</span>          <span class="p">|</span><span class="m">0</span>           <span class="o">||</span>                <span class="p">|</span>           <span class="p">|</span>                      <span class="p">|</span>             <span class="p">|</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="p">|</span>         <span class="o">||</span>--------<span class="p">|</span>-----------<span class="p">|</span>------------<span class="o">||</span>                <span class="p">|</span>           <span class="p">|</span>                      <span class="p">|</span>             <span class="p">|</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="p">|</span>---------<span class="p">|</span>-----------------------------------<span class="p">|</span>----------------<span class="p">|</span>-----------<span class="p">|</span>----------------------<span class="p">|</span>-------------<span class="p">|</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">dcli&gt;
+</span></span></code></pre></div><p>And seconds later the vSphere Namespace is created</p>
+<img src=images/image-20230419140128385.png style="width:700px" />
+<h2 id="vcenter-api---with-postman">vCenter API - with Postman</h2>
+<p>vCenter has a nice feature included, the API Explorer. This can be found here:</p>
+<p>Click on the hamburger Menu, and find Developer Center:</p>
+<img src=images/image-20230419130432052.png style="width:300px" />
+<p>And from here we have all the API available to us:</p>
+<img src=images/image-20230419130541256.png style="width:700px" />
+<p>Its a looooong list of available APIs.</p>
+<p>To be able to authenticate against vCenter with Postman we must create an API Key. So the first we need to do is &quot;login&quot; with post using the following api (this uses a username and password with sufficient acces to vCenter):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">https://<span class="o">{{</span>vcenter-fqdn<span class="o">}}</span>/api/session
+</span></span></code></pre></div><p>In Postman one should create an environment that contains the vCenter IP/FQDN, username and password.
+So the first action is to POST this API to get the API Key, making sure you set Authorization to Basic Auth from your environment:</p>
+<img src=images/image-20230419130911655.png style="width:800px" />
+<p>The response from this POST should be a token. From now you need to use this token to interact with vCenter API. Change the authentication to API Key and use <em>vmware-api-session-id</em> as Key and Token as value.</p>
+<img src=images/image-20230419131143625.png style="width:800px" />
+<p>Now lets try a GET and see if it works:</p>
+<img src=images/image-20230419131357915.png style="width:800px" />
+<p>That worked out fine 😄</p>
+<p>What about creating a vSphere Namespace from Postman?</p>
+<p>Thats very easy, below is an example to create a new vSphere Namespace, and pointing it to my VRF Tier-0 router:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">	<span class="nt">&#34;access_list&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">		<span class="p">{</span>
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">			<span class="nt">&#34;domain&#34;</span><span class="p">:</span> <span class="s2">&#34;cpod-nsxam-stc.az-stc.cloud-garage.net&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">			<span class="nt">&#34;role&#34;</span><span class="p">:</span> <span class="s2">&#34;OWNER&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">			<span class="nt">&#34;subject&#34;</span><span class="p">:</span> <span class="s2">&#34;andreasm&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">			<span class="nt">&#34;subject_type&#34;</span><span class="p">:</span> <span class="s2">&#34;USER&#34;</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">	<span class="p">],</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">	<span class="nt">&#34;cluster&#34;</span><span class="p">:</span> <span class="s2">&#34;domain-c8&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">	<span class="nt">&#34;namespace&#34;</span><span class="p">:</span> <span class="s2">&#34;stc-cluster-vrf2&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">	<span class="nt">&#34;namespace_network&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">		<span class="nt">&#34;network&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">			<span class="nt">&#34;ingress_cidrs&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">				<span class="p">{</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">					<span class="nt">&#34;address&#34;</span><span class="p">:</span> <span class="s2">&#34;10.13.54.0&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">					<span class="nt">&#34;prefix&#34;</span><span class="p">:</span> <span class="mi">24</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">				<span class="p">}</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">			<span class="p">],</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl">			<span class="nt">&#34;load_balancer_size&#34;</span><span class="p">:</span> <span class="s2">&#34;SMALL&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">21</span><span class="cl">			<span class="nt">&#34;namespace_network_cidrs&#34;</span><span class="p">:</span> <span class="p">[</span>
+</span></span><span class="line"><span class="ln">22</span><span class="cl">				<span class="p">{</span>
+</span></span><span class="line"><span class="ln">23</span><span class="cl">					<span class="nt">&#34;address&#34;</span><span class="p">:</span> <span class="s2">&#34;10.13.53.0&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">24</span><span class="cl">					<span class="nt">&#34;prefix&#34;</span><span class="p">:</span> <span class="mi">24</span>
+</span></span><span class="line"><span class="ln">25</span><span class="cl">				<span class="p">}</span>
+</span></span><span class="line"><span class="ln">26</span><span class="cl">			<span class="p">],</span>
+</span></span><span class="line"><span class="ln">27</span><span class="cl">			<span class="nt">&#34;nsx_tier0_gateway&#34;</span><span class="p">:</span> <span class="s2">&#34;vrf-1&#34;</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">28</span><span class="cl">			<span class="nt">&#34;routed_mode&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="ln">29</span><span class="cl">			<span class="nt">&#34;subnet_prefix_length&#34;</span><span class="p">:</span> <span class="mi">28</span>
+</span></span><span class="line"><span class="ln">30</span><span class="cl">		<span class="p">},</span>
+</span></span><span class="line"><span class="ln">31</span><span class="cl">		<span class="nt">&#34;network_provider&#34;</span><span class="p">:</span> <span class="s2">&#34;NSXT_CONTAINER_PLUGIN&#34;</span>
+</span></span><span class="line"><span class="ln">32</span><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Paste this into Postman (Body - Raw) and POST it to the following path https://{{vcenter-fqdn}}/api/vcenter/namespaces/instances and the new vSphere Namespace should be created in a jiff.</p>
+<img src=images/image-20230420094101806.png style="width:800px" />
+<p>And in vCenter our new Namespace:</p>
+<img src=images/image-20230420094154011.png style="width:800px" />
+<p>For references to the APIs in vCenter and a whole lot of details and explanations have a look <a href="https://developer.vmware.com/apis/vsphere-automation/v8.0.0/vcenter/">here</a>!</p>
+
     </div>
 
 
