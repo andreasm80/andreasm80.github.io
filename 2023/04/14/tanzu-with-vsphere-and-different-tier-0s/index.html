@@ -166,7 +166,10 @@ The first part will involve spinning up dedicated NSX Tier-0s by utlizing severa
 My lab is looking like this &quot;networking wise&quot;:</p>
 <img src=images/image-20230414150018939.png style="width:600px" />
 <p>In my lab I use the following IP addresses for the following components:</p>
-<ul>
+
+<div class="notices info">
+    <div class="label">Network overview</div>
+    <ul>
 <li>Tanzu Management network: 10.13.10.0/24 - connected to a NSX Overlay segment - manually created by me</li>
 <li>Tanzu Workload network (the initial Workload network): 10.13.96.0/20 (could be much smaller) - will be created automatically as a NSX overlay segment.</li>
 <li>Ingress: 10.13.200.0/24</li>
@@ -174,6 +177,9 @@ My lab is looking like this &quot;networking wise&quot;:</p>
 <li>The first Tier-0 has been configured to use uplinks on vlan 1304 in the following cidr: 10.13.4.0/24</li>
 <li>The second (new) Tier-0 will be using uplink on vlan 1305 in the follwing cidr: 10.13.5.0/24</li>
 </ul>
+
+  </div>
+
 <p>Using dedicated Tier-0 means we need to deploy additional edges, either in the same NSX edge cluster or a new edge cluster. This can generate some compute and admin overhead. But in some environments its not &quot;allowed&quot; to share two different network classifications over same devices. So we need separate edges for our different Tier-0s. But again, with TKGs we cant deploy our TKC clusters on other vSphere clusters than our Supervisor cluster has been configured on, so the different TKC cluster will end up on the same shared compute nodes (ESXi). But networking wise they are fully separated.</p>
 <h3 id="deploy-new-edges-to-support-a-new-tier-0">Deploy new Edge(s) to support a new Tier-0</h3>
 <p>As this is my lab, I will not deploy redundant amount of Edges, but will stick with one Edge just to get connectivity up and working. NSX Edge do not support more than 1 SR T0 pr Edge, so we need 1:1 mapping between the SR T0 and Edge. And take into consideration if running this in production we must accommodate potential edge failovers, so we should atleast have two edges responsible for a T0. If running two Tier-0 in an edge cluster we should have 4 edges (if one of them fail).<br>
@@ -217,7 +223,20 @@ This route (dmz I have called it) should point to the TKC workload network cidr 
 <p>So we should have something like this now:</p>
 <img src=images/image-20230414154511864.png style="width:700px" />
 <p>As mentioned above, these routes is maybe easier to create after we have created the vSphere Network with the correct network definition as we can see them being realized in the NSX manager.</p>
-<p>***By adding these static routes on the T0 level as I have done, means this traffic will never leave the Tier-0s, it will go over the linknet between the Tier-0 ***</p>
+
+<div class="notices warning">
+    <div class="label">Info</div>
+    <p>By adding these static routes on the T0 level as I have done, means this traffic will never leave the Tier-0s, it will go over the linknet between the Tier-0s</p>
+
+  </div>
+
+
+<div class="notices tip">
+    <div class="label">Info</div>
+    <p>These routes are necessary for the Supervisor and the TKC cluster to be able to reach each others. If they cant, deployment of the TKC clusters will fail, it will just deploy the first Control Plane node and stop there)</p>
+
+  </div>
+
 <h3 id="create-a-vsphere-namespace-to-use-our-new-tier-0">Create a vSphere Namespace to use our new Tier-0</h3>
 <p>Head over to vCenter -Workload Management and create a new Namespace:</p>
 <img src=images/image-20230414155025700.png style="width:500px" />
@@ -282,7 +301,10 @@ A second segment is created which is of our interest:</p>
 <h2 id="nsx-and-tanzu-configurations-with-nsx-vrf">NSX and Tanzu configurations with NSX VRF</h2>
 <p>In NSX-T 3.0 VRF was a new feature, and configuring it was a bit cumbersome, but already from NSX-T 3.1 adding and configuring a VRF Tier-0 is very straightforward. The benefit of using VRF is that it does not dictate the requirement of additional NSX Edges, and we can create many VRF T0s. We can &quot;reuse&quot; the same Edges that has already been configured with a Tier-0. Instead a VRF T0 will be linked to that already existing Tier-0 which will then be the Parent Tier-0. Some settings will be inherited from the parent Tier-0 like BGP AS number. But we can achieve ip-separation by using individual uplinks on the VRF Tier-0s and peer to different upstream routers than our parent Tier-0. The VRF Tier0 will have its own Tier-1 linked to it. So all the way from the physical world to the VM we have a dedicated ip network. To be able to configure VRF Tier-0 we need to make sure the uplinks our Edges have been configured with have the correct vlan trunk range so we can create dedicated VRF Tier0 uplink segments in their respective vlan. The VRF Tier0 will use the same &quot;physical&quot; uplinks as the Edges have been configured with, but using different VLAN for the Tier-0 uplinks. I will go through how I configre VRF T0 in my environment. Pr default there is no route leakage between the parent Tier-0 and the VRF-T0 created, if you want to exhange routes between them we need to create those static routes ourselves. Read more about NSX VRF <a href="https://docs.vmware.com/en/VMware-NSX/4.1/administration/GUID-8C060C35-1AD2-4B71-AB15-C551F392E528.html">here</a>.</p>
 <p>In this part of my lab I use the following IP addresses for the following components:</p>
-<ul>
+
+<div class="notices info">
+    <div class="label">Network overview</div>
+    <ul>
 <li>Tanzu Management network: 172.21.103.0/24 - connected to a VDS port group - manually created by me</li>
 <li>Tanzu Workload network (the initial Workload network): 10.103.100.0/23 - will be created automatically as a NSX overlay segment.</li>
 <li>Ingress: 10.103.200.0/24</li>
@@ -290,6 +312,9 @@ A second segment is created which is of our interest:</p>
 <li>The first Tier-0 has been configured to use uplinks on vlan 1034 in the following cidr: 10.103.4.0/24</li>
 <li>The VRF Tier-0 will be using uplink on vlan 1035 in the follwing cidr: 10.103.5.0/24</li>
 </ul>
+
+  </div>
+
 <p>Here is a digram showing high-level how VRF-T0 looks like:</p>
 <img src=images/image-20230417154949894.png style="width:700px" />
 <p>The Edge VM network config:</p>
@@ -362,7 +387,7 @@ The network topology has been updated:</p>
     <img
       loading="lazy"
       decoding="async"
-      alt="image-20230417162553365"
+      alt="Autocreated static routes"
       
         class="image_figure image_internal image_processed"
         width="834"
@@ -441,7 +466,7 @@ I used NSX Traceflow to verify that connectivity worked as intended which my tra
 </span></span><span class="line"><span class="ln">7</span><span class="cl">how to fix it, please visit the web page mentioned above.
 </span></span></code></pre></div><h3 id="ssh-tkc-nodes">SSH TKC nodes</h3>
 <p>The nodes in a TKC cluster can also be SSH'ed into. If you dont do NAT on your vSphere Namespace network they can be reach directly on their IPs (if from where your SSH jumpbox is allowed routing wise/firewall wise). But if you are NAT'ing then you have to place your SSH jumpbox in the same segment as the TKC nodes you want to SSH into. Or add a second interface on your jumpbox placed in this network. The segment is created in NSX and is called something like this:</p>
-<img src=images/image-20230415093000226.png style="width:800px" />
+<img src=images/image-20230415093000226.png style="width:12000px" />
 <p>To get the password for the TKC nodes you can get them with kubectl like this:
 Put yourselves in the context of the namespace where your workload nodes is deployed:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">andreasm@andreasm:~$ vsphere-kubectl login --server<span class="o">=</span>10.101.11.2 --insecure-skip-tls-verify --vsphere-username<span class="o">=</span>andreasm@cpod-nsxam-wdc.az-wdc.cloud-garage.net --tanzu-kubernetes-cluster-namespace ns-wdc-1-nat

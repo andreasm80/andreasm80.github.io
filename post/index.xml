@@ -16,7 +16,7 @@
       <description>
         
           
-            Tanzu with vSphere using NSX with multiple T0s In this post I will go through how to configure Tanzu with different T0 routers in NSX for separation and network isolation. The first part will involve spinning up dedicated NSX Tier-0s by utlizing several NSX Edges and NSX Edge Clusters. The second part will involve using NSX VRF. Same needs, two different approaches, and some different configs in NSX. In vSphere with Tanzu with NSX we have the option to override network setting pr vSphere Namespace.
+            This post will take you trough how to configre Tanzu with vSphere using NSX with multiple Tier-0 and VRF Tier-0 gateways. It will also show you how to do this using DCLI and API
           
           
         
