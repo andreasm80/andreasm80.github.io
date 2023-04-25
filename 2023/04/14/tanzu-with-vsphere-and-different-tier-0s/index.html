@@ -120,7 +120,7 @@
 </span>
     <span class="post_date">
       14-04-2023</span>
-    <span class="post_time"> · 34 min read</span><span>&nbsp;· <a href='https://blog.andreasm.io/tags/nsx/' title="nsx" class="post_tag button button_translucent">nsx
+    <span class="post_time"> · 35 min read</span><span>&nbsp;· <a href='https://blog.andreasm.io/tags/nsx/' title="nsx" class="post_tag button button_translucent">nsx
         </a><a href='https://blog.andreasm.io/tags/tanzu/' title="tanzu" class="post_tag button button_translucent">tanzu
         </a><a href='https://blog.andreasm.io/tags/network/' title="network" class="post_tag button button_translucent">network
         </a>
@@ -811,7 +811,7 @@ Next configure BGP and the BGP peering with your upstream router:</p>
     </picture>
 </figure>
 </p>
-<p>The last thing we need to do in our newly created Tier-0 is to create a static route that can help us reach the Workload Network on the Supervisor Control Plane nodes on their actual IP addresses (remember our talk above?).
+<p>The last thing we need to do in our newly created Tier-0 is to create two static routes that can help us reach the Workload Network on the Supervisor Control Plane nodes on their actual IP addresses (remember our talk above?).
 On the newly created Tier-0 (Tier-0-2) click on Routing -&gt; Static Routes and add the following route (Supervisor workload network):</p>
 <p>
   <figure>
@@ -828,12 +828,12 @@ On the newly created Tier-0 (Tier-0-2) click on Routing -&gt; Static Routes and 
     <img
       loading="lazy"
       decoding="async"
-      alt="Static route to svc workload"
+      alt="Static routes tier-0-2"
       
         class="image_figure image_internal image_processed"
-        width="835"
-        height="257"
-        src="/2023/04/14/tanzu-with-vsphere-and-different-tier-0s/images/image-20230425205633192.png"
+        width="833"
+        height="291"
+        src="/2023/04/14/tanzu-with-vsphere-and-different-tier-0s/images/image-20230425215845504.png"
       
       
     />
@@ -841,6 +841,7 @@ On the newly created Tier-0 (Tier-0-2) click on Routing -&gt; Static Routes and 
     </picture>
 </figure>
 </p>
+<p>The two routes created is the Supervisor workload network cidr and the actual ingress vip /32.</p>
 <p>And the next-hop is defined with the ip of the other (first) Tier-0 interface on the &quot;linknet&quot; interface between the T0s (not configured on the first Titer-0 yet):</p>
 <p>
   <figure>
@@ -1228,7 +1229,32 @@ The second /27 segment is the first available network for the workload clusters.
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">kubectl apply -f yaml.file
 </span></span></code></pre></div><p>And a couple of minutes later (if all preps have been done correctly) you should have a new TKC cluster using the new T0.</p>
 <img src=images/image-20230414161125662.png style="width:600px" />
-<h2 id="nsx-and-tanzu-configurations-with-nsx-vrf">NSX and Tanzu configurations with NSX VRF</h2>
+<p>Now, if the network conditions not were right, the TKC cluster would never be finished. It would stop stop at deploying the first control plane node. But to quickly verify connectivity from the supervisor controlplane vm and the tkc controlplane vm I will SSH into both (described below under troubleshooting) and do a curl against their K8s API VIP respectively:</p>
+<p>From one of the supervisor vms &quot;curling&quot; both vSphere NS workload networks k8s api vip:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl">root@422068ece368739850023f7a81cf5e14 <span class="o">[</span> ~ <span class="o">]</span><span class="c1"># curl https://10.101.93.1:6443</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">curl: <span class="o">(</span>60<span class="o">)</span> SSL certificate problem: unable to get <span class="nb">local</span> issuer certificate
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">More details here: https://curl.se/docs/sslcerts.html
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">curl failed to verify the legitimacy of the server and therefore could not
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">establish a secure connection to it. To learn more about this situation and
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">how to fix it, please visit the web page mentioned above.
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">root@422068ece368739850023f7a81cf5e14 <span class="o">[</span> ~ <span class="o">]</span><span class="c1"># curl https://10.101.92.1:6443</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">curl: <span class="o">(</span>60<span class="o">)</span> SSL certificate problem: unable to get <span class="nb">local</span> issuer certificate
+</span></span><span class="line"><span class="ln">10</span><span class="cl">More details here: https://curl.se/docs/sslcerts.html
+</span></span><span class="line"><span class="ln">11</span><span class="cl">
+</span></span><span class="line"><span class="ln">12</span><span class="cl">curl failed to verify the legitimacy of the server and therefore could not
+</span></span><span class="line"><span class="ln">13</span><span class="cl">establish a secure connection to it. To learn more about this situation and
+</span></span><span class="line"><span class="ln">14</span><span class="cl">how to fix it, please visit the web page mentioned above.
+</span></span><span class="line"><span class="ln">15</span><span class="cl">root@422068ece368739850023f7a81cf5e14 <span class="o">[</span> ~ <span class="o">]</span><span class="c1">#</span>
+</span></span></code></pre></div><p>From the controlplane node of the TKC workload cluster:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">vmware-system-user@wdc-vrf-cluster-1-2k8tp-gb5g2:~$ curl https://10.101.90.2:6443
+</span></span><span class="line"><span class="ln">2</span><span class="cl">curl: <span class="o">(</span>60<span class="o">)</span> SSL certificate problem: unable to get <span class="nb">local</span> issuer certificate
+</span></span><span class="line"><span class="ln">3</span><span class="cl">More details here: https://curl.haxx.se/docs/sslcerts.html
+</span></span><span class="line"><span class="ln">4</span><span class="cl">
+</span></span><span class="line"><span class="ln">5</span><span class="cl">curl failed to verify the legitimacy of the server and therefore could not
+</span></span><span class="line"><span class="ln">6</span><span class="cl">establish a secure connection to it. To learn more about this situation and
+</span></span><span class="line"><span class="ln">7</span><span class="cl">how to fix it, please visit the web page mentioned above.
+</span></span></code></pre></div><h2 id="nsx-and-tanzu-configurations-with-nsx-vrf">NSX and Tanzu configurations with NSX VRF</h2>
 <p>In NSX-T 3.0 VRF was a new feature, and configuring it was a bit cumbersome, but already from NSX-T 3.1 adding and configuring a VRF Tier-0 is very straightforward. The benefit of using VRF is that it does not dictate the requirement of additional NSX Edges, and we can create many VRF T0s. We can &quot;reuse&quot; the same Edges that has already been configured with a Tier-0. Instead a VRF T0 will be linked to that already existing Tier-0 which will then be the Parent Tier-0. Some settings will be inherited from the parent Tier-0 like BGP AS number for NSX-T versions before 4.1. From NSX-T 4.1 it is now also possible to override the BGP AS number in the VRF-T0, its no longer tied to the parent T0s BGP AS. We can achieve ip-separation by using individual uplinks on the VRF Tier-0s and peer to different upstream routers than our parent Tier-0. The VRF Tier0 will have its own Tier-1 linked to it. So all the way from the physical world to the VM we have a dedicated ip network. To be able to configure VRF Tier-0 we need to make sure the uplinks our Edges have been configured with have the correct vlan trunk range so we can create dedicated VRF Tier0 uplink segments in their respective vlan. The VRF Tier0 will use the same &quot;physical&quot; uplinks as the Edges have been configured with, but using different VLAN for the Tier-0 uplinks. I will go through how I configre VRF T0 in my environment. Pr default there is no route leakage between the parent Tier-0 and the VRF-T0 created, if you want to exhange routes between them we need to create those static routes ourselves. Read more about NSX VRF <a href="https://docs.vmware.com/en/VMware-NSX/4.1/administration/GUID-8C060C35-1AD2-4B71-AB15-C551F392E528.html">here</a>.</p>
 
 <div class="notices info">
