@@ -1230,15 +1230,15 @@ The second /27 segment is the first available network for the workload clusters.
 </span></span></code></pre></div><p>And a couple of minutes later (if all preps have been done correctly) you should have a new TKC cluster using the new T0.</p>
 <img src=images/image-20230414161125662.png style="width:600px" />
 <p>Now, if the network conditions not were right, the TKC cluster would never be finished. It would stop stop at deploying the first control plane node. But to quickly verify connectivity from the supervisor controlplane vm and the tkc controlplane vm I will SSH into both (described below under troubleshooting) and do a curl against their K8s API VIP respectively:</p>
-<p>From one of the supervisor vms &quot;curling&quot; both vSphere NS workload networks k8s api vip:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl">root@422068ece368739850023f7a81cf5e14 <span class="o">[</span> ~ <span class="o">]</span><span class="c1"># curl https://10.101.93.1:6443</span>
+<p>From one of the supervisor vms &quot;curling&quot; both vSphere NS workload networks k8s api vip from its workload network interface:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl">root@422068ece368739850023f7a81cf5e14 <span class="o">[</span> ~ <span class="o">]</span><span class="c1"># curl --interface eth1 https://10.101.93.1:6443</span>
 </span></span><span class="line"><span class="ln"> 2</span><span class="cl">curl: <span class="o">(</span>60<span class="o">)</span> SSL certificate problem: unable to get <span class="nb">local</span> issuer certificate
 </span></span><span class="line"><span class="ln"> 3</span><span class="cl">More details here: https://curl.se/docs/sslcerts.html
 </span></span><span class="line"><span class="ln"> 4</span><span class="cl">
 </span></span><span class="line"><span class="ln"> 5</span><span class="cl">curl failed to verify the legitimacy of the server and therefore could not
 </span></span><span class="line"><span class="ln"> 6</span><span class="cl">establish a secure connection to it. To learn more about this situation and
 </span></span><span class="line"><span class="ln"> 7</span><span class="cl">how to fix it, please visit the web page mentioned above.
-</span></span><span class="line"><span class="ln"> 8</span><span class="cl">root@422068ece368739850023f7a81cf5e14 <span class="o">[</span> ~ <span class="o">]</span><span class="c1"># curl https://10.101.92.1:6443</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">root@422068ece368739850023f7a81cf5e14 <span class="o">[</span> ~ <span class="o">]</span><span class="c1"># curl --interface eth1 https://10.101.92.1:6443</span>
 </span></span><span class="line"><span class="ln"> 9</span><span class="cl">curl: <span class="o">(</span>60<span class="o">)</span> SSL certificate problem: unable to get <span class="nb">local</span> issuer certificate
 </span></span><span class="line"><span class="ln">10</span><span class="cl">More details here: https://curl.se/docs/sslcerts.html
 </span></span><span class="line"><span class="ln">11</span><span class="cl">
