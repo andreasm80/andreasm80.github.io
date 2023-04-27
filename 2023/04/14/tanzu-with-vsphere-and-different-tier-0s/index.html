@@ -120,7 +120,7 @@
 </span>
     <span class="post_date">
       14-04-2023</span>
-    <span class="post_time"> · 35 min read</span><span>&nbsp;· <a href='https://blog.andreasm.io/tags/nsx/' title="nsx" class="post_tag button button_translucent">nsx
+    <span class="post_time"> · 40 min read</span><span>&nbsp;· <a href='https://blog.andreasm.io/tags/nsx/' title="nsx" class="post_tag button button_translucent">nsx
         </a><a href='https://blog.andreasm.io/tags/tanzu/' title="tanzu" class="post_tag button button_translucent">tanzu
         </a><a href='https://blog.andreasm.io/tags/network/' title="network" class="post_tag button button_translucent">network
         </a>
@@ -403,8 +403,146 @@ But how? We have this no SNAT rule, but at the same time we have a route-map den
 </figure>
 </p>
 <p>Nice, right?
-This means we dont need to interfere with these static routes in the physical routers, they were supposed to be NAT'ed right? So we dont want them in our physical routers anyway. This traffic will then never leave the &quot;outside&quot; of the Tier-0s via their uplinks connected to their respective BGP/Upstream routers as we are using the &quot;linknet&quot; between them.
-And also, did I mention that there will be created a route-map on the Tier-0 for the vSphere Namespace Networks with corresponding IP-prefix lists prohibiting the workload networks ip subnets to be advertised through BGP/OSPF from the Tier-0 and its upstream bgp neigbours.</p>
+This means we dont need to interfere with these static routes in the physical routers, they were supposed to be NAT'ed right? So we dont want them in our physical routers anyway. This traffic will then never leave the &quot;outside&quot; of the Tier-0s via their uplinks connected to their respective BGP/Upstream routers as we are using the &quot;linknet&quot; between them. This will be true as long as the destination subnet is for the subnets defined in the no-nat rules and we have defined the static routes to go over the linknet.</p>
+<p>To further show evidence of how this looks, let us do a &quot;traffic walk&quot; from the Supervisor Cluster Control Plane vm's workload network to the other workload cluster networks on the second Tier-0 router. First an attempt to draw this:</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="traffic walk"
+      
+        class="image_figure image_internal image_processed"
+        width="3092"
+        height="1850"
+        src="/2023/04/14/tanzu-with-vsphere-and-different-tier-0s/images/image-20230427142746406.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>The diagram above tries to illustrate what the actual IP address being used in regards of the destination subnet. If we quickly take a look at the no-snat rules created in NSX again:</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="no nat and snat rules"
+      
+        class="image_figure image_internal image_processed"
+        width="2258"
+        height="315"
+        src="/2023/04/14/tanzu-with-vsphere-and-different-tier-0s/images/image-20230427143116306.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>The first 4 no-snat rules tells the Tier-1 router to NOT do any SNAT on the source IP if the source subnet happens to be 10.101.80/23 (SVC workload network) and the destination happens to be any of the four defined subnets in each NO-SNAT rules (10.101.80/23 itself, 10.101.82.0/24, 10,101.90.0/24 its own ingress cidr, and 10.101.83.0/24).</p>
+<p>So if I do a tcpdump on one of my workload clusters control plane nodes, and fitering on ip coming from the supervisor control planes workload network. Will I then see the NATed address or will I see their real IP?</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl">vmware-system-user@wdc-vrf-cluster-1-ls6ct-5pgdf:~$ sudo tcpdump src net 10.101.80.0/27
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">tcpdump: verbose output suppressed, use -v or -vv <span class="k">for</span> full protocol decode
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">listening on eth0, link-type EN10MB <span class="o">(</span>Ethernet<span class="o">)</span>, capture size <span class="m">262144</span> bytes
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">12:39:06.351632 IP 10.101.80.2.34116 &gt; wdc-vrf-cluster-1-ls6ct-5pgdf.6443: Flags <span class="o">[</span>P.<span class="o">]</span>, seq 1537746084:1537746122, ack 2981756064, win 6516, options <span class="o">[</span>nop,nop,TS val <span class="m">2335069578</span> ecr 3559626446<span class="o">]</span>, length <span class="m">38</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">12:39:06.356621 IP 10.101.80.2.34116 &gt; wdc-vrf-cluster-1-ls6ct-5pgdf.6443: Flags <span class="o">[</span>.<span class="o">]</span>, ack 91, win 6516, options <span class="o">[</span>nop,nop,TS val <span class="m">2335069583</span> ecr 3559634990<span class="o">]</span>, length <span class="m">0</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">12:39:06.356621 IP 10.101.80.2.34116 &gt; wdc-vrf-cluster-1-ls6ct-5pgdf.6443: Flags <span class="o">[</span>.<span class="o">]</span>, ack 7589, win 6477, options <span class="o">[</span>nop,nop,TS val <span class="m">2335069583</span> ecr 3559634990<span class="o">]</span>, length <span class="m">0</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">12:39:06.356621 IP 10.101.80.2.34116 &gt; wdc-vrf-cluster-1-ls6ct-5pgdf.6443: Flags <span class="o">[</span>P.<span class="o">]</span>, seq 38:73, ack 7589, win 6516, options <span class="o">[</span>nop,nop,TS val <span class="m">2335069584</span> ecr 3559634990<span class="o">]</span>, length <span class="m">35</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">12:39:06.400033 IP 10.101.80.2.34116 &gt; wdc-vrf-cluster-1-ls6ct-5pgdf.6443: Flags <span class="o">[</span>.<span class="o">]</span>, ack 7620, win 6516, options <span class="o">[</span>nop,nop,TS val <span class="m">2335069626</span> ecr 3559634991<span class="o">]</span>, length <span class="m">0</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">12:39:06.794326 IP 10.101.80.2.59524 &gt; wdc-vrf-cluster-1-ls6ct-5pgdf.6443: Flags <span class="o">[</span>S<span class="o">]</span>, seq 2927440799, win 64240, options <span class="o">[</span>mss 1460,sackOK,TS val <span class="m">2841421479</span> ecr 0,nop,wscale 7<span class="o">]</span>, length <span class="m">0</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">12:39:06.797334 IP 10.101.80.2.59524 &gt; wdc-vrf-cluster-1-ls6ct-5pgdf.6443: Flags <span class="o">[</span>.<span class="o">]</span>, ack 907624276, win 502, options <span class="o">[</span>nop,nop,TS val <span class="m">2841421483</span> ecr 3559635431<span class="o">]</span>, length <span class="m">0</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">12:39:06.797334 IP 10.101.80.2.59524 &gt; wdc-vrf-cluster-1-ls6ct-5pgdf.6443: Flags <span class="o">[</span>F.<span class="o">]</span>, seq 0, ack 1, win 502, options <span class="o">[</span>nop,nop,TS val <span class="m">2841421483</span> ecr 3559635431<span class="o">]</span>, length <span class="m">0</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">12:39:06.800095 IP 10.101.80.2.59524 &gt; wdc-vrf-cluster-1-ls6ct-5pgdf.6443: Flags <span class="o">[</span>.<span class="o">]</span>, ack 2, win 502, options <span class="o">[</span>nop,nop,TS val <span class="m">2841421486</span> ecr 3559635434<span class="o">]</span>, length <span class="m">0</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">12:39:06.809982 IP 10.101.80.3.58013 &gt; wdc-vrf-cluster-1-ls6ct-5pgdf.6443: Flags <span class="o">[</span>P.<span class="o">]</span>, seq 1460837974:1460838009, ack 2147601163, win 1312, options <span class="o">[</span>nop,nop,TS val <span class="m">1221062723</span> ecr 4234259718<span class="o">]</span>, length <span class="m">35</span>
+</span></span></code></pre></div><p>If I filter on port 6443:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl">vmware-system-user@wdc-vrf-cluster-1-ls6ct-5pgdf:~$ sudo tcpdump port <span class="m">6443</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">tcpdump: verbose output suppressed, use -v or -vv <span class="k">for</span> full protocol decode
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">listening on eth0, link-type EN10MB <span class="o">(</span>Ethernet<span class="o">)</span>, capture size <span class="m">262144</span> bytes
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">12:40:57.817560 IP 10.101.80.2.34116 &gt; wdc-vrf-cluster-1-ls6ct-5pgdf.6443: Flags <span class="o">[</span>P.<span class="o">]</span>, seq 1537768767:1537768802, ack 2982048853, win 6516, options <span class="o">[</span>nop,nop,TS val <span class="m">2335181040</span> ecr 3559745035<span class="o">]</span>, length <span class="m">35</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">12:40:57.817560 IP 10.101.80.2.34116 &gt; wdc-vrf-cluster-1-ls6ct-5pgdf.6443: Flags <span class="o">[</span>P.<span class="o">]</span>, seq 35:174, ack 1, win 6516, options <span class="o">[</span>nop,nop,TS val <span class="m">2335181041</span> ecr 3559745035<span class="o">]</span>, length <span class="m">139</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">12:40:57.817643 IP wdc-vrf-cluster-1-ls6ct-5pgdf.6443 &gt; 10.101.80.2.34116: Flags <span class="o">[</span>.<span class="o">]</span>, ack 35, win 501, options <span class="o">[</span>nop,nop,TS val <span class="m">3559746454</span> ecr 2335181040<span class="o">]</span>, length <span class="m">0</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">12:40:57.817677 IP wdc-vrf-cluster-1-ls6ct-5pgdf.6443 &gt; 10.101.80.2.34116: Flags <span class="o">[</span>.<span class="o">]</span>, ack 174, win 501, options <span class="o">[</span>nop,nop,TS val <span class="m">3559746454</span> ecr 2335181041<span class="o">]</span>, length <span class="m">0</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">12:40:57.819719 IP wdc-vrf-cluster-1-ls6ct-5pgdf.6443 &gt; 10.101.80.2.34116: Flags <span class="o">[</span>P.<span class="o">]</span>, seq 1:90, ack 174, win 501, options <span class="o">[</span>nop,nop,TS val <span class="m">3559746456</span> ecr 2335181041<span class="o">]</span>, length <span class="m">89</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">12:40:57.864302 IP 10.101.80.2.34116 &gt; wdc-vrf-cluster-1-ls6ct-5pgdf.6443: Flags <span class="o">[</span>.<span class="o">]</span>, ack 90, win 6516, options <span class="o">[</span>nop,nop,TS val <span class="m">2335181086</span> ecr 3559746456<span class="o">]</span>, length <span class="m">0</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">12:40:58.590194 IP 10.101.92.3.4120 &gt; wdc-vrf-cluster-1-ls6ct-5pgdf.6443: Flags <span class="o">[</span>P.<span class="o">]</span>, seq 1810063827:1810063865, ack 3070977968, win 5820, options <span class="o">[</span>nop,nop,TS val <span class="m">1030353737</span> ecr 937884951<span class="o">]</span>, length <span class="m">38</span>
+</span></span></code></pre></div><p>What do I see? I see the source address being the real IP addresses from the Supervisor Control Plane VMs (10.101.80.x). I also see 10.101.92.3 which happens to be the workload clusters own ingress.</p>
+<p>After these static routes have been added I also just want to do a traceroute from the supervisor vm to the workload cluster control plane node to show how I have altered the next hops it will use to get there:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">root@422080039f397c9aa239cf40e4535f0d <span class="o">[</span> ~ <span class="o">]</span><span class="c1"># traceroute -T -p 22 -i eth1 10.101.82.34</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">traceroute to 10.101.82.34 <span class="o">(</span>10.101.82.34<span class="o">)</span>, <span class="m">30</span> hops max, <span class="m">60</span> byte packets
+</span></span><span class="line"><span class="ln">3</span><span class="cl"> <span class="m">1</span>  _gateway <span class="o">(</span>10.101.80.1<span class="o">)</span>  0.265 ms  0.318 ms  0.295 ms
+</span></span><span class="line"><span class="ln">4</span><span class="cl"> <span class="m">2</span>  100.64.0.4 <span class="o">(</span>100.64.0.4<span class="o">)</span>  1.546 ms  1.518 ms  1.517 ms
+</span></span><span class="line"><span class="ln">5</span><span class="cl"> <span class="m">3</span>  10.101.240.13 <span class="o">(</span>10.101.240.13<span class="o">)</span>  9.603 ms  9.551 ms  9.568 ms
+</span></span><span class="line"><span class="ln">6</span><span class="cl"> <span class="m">4</span>  * * *
+</span></span><span class="line"><span class="ln">7</span><span class="cl"> <span class="m">5</span>  10.101.82.34 <span class="o">(</span>10.101.82.34<span class="o">)</span>  10.378 ms  10.296 ms  10.724 ms
+</span></span></code></pre></div><p>Now if I do the same traceflow from the same Supervisor vm, but to the workload cluster's vip (10.101.92.0/24) which is exposed via BGP...</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">root@422080039f397c9aa239cf40e4535f0d <span class="o">[</span> ~ <span class="o">]</span><span class="c1"># traceroute -T -p 22 -i eth1 10.101.92.3</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">traceroute to 10.101.92.3 <span class="o">(</span>10.101.92.3<span class="o">)</span>, <span class="m">30</span> hops max, <span class="m">60</span> byte packets
+</span></span><span class="line"><span class="ln">3</span><span class="cl"> <span class="m">1</span>  _gateway <span class="o">(</span>10.101.80.1<span class="o">)</span>  0.229 ms  0.263 ms  0.237 ms
+</span></span><span class="line"><span class="ln">4</span><span class="cl"> <span class="m">2</span>  100.64.0.4 <span class="o">(</span>100.64.0.4<span class="o">)</span>  1.025 ms  1.006 ms  0.972 ms
+</span></span><span class="line"><span class="ln">5</span><span class="cl"> <span class="m">3</span>  10.101.4.1 <span class="o">(</span>10.101.4.1<span class="o">)</span>  1.405 ms  1.408 ms  1.524 ms
+</span></span><span class="line"><span class="ln">6</span><span class="cl"> <span class="m">4</span>  10.101.7.13 <span class="o">(</span>10.101.7.13<span class="o">)</span>  2.123 ms  2.037 ms  2.019 ms
+</span></span><span class="line"><span class="ln">7</span><span class="cl"> <span class="m">5</span>  10.101.92.3 <span class="o">(</span>10.101.92.3<span class="o">)</span>  2.562 ms  2.197 ms  2.499 ms
+</span></span></code></pre></div><p>It will not take the same route to get there. It will actually go all the way out to the physical BGP peers, and then over to the second Tier-0 router.</p>
+<p>But if I do the same traceroute from my workload cluster nodes, traceroute the Supervisor workload VIP (which is also exposed via BGP)?</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">vmware-system-user@wdc-vrf-cluster-1-ls6ct-5pgdf:~$ sudo traceroute -T -p <span class="m">22</span> 10.101.90.2
+</span></span><span class="line"><span class="ln">2</span><span class="cl">traceroute to 10.101.90.2 <span class="o">(</span>10.101.90.2<span class="o">)</span>, <span class="m">30</span> hops max, <span class="m">60</span> byte packets
+</span></span><span class="line"><span class="ln">3</span><span class="cl"> <span class="m">1</span>  _gateway <span class="o">(</span>10.101.82.33<span class="o">)</span>  0.494 ms  1.039 ms  1.015 ms
+</span></span><span class="line"><span class="ln">4</span><span class="cl"> <span class="m">2</span>  100.64.0.0 <span class="o">(</span>100.64.0.0<span class="o">)</span>  1.460 ms  1.451 ms  1.441 ms
+</span></span><span class="line"><span class="ln">5</span><span class="cl"> <span class="m">3</span>  10.101.240.10 <span class="o">(</span>10.101.240.10<span class="o">)</span>  3.120 ms  3.108 ms  3.099 ms
+</span></span><span class="line"><span class="ln">6</span><span class="cl"> <span class="m">4</span>  10.101.90.2 <span class="o">(</span>10.101.90.2<span class="o">)</span>  3.115 ms  3.105 ms  3.095 ms
+</span></span></code></pre></div><p>It will go over the Tier-0 linknet. Why, because on the second Tier-0 router I have created two static routes pointing to both the Supervisor workload cluster subnet and Supervisor VIP altering the next-hops. See below:</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="static routes on the tier-0-2"
+      
+        class="image_figure image_internal image_processed"
+        width="517"
+        height="189"
+        src="/2023/04/14/tanzu-with-vsphere-and-different-tier-0s/images/image-20230427150248091.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>And also, did I mention that there will be created a route-map on the Tier-0 for the vSphere Namespace Networks with corresponding IP-prefix lists prohibiting the workload networks ip subnets to be advertised through BGP/OSPF from the Tier-0 and its upstream bgp neigbours.</p>
 <p>
   <figure>
   <picture>
@@ -831,9 +969,9 @@ On the newly created Tier-0 (Tier-0-2) click on Routing -&gt; Static Routes and 
       alt="Static routes tier-0-2"
       
         class="image_figure image_internal image_processed"
-        width="833"
-        height="291"
-        src="/2023/04/14/tanzu-with-vsphere-and-different-tier-0s/images/image-20230425215845504.png"
+        width="826"
+        height="270"
+        src="/2023/04/14/tanzu-with-vsphere-and-different-tier-0s/images/image-20230427145518942.png"
       
       
     />
@@ -924,9 +1062,9 @@ These route should point to the vSphere workload network cidrs we defined when w
       alt="static routes on first Tier-0"
       
         class="image_figure image_internal image_processed"
-        width="836"
-        height="335"
-        src="/2023/04/14/tanzu-with-vsphere-and-different-tier-0s/images/image-20230425210254323.png"
+        width="835"
+        height="279"
+        src="/2023/04/14/tanzu-with-vsphere-and-different-tier-0s/images/image-20230427145625390.png"
       
       
     />
