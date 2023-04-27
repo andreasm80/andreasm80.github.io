@@ -1329,6 +1329,36 @@ The second /27 segment is the first available network for the workload clusters.
     </picture>
 </figure>
 </p>
+<p>If you take a closer look at the new Tier-1s, you probably would expect them to be created on the new edge-cluster you created and placed your Tier-0 on? No, its not doing that.</p>
+<p>It used the edge-cluster the Supervisor has been configured to use. Thats pr design. So dont try to troubleshoot this. Reboot the Edge nodes, NSX managers, ESXi hosts etc. It is like that.</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="edge-cluster"
+      
+        class="image_figure image_internal image_processed"
+        width="1257"
+        height="81"
+        src="/2023/04/14/tanzu-with-vsphere-and-different-tier-0s/images/image-20230427160531075.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
 <p>Now it is time to deploy your new TKC cluster with the new Tier-0. Its the same procedure as every other TKC cluster. Give it a name and place it in the correct Namespace:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">cluster.x-k8s.io/v1beta1</span><span class="w">
 </span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Cluster</span><span class="w">
