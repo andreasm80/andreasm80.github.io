@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>NSX Advanced LoadBalancer on From 0.985mhz... to several Ghz</title>
+    <title>nsx advanced loadbalancer on From 0.985mhz... to several Ghz</title>
     <link>https://blog.andreasm.io/tags/nsx-advanced-loadbalancer/</link>
-    <description>Recent content in NSX Advanced LoadBalancer on From 0.985mhz... to several Ghz</description>
+    <description>Recent content in nsx advanced loadbalancer on From 0.985mhz... to several Ghz</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Myself</copyright>
-    <lastBuildDate>Sun, 23 Oct 2022 08:22:35 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/nsx-advanced-loadbalancer/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 30 May 2023 14:54:29 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/nsx-advanced-loadbalancer/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>GSLB With AKO &amp; AMKO - NSX Advanced LoadBalancer</title>
-      <link>https://blog.andreasm.io/2022/10/23/gslb-with-ako-amko-nsx-advanced-loadbalancer/</link>
-      <pubDate>Sun, 23 Oct 2022 08:22:35 +0200</pubDate>
+      <title>Tanzu Kubernetes Grid 2.2 &amp; Remote Workload Clusters</title>
+      <link>https://blog.andreasm.io/2023/05/30/tanzu-kubernetes-grid-2.2-remote-workload-clusters/</link>
+      <pubDate>Tue, 30 May 2023 14:54:29 +0200</pubDate>
       
-      <guid>https://blog.andreasm.io/2022/10/23/gslb-with-ako-amko-nsx-advanced-loadbalancer/</guid>
+      <guid>https://blog.andreasm.io/2023/05/30/tanzu-kubernetes-grid-2.2-remote-workload-clusters/</guid>
       <description>
         
           
-            Global Server LoadBalancing in VMware Tanzu with AMKO This post will go through how to configure AVI (NSX ALB) with GSLB in vSphere with Tanzu (TKGs) and an upstream k8s cluster in two different physical locations. I have already covered AKO in my previous posts, this post will assume knowledge of AKO (Avi Kubernetes Operator) and extend upon that with the use of AMKO (Avi Multi-Cluster Kubernetes Operator). The goal is to have the ability to scale my k8s applications between my &amp;quot;sites&amp;quot; and make them geo-redundant.
+            In this post I will quickly go through how to use a Tanzu Kubernetes Grid management cluster to deploy and manage workload clusters in edge/remote locations.
           
           
         

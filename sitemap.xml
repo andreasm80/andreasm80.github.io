@@ -2,34 +2,52 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://blog.andreasm.io/categories/</loc>
+    <lastmod>2023-05-30T14:54:29+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/</loc>
+    <lastmod>2023-05-30T14:54:29+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/categories/kubernetes/</loc>
+    <lastmod>2023-05-30T14:54:29+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/categories/loadbalancing/</loc>
+    <lastmod>2023-05-30T14:54:29+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/multi-dc/</loc>
+    <lastmod>2023-05-30T14:54:29+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/categories/networking/</loc>
+    <lastmod>2023-05-30T14:54:29+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/nsx-advanced-loadbalancer/</loc>
+    <lastmod>2023-05-30T14:54:29+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/nsx-t/</loc>
+    <lastmod>2023-05-30T14:54:29+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/post/</loc>
+    <lastmod>2023-05-30T14:54:29+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/</loc>
+    <lastmod>2023-05-30T14:54:29+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/tanzu/</loc>
+    <lastmod>2023-05-30T14:54:29+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/categories/tanzu/</loc>
+    <lastmod>2023-05-30T14:54:29+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/2023/05/30/tanzu-kubernetes-grid-2.2-remote-workload-clusters/</loc>
+    <lastmod>2023-05-30T14:54:29+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/tkg/</loc>
+    <lastmod>2023-05-30T14:54:29+02:00</lastmod>
+  </url><url>
     <loc>https://blog.andreasm.io/tags/availability/</loc>
     <lastmod>2023-05-03T07:34:47+02:00</lastmod>
   </url><url>
-    <loc>https://blog.andreasm.io/categories/</loc>
-    <lastmod>2023-05-03T07:34:47+02:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/</loc>
-    <lastmod>2023-05-03T07:34:47+02:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/categories/kubernetes/</loc>
-    <lastmod>2023-05-03T07:34:47+02:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/categories/networking/</loc>
-    <lastmod>2023-05-03T07:34:47+02:00</lastmod>
-  </url><url>
     <loc>https://blog.andreasm.io/tags/nsx/</loc>
-    <lastmod>2023-05-03T07:34:47+02:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/post/</loc>
-    <lastmod>2023-05-03T07:34:47+02:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/tags/</loc>
-    <lastmod>2023-05-03T07:34:47+02:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/tags/tanzu/</loc>
-    <lastmod>2023-05-03T07:34:47+02:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/categories/tanzu/</loc>
     <lastmod>2023-05-03T07:34:47+02:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/2023/05/03/vsphere-with-tanzu-and-multi-zones-part2/</loc>
@@ -108,9 +126,6 @@
     <lastmod>2022-10-26T12:03:35+02:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/2022/10/26/ako-explained/</loc>
-    <lastmod>2022-10-26T12:02:39+02:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/categories/loadbalancing/</loc>
     <lastmod>2022-10-26T12:02:39+02:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/tags/amko/</loc>

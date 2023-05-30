@@ -154,7 +154,7 @@
     
     <div class="post_body"><h1 id="vsphere-with-tanzu-and-multi-zone">vSphere with Tanzu and Multi-Zone</h1>
 <p>This post will be a brief introduction of how we can deploy and configure vSphere with Tanzu on three vSphere clusters (vSphere Zones) to achieve better availability of the TKG clusters and Supervisor controlplane nodes. This feature came with Sphere 8, not available in vSphere 7.
-There are some pre-reqs that needs to be in place for this to work in addition to the pre-reqs for deploying vSphere with Tanzu on a single vSphere cluster. I will list them below later.</p>
+There are some requirements that needs to be addressed for this to work in addition to the pre-reqs for deploying vSphere with Tanzu on a single vSphere cluster. I will list them below later.</p>
 <p>From the official VMware <a href="https://docs.vmware.com/en/VMware-vSphere/8.0/vsphere-with-tanzu-concepts-planning/GUID-3E4E6039-BD24-4C40-8575-5AA0EECBBBEC.html">documentation</a>:</p>
 <blockquote>
 <p>You can deploy a Supervisor on three vSphere Zones to provide cluster-level high-availability that protects your Kubernetes workloads against cluster-level failure. A vSphere Zone maps to one vSphere cluster that you can setup as an independent failure domain. In a three-zone deployment, all three vSphere clusters become one Supervisor. You can also deploy a Supervisor on one vSphere cluster, which will automatically create a vSphere Zone and map it to the cluster, unless you use a vSphere cluster that is already mapped to a zone. In a single cluster deployment, the Supervisor only has high availability on host level that is provided by vSphere HA.</p>
@@ -210,14 +210,14 @@ There are some pre-reqs that needs to be in place for this to work in addition t
 </ul>
 </blockquote>
 <h3 id="network">Network</h3>
-<p>To be able to deploy a three-zone Supervisor an important requirement on the networking side is that all vSphere cluster to be used is connected to the same VDS. One VDS shared across all three vSphere clusters.
+<p>To be able to deploy a three-zone Supervisor an important requirement on the networking side is that all vSphere clusters to be used are connected to the same VDS. One VDS shared across all three vSphere clusters.
 From the official documentation:</p>
 <blockquote>
 <p>In a three-zone Supervisor configured with NSX as the networking stack, all hosts from all three vSphere clusters mapped to the zones must use be connected to the same VDS and participate in the same NSX Overlay Transport Zone. All hosts must be connected to the same L2 physical device.</p>
 </blockquote>
 <p>Not sure what is meant with connecting to the same L2 physical device though...
 But anyhow, this constraint can be a limiting factor and something to be aware of. Some explanations:</p>
-<p>If you have an NSX environment with one common Overlay transportzone across all vSphere clusters, but configured with three individual VDS switches (1 specific VDS pr vSphere cluster) it is currently not supported. Having individual VDS switches pr cluster allows you to have only relevant portgroups in your vSphere clusters that are configured specifically for their respective clusters network, different vlans, placed in different racks and there is no L2 between them, only L3. The different vSphere clusters can be on different racks with different ToR switches, in a Spine-Leaf topology, different subnets/vlans configured for mgmt, vmotion, vSAN, Geneve tunnel VLAN, VM network and so on.</p>
+<p>If you have an NSX environment with one common Overlay transportzone across all vSphere clusters, but configured with three individual VDS switches (1 specific VDS pr vSphere cluster) it is currently not supported. Having individual VDS switches per cluster allows you to have only relevant portgroups in your vSphere clusters that are configured specifically for their respective cluster's network, different vlans, placed in different racks and there is no L2 between them, only L3. The different vSphere clusters can be on different racks with different ToR switches, in a Spine-Leaf topology, different subnets/vlans configured for mgmt, vmotion, vSAN, Geneve tunnel VLAN, VM network and so on.</p>
 <p>An example when having a dedicated VDS pr vSphere cluster:</p>
 <p>
   <figure>
@@ -247,8 +247,8 @@ But anyhow, this constraint can be a limiting factor and something to be aware o
     </picture>
 </figure>
 </p>
-<p>the illustration above indicates that we have portgroups defined that is valid for the VLAN trunks configured to the attached ToR switches with the corresponding VLAN trunks. So there is no risk of using any of the portgroups defined in the respective VDS in any of the above two vSphere clusters to use VLAN portgoups that has not been defined in the ToR switches trunk-ports. That means you will not end up with any unrelevant portgroups not valid for the respective cluster they are being used in. All this depends on the vlan trunks configured in the ToR switches. There is no need to have portgroups spanning across different vSphere clusters with unrelevant vlan tags. They will just end up not getting anywhere, and create a lot of &quot;noise&quot; for the admin managing these portgroups.</p>
-<p>The example below illustrates one shared VDS across all vSphere clusters, where we have differentiating ToR VLAN trunks, configured pr rack.</p>
+<p>The illustration above indicates that we have portgroups defined that is valid for the VLAN trunks configured to the attached ToR switches with the corresponding VLAN trunks. So there is no risk of using any of the portgroups defined in the respective VDS in any of the above two vSphere clusters to use VLAN portgoups that has not been defined in the ToR switches trunk-ports. That means you will not end up with any unrelevant portgroups not valid for the respective cluster they are being used in. All this depends on the vlan trunks configured in the ToR switches. There is no need to have portgroups spanning across different vSphere clusters with unrelevant vlan tags. They will just end up not getting anywhere, and create a lot of &quot;noise&quot; for the admin managing these portgroups.</p>
+<p>The example below illustrates one shared VDS across all vSphere clusters, where we have differentiating ToR VLAN trunks, configured per rack.</p>
 <p>
   <figure>
   <picture>
@@ -278,7 +278,7 @@ But anyhow, this constraint can be a limiting factor and something to be aware o
 </figure>
 </p>
 <p>As we are using the same VDS across all clusters, all portgroups defined in this shared VDS is accessible and visible for all ESXi hosts participating in this VDS. This means they can easily be used, but they may not be the correct portgroups to be used for this cluster as the underlaying ToR switches may not have the correct vlan trunks for the ESXi hosts uplinks (pNICs).</p>
-<p>That is just something to be aware of. If your ESXi hosts have been configured with more than two pNICs it is also possible to have one dedicated VDS pr cluster for services specificially for the respective ESXi clusters and one shared for services that are configured identically across the clusters.</p>
+<p>That is just something to be aware of. If your ESXi hosts have been configured with more than two pNICs it is also possible to have one dedicated VDS per cluster for services specificially for the respective ESXi clusters and one shared for services that are configured identically across the clusters.</p>
 <h3 id="storage">Storage</h3>
 <p>From the official <a href="https://docs.vmware.com/en/VMware-vSphere/8.0/vsphere-with-tanzu-concepts-planning/GUID-9F430B04-4427-416D-9B6E-FD879D4F88C0.html">documentation</a>:</p>
 <blockquote>
@@ -409,7 +409,7 @@ But anyhow, this constraint can be a limiting factor and something to be aware o
 </tbody>
 </table>
 <h2 id="deployment-time">Deployment time</h2>
-<p>Now that we have gone through the requirements I will start det actual installation/deployment steps of vSphere with Tanzu in a three-zone setup.
+<p>Now that we have gone through the requirements I will start the actual installation/deployment steps of vSphere with Tanzu in a three-zone setup.
 This post is assuming an already configured and working vSphere environment and NSX installation. Will only focus on the actual deployment of vSphere with Tanzu in a three-zone setup.</p>
 <p>This is how my environment looks like on a vSphere level before enabling the three-zone Supervisor:</p>
 <p>
@@ -440,7 +440,7 @@ This post is assuming an already configured and working vSphere environment and 
     </picture>
 </figure>
 </p>
-<p>My vSphere cluster consists of three vSphere cluster with 4 esxi hosts each. They are all connected to the same Distributed Virtual Switch, but with different portgroups as their backend vlans is different between the clusters. The only common portgroups they share is all the overlay segments created from NSX (they are all part of the same Overlay TransportZone). Each cluster has its own VSAN datastore, not shared or stretched between the clusters. VSAN local to every vSphere cluster.</p>
+<p>My vSphere cluster consists of three vSphere cluster with 4 ESXi hosts each. They are all connected to the same Distributed Virtual Switch, but with different portgroups as their backend vlans is different between the clusters. The only common portgroups they share is all the overlay segments created from NSX (they are all part of the same Overlay TransportZone). Each cluster has its own VSAN datastore, not shared or stretched between the clusters. VSAN local to every vSphere cluster.</p>
 <h2 id="enable-three-zone-supervisor">Enable three-zone Supervisor</h2>
 <h3 id="vsphere-zones">vSphere Zones</h3>
 <p>Before I can go ahead and enable a three-zone Supervisor I need to create the vSphere Zones which is done here:</p>
@@ -472,7 +472,7 @@ This post is assuming an already configured and working vSphere environment and 
     </picture>
 </figure>
 </p>
-<p>Click on the vCenter in the inventory three -&gt; Configure &gt; vSphere Zones.
+<p>Click on the vCenter in the inventory tree -&gt; Configure &gt; vSphere Zones.
 From there I need to create three zones representing my three vSphere clusters.
 Click Add New vSphere Zone:</p>
 <p>
@@ -796,7 +796,7 @@ Click Add New vSphere Zone:</p>
 </p>
 <p>Now that the storage policy is in place next up is the actual deployment of the three-zone Supervisor.</p>
 <h3 id="deploy-the-three-zone-supervisor">Deploy the three-zone Supervisor</h3>
-<p>When all the pre-requirements have been done, the actual enablement of the Supervisor is not so different from a regual Supervisor enablement, but let us go through the steps anyway.</p>
+<p>When all the prerequisites have been done, the actual enablement of the Supervisor is not so different from a regual Supervisor enablement, but let us go through the steps anyway.</p>
 <p>Head over to <em>Workload Management</em></p>
 <p>
   <figure>
@@ -891,7 +891,7 @@ Click Add New vSphere Zone:</p>
     </picture>
 </figure>
 </p>
-<p>In step I select my newly created &quot;zonal&quot; policy, notice that we only have to select the <em>Control Plane Storage Policy</em></p>
+<p>In step 3 I select my newly created &quot;zonal&quot; policy, notice that we only have to select the <em>Control Plane Storage Policy</em></p>
 <p>
   <figure>
   <picture>
@@ -920,7 +920,7 @@ Click Add New vSphere Zone:</p>
     </picture>
 </figure>
 </p>
-<p>Then in step it is the Supervisor management network configurations, here I am using my ls-mgmt NSX overlay segment which is common/shared across all esxi hosts/vSphere cluster.</p>
+<p>Then in step 4 it is the Supervisor management network configurations, here I am using my ls-mgmt NSX overlay segment which is common/shared across all esxi hosts/vSphere cluster.</p>
 <p>
   <figure>
   <picture>
@@ -978,7 +978,7 @@ Click Add New vSphere Zone:</p>
     </picture>
 </figure>
 </p>
-<p>Then in the last step its finish time, or put in a dns name for the supervisor k8s api endpoint.</p>
+<p>Then in the last step its review and finish time, or put in a dns name for the supervisor k8s api endpoint.</p>
 <p>
   <figure>
   <picture>
@@ -1065,8 +1065,8 @@ Click Add New vSphere Zone:</p>
     </picture>
 </figure>
 </p>
-<p>As I can see from the screenshot above, the three supervisors will be distributed across my three vSphere clusters, one Supervisor pr vSphere cluster.</p>
-<p>This conclues the enabling of a three-zone Supervisor cluster. Next step is to deploy your TKC or guest clusters.</p>
+<p>As you can see from the screenshot above, the three supervisors will be distributed across my three vSphere clusters, one Supervisor per vSphere cluster.</p>
+<p>This concludes the enabling of a three-zone Supervisor cluster. Next step is to deploy your TKC or guest clusters.</p>
 <h3 id="deploy-a-tkcguest-cluster-in-a-three-zone">Deploy a TKC/guest cluster in a three-zone</h3>
 <p>Deploying a TKC cluster in a three-zone is not any different than a single zone, but we need to create storage policy for the workload cluster to be used for deployment.</p>
 <p>The storage policy I have created look like this and is applied on the vSphere Namespace I create. I will quickly go through the step below:</p>
@@ -1309,6 +1309,9 @@ Click Add New vSphere Zone:</p>
     <h2 class="mt-4">Recent Posts</h2>
     <ul class="flex-column">
       <li>
+        <a href="https://blog.andreasm.io/2023/05/30/tanzu-kubernetes-grid-2.2-remote-workload-clusters/" class="nav-link" title="Tanzu Kubernetes Grid 2.2 &amp; Remote Workload Clusters">Tanzu Kubernetes Grid 2.2 &amp; Remote Workload Clusters</a>
+      </li>
+      <li>
         <a href="https://blog.andreasm.io/2023/05/03/vsphere-with-tanzu-and-multi-zones-part2/" class="nav-link" title="vSphere with Tanzu and Multi Zones part2">vSphere with Tanzu and Multi Zones part2</a>
       </li>
       <li>
@@ -1329,31 +1332,28 @@ Click Add New vSphere Zone:</p>
       <li>
         <a href="https://blog.andreasm.io/2022/10/26/vsphere-8-with-tanzu-using-vds-and-avi-loadbalancer/" class="nav-link" title="vSphere 8 with Tanzu using VDS and Avi Loadbalancer">vSphere 8 with Tanzu using VDS and Avi Loadbalancer</a>
       </li>
-      <li>
-        <a href="https://blog.andreasm.io/2022/10/26/vsphere-8-with-tanzu-using-nsx-t-avi-loadbalancer/" class="nav-link" title="vSphere 8 with Tanzu using NSX-T &amp; Avi LoadBalancer">vSphere 8 with Tanzu using NSX-T &amp; Avi LoadBalancer</a>
-      </li>
     </ul>
     <div>
       <h2 class="mt-4 taxonomy" id="categories-section">Categories</h2>
       <nav class="tags_nav">
         <a href='https://blog.andreasm.io/categories/kubernetes/' class="post_tag button button_translucent" title="kubernetes">
           KUBERNETES
-          <span class="button_tally">24</span>
+          <span class="button_tally">25</span>
         </a>
         
         <a href='https://blog.andreasm.io/categories/networking/' class="post_tag button button_translucent" title="networking">
           NETWORKING
-          <span class="button_tally">17</span>
+          <span class="button_tally">18</span>
         </a>
         
         <a href='https://blog.andreasm.io/categories/tanzu/' class="post_tag button button_translucent" title="tanzu">
           TANZU
-          <span class="button_tally">7</span>
+          <span class="button_tally">8</span>
         </a>
         
         <a href='https://blog.andreasm.io/categories/loadbalancing/' class="post_tag button button_translucent" title="loadbalancing">
           LOADBALANCING
-          <span class="button_tally">6</span>
+          <span class="button_tally">7</span>
         </a>
         
         <a href='https://blog.andreasm.io/categories/avi/' class="post_tag button button_translucent" title="avi">
@@ -1452,11 +1452,11 @@ Click Add New vSphere Zone:</p>
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/kubernetes/' class=" post_tag button button_translucent" data-position=24 title="kubernetes">KUBERNETES<span class="button_tally">24</span>
+            <a href='https://blog.andreasm.io/categories/kubernetes/' class=" post_tag button button_translucent" data-position=25 title="kubernetes">KUBERNETES<span class="button_tally">25</span>
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/loadbalancing/' class=" post_tag button button_translucent" data-position=6 title="loadbalancing">LOADBALANCING<span class="button_tally">6</span>
+            <a href='https://blog.andreasm.io/categories/loadbalancing/' class=" post_tag button button_translucent" data-position=7 title="loadbalancing">LOADBALANCING<span class="button_tally">7</span>
             </a>
             
             
@@ -1472,7 +1472,7 @@ Click Add New vSphere Zone:</p>
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/networking/' class=" post_tag button button_translucent" data-position=17 title="networking">NETWORKING<span class="button_tally">17</span>
+            <a href='https://blog.andreasm.io/categories/networking/' class=" post_tag button button_translucent" data-position=18 title="networking">NETWORKING<span class="button_tally">18</span>
             </a>
             
             
@@ -1500,7 +1500,7 @@ Click Add New vSphere Zone:</p>
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/tanzu/' class=" post_tag button button_translucent" data-position=7 title="tanzu">TANZU<span class="button_tally">7</span>
+            <a href='https://blog.andreasm.io/categories/tanzu/' class=" post_tag button button_translucent" data-position=8 title="tanzu">TANZU<span class="button_tally">8</span>
             </a>
             
             
@@ -1545,13 +1545,13 @@ Click Add New vSphere Zone:</p>
           <span class="button_tally">10</span>
         </a>
         
-        <a href='https://blog.andreasm.io/tags/ako/' class="post_tag button button_translucent" title="ako">
-          AKO
-          <span class="button_tally">7</span>
-        </a>
-        
         <a href='https://blog.andreasm.io/tags/tanzu/' class="post_tag button button_translucent" title="tanzu">
           TANZU
+          <span class="button_tally">8</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/ako/' class="post_tag button button_translucent" title="ako">
+          AKO
           <span class="button_tally">7</span>
         </a>
         
@@ -1723,6 +1723,10 @@ Click Add New vSphere Zone:</p>
             </a>
             
             
+            <a href='https://blog.andreasm.io/tags/multi-dc/' class=" post_tag button button_translucent" data-position=1 title="multi-dc">MULTI-DC<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.andreasm.io/tags/network/' class=" post_tag button button_translucent" data-position=2 title="network">NETWORK<span class="button_tally">2</span>
             </a>
             
@@ -1739,7 +1743,15 @@ Click Add New vSphere Zone:</p>
             </a>
             
             
+            <a href='https://blog.andreasm.io/tags/nsx-advanced-loadbalancer/' class=" post_tag button button_translucent" data-position=1 title="nsx-advanced-loadbalancer">NSX-ADVANCED-LOADBALANCER<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.andreasm.io/tags/nsx-application-platform/' class=" post_tag button button_translucent" data-position=1 title="nsx-application-platform">NSX-APPLICATION-PLATFORM<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/nsx-t/' class=" post_tag button button_translucent" data-position=1 title="nsx-t">NSX-T<span class="button_tally">1</span>
             </a>
             
             
@@ -1783,7 +1795,11 @@ Click Add New vSphere Zone:</p>
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/tanzu/' class=" post_tag button button_translucent" data-position=7 title="tanzu">TANZU<span class="button_tally">7</span>
+            <a href='https://blog.andreasm.io/tags/tanzu/' class=" post_tag button button_translucent" data-position=8 title="tanzu">TANZU<span class="button_tally">8</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/tkg/' class=" post_tag button button_translucent" data-position=1 title="tkg">TKG<span class="button_tally">1</span>
             </a>
             
             
