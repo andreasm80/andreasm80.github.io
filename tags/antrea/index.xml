@@ -6,7 +6,23 @@
     <description>Recent content in antrea on From 0.985mhz... to several Ghz</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Myself</copyright>
-    <lastBuildDate>Mon, 20 Feb 2023 15:42:54 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/antrea/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 01 Jun 2023 11:14:32 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/antrea/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Managing Antrea in vSphere with Tanzu</title>
+      <link>https://blog.andreasm.io/2023/06/01/managing-antrea-in-vsphere-with-tanzu/</link>
+      <pubDate>Thu, 01 Jun 2023 11:14:32 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2023/06/01/managing-antrea-in-vsphere-with-tanzu/</guid>
+      <description>
+        
+          
+            In this post I will go through how to manage Antrea in a vSphere with Tanzu cluster using the Antrea CRD, and then explore some features and possibilites with Antrea
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>Antrea Egress</title>
       <link>https://blog.andreasm.io/2023/02/20/antrea-egress/</link>
