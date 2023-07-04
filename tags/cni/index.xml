@@ -6,18 +6,17 @@
     <description>Recent content in cni on From 0.985mhz... to several Ghz</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Myself</copyright>
-    <lastBuildDate>Tue, 11 Oct 2022 21:38:27 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/cni/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 21 Jun 2023 10:01:46 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/cni/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>NSX Antrea Integration</title>
-      <link>https://blog.andreasm.io/2022/10/11/nsx-antrea-integration/</link>
-      <pubDate>Tue, 11 Oct 2022 21:38:27 +0200</pubDate>
+      <title>Securing Kubernetes clusters with Antrea Network Policies</title>
+      <link>https://blog.andreasm.io/2023/06/21/securing-kubernetes-clusters-with-antrea-network-policies/</link>
+      <pubDate>Wed, 21 Jun 2023 10:01:46 +0200</pubDate>
       
-      <guid>https://blog.andreasm.io/2022/10/11/nsx-antrea-integration/</guid>
+      <guid>https://blog.andreasm.io/2023/06/21/securing-kubernetes-clusters-with-antrea-network-policies/</guid>
       <description>
         
           
-            What is the NSX Antrea integration Assumptions: I assume that the reader is aware of what Antrea is, and what a CNI is and also what NSX is. If not head over here to read more on Antrea and here to read more on NSX.
-For many years VMware NSX has help many customer secure their workload by using the NSX Distributed Firewall. As NSX has evolved over the years the different platform it supports has also broadened, from virtual machines, bare metal server, cloud workload and kubernetes pods.
+            In this post I will go through how to utilize Antrea Network policies with Tanzu Mission Control and a little bit NSX. So jump in and hopefully get some ideas how what we can do with Antrea Network Policies and how to use them.
           
           
         

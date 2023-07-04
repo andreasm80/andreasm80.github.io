@@ -276,6 +276,9 @@ And this KB to enable SSH (for those who are unfamiliar with how to enable SSH i
     <h2 class="mt-4">Recent Posts</h2>
     <ul class="flex-column">
       <li>
+        <a href="https://blog.andreasm.io/2023/06/21/securing-kubernetes-clusters-with-antrea-network-policies/" class="nav-link" title="Securing Kubernetes clusters with Antrea Network Policies">Securing Kubernetes clusters with Antrea Network Policies</a>
+      </li>
+      <li>
         <a href="https://blog.andreasm.io/2023/06/01/managing-antrea-in-vsphere-with-tanzu/" class="nav-link" title="Managing Antrea in vSphere with Tanzu">Managing Antrea in vSphere with Tanzu</a>
       </li>
       <li>
@@ -296,16 +299,13 @@ And this KB to enable SSH (for those who are unfamiliar with how to enable SSH i
       <li>
         <a href="https://blog.andreasm.io/2023/03/04/hosting-my-blog-on-github/" class="nav-link" title="Hosting my blog on Github">Hosting my blog on Github</a>
       </li>
-      <li>
-        <a href="https://blog.andreasm.io/2023/02/20/antrea-egress/" class="nav-link" title="Antrea Egress">Antrea Egress</a>
-      </li>
     </ul>
     <div>
       <h2 class="mt-4 taxonomy" id="categories-section">Categories</h2>
       <nav class="tags_nav">
         <a href='https://blog.andreasm.io/categories/kubernetes/' class="post_tag button button_translucent" title="kubernetes">
           KUBERNETES
-          <span class="button_tally">26</span>
+          <span class="button_tally">27</span>
         </a>
         
         <a href='https://blog.andreasm.io/categories/networking/' class="post_tag button button_translucent" title="networking">
@@ -325,16 +325,16 @@ And this KB to enable SSH (for those who are unfamiliar with how to enable SSH i
         
         <a href='https://blog.andreasm.io/categories/cni/' class="post_tag button button_translucent" title="cni">
           CNI
+          <span class="button_tally">6</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/security/' class="post_tag button button_translucent" title="security">
+          SECURITY
           <span class="button_tally">5</span>
         </a>
         
         <a href='https://blog.andreasm.io/categories/avi/' class="post_tag button button_translucent" title="avi">
           AVI
-          <span class="button_tally">4</span>
-        </a>
-        
-        <a href='https://blog.andreasm.io/categories/security/' class="post_tag button button_translucent" title="security">
-          SECURITY
           <span class="button_tally">4</span>
         </a>
         
@@ -353,6 +353,11 @@ And this KB to enable SSH (for those who are unfamiliar with how to enable SSH i
           <span class="button_tally">2</span>
         </a>
         
+        <a href='https://blog.andreasm.io/categories/antrea/' class="post_tag button button_translucent" title="antrea">
+          ANTREA
+          <span class="button_tally">1</span>
+        </a>
+        
         <a href='https://blog.andreasm.io/categories/certificate/' class="post_tag button button_translucent" title="certificate">
           CERTIFICATE
           <span class="button_tally">1</span>
@@ -368,16 +373,15 @@ And this KB to enable SSH (for those who are unfamiliar with how to enable SSH i
           <span class="button_tally">1</span>
         </a>
         
-        <a href='https://blog.andreasm.io/categories/harbor/' class="post_tag button button_translucent" title="harbor">
-          HARBOR
-          <span class="button_tally">1</span>
-        </a>
-        
         
         <br>
         <div class="post_tags_toggle button">All Categories</div>
         <div class="post_tags">
           <div class="tags_list">
+            
+            <a href='https://blog.andreasm.io/categories/antrea/' class=" post_tag button button_translucent" data-position=1 title="antrea">ANTREA<span class="button_tally">1</span>
+            </a>
+            
             
             <a href='https://blog.andreasm.io/categories/avi/' class=" post_tag button button_translucent" data-position=4 title="avi">AVI<span class="button_tally">4</span>
             </a>
@@ -391,7 +395,7 @@ And this KB to enable SSH (for those who are unfamiliar with how to enable SSH i
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/cni/' class=" post_tag button button_translucent" data-position=5 title="cni">CNI<span class="button_tally">5</span>
+            <a href='https://blog.andreasm.io/categories/cni/' class=" post_tag button button_translucent" data-position=6 title="cni">CNI<span class="button_tally">6</span>
             </a>
             
             
@@ -419,7 +423,7 @@ And this KB to enable SSH (for those who are unfamiliar with how to enable SSH i
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/kubernetes/' class=" post_tag button button_translucent" data-position=26 title="kubernetes">KUBERNETES<span class="button_tally">26</span>
+            <a href='https://blog.andreasm.io/categories/kubernetes/' class=" post_tag button button_translucent" data-position=27 title="kubernetes">KUBERNETES<span class="button_tally">27</span>
             </a>
             
             
@@ -459,7 +463,7 @@ And this KB to enable SSH (for those who are unfamiliar with how to enable SSH i
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/security/' class=" post_tag button button_translucent" data-position=4 title="security">SECURITY<span class="button_tally">4</span>
+            <a href='https://blog.andreasm.io/categories/security/' class=" post_tag button button_translucent" data-position=5 title="security">SECURITY<span class="button_tally">5</span>
             </a>
             
             
@@ -468,6 +472,14 @@ And this KB to enable SSH (for those who are unfamiliar with how to enable SSH i
             
             
             <a href='https://blog.andreasm.io/categories/tanzu/' class=" post_tag button button_translucent" data-position=9 title="tanzu">TANZU<span class="button_tally">9</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/tanzu-mission-control/' class=" post_tag button button_translucent" data-position=1 title="tanzu-mission-control">TANZU-MISSION-CONTROL<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/tmc/' class=" post_tag button button_translucent" data-position=1 title="tmc">TMC<span class="button_tally">1</span>
             </a>
             
             
@@ -504,7 +516,7 @@ And this KB to enable SSH (for those who are unfamiliar with how to enable SSH i
       <nav class="tags_nav">
         <a href='https://blog.andreasm.io/tags/kubernetes/' class="post_tag button button_translucent" title="kubernetes">
           KUBERNETES
-          <span class="button_tally">13</span>
+          <span class="button_tally">14</span>
         </a>
         
         <a href='https://blog.andreasm.io/tags/nsx/' class="post_tag button button_translucent" title="nsx">
@@ -517,19 +529,19 @@ And this KB to enable SSH (for those who are unfamiliar with how to enable SSH i
           <span class="button_tally">9</span>
         </a>
         
+        <a href='https://blog.andreasm.io/tags/antrea/' class="post_tag button button_translucent" title="antrea">
+          ANTREA
+          <span class="button_tally">8</span>
+        </a>
+        
         <a href='https://blog.andreasm.io/tags/ako/' class="post_tag button button_translucent" title="ako">
           AKO
           <span class="button_tally">7</span>
         </a>
         
-        <a href='https://blog.andreasm.io/tags/antrea/' class="post_tag button button_translucent" title="antrea">
-          ANTREA
-          <span class="button_tally">7</span>
-        </a>
-        
         <a href='https://blog.andreasm.io/tags/security/' class="post_tag button button_translucent" title="security">
           SECURITY
-          <span class="button_tally">5</span>
+          <span class="button_tally">6</span>
         </a>
         
         <a href='https://blog.andreasm.io/tags/avi/' class="post_tag button button_translucent" title="avi">
@@ -586,7 +598,7 @@ And this KB to enable SSH (for those who are unfamiliar with how to enable SSH i
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/antrea/' class=" post_tag button button_translucent" data-position=7 title="antrea">ANTREA<span class="button_tally">7</span>
+            <a href='https://blog.andreasm.io/tags/antrea/' class=" post_tag button button_translucent" data-position=8 title="antrea">ANTREA<span class="button_tally">8</span>
             </a>
             
             
@@ -611,6 +623,10 @@ And this KB to enable SSH (for those who are unfamiliar with how to enable SSH i
             
             
             <a href='https://blog.andreasm.io/tags/certificate/' class=" post_tag button button_translucent" data-position=1 title="certificate">CERTIFICATE<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/cni/' class=" post_tag button button_translucent" data-position=1 title="cni">CNI<span class="button_tally">1</span>
             </a>
             
             
@@ -670,7 +686,7 @@ And this KB to enable SSH (for those who are unfamiliar with how to enable SSH i
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/kubernetes/' class=" post_tag button button_translucent" data-position=13 title="kubernetes">KUBERNETES<span class="button_tally">13</span>
+            <a href='https://blog.andreasm.io/tags/kubernetes/' class=" post_tag button button_translucent" data-position=14 title="kubernetes">KUBERNETES<span class="button_tally">14</span>
             </a>
             
             
@@ -750,7 +766,7 @@ And this KB to enable SSH (for those who are unfamiliar with how to enable SSH i
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/security/' class=" post_tag button button_translucent" data-position=5 title="security">SECURITY<span class="button_tally">5</span>
+            <a href='https://blog.andreasm.io/tags/security/' class=" post_tag button button_translucent" data-position=6 title="security">SECURITY<span class="button_tally">6</span>
             </a>
             
             
@@ -771,6 +787,10 @@ And this KB to enable SSH (for those who are unfamiliar with how to enable SSH i
             
             
             <a href='https://blog.andreasm.io/tags/tkg-2.1/' class=" post_tag button button_translucent" data-position=1 title="tkg-2.1">TKG-2.1<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/tmc/' class=" post_tag button button_translucent" data-position=1 title="tmc">TMC<span class="button_tally">1</span>
             </a>
             
             

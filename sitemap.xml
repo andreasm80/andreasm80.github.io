@@ -3,30 +3,57 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://blog.andreasm.io/tags/antrea/</loc>
-    <lastmod>2023-06-01T11:14:32+02:00</lastmod>
+    <lastmod>2023-06-21T10:01:46+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/categories/antrea/</loc>
+    <lastmod>2023-06-21T10:01:46+02:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/categories/</loc>
-    <lastmod>2023-06-01T11:14:32+02:00</lastmod>
+    <lastmod>2023-06-21T10:01:46+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/cni/</loc>
+    <lastmod>2023-06-21T10:01:46+02:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/categories/cni/</loc>
-    <lastmod>2023-06-01T11:14:32+02:00</lastmod>
+    <lastmod>2023-06-21T10:01:46+02:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/</loc>
-    <lastmod>2023-06-01T11:14:32+02:00</lastmod>
+    <lastmod>2023-06-21T10:01:46+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/kubernetes/</loc>
+    <lastmod>2023-06-21T10:01:46+02:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/categories/kubernetes/</loc>
-    <lastmod>2023-06-01T11:14:32+02:00</lastmod>
+    <lastmod>2023-06-21T10:01:46+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/post/</loc>
+    <lastmod>2023-06-21T10:01:46+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/2023/06/21/securing-kubernetes-clusters-with-antrea-network-policies/</loc>
+    <lastmod>2023-06-21T10:01:46+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/security/</loc>
+    <lastmod>2023-06-21T10:01:46+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/categories/security/</loc>
+    <lastmod>2023-06-21T10:01:46+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/</loc>
+    <lastmod>2023-06-21T10:01:46+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/categories/tanzu-mission-control/</loc>
+    <lastmod>2023-06-21T10:01:46+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/tmc/</loc>
+    <lastmod>2023-06-21T10:01:46+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/categories/tmc/</loc>
+    <lastmod>2023-06-21T10:01:46+02:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/2023/06/01/managing-antrea-in-vsphere-with-tanzu/</loc>
     <lastmod>2023-06-01T11:14:32+02:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/tags/nsx-t/</loc>
-    <lastmod>2023-06-01T11:14:32+02:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/post/</loc>
-    <lastmod>2023-06-01T11:14:32+02:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/tags/</loc>
     <lastmod>2023-06-01T11:14:32+02:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/tags/tanzu/</loc>
@@ -75,9 +102,6 @@
     <lastmod>2023-03-22T09:24:01+01:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/tags/avi/</loc>
-    <lastmod>2023-03-22T09:24:01+01:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/tags/kubernetes/</loc>
     <lastmod>2023-03-22T09:24:01+01:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/2023/03/22/tanzu-kubernetes-grid-2.1/</loc>
@@ -242,13 +266,7 @@
     <loc>https://blog.andreasm.io/2022/10/11/nsx-antrea-integration/</loc>
     <lastmod>2022-10-11T21:38:27+02:00</lastmod>
   </url><url>
-    <loc>https://blog.andreasm.io/tags/security/</loc>
-    <lastmod>2022-10-11T21:38:27+02:00</lastmod>
-  </url><url>
     <loc>https://blog.andreasm.io/2022/03/13/managing-your-antrea-k8s-clusters-running-in-vmc-from-your-on-prem-nsx-manager/</loc>
-    <lastmod>2022-03-13T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/categories/security/</loc>
     <lastmod>2022-03-13T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/tags/vmconaws/</loc>

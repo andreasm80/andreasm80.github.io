@@ -6,7 +6,23 @@
     <description>Recent content in kubernetes on From 0.985mhz... to several Ghz</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Myself</copyright>
-    <lastBuildDate>Wed, 22 Mar 2023 09:24:01 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 21 Jun 2023 10:01:46 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Securing Kubernetes clusters with Antrea Network Policies</title>
+      <link>https://blog.andreasm.io/2023/06/21/securing-kubernetes-clusters-with-antrea-network-policies/</link>
+      <pubDate>Wed, 21 Jun 2023 10:01:46 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2023/06/21/securing-kubernetes-clusters-with-antrea-network-policies/</guid>
+      <description>
+        
+          
+            In this post I will go through how to utilize Antrea Network policies with Tanzu Mission Control and a little bit NSX. So jump in and hopefully get some ideas how what we can do with Antrea Network Policies and how to use them.
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>Tanzu Kubernetes Grid 2.1</title>
       <link>https://blog.andreasm.io/2023/03/22/tanzu-kubernetes-grid-2.1/</link>
