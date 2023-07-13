@@ -6,7 +6,23 @@
     <description>Recent content in Kubernetes on From 0.985mhz... to several Ghz</description>
     <generator>Hugo -- gohugo.io</generator>
     <copyright>Myself</copyright>
-    <lastBuildDate>Wed, 21 Jun 2023 10:01:46 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 12 Jul 2023 15:22:46 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Installing TMC local on vSphere 8 with Tanzu using Keycloak as OIDC provider</title>
+      <link>https://blog.andreasm.io/2023/07/12/installing-tmc-local-on-vsphere-8-with-tanzu-using-keycloak-as-oidc-provider/</link>
+      <pubDate>Wed, 12 Jul 2023 15:22:46 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2023/07/12/installing-tmc-local-on-vsphere-8-with-tanzu-using-keycloak-as-oidc-provider/</guid>
+      <description>
+        
+          
+            In this post I will be going through how to deploy the newly released TMC local in a lab environment to start playing around with it. I will also cover how I have deployed Keycloak to serve my needs for TMC-SM.
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>Securing Kubernetes clusters with Antrea Network Policies</title>
       <link>https://blog.andreasm.io/2023/06/21/securing-kubernetes-clusters-with-antrea-network-policies/</link>
