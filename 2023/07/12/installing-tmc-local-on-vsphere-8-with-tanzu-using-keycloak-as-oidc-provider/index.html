@@ -120,7 +120,7 @@
 </span>
     <span class="post_date">
       12-07-2023</span>
-    <span class="post_time"> · 51 min read</span><span>&nbsp;· <a href='https://blog.andreasm.io/tags/cert-manager/' title="cert-manager" class="post_tag button button_translucent">cert-manager
+    <span class="post_time"> · 52 min read</span><span>&nbsp;· <a href='https://blog.andreasm.io/tags/cert-manager/' title="cert-manager" class="post_tag button button_translucent">cert-manager
         </a><a href='https://blog.andreasm.io/tags/authentication/' title="Authentication" class="post_tag button button_translucent">Authentication
         </a><a href='https://blog.andreasm.io/tags/keycloak/' title="keycloak" class="post_tag button button_translucent">keycloak
         </a><a href='https://blog.andreasm.io/tags/tmc-sm/' title="tmc-sm" class="post_tag button button_translucent">tmc-sm
@@ -2672,7 +2672,28 @@ Check the progress on the package reconciliation:</p>
 </span></span><span class="line"><span class="ln">151</span><span class="cl">7:57:44AM: Deleting <span class="s1">&#39;ServiceAccount&#39;</span>: tanzu-mission-control-tmc-local-sa
 </span></span><span class="line"><span class="ln">152</span><span class="cl">7:57:44AM: Deleting <span class="s1">&#39;ClusterRole&#39;</span>: tanzu-mission-control-tmc-local-cluster-role
 </span></span><span class="line"><span class="ln">153</span><span class="cl">7:57:44AM: Deleting <span class="s1">&#39;ClusterRoleBinding&#39;</span>: tanzu-mission-control-tmc-local-cluster-rolebinding
-</span></span></code></pre></div><h2 id="first-time-login-tmc-sm">First time login TMC-SM</h2>
+</span></span></code></pre></div><p>There may be reasons you need to remove the namespace tmc-local also has it contains a lot of configmaps, secret and pvc volumes. So if you want to completeley and easily remove everything TMC-SM related, delete the namespace.
+From the official documentation:</p>
+<blockquote>
+<p>To remove Tanzu Mission Control Self-Managed and its artifacts from you cluster, use the <code>tanzu</code> cli.</p>
+<ol>
+<li>
+<p>Back up any data that you do not want to lose.</p>
+</li>
+<li>
+<p>Run the following commands:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="ln">1</span><span class="cl"><span class="nx">tanzu</span> <span class="kn">package</span> <span class="nx">installed</span> <span class="nx">delete</span> <span class="nx">tanzu</span><span class="o">-</span><span class="nx">mission</span><span class="o">-</span><span class="nx">control</span> <span class="o">--</span><span class="nx">namespace</span> <span class="nx">tmc</span><span class="o">-</span><span class="nx">local</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="nx">tanzu</span> <span class="kn">package</span> <span class="nx">repository</span> <span class="nx">delete</span> <span class="nx">tanzu</span><span class="o">-</span><span class="nx">mission</span><span class="o">-</span><span class="nx">control</span><span class="o">-</span><span class="nx">packages</span> <span class="o">--</span><span class="nx">namespace</span> <span class="nx">tmc</span><span class="o">-</span><span class="nx">local</span>
+</span></span></code></pre></div></li>
+<li>
+<p>If necessary, delete residual resources.</p>
+<p>The above commands clean up most of the resources that were created by the <code>tanzu-mission-control</code> Tanzu package. However, there are some resources that you have to remove manually. The resources include:
+- persistent volumes - internal TLS certificates - configmaps</p>
+<p>Alternatively, you can delete the <code>tmc-local</code> namespace. When you delete the <code>tmc-local</code> namespace, the persistent volume claims associated with the namespace are deleted. Make sure you have already backed up any data that you don’t want to lose.</p>
+</li>
+</ol>
+</blockquote>
+<h2 id="first-time-login-tmc-sm">First time login TMC-SM</h2>
 <p>If everything above went after plan (not for me, just a minor issue), I should now be able to login to my TMC-SM console.</p>
 <p>Using my regular client from a web-browser enter <a href="https://tmc.pretty-awesome-domain.net">https://tmc.pretty-awesome-domain.net</a></p>
 <p>
