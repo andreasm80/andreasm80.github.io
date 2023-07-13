@@ -698,7 +698,7 @@ I will post the yaml I am using for this Ingress, and explain a bit more below. 
 </span></span></span></code></pre></div><p>Now I just need to apply it:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">andreasm@linuxvm01:~/tmc-sm/keycloak$ k apply -f keycloak-ingress.yaml
 </span></span><span class="line"><span class="ln">2</span><span class="cl">ingress.networking.k8s.io/keycloak created
-</span></span></code></pre></div><p>Now, what is created on the Avi side:
+</span></span></code></pre></div><p>Now, what is created on the NSX-ALB side:
 
   <figure>
   <picture>
@@ -992,7 +992,7 @@ Let me try again now.</p>
 </span></span><span class="line"><span class="ln">59</span><span class="cl">2023-07-12 22:05:53,019 WARN  <span class="o">[</span>org.keycloak.events<span class="o">]</span> <span class="o">(</span>executor-thread-3<span class="o">)</span> <span class="nv">type</span><span class="o">=</span>REFRESH_TOKEN_ERROR, <span class="nv">realmId</span><span class="o">=</span>6944b0b7-3592-4ef3-ad40-4b1a7b64543d, <span class="nv">clientId</span><span class="o">=</span>security-admin-console, <span class="nv">userId</span><span class="o">=</span>null, <span class="nv">ipAddress</span><span class="o">=</span>172.18.6.141, <span class="nv">error</span><span class="o">=</span>invalid_token, <span class="nv">grant_type</span><span class="o">=</span>refresh_token, <span class="nv">client_auth_method</span><span class="o">=</span>client-secret
 </span></span><span class="line"><span class="ln">60</span><span class="cl">2023-07-12 22:05:58,020 WARN  <span class="o">[</span>org.keycloak.events<span class="o">]</span> <span class="o">(</span>executor-thread-3<span class="o">)</span> <span class="nv">type</span><span class="o">=</span>REFRESH_TOKEN_ERROR, <span class="nv">realmId</span><span class="o">=</span>6944b0b7-3592-4ef3-ad40-4b1a7b64543d, <span class="nv">clientId</span><span class="o">=</span>security-admin-console, <span class="nv">userId</span><span class="o">=</span>null, <span class="nv">ipAddress</span><span class="o">=</span>172.18.6.141, <span class="nv">error</span><span class="o">=</span>invalid_token, <span class="nv">grant_type</span><span class="o">=</span>refresh_token, <span class="nv">client_auth_method</span><span class="o">=</span>client-secret
 </span></span></code></pre></div><p>Hmm, error=invalid_token... type=REFRESH_TOKEN_ERROR...
-Well after some investigating, after some Sherlock Holmsing, I managed to figure out what caused this. I need to deselect a setting in my Avi Application profile selected default for this Ingress. So first I need to create an Application Profile, with most of the setting, but unselect the <em>HTTP-only Cookies</em>. So head over to the Avi guy, create a new application profile:
+Well after some investigating, after some Sherlock Holmsing, I managed to figure out what caused this. I need to deselect a setting in my Avi Application profile selected default for this Ingress. So first I need to create an Application Profile, with most of the setting, but unselect the <em>HTTP-only Cookies</em>. So head over to the NSX-ALB gui, create a new application profile:
 
   <figure>
   <picture>
