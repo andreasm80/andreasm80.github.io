@@ -120,7 +120,7 @@
 </span>
     <span class="post_date">
       12-07-2023</span>
-    <span class="post_time"> · 52 min read</span><span>&nbsp;· <a href='https://blog.andreasm.io/tags/cert-manager/' title="cert-manager" class="post_tag button button_translucent">cert-manager
+    <span class="post_time"> · 55 min read</span><span>&nbsp;· <a href='https://blog.andreasm.io/tags/cert-manager/' title="cert-manager" class="post_tag button button_translucent">cert-manager
         </a><a href='https://blog.andreasm.io/tags/authentication/' title="Authentication" class="post_tag button button_translucent">Authentication
         </a><a href='https://blog.andreasm.io/tags/keycloak/' title="keycloak" class="post_tag button button_translucent">keycloak
         </a><a href='https://blog.andreasm.io/tags/tmc-sm/' title="tmc-sm" class="post_tag button button_translucent">tmc-sm
@@ -153,6 +153,8 @@
         <li><a href="#download-and-upload-the-tmc-packages">Download and upload the TMC packages</a></li>
         <li><a href="#add-package-repository-using-the-tanzu-cli">Add package repository using the tanzu cli</a></li>
         <li><a href="#install-the-tmc-sm-package">Install the TMC-SM package</a></li>
+        <li><a href="#troubleshooting-the-alertmanager-pod">Troubleshooting the Alertmanager pod</a></li>
+        <li><a href="#install-the-tmc-sm-package---continued">Install the TMC-SM package - continued</a></li>
         <li><a href="#uninstall-tmc-sm-packages">Uninstall tmc-sm packages</a></li>
       </ul>
     </li>
@@ -2291,7 +2293,7 @@ Check the progress on the package reconciliation:</p>
 </span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="m">64</span> bytes from 10.101.210.12 <span class="o">(</span>10.101.210.12<span class="o">)</span>: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">1</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">61</span> <span class="nv">time</span><span class="o">=</span>3.81 ms
 </span></span><span class="line"><span class="ln">8</span><span class="cl"><span class="m">64</span> bytes from 10.101.210.12 <span class="o">(</span>10.101.210.12<span class="o">)</span>: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">2</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">61</span> <span class="nv">time</span><span class="o">=</span>9.28 ms
 </span></span></code></pre></div><p>I am good 😄</p>
-<p>After waiting a while, the package installation process finished, either 100% successfully or with errors. In my environment it fails on step 25/26 on the tmc-local-monitoring. This turns out to be the alertmanager. But luckily, its the only pod that fails, and I dont have time to troubleshoot it right now, I want to login to my new TMC-SM instance.</p>
+<p>After waiting a while, the package installation process finished, either 100% successfully or with errors. In my environment it fails on step 25/26 on the tmc-local-monitoring. This turns out to be the alertmanager. I have a section below that explains how this can be solved.</p>
 <p>Here is the pod that is failing:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl">andreasm@linuxvm01:~$ k get pods -n tmc-local
 </span></span><span class="line"><span class="ln"> 2</span><span class="cl">NAME                                                 READY   STATUS             RESTARTS      AGE
@@ -2389,7 +2391,188 @@ Check the progress on the package reconciliation:</p>
 </span></span><span class="line"><span class="ln">83</span><span class="cl">ui-server-6994bc9cd6-xzxbv                           1/1     Running            <span class="m">0</span>             14m
 </span></span><span class="line"><span class="ln">84</span><span class="cl">wcm-server-5c95c8d587-7sc9l                          1/1     Running            <span class="m">1</span> <span class="o">(</span>13m ago<span class="o">)</span>   14m
 </span></span><span class="line"><span class="ln">85</span><span class="cl">wcm-server-5c95c8d587-r2kbf                          1/1     Running            <span class="m">1</span> <span class="o">(</span>12m ago<span class="o">)</span>   14m
-</span></span></code></pre></div><p>What about the services created, httpproxies and Ingress?</p>
+</span></span></code></pre></div><h3 id="troubleshooting-the-alertmanager-pod">Troubleshooting the Alertmanager pod</h3>
+<p>If your package installation stops at 25/26, and the alertmanager pod is in a crasloopbackoff state:
+
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="image-20230716162954492"
+      
+        class="image_figure image_internal image_processed"
+        width="3256"
+        height="554"
+        src="/2023/07/12/installing-tmc-local-on-vsphere-8-with-tanzu-using-keycloak-as-oidc-provider/images/image-20230716162954492.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>And if you check the logs of the alertmanager container it will throw you this error.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">k logs -n tmc-local alertmanager-tmc-local-monitoring-tmc-local-0 -c alertmanager
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="nv">ts</span><span class="o">=</span>2023-07-13T14:16:30.239Z <span class="nv">caller</span><span class="o">=</span>main.go:231 <span class="nv">level</span><span class="o">=</span>info <span class="nv">msg</span><span class="o">=</span><span class="s2">&#34;Starting Alertmanager&#34;</span> <span class="nv">version</span><span class="o">=</span><span class="s2">&#34;(version=0.24.0, branch=HEAD, revision=f484b17fa3c583ed1b2c8bbcec20ba1db2aa5f11)&#34;</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl"><span class="nv">ts</span><span class="o">=</span>2023-07-13T14:16:30.239Z <span class="nv">caller</span><span class="o">=</span>main.go:232 <span class="nv">level</span><span class="o">=</span>info <span class="nv">build_context</span><span class="o">=</span><span class="s2">&#34;(go=go1.17.8, user=root@265f14f5c6fc, date=20220325-09:31:33)&#34;</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="nv">ts</span><span class="o">=</span>2023-07-13T14:16:30.240Z <span class="nv">caller</span><span class="o">=</span>cluster.go:178 <span class="nv">level</span><span class="o">=</span>warn <span class="nv">component</span><span class="o">=</span>cluster <span class="nv">err</span><span class="o">=</span><span class="s2">&#34;couldn&#39;t deduce an advertise address: no private IP found, explicit advertise addr not provided&#34;</span>
+</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="nv">ts</span><span class="o">=</span>2023-07-13T14:16:30.241Z <span class="nv">caller</span><span class="o">=</span>main.go:263 <span class="nv">level</span><span class="o">=</span>error <span class="nv">msg</span><span class="o">=</span><span class="s2">&#34;unable to initialize gossip mesh&#34;</span> <span class="nv">err</span><span class="o">=</span><span class="s2">&#34;create memberlist: Failed to get final advertise address: No private IP address found, and explicit IP not provided&#34;</span>
+</span></span></code></pre></div><p>After some searching around, a workaround is to add the below values to the stateful set (see comments below):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="w">    </span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w">      </span><span class="nt">containers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w">      </span>- <span class="nt">args</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">        </span>- --<span class="l">volume-dir=/etc/alertmanager</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">        </span>- --<span class="l">webhook-url=http://127.0.0.1:9093/-/reload</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">        </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">registry.domain.net/project/package-repository@sha256:9125ebac75af1eb247de0982ce6d56bc7049a1f384f97c77a7af28de010f20a7</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">        </span><span class="nt">imagePullPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">IfNotPresent</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">configmap-reloader</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">        </span><span class="nt">resources</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">        </span><span class="nt">terminationMessagePath</span><span class="p">:</span><span class="w"> </span><span class="l">/dev/termination-log</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">        </span><span class="nt">terminationMessagePolicy</span><span class="p">:</span><span class="w"> </span><span class="l">File</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">        </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">        </span>- <span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/etc/alertmanager/config</span><span class="w">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">config-volume</span><span class="w">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">          </span><span class="nt">readOnly</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w">      </span>- <span class="nt">args</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w">        </span>- --<span class="l">config.file=/etc/alertmanager/config/alertmanager.yaml</span><span class="w">
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w">        </span>- --<span class="l">cluster.advertise-address=$(POD_IP):9093</span><span class="w"> </span><span class="c"># added from here</span><span class="w">
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w">        </span><span class="nt">env</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">POD_IP</span><span class="w">
+</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="w">          </span><span class="nt">valueFrom</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="w">            </span><span class="nt">fieldRef</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="w">              </span><span class="nt">fieldPath</span><span class="p">:</span><span class="w"> </span><span class="l">status.podIP</span><span class="w"> </span><span class="c"># To here</span><span class="w">
+</span></span></span></code></pre></div><p>But setting this directly on the statefulset will be overwritten by the package conciliation.</p>
+<p>So we need to apply this config using ytt overlay. Create a new yaml file, call it something like alertmanager-overlay.yaml. Below is my ytt config to achieve this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Secret</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">alertmanager-overlay-secret</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">tmc-local</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w"></span><span class="nt">stringData</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">  </span><span class="nt">patch.yaml</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="sd">    #@ load(&#34;@ytt:overlay&#34;, &#34;overlay&#34;)
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="sd">    #@overlay/match by=overlay.subset({&#34;kind&#34;:&#34;StatefulSet&#34;, &#34;metadata&#34;: {&#34;name&#34;: &#34;alertmanager-tmc-local-monitoring-tmc-local&#34;}})
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="sd">    ---
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="sd">    spec:
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="sd">      template:
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="sd">        spec:
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="sd">          containers: #@overlay/replace
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="sd">          - args:
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="sd">            - --volume-dir=/etc/alertmanager
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="sd">            - --webhook-url=http://127.0.0.1:9093/-/reload
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="sd">            image: registry.domain.net/project/package-repository@sha256:9125ebac75af1eb247de0982ce6d56bc7049a1f384f97c77a7af28de010f20a7
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="sd">            imagePullPolicy: IfNotPresent
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="sd">            name: configmap-reloader
+</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="sd">            resources: {}
+</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="sd">            terminationMessagePath: /dev/termination-log
+</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="sd">            terminationMessagePolicy: File
+</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="sd">            volumeMounts:
+</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="sd">            - mountPath: /etc/alertmanager/config
+</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="sd">              name: config-volume
+</span></span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="sd">              readOnly: true
+</span></span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="sd">          - args:
+</span></span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="sd">            - --config.file=/etc/alertmanager/config/alertmanager.yaml
+</span></span></span><span class="line"><span class="ln">30</span><span class="cl"><span class="sd">            - --cluster.advertise-address=$(POD_IP):9093
+</span></span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="sd">            env:
+</span></span></span><span class="line"><span class="ln">32</span><span class="cl"><span class="sd">            - name: POD_IP
+</span></span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="sd">              valueFrom:
+</span></span></span><span class="line"><span class="ln">34</span><span class="cl"><span class="sd">                fieldRef:
+</span></span></span><span class="line"><span class="ln">35</span><span class="cl"><span class="sd">                  fieldPath: status.podIP
+</span></span></span><span class="line"><span class="ln">36</span><span class="cl"><span class="sd">            image: registry.domain.net/project/package-repository@sha256:74d46d5614791496104479bbf81c041515c5f8c17d9e9fcf1b33fa36e677156f
+</span></span></span><span class="line"><span class="ln">37</span><span class="cl"><span class="sd">            imagePullPolicy: IfNotPresent
+</span></span></span><span class="line"><span class="ln">38</span><span class="cl"><span class="sd">            name: alertmanager
+</span></span></span><span class="line"><span class="ln">39</span><span class="cl"><span class="sd">            ports:
+</span></span></span><span class="line"><span class="ln">40</span><span class="cl"><span class="sd">            - containerPort: 9093
+</span></span></span><span class="line"><span class="ln">41</span><span class="cl"><span class="sd">              name: alertmanager
+</span></span></span><span class="line"><span class="ln">42</span><span class="cl"><span class="sd">              protocol: TCP
+</span></span></span><span class="line"><span class="ln">43</span><span class="cl"><span class="sd">            readinessProbe:
+</span></span></span><span class="line"><span class="ln">44</span><span class="cl"><span class="sd">              failureThreshold: 3
+</span></span></span><span class="line"><span class="ln">45</span><span class="cl"><span class="sd">              httpGet:
+</span></span></span><span class="line"><span class="ln">46</span><span class="cl"><span class="sd">                path: /#/status
+</span></span></span><span class="line"><span class="ln">47</span><span class="cl"><span class="sd">                port: 9093
+</span></span></span><span class="line"><span class="ln">48</span><span class="cl"><span class="sd">                scheme: HTTP
+</span></span></span><span class="line"><span class="ln">49</span><span class="cl"><span class="sd">              initialDelaySeconds: 30
+</span></span></span><span class="line"><span class="ln">50</span><span class="cl"><span class="sd">              periodSeconds: 10
+</span></span></span><span class="line"><span class="ln">51</span><span class="cl"><span class="sd">              successThreshold: 1
+</span></span></span><span class="line"><span class="ln">52</span><span class="cl"><span class="sd">              timeoutSeconds: 30
+</span></span></span><span class="line"><span class="ln">53</span><span class="cl"><span class="sd">            resources:
+</span></span></span><span class="line"><span class="ln">54</span><span class="cl"><span class="sd">              limits:
+</span></span></span><span class="line"><span class="ln">55</span><span class="cl"><span class="sd">                cpu: 300m
+</span></span></span><span class="line"><span class="ln">56</span><span class="cl"><span class="sd">                memory: 100Mi
+</span></span></span><span class="line"><span class="ln">57</span><span class="cl"><span class="sd">              requests:
+</span></span></span><span class="line"><span class="ln">58</span><span class="cl"><span class="sd">                cpu: 100m
+</span></span></span><span class="line"><span class="ln">59</span><span class="cl"><span class="sd">                memory: 70Mi
+</span></span></span><span class="line"><span class="ln">60</span><span class="cl"><span class="sd">            terminationMessagePath: /dev/termination-log
+</span></span></span><span class="line"><span class="ln">61</span><span class="cl"><span class="sd">            terminationMessagePolicy: File
+</span></span></span><span class="line"><span class="ln">62</span><span class="cl"><span class="sd">            volumeMounts:
+</span></span></span><span class="line"><span class="ln">63</span><span class="cl"><span class="sd">            - mountPath: /etc/alertmanager/config
+</span></span></span><span class="line"><span class="ln">64</span><span class="cl"><span class="sd">              name: config-volume
+</span></span></span><span class="line"><span class="ln">65</span><span class="cl"><span class="sd">              readOnly: true
+</span></span></span><span class="line"><span class="ln">66</span><span class="cl"><span class="sd">            - mountPath: /data
+</span></span></span><span class="line"><span class="ln">67</span><span class="cl"><span class="sd">              name: data</span><span class="w">    
+</span></span></span><span class="line"><span class="ln">68</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">69</span><span class="cl"><span class="w"></span><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="ln">70</span><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="ln">71</span><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Secret</span><span class="w">
+</span></span></span><span class="line"><span class="ln">72</span><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">73</span><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">tmc-overlay-override</span><span class="w">
+</span></span></span><span class="line"><span class="ln">74</span><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">tmc-local</span><span class="w">
+</span></span></span><span class="line"><span class="ln">75</span><span class="cl"><span class="w"></span><span class="nt">stringData</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">76</span><span class="cl"><span class="w">  </span><span class="nt">patch-alertmanager.yaml</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="ln">77</span><span class="cl"><span class="sd">    #@ load(&#34;@ytt:overlay&#34;, &#34;overlay&#34;)
+</span></span></span><span class="line"><span class="ln">78</span><span class="cl"><span class="sd">    #@overlay/match by=overlay.subset({&#34;kind&#34;:&#34;PackageInstall&#34;, &#34;metadata&#34;: {&#34;name&#34;: &#34;tmc-local-monitoring&#34;}})
+</span></span></span><span class="line"><span class="ln">79</span><span class="cl"><span class="sd">    ---
+</span></span></span><span class="line"><span class="ln">80</span><span class="cl"><span class="sd">    metadata:
+</span></span></span><span class="line"><span class="ln">81</span><span class="cl"><span class="sd">      annotations:
+</span></span></span><span class="line"><span class="ln">82</span><span class="cl"><span class="sd">        #@overlay/match missing_ok=True
+</span></span></span><span class="line"><span class="ln">83</span><span class="cl"><span class="sd">        ext.packaging.carvel.dev/ytt-paths-from-secret-name.0: alertmanager-overlay-secret</span><span class="w">    
+</span></span></span></code></pre></div><p>This was the only way I managed to get the configs applied correctly. It can probably be done a different way, but it works.</p>
+<p>Apply the above yaml:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">andreasm@linuxvm01:~/tmc-sm/errors$ k apply -f alertmanager-overlay.yaml
+</span></span><span class="line"><span class="ln">2</span><span class="cl">secret/alertmanager-overlay-secret configured
+</span></span><span class="line"><span class="ln">3</span><span class="cl">secret/tmc-overlay-override configured
+</span></span></code></pre></div><p>Then I need to annotate the package:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">kubectl annotate packageinstalls tanzu-mission-control -n tmc-local ext.packaging.carvel.dev/ytt-paths-from-secret-name.0<span class="o">=</span>tmc-overlay-override
+</span></span></code></pre></div><p>Pause and unpause the reconciliation (if it is already in a reconciliation state its not always necessary to pause and unpause). But to kick it off immediately, run the commands below.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">andreasm@linuxvm01:~/tmc-sm/errors$ kubectl patch -n tmc-local --type merge pkgi tmc-local-monitoring --patch <span class="s1">&#39;{&#34;spec&#34;: {&#34;paused&#34;: true}}&#39;</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">andreasm@linuxvm01:~/tmc-sm/errors$ kubectl patch -n tmc-local --type merge pkgi tmc-local-monitoring --patch <span class="s1">&#39;{&#34;spec&#34;: {&#34;paused&#34;: false}}&#39;</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">packageinstall.packaging.carvel.dev/tmc-local-monitoring patched
+</span></span></code></pre></div><p>One can also kick the reconcile by pointing to the package tanzu-mission-control:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">andreasm@linuxvm01:~/tmc-sm/errors$ kubectl patch -n tmc-local --type merge pkgi tanzu-mission-control --patch <span class="s1">&#39;{&#34;spec&#34;: {&#34;paused&#34;: true}}&#39;</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">packageinstall.packaging.carvel.dev/tanzu-mission-control patched
+</span></span><span class="line"><span class="ln">3</span><span class="cl">andreasm@linuxvm01:~/tmc-sm/errors$ kubectl patch -n tmc-local --type merge pkgi tanzu-mission-control --patch <span class="s1">&#39;{&#34;spec&#34;: {&#34;paused&#34;: false}}&#39;</span>
+</span></span><span class="line"><span class="ln">4</span><span class="cl">packageinstall.packaging.carvel.dev/tanzu-mission-control patched
+</span></span></code></pre></div><p>The end result should give us this in our alertmanager statefulset:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="l">andreasm@linuxvm01:~/tmc-sm/errors$ k get statefulsets.apps -n tmc-local alertmanager-tmc-local-monitoring-tmc-local -oyaml</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w">   </span><span class="c">#snippet </span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w">      </span>- <span class="nt">args</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">        </span>- --<span class="l">config.file=/etc/alertmanager/config/alertmanager.yaml</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">        </span>- --<span class="l">cluster.advertise-address=$(POD_IP):9093</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">        </span><span class="nt">env</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">POD_IP</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">          </span><span class="nt">valueFrom</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">            </span><span class="nt">fieldRef</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">              </span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">              </span><span class="nt">fieldPath</span><span class="p">:</span><span class="w"> </span><span class="l">status.podIP</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">    </span><span class="c">#snippet</span><span class="w">
+</span></span></span></code></pre></div><p>And the alertmanager pod should start:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">andreasm@linuxvm01:~/tmc-sm/errors$ k get pod -n tmc-local alertmanager-tmc-local-monitoring-tmc-local-0
+</span></span><span class="line"><span class="ln">2</span><span class="cl">NAME                                            READY   STATUS    RESTARTS   AGE
+</span></span><span class="line"><span class="ln">3</span><span class="cl">alertmanager-tmc-local-monitoring-tmc-local-0   2/2     Running   <span class="m">0</span>          10m
+</span></span></code></pre></div><p>If its still in CrashLoopBackOff just delete the pod and it should go into a running state. If not, describe the alermananger statefulset for any additional errors, maybe a typo in the ytt overlay yaml...</p>
+<p>One can also do this operation while the installation is waiting on the package tmc-local-monitoring re-conciliation. So the package installation will be successful after all.</p>
+<h3 id="install-the-tmc-sm-package---continued">Install the TMC-SM package - continued</h3>
+<p>What about the services created, httpproxies and Ingress?</p>
 <p>Get the Services:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl">andreasm@linuxvm01:~$ k get svc -n tmc-local
 </span></span><span class="line"><span class="ln"> 2</span><span class="cl">NAME                                               TYPE           CLUSTER-IP      EXTERNAL-IP     PORT<span class="o">(</span>S<span class="o">)</span>                      AGE
@@ -2497,7 +2680,7 @@ Check the progress on the package reconciliation:</p>
 </span></span><span class="line"><span class="ln"> 9</span><span class="cl">tenancy-service-http-proxy        gts.tmc.pretty-awesome-domain.net                                valid    Valid HTTPProxy
 </span></span><span class="line"><span class="ln">10</span><span class="cl">tenancy-service-http-proxy-rest   gts-rest.tmc.pretty-awesome-domain.net                           valid    Valid HTTPProxy
 </span></span></code></pre></div><p>Ah.. More DNS records.</p>
-<p>Unfortunately my tmc-sm deployement gave me this error in the end:</p>
+<p>Unfortunately my tmc-sm deployement gave me this error in the end, which can be solved afterwards or during the install process following the section on Alertmanager above:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl">	    <span class="p">|</span> 8:32:35AM: ---- waiting on <span class="m">1</span> changes <span class="o">[</span>25/26 <span class="k">done</span><span class="o">]</span> ----
 </span></span><span class="line"><span class="ln"> 2</span><span class="cl">	    <span class="p">|</span> 8:32:36AM: ongoing: reconcile packageinstall/tmc-local-monitoring <span class="o">(</span>packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
 </span></span><span class="line"><span class="ln"> 3</span><span class="cl">	    <span class="p">|</span> 8:32:36AM:  ^ Reconciling
@@ -2508,7 +2691,7 @@ Check the progress on the package reconciliation:</p>
 </span></span><span class="line"><span class="ln"> 8</span><span class="cl">
 </span></span><span class="line"><span class="ln"> 9</span><span class="cl">8:33:30AM: packageinstall/tanzu-mission-control <span class="o">(</span>packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local: ReconcileFailed
 </span></span><span class="line"><span class="ln">10</span><span class="cl">Error: packageinstall/tanzu-mission-control <span class="o">(</span>packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local: Reconciling: kapp: Error: Timed out waiting after 15m0s <span class="k">for</span> resources: <span class="o">[</span>packageinstall/tmc-local-monitoring <span class="o">(</span>packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local<span class="o">]</span>. Reconcile failed: Error <span class="o">(</span>see .status.usefulErrorMessage <span class="k">for</span> details<span class="o">)</span>
-</span></span></code></pre></div><p>But its only the Alertmanager service, so I will take that for what it is and call it kind of a success. Remember also the note in the official documentation:</p>
+</span></span></code></pre></div><p>Except the Alertmanager pod which can be fixed, it is kind a success. Remember also the note in the official documentation:</p>
 
 <div class="notices warning">
     <div class="label">Note</div>
