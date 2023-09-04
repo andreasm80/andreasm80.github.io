@@ -5,8 +5,25 @@
     <link>https://blog.andreasm.io/tags/availability/</link>
     <description>Recent content in availability on From 0.985mhz... to several Ghz</description>
     <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
     <copyright>Myself</copyright>
-    <lastBuildDate>Wed, 03 May 2023 07:34:47 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/availability/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 29 Aug 2023 13:27:52 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/availability/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>TKG 2.3 deployment in multiple availability zones</title>
+      <link>https://blog.andreasm.io/2023/08/29/tkg-2.3-deployment-in-multiple-availability-zones/</link>
+      <pubDate>Tue, 29 Aug 2023 13:27:52 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2023/08/29/tkg-2.3-deployment-in-multiple-availability-zones/</guid>
+      <description>
+        
+          
+            In this post I will go through how to configure and deploy TKG 2.3 in mutliple availability zones using vSphere clusters and how to reconfigure already deployed TKG cluster to new availability zones.
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>vSphere with Tanzu and Multi Zones part2</title>
       <link>https://blog.andreasm.io/2023/05/03/vsphere-with-tanzu-and-multi-zones-part2/</link>
