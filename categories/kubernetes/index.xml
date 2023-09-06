@@ -7,7 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Myself</copyright>
-    <lastBuildDate>Tue, 29 Aug 2023 13:27:52 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 06 Sep 2023 09:34:04 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>TMC Self-Managed Upgrade to 1.0.1</title>
+      <link>https://blog.andreasm.io/2023/09/06/tmc-self-managed-upgrade-to-1.0.1/</link>
+      <pubDate>Wed, 06 Sep 2023 09:34:04 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2023/09/06/tmc-self-managed-upgrade-to-1.0.1/</guid>
+      <description>
+        
+          
+            In this post I will go through how to upgrade TMC Self-Managed from version 1.0.0 to version 1.0.1
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>TKG 2.3 deployment in multiple availability zones</title>
       <link>https://blog.andreasm.io/2023/08/29/tkg-2.3-deployment-in-multiple-availability-zones/</link>

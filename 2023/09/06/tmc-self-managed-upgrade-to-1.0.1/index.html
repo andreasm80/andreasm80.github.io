@@ -1,0 +1,1292 @@
+
+<!DOCTYPE html>
+<html
+  lang="en"
+  data-figures=""
+  
+    class="page"
+  
+  
+  
+    data-mode="dim"
+  >
+  <head>
+<title>TMC Self-Managed Upgrade to 1.0.1 | From 0.985mhz... to several Ghz</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TVPYDVE8KR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TVPYDVE8KR');
+</script>
+
+
+
+  
+<meta property="og:locale" content="en" />
+
+<meta property="og:type" content="article">
+<meta name="description" content="tmc self-managed upgrade" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:creator" content="">
+<meta name="twitter:title" content="TMC Self-Managed Upgrade to 1.0.1" />
+<meta name="twitter:image" content="https://blog.andreasm.io/2023/09/06/tmc-self-managed-upgrade-to-1.0.1/images/logo-vmware-tanzu.png"/>
+<meta property="og:url" content="https://blog.andreasm.io/2023/09/06/tmc-self-managed-upgrade-to-1.0.1/" />
+<meta property="og:title" content="TMC Self-Managed Upgrade to 1.0.1" />
+<meta property="og:description" content="tmc self-managed upgrade" />
+<meta property="og:image" content="https://blog.andreasm.io/2023/09/06/tmc-self-managed-upgrade-to-1.0.1/images/logo-vmware-tanzu.png" />
+  <meta name="keywords" content="nsx,vmware,kubernetes" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.andreasm.io/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.andreasm.io/icons/favicon-32x32.png">
+<link rel="manifest" href="https://blog.andreasm.io/icons/site.webmanifest">
+
+<link rel="canonical" href="https://blog.andreasm.io/2023/09/06/tmc-self-managed-upgrade-to-1.0.1/">
+
+
+
+<link rel="preload" href="https://blog.andreasm.io/css/styles.6c67fa3a7f5290a2facfb027358dd2bdb5450d04b8de427c8a74d79f524a7fb716b470b14b6ba95f1b7cf3aa9a2219a7294a6adeaf16a1080f432eae45d8c03c.css" integrity = "sha512-bGf6On9SkKL6z7AnNY3SvbVFDQS43kJ8inTXn1JKf7cWtHCxS2upXxt886qaIhmnKUpq3q8WoQgPQy6uRdjAPA==" as="style" crossorigin="anonymous">
+
+
+
+<link rel="preload" href="https://blog.andreasm.io/en/js/bundle.5548d358738600c857a1f05f0459418da7143d4426c66a08bf3f15ded1b39dd2136bf104a559247a909fc4dcc45b8e06bad0870ece4c71ee5303d30550def8bd.js" as="script" integrity=
+"sha512-VUjTWHOGAMhXofBfBFlBjacUPUQmxmoIvz8V3tGzndITa/EEpVkkepCfxNzEW44GutCHDs5Mce5TA9MFUN74vQ==" crossorigin="anonymous">
+
+
+<link rel="stylesheet" type="text/css" href="https://blog.andreasm.io/css/styles.6c67fa3a7f5290a2facfb027358dd2bdb5450d04b8de427c8a74d79f524a7fb716b470b14b6ba95f1b7cf3aa9a2219a7294a6adeaf16a1080f432eae45d8c03c.css" integrity="sha512-bGf6On9SkKL6z7AnNY3SvbVFDQS43kJ8inTXn1JKf7cWtHCxS2upXxt886qaIhmnKUpq3q8WoQgPQy6uRdjAPA==" crossorigin="anonymous">
+
+
+  </head>
+  <body
+    data-code="7"
+    data-lines="false"
+    id="documentTop"
+    data-lang="en"
+  >
+
+<header class="nav_header" >
+  <nav class="nav"><a href='https://blog.andreasm.io/' class="nav_brand nav_item" title="From 0.985mhz... to several Ghz">
+  <img src="https://blog.andreasm.io/quote3.png" class="logo" alt="From 0.985mhz... to several Ghz">
+  <div class="nav_close">
+    <div><svg class="icon">
+  <title>open-menu</title>
+  <use xlink:href="#open-menu"></use>
+</svg>
+<svg class="icon">
+  <title>closeme</title>
+  <use xlink:href="#closeme"></use>
+</svg>
+</div>
+  </div>
+</a>
+
+    <div class='nav_body nav_body_left'>
+      
+      
+      
+        
+
+  <div class="nav_parent">
+    <a href="https://blog.andreasm.io/" class="nav_item" title="Home">Home </a>
+  </div>
+  <div class="nav_parent">
+    <a href="https://blog.andreasm.io/about/" class="nav_item" title="About">About </a>
+  </div>
+      
+<div class='follow'>
+<div class="color_mode">
+  <input type="checkbox" class="color_choice" id="mode">
+</div>
+
+</div>
+
+    </div>
+  </nav>
+</header>
+
+    <main>
+  
+<div class="grid-inverse wrap content">
+  <article class="post_content">
+    <h1 class="post_title">TMC Self-Managed Upgrade to 1.0.1</h1>
+  <div class="post_meta">
+    <span><svg class="icon">
+  <title>calendar</title>
+  <use xlink:href="#calendar"></use>
+</svg>
+</span>
+    <span class="post_date">
+      06-09-2023</span>
+    <span class="post_time"> · 14 min read</span><span>&nbsp;· <a href='https://blog.andreasm.io/tags/management/' title="management" class="post_tag button button_translucent">management
+        </a><a href='https://blog.andreasm.io/tags/kubernetes/' title="kubernetes" class="post_tag button button_translucent">kubernetes
+        </a><a href='https://blog.andreasm.io/tags/lifecycle-management/' title="lifecycle-management" class="post_tag button button_translucent">lifecycle-management
+        </a>
+    </span>
+  </div>
+
+      <div class="post_toc">
+        <h2>Overview</h2>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#whats-new-in-tmc-sm-101">Whats new in TMC-SM 1.0.1</a></li>
+    <li><a href="#upgrade-tmc-sm-to-101">Upgrade TMC-SM to 1.0.1</a>
+      <ul>
+        <li><a href="#download-the-latest-packages">Download the latest packages</a></li>
+        <li><a href="#extract-and-push-images-to-registry">Extract and push images to registry</a></li>
+        <li><a href="#update-tanzu-package-repository">Update tanzu package repository</a></li>
+        <li><a href="#upgrade-tmc-sm-deployment">Upgrade TMC-SM deployment</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+      </div>
+    
+    <div class="post_body"><h1 id="tmc-self-managed-version-101">TMC Self-Managed version 1.0.1</h1>
+<p>Not that long ago I published an article where I went through how to deploy TMC-SM in my lab, the post can be found <a href="https://blog.andreasm.io/2023/07/12/installing-tmc-local-on-vsphere-8-with-tanzu-using-keycloak-as-oidc-provider/">here</a>. That post were based on the first release of TMC local, version 1.0. Now version 1.0.1 is out and I figured I wanted to create a post how I upgrade my current TMC local installation to the latest version 1.0.1. And who knows, maybe this will be a short and snappy post from me for a change 😄</p>
+<h2 id="whats-new-in-tmc-sm-101">Whats new in TMC-SM 1.0.1</h2>
+<p>Taken from the official documentaion page <a href="https://docs.vmware.com/en/VMware-Tanzu-Mission-Control/1.0/rn/tanzumc-selfmanaged-10-release-notes/index.html">here</a> where you can find more details, like information about issues that have been resolved.</p>
+<p>Tanzu Mission Control Self-Managed now supports deployment to and lifecycle management of the following Tanzu Kubernetes Grid clusters:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Cluster type</th>
+<th style="text-align:left">Environment</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">TKG 2.2.x (Kubernetes 1.25.x)</td>
+<td style="text-align:left">vSphere 8.0 and vSphere 7.0</td>
+</tr>
+<tr>
+<td style="text-align:left">TKG 2.1.x (Kubernetes 1.24.x)</td>
+<td style="text-align:left">vSphere 8.0 and vSphere 7.0</td>
+</tr>
+<tr>
+<td style="text-align:left">TKG 1.6.x (Kubernetes 1.23.x)</td>
+<td style="text-align:left">vSphere 7.0</td>
+</tr>
+<tr>
+<td style="text-align:left">Tanzu Kubernetes Grid Service clusters running in vSphere with Tanzu (Kubernetes 1.24.x and 1.23.x)</td>
+<td style="text-align:left">vSphere 8.0 Update 0 or Update 2 vSphere 7.0 latest update</td>
+</tr>
+</tbody>
+</table>
+<p>New Features and Improvements</p>
+<ul>
+<li>
+<p><strong>Added lifecycle management support for vSphere 8</strong></p>
+<p>You can now manage Tanzu Kubernetes Grid Service clusters running in vSphere with Tanzu 8u1b. Tanzu Mission Control Self-Managed allows you to register your vSphere with Tanzu Supervisor to perform lifecycle management operations on your Tanzu Kubernetes Grid service clusters.</p>
+</li>
+<li>
+<p><strong>Added Terraform provider support for Tanzu Mission Control Self-Managed</strong></p>
+<p>Tanzu Mission Control Self-Managed can now be managed and automated using Hashicorp Terraform platform.</p>
+<p>The Tanzu Mission Control provider v1.2.1 in Terraform implements support for managing your fleet of Kubernetes clusters by connecting with Tanzu Mission Control Self-Managed.</p>
+<p>You can use the Tanzu Mission Control provider for Terraform to:</p>
+<ul>
+<li>
+<p>Connect to Tanzu Mission Control Self-Managed.</p>
+</li>
+<li>
+<p>Attach conformant Kubernetes clusters.</p>
+</li>
+<li>
+<p>Manage the lifecycle of workload clusters.</p>
+</li>
+<li>
+<p>Manage cluster security using policies - access, image registry, security, network, custom, namespace quota.</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="upgrade-tmc-sm-to-101">Upgrade TMC-SM to 1.0.1</h2>
+<p>I am using the steps describing how to upgrade TMC-SM in this chapter from the official TMC documentation page <a href="https://docs.vmware.com/en/VMware-Tanzu-Mission-Control/1.0/tanzumc-sm-install/upgrading-tmc-sm.html">here</a>.
+Before executing the actual upgrade process there are some necessary steps that needs to be done first. I will go through them here in their own little chapters/sections below. I will reuse the same bootstrap machine and container registry I used in this <a href="https://blog.andreasm.io/2023/07/12/installing-tmc-local-on-vsphere-8-with-tanzu-using-keycloak-as-oidc-provider/">post</a> in all the steps described.</p>
+<h3 id="download-the-latest-packages">Download the latest packages</h3>
+<p>First I need to download the latest packages from the VMware Customer Connect portal <a href="https://customerconnect.vmware.com/en/downloads/details?downloadGroup=TMC-SM-100&amp;productId=1441&amp;rPId=107082">here</a>. The file I will be downloading is this:</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="bundle-1.0.1"
+      
+        class="image_figure image_internal image_processed"
+        width="1631"
+        height="127"
+        src="/2023/09/06/tmc-self-managed-upgrade-to-1.0.1/images/image-20230906100627536.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>This file will be landing on my laptop where I will copy it over to my bootstrap machine as soon as it is downloaded.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">andreasm:~/Downloads/TMC$ scp bundle-1.0.1.tar andreasm@10.101.10.99:/home/andreasm/tmc-sm
+</span></span><span class="line"><span class="ln">2</span><span class="cl">andreasm@10.101.10.99<span class="err">&#39;</span>s password:
+</span></span><span class="line"><span class="ln">3</span><span class="cl">bundle-1.0.1.tar                                                             15%  735MB   5.3MB/s   13:05 ETA
+</span></span></code></pre></div><h3 id="extract-and-push-images-to-registry">Extract and push images to registry</h3>
+<p>From my bootstrap machine I need to extract the newly downloaded bundle-1.0.1.tar file, and put it in a new folder:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">andreasm@linuxvm01:~/tmc-sm$ mkdir tmc-sm-1.0.1
+</span></span><span class="line"><span class="ln">2</span><span class="cl">andreasm@linuxvm01:~/tmc-sm$ tar -xf bundle-1.0.1.tar -C ./tmc-sm-1.0.1/
+</span></span></code></pre></div><p>Then I will push them to my registry, the same registry and project used in the first installation of TMC-SM.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">andreasm@linuxvm01:~/tmc-sm/tmc-sm-1.0.1$ ./tmc-sm push-images harbor --project registry.some-domain.net/tmcproject --username username --password password
+</span></span></code></pre></div><p>After some waiting, the below should be the output if everything went successfully.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl">INFO<span class="o">[</span>0171<span class="o">]</span> Pushing PackageRepository                     <span class="nv">uri</span><span class="o">=</span>registry.some-domain.net/tmc-project/package-repository
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">Image Staging Complete. Next Steps:
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">Setup Kubeconfig <span class="o">(</span><span class="k">if</span> not already <span class="k">done</span><span class="o">)</span> to point to cluster:
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="nb">export</span> <span class="nv">KUBECONFIG</span><span class="o">={</span>YOUR_KUBECONFIG<span class="o">}</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">Create <span class="s1">&#39;tmc-local&#39;</span> namespace: kubectl create namespace tmc-local
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">Download Tanzu CLI from Customer Connect <span class="o">(</span>If not already installed<span class="o">)</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">
+</span></span><span class="line"><span class="ln">10</span><span class="cl">Update TMC Self Managed Package Repository:
+</span></span><span class="line"><span class="ln">11</span><span class="cl">Run: tanzu package repository add tanzu-mission-control-packages --url <span class="s2">&#34;registry.some-domain.net/tmc-project/package-repository:1.0.1&#34;</span> --namespace tmc-local
+</span></span><span class="line"><span class="ln">12</span><span class="cl">
+</span></span><span class="line"><span class="ln">13</span><span class="cl">Create a values based on the TMC Self Managed Package Schema:
+</span></span><span class="line"><span class="ln">14</span><span class="cl">View the Values Schema: tanzu package available get <span class="s2">&#34;tmc.tanzu.vmware.com/1.0.1&#34;</span> --namespace tmc-local --values-schema
+</span></span><span class="line"><span class="ln">15</span><span class="cl">Create a Values file named values.yaml matching the schema
+</span></span><span class="line"><span class="ln">16</span><span class="cl">
+</span></span><span class="line"><span class="ln">17</span><span class="cl">Install the TMC Self Managed Package:
+</span></span><span class="line"><span class="ln">18</span><span class="cl">Run: tanzu package install tanzu-mission-control -p tmc.tanzu.vmware.com --version <span class="s2">&#34;1.0.1&#34;</span> --values-file values.yaml --namespace tmc-local
+</span></span></code></pre></div><p>I should also have a file called <em>pushed-package-repository.json</em> in my tmc-sm-1.0.1 folder:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">andreasm@linuxvm01:~/tmc-sm/tmc-sm-1.0.1$ ls
+</span></span><span class="line"><span class="ln">2</span><span class="cl">agent-images  dependencies  packages  pushed-package-repository.json  tmc-sm
+</span></span></code></pre></div><p>The content of this file:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">andreasm@linuxvm01:~/tmc-sm/tmc-sm-1.0.1$ cat pushed-package-repository.json
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="o">{</span><span class="s2">&#34;repositoryImage&#34;</span>:<span class="s2">&#34;registry.some-domain.net/tmc-project/package-repository&#34;</span>,<span class="s2">&#34;version&#34;</span>:<span class="s2">&#34;1.0.1&#34;</span><span class="o">}</span>
+</span></span></code></pre></div><p>This information is needed in the next step.</p>
+<h3 id="update-tanzu-package-repository">Update tanzu package repository</h3>
+<p>This step will update the already installed tmc-sm package repository to contain version 1.0.1. Make sure to be logged into the correct context, the kubernetes cluster where the TMC installation is running before doing the below.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl"><span class="c1">#Using the information above from the pushed-package-repository file, execute the following command:</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">tanzu package repository update tanzu-mission-control-packages --url <span class="s2">&#34;registry.some-domain.net/tmc-project/package-repository:1.0.1&#34;</span> --namespace tmc-local
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">  1</span><span class="cl">Waiting <span class="k">for</span> package repository to be updated
+</span></span><span class="line"><span class="ln">  2</span><span class="cl">
+</span></span><span class="line"><span class="ln">  3</span><span class="cl">11:10:20AM: Waiting <span class="k">for</span> package repository reconciliation <span class="k">for</span> <span class="s1">&#39;tanzu-mission-control-packages&#39;</span>
+</span></span><span class="line"><span class="ln">  4</span><span class="cl">11:10:25AM: Waiting <span class="k">for</span> generation <span class="m">2</span> to be observed
+</span></span><span class="line"><span class="ln">  5</span><span class="cl">11:10:29AM: Fetching
+</span></span><span class="line"><span class="ln">  6</span><span class="cl">	    <span class="p">|</span> apiVersion: vendir.k14s.io/v1alpha1
+</span></span><span class="line"><span class="ln">  7</span><span class="cl">	    <span class="p">|</span> directories:
+</span></span><span class="line"><span class="ln">  8</span><span class="cl">	    <span class="p">|</span> - contents:
+</span></span><span class="line"><span class="ln">  9</span><span class="cl">	    <span class="p">|</span>   - imgpkgBundle:
+</span></span><span class="line"><span class="ln"> 10</span><span class="cl">	    <span class="p">|</span>       image: registry.some-domain.net/tmc-project/package-repository@sha256:89e53c26a9184580c2778a3bf08c45392e1d09773f0e8d1c22052dfb
+</span></span><span class="line"><span class="ln"> 11</span><span class="cl">	    <span class="p">|</span>       tag: 1.0.1
+</span></span><span class="line"><span class="ln"> 12</span><span class="cl">	    <span class="p">|</span>     path: .
+</span></span><span class="line"><span class="ln"> 13</span><span class="cl">	    <span class="p">|</span>   path: <span class="s2">&#34;0&#34;</span>
+</span></span><span class="line"><span class="ln"> 14</span><span class="cl">	    <span class="p">|</span> kind: LockConfig
+</span></span><span class="line"><span class="ln"> 15</span><span class="cl">	    <span class="p">|</span>
+</span></span><span class="line"><span class="ln"> 16</span><span class="cl">11:10:29AM: Fetch succeeded
+</span></span><span class="line"><span class="ln"> 17</span><span class="cl">11:10:30AM: Template succeeded
+</span></span><span class="line"><span class="ln"> 18</span><span class="cl">11:10:30AM: Deploy started <span class="o">(</span>3s ago<span class="o">)</span>
+</span></span><span class="line"><span class="ln"> 19</span><span class="cl">11:10:33AM: Deploying
+</span></span><span class="line"><span class="ln"> 20</span><span class="cl">	    <span class="p">|</span> Target cluster <span class="s1">&#39;https://20.10.0.1:443&#39;</span>
+</span></span><span class="line"><span class="ln"> 21</span><span class="cl">	    <span class="p">|</span> Changes
+</span></span><span class="line"><span class="ln"> 22</span><span class="cl">	    <span class="p">|</span> Namespace  Name                                                      Kind     Age  Op      Op st.  Wait to  Rs  Ri
+</span></span><span class="line"><span class="ln"> 23</span><span class="cl">	    <span class="p">|</span> tmc-local  contour.bitnami.com.12.1.0                                Package  51d  delete  -       -        ok  -
+</span></span><span class="line"><span class="ln"> 24</span><span class="cl">	    <span class="p">|</span> ^          contour.bitnami.com.12.2.6                                Package  -    create  ???     -        -   -
+</span></span><span class="line"><span class="ln"> 25</span><span class="cl">	    <span class="p">|</span> ^          kafka-topic-controller.tmc.tanzu.vmware.com.0.0.21        Package  51d  delete  -       -        ok  -
+</span></span><span class="line"><span class="ln"> 26</span><span class="cl">	    <span class="p">|</span> ^          kafka-topic-controller.tmc.tanzu.vmware.com.0.0.22        Package  -    create  ???     -        -   -
+</span></span><span class="line"><span class="ln"> 27</span><span class="cl">	    <span class="p">|</span> ^          kafka.bitnami.com.22.1.3                                  Package  51d  delete  -       -        ok  -
+</span></span><span class="line"><span class="ln"> 28</span><span class="cl">	    <span class="p">|</span> ^          kafka.bitnami.com.23.0.7                                  Package  -    create  ???     -        -   -
+</span></span><span class="line"><span class="ln"> 29</span><span class="cl">	    <span class="p">|</span> ^          minio.bitnami.com.12.6.12                                 Package  -    create  ???     -        -   -
+</span></span><span class="line"><span class="ln"> 30</span><span class="cl">	    <span class="p">|</span> ^          minio.bitnami.com.12.6.4                                  Package  51d  delete  -       -        ok  -
+</span></span><span class="line"><span class="ln"> 31</span><span class="cl">	    <span class="p">|</span> ^          monitoring.tmc.tanzu.vmware.com.0.0.13                    Package  51d  delete  -       -        ok  -
+</span></span><span class="line"><span class="ln"> 32</span><span class="cl">	    <span class="p">|</span> ^          monitoring.tmc.tanzu.vmware.com.0.0.14                    Package  -    create  ???     -        -   -
+</span></span><span class="line"><span class="ln"> 33</span><span class="cl">	    <span class="p">|</span> ^          pinniped.bitnami.com.1.2.1                                Package  51d  delete  -       -        ok  -
+</span></span><span class="line"><span class="ln"> 34</span><span class="cl">	    <span class="p">|</span> ^          pinniped.bitnami.com.1.2.8                                Package  -    create  ???     -        -   -
+</span></span><span class="line"><span class="ln"> 35</span><span class="cl">	    <span class="p">|</span> ^          postgres-endpoint-controller.tmc.tanzu.vmware.com.0.1.43  Package  51d  delete  -       -        ok  -
+</span></span><span class="line"><span class="ln"> 36</span><span class="cl">	    <span class="p">|</span> ^          postgres-endpoint-controller.tmc.tanzu.vmware.com.0.1.47  Package  -    create  ???     -        -   -
+</span></span><span class="line"><span class="ln"> 37</span><span class="cl">	    <span class="p">|</span> ^          s3-access-operator.tmc.tanzu.vmware.com.0.1.22            Package  51d  delete  -       -        ok  -
+</span></span><span class="line"><span class="ln"> 38</span><span class="cl">	    <span class="p">|</span> ^          s3-access-operator.tmc.tanzu.vmware.com.0.1.24            Package  -    create  ???     -        -   -
+</span></span><span class="line"><span class="ln"> 39</span><span class="cl">	    <span class="p">|</span> ^          tmc-local-postgres.tmc.tanzu.vmware.com.0.0.46            Package  51d  delete  -       -        ok  -
+</span></span><span class="line"><span class="ln"> 40</span><span class="cl">	    <span class="p">|</span> ^          tmc-local-postgres.tmc.tanzu.vmware.com.0.0.67            Package  -    create  ???     -        -   -
+</span></span><span class="line"><span class="ln"> 41</span><span class="cl">	    <span class="p">|</span> ^          tmc-local-stack-secrets.tmc.tanzu.vmware.com.0.0.17161    Package  51d  delete  -       -        ok  -
+</span></span><span class="line"><span class="ln"> 42</span><span class="cl">	    <span class="p">|</span> ^          tmc-local-stack-secrets.tmc.tanzu.vmware.com.0.0.21880    Package  -    create  ???     -        -   -
+</span></span><span class="line"><span class="ln"> 43</span><span class="cl">	    <span class="p">|</span> ^          tmc-local-stack.tmc.tanzu.vmware.com.0.0.17161            Package  51d  delete  -       -        ok  -
+</span></span><span class="line"><span class="ln"> 44</span><span class="cl">	    <span class="p">|</span> ^          tmc-local-stack.tmc.tanzu.vmware.com.0.0.21880            Package  -    create  ???     -        -   -
+</span></span><span class="line"><span class="ln"> 45</span><span class="cl">	    <span class="p">|</span> ^          tmc-local-support.tmc.tanzu.vmware.com.0.0.17161          Package  51d  delete  -       -        ok  -
+</span></span><span class="line"><span class="ln"> 46</span><span class="cl">	    <span class="p">|</span> ^          tmc-local-support.tmc.tanzu.vmware.com.0.0.21880          Package  -    create  ???     -        -   -
+</span></span><span class="line"><span class="ln"> 47</span><span class="cl">	    <span class="p">|</span> ^          tmc.tanzu.vmware.com.1.0.0                                Package  51d  delete  -       -        ok  -
+</span></span><span class="line"><span class="ln"> 48</span><span class="cl">	    <span class="p">|</span> ^          tmc.tanzu.vmware.com.1.0.1                                Package  -    create  ???     -        -   -
+</span></span><span class="line"><span class="ln"> 49</span><span class="cl">	    <span class="p">|</span> Op:      <span class="m">13</span> create, <span class="m">13</span> delete, <span class="m">0</span> update, <span class="m">0</span> noop, <span class="m">0</span> exists
+</span></span><span class="line"><span class="ln"> 50</span><span class="cl">	    <span class="p">|</span> Wait to: <span class="m">0</span> reconcile, <span class="m">0</span> delete, <span class="m">26</span> noop
+</span></span><span class="line"><span class="ln"> 51</span><span class="cl">	    <span class="p">|</span> 11:10:32AM: ---- applying <span class="m">26</span> changes <span class="o">[</span>0/26 <span class="k">done</span><span class="o">]</span> ----
+</span></span><span class="line"><span class="ln"> 52</span><span class="cl">	    <span class="p">|</span> 11:10:32AM: delete package/tmc.tanzu.vmware.com.1.0.0 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 53</span><span class="cl">	    <span class="p">|</span> 11:10:32AM: delete package/monitoring.tmc.tanzu.vmware.com.0.0.13 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 54</span><span class="cl">	    <span class="p">|</span> 11:10:32AM: create package/tmc.tanzu.vmware.com.1.0.1 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 55</span><span class="cl">	    <span class="p">|</span> 11:10:32AM: delete package/s3-access-operator.tmc.tanzu.vmware.com.0.1.22 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 56</span><span class="cl">	    <span class="p">|</span> 11:10:32AM: delete package/tmc-local-postgres.tmc.tanzu.vmware.com.0.0.46 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 57</span><span class="cl">	    <span class="p">|</span> 11:10:32AM: delete package/pinniped.bitnami.com.1.2.1 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 58</span><span class="cl">	    <span class="p">|</span> 11:10:32AM: delete package/tmc-local-stack.tmc.tanzu.vmware.com.0.0.17161 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 59</span><span class="cl">	    <span class="p">|</span> 11:10:32AM: delete package/tmc-local-stack-secrets.tmc.tanzu.vmware.com.0.0.17161 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 60</span><span class="cl">	    <span class="p">|</span> 11:10:32AM: delete package/minio.bitnami.com.12.6.4 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 61</span><span class="cl">	    <span class="p">|</span> 11:10:32AM: delete package/tmc-local-support.tmc.tanzu.vmware.com.0.0.17161 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 62</span><span class="cl">	    <span class="p">|</span> 11:10:32AM: delete package/contour.bitnami.com.12.1.0 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 63</span><span class="cl">	    <span class="p">|</span> 11:10:32AM: delete package/postgres-endpoint-controller.tmc.tanzu.vmware.com.0.1.43 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 64</span><span class="cl">	    <span class="p">|</span> 11:10:32AM: delete package/kafka-topic-controller.tmc.tanzu.vmware.com.0.0.21 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 65</span><span class="cl">	    <span class="p">|</span> 11:10:32AM: create package/kafka-topic-controller.tmc.tanzu.vmware.com.0.0.22 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 66</span><span class="cl">	    <span class="p">|</span> 11:10:32AM: delete package/kafka.bitnami.com.22.1.3 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 67</span><span class="cl">	    <span class="p">|</span> 11:10:32AM: create package/minio.bitnami.com.12.6.12 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 68</span><span class="cl">	    <span class="p">|</span> 11:10:32AM: create package/pinniped.bitnami.com.1.2.8 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 69</span><span class="cl">	    <span class="p">|</span> 11:10:32AM: create package/tmc-local-postgres.tmc.tanzu.vmware.com.0.0.67 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 70</span><span class="cl">	    <span class="p">|</span> 11:10:32AM: create package/contour.bitnami.com.12.2.6 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 71</span><span class="cl">	    <span class="p">|</span> 11:10:32AM: create package/monitoring.tmc.tanzu.vmware.com.0.0.14 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 72</span><span class="cl">	    <span class="p">|</span> 11:10:32AM: create package/postgres-endpoint-controller.tmc.tanzu.vmware.com.0.1.47 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 73</span><span class="cl">	    <span class="p">|</span> 11:10:32AM: create package/tmc-local-stack-secrets.tmc.tanzu.vmware.com.0.0.21880 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 74</span><span class="cl">	    <span class="p">|</span> 11:10:32AM: create package/tmc-local-stack.tmc.tanzu.vmware.com.0.0.21880 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 75</span><span class="cl">	    <span class="p">|</span> 11:10:32AM: create package/s3-access-operator.tmc.tanzu.vmware.com.0.1.24 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 76</span><span class="cl">	    <span class="p">|</span> 11:10:32AM: create package/tmc-local-support.tmc.tanzu.vmware.com.0.0.21880 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 77</span><span class="cl">	    <span class="p">|</span> 11:10:33AM: create package/kafka.bitnami.com.23.0.7 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 78</span><span class="cl">	    <span class="p">|</span> 11:10:33AM: ---- waiting on <span class="m">26</span> changes <span class="o">[</span>0/26 <span class="k">done</span><span class="o">]</span> ----
+</span></span><span class="line"><span class="ln"> 79</span><span class="cl">	    <span class="p">|</span> 11:10:33AM: ok: noop package/kafka.bitnami.com.23.0.7 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 80</span><span class="cl">	    <span class="p">|</span> 11:10:33AM: ok: noop package/kafka-topic-controller.tmc.tanzu.vmware.com.0.0.21 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 81</span><span class="cl">	    <span class="p">|</span> 11:10:33AM: ok: noop package/monitoring.tmc.tanzu.vmware.com.0.0.13 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 82</span><span class="cl">	    <span class="p">|</span> 11:10:33AM: ok: noop package/tmc.tanzu.vmware.com.1.0.1 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 83</span><span class="cl">	    <span class="p">|</span> 11:10:33AM: ok: noop package/s3-access-operator.tmc.tanzu.vmware.com.0.1.22 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 84</span><span class="cl">	    <span class="p">|</span> 11:10:33AM: ok: noop package/tmc-local-postgres.tmc.tanzu.vmware.com.0.0.46 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 85</span><span class="cl">	    <span class="p">|</span> 11:10:33AM: ok: noop package/pinniped.bitnami.com.1.2.1 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 86</span><span class="cl">	    <span class="p">|</span> 11:10:33AM: ok: noop package/tmc-local-stack.tmc.tanzu.vmware.com.0.0.17161 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 87</span><span class="cl">	    <span class="p">|</span> 11:10:33AM: ok: noop package/tmc-local-stack-secrets.tmc.tanzu.vmware.com.0.0.17161 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 88</span><span class="cl">	    <span class="p">|</span> 11:10:33AM: ok: noop package/minio.bitnami.com.12.6.4 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 89</span><span class="cl">	    <span class="p">|</span> 11:10:33AM: ok: noop package/tmc-local-support.tmc.tanzu.vmware.com.0.0.17161 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 90</span><span class="cl">	    <span class="p">|</span> 11:10:33AM: ok: noop package/contour.bitnami.com.12.1.0 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 91</span><span class="cl">	    <span class="p">|</span> 11:10:33AM: ok: noop package/postgres-endpoint-controller.tmc.tanzu.vmware.com.0.1.43 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 92</span><span class="cl">	    <span class="p">|</span> 11:10:33AM: ok: noop package/contour.bitnami.com.12.2.6 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 93</span><span class="cl">	    <span class="p">|</span> 11:10:33AM: ok: noop package/kafka-topic-controller.tmc.tanzu.vmware.com.0.0.22 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 94</span><span class="cl">	    <span class="p">|</span> 11:10:33AM: ok: noop package/kafka.bitnami.com.22.1.3 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 95</span><span class="cl">	    <span class="p">|</span> 11:10:33AM: ok: noop package/minio.bitnami.com.12.6.12 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 96</span><span class="cl">	    <span class="p">|</span> 11:10:33AM: ok: noop package/pinniped.bitnami.com.1.2.8 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 97</span><span class="cl">	    <span class="p">|</span> 11:10:33AM: ok: noop package/tmc-local-postgres.tmc.tanzu.vmware.com.0.0.67 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 98</span><span class="cl">	    <span class="p">|</span> 11:10:33AM: ok: noop package/tmc-local-stack-secrets.tmc.tanzu.vmware.com.0.0.21880 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln"> 99</span><span class="cl">	    <span class="p">|</span> 11:10:33AM: ok: noop package/monitoring.tmc.tanzu.vmware.com.0.0.14 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln">100</span><span class="cl">	    <span class="p">|</span> 11:10:33AM: ok: noop package/postgres-endpoint-controller.tmc.tanzu.vmware.com.0.1.47 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln">101</span><span class="cl">	    <span class="p">|</span> 11:10:33AM: ok: noop package/s3-access-operator.tmc.tanzu.vmware.com.0.1.24 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln">102</span><span class="cl">	    <span class="p">|</span> 11:10:33AM: ok: noop package/tmc-local-stack.tmc.tanzu.vmware.com.0.0.21880 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln">103</span><span class="cl">	    <span class="p">|</span> 11:10:33AM: ok: noop package/tmc-local-support.tmc.tanzu.vmware.com.0.0.21880 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln">104</span><span class="cl">	    <span class="p">|</span> 11:10:33AM: ok: noop package/tmc.tanzu.vmware.com.1.0.0 <span class="o">(</span>data.packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local
+</span></span><span class="line"><span class="ln">105</span><span class="cl">	    <span class="p">|</span> 11:10:33AM: ---- applying <span class="nb">complete</span> <span class="o">[</span>26/26 <span class="k">done</span><span class="o">]</span> ----
+</span></span><span class="line"><span class="ln">106</span><span class="cl">	    <span class="p">|</span> 11:10:33AM: ---- waiting <span class="nb">complete</span> <span class="o">[</span>26/26 <span class="k">done</span><span class="o">]</span> ----
+</span></span><span class="line"><span class="ln">107</span><span class="cl">	    <span class="p">|</span> Succeeded
+</span></span><span class="line"><span class="ln">108</span><span class="cl">11:10:33AM: Deploy succeeded
+</span></span></code></pre></div><p>If everything went well, lets check the package version:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">andreasm@linuxvm01:~/tanzu package repository list --namespace tmc-local
+</span></span><span class="line"><span class="ln">2</span><span class="cl">
+</span></span><span class="line"><span class="ln">3</span><span class="cl">  NAME                            SOURCE                                                                    STATUS
+</span></span><span class="line"><span class="ln">4</span><span class="cl">  tanzu-mission-control-packages  <span class="o">(</span>imgpkg<span class="o">)</span> registry.some-domain.net/tmc-project/package-repository:1.0.1  Reconcile succeeded
+</span></span></code></pre></div><p>After the steps above, we are now ready to start the actual upgrade of the TMC-SM deployment.</p>
+<h3 id="upgrade-tmc-sm-deployment">Upgrade TMC-SM deployment</h3>
+<p>To upgrade TMC execute the below command, where values.yaml is the value.yaml file I used in the previous installation:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">andreasm@linuxvm01:~/tanzu package installed update tanzu-mission-control -p tmc.tanzu.vmware.com --version <span class="s2">&#34;1.0.1&#34;</span> --values-file values.yaml --namespace tmc-local
+</span></span></code></pre></div><p>Now some output:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl">11:19:14AM: Pausing reconciliation <span class="k">for</span> package installation <span class="s1">&#39;tanzu-mission-control&#39;</span> in namespace <span class="s1">&#39;tmc-local&#39;</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">11:19:15AM: Updating secret <span class="s1">&#39;tanzu-mission-control-tmc-local-values&#39;</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">11:19:15AM: Creating overlay secrets
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">11:19:15AM: Updating package install <span class="k">for</span> <span class="s1">&#39;tanzu-mission-control&#39;</span> in namespace <span class="s1">&#39;tmc-local&#39;</span>
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">11:19:15AM: Resuming reconciliation <span class="k">for</span> package installation <span class="s1">&#39;tanzu-mission-control&#39;</span> in namespace <span class="s1">&#39;tmc-local&#39;</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">11:19:15AM: Waiting <span class="k">for</span> PackageInstall reconciliation <span class="k">for</span> <span class="s1">&#39;tanzu-mission-control&#39;</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">11:19:15AM: Waiting <span class="k">for</span> generation <span class="m">9</span> to be observed
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">11:19:15AM: ReconcileFailed: kapp: Error: waiting on reconcile packageinstall/kafka-topic-controller <span class="o">(</span>packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local:
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">  Finished unsuccessfully <span class="o">(</span>Reconcile failed:  <span class="o">(</span>message: Expected to find at least one version, but did not <span class="o">(</span>details: <span class="nv">all</span><span class="o">=</span><span class="m">1</span> -&gt; after-prereleases-filter<span class="o">=</span><span class="m">1</span> -&gt; after-kapp-controller-version-check<span class="o">=</span><span class="m">1</span> -&gt; after-constraints-filter<span class="o">=</span>0<span class="o">)))</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">11:19:15AM: Error tailing app: Reconciling app: ReconcileFailed: kapp: Error: waiting on reconcile packageinstall/kafka-topic-controller <span class="o">(</span>packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local:
+</span></span><span class="line"><span class="ln">11</span><span class="cl">  Finished unsuccessfully <span class="o">(</span>Reconcile failed:  <span class="o">(</span>message: Expected to find at least one version, but did not <span class="o">(</span>details: <span class="nv">all</span><span class="o">=</span><span class="m">1</span> -&gt; after-prereleases-filter<span class="o">=</span><span class="m">1</span> -&gt; after-kapp-controller-version-check<span class="o">=</span><span class="m">1</span> -&gt; after-constraints-filter<span class="o">=</span>0<span class="o">)))</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">
+</span></span><span class="line"><span class="ln">13</span><span class="cl">11:19:16AM: packageinstall/tanzu-mission-control <span class="o">(</span>packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local: Reconciling
+</span></span><span class="line"><span class="ln">14</span><span class="cl">11:19:46AM: packageinstall/tanzu-mission-control <span class="o">(</span>packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local: Reconciling
+</span></span><span class="line"><span class="ln">15</span><span class="cl">11:20:17AM: packageinstall/tanzu-mission-control <span class="o">(</span>packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local: Reconciling
+</span></span><span class="line"><span class="ln">16</span><span class="cl">11:20:47AM: packageinstall/tanzu-mission-control <span class="o">(</span>packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local: Reconciling
+</span></span><span class="line"><span class="ln">17</span><span class="cl">11:21:17AM: packageinstall/tanzu-mission-control <span class="o">(</span>packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local: Reconciling
+</span></span><span class="line"><span class="ln">18</span><span class="cl">11:21:48AM: packageinstall/tanzu-mission-control <span class="o">(</span>packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local: Reconciling
+</span></span><span class="line"><span class="ln">19</span><span class="cl">11:22:19AM: packageinstall/tanzu-mission-control <span class="o">(</span>packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local: Reconciling
+</span></span><span class="line"><span class="ln">20</span><span class="cl">11:22:49AM: packageinstall/tanzu-mission-control <span class="o">(</span>packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local: Reconciling
+</span></span><span class="line"><span class="ln">21</span><span class="cl">11:23:19AM: packageinstall/tanzu-mission-control <span class="o">(</span>packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local: Reconciling
+</span></span><span class="line"><span class="ln">22</span><span class="cl">11:23:49AM: packageinstall/tanzu-mission-control <span class="o">(</span>packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local: Reconciling
+</span></span><span class="line"><span class="ln">23</span><span class="cl">11:24:19AM: packageinstall/tanzu-mission-control <span class="o">(</span>packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local: Reconciling
+</span></span><span class="line"><span class="ln">24</span><span class="cl">11:24:49AM: packageinstall/tanzu-mission-control <span class="o">(</span>packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local: Reconciling
+</span></span><span class="line"><span class="ln">25</span><span class="cl">11:25:20AM: packageinstall/tanzu-mission-control <span class="o">(</span>packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local: Reconciling
+</span></span><span class="line"><span class="ln">26</span><span class="cl">11:25:50AM: packageinstall/tanzu-mission-control <span class="o">(</span>packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local: Reconciling
+</span></span><span class="line"><span class="ln">27</span><span class="cl">11:26:20AM: packageinstall/tanzu-mission-control <span class="o">(</span>packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local: Reconciling
+</span></span><span class="line"><span class="ln">28</span><span class="cl">11:26:51AM: packageinstall/tanzu-mission-control <span class="o">(</span>packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local: Reconciling
+</span></span><span class="line"><span class="ln">29</span><span class="cl">11:27:22AM: packageinstall/tanzu-mission-control <span class="o">(</span>packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local: Reconciling
+</span></span><span class="line"><span class="ln">30</span><span class="cl">11:27:49AM: packageinstall/tanzu-mission-control <span class="o">(</span>packaging.carvel.dev/v1alpha1<span class="o">)</span> namespace: tmc-local: ReconcileSucceeded
+</span></span></code></pre></div><p>I did experience some error issues like the ones above <em>Error tailing app: Reconciling app: ReconcileFailed: kapp: Error: waiting on reconcile, (Reconcile failed:  (message: Expected to find at least one version, but did not</em></p>
+<p>I monitored the progress with this command:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">kubectl get pkgi -n tmc-local
+</span></span></code></pre></div><p>Which first gave me this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl">NAME                           PACKAGE NAME                                        PACKAGE VERSION   DESCRIPTION                                                                           AGE
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">contour                        contour.bitnami.com                                 12.2.6            Reconciling                                                                           51d
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">kafka                          kafka.bitnami.com                                   22.1.3            Reconcile failed: Expected to find at least one version, but did not <span class="o">(</span>details: a...   51d
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">kafka-topic-controller         kafka-topic-controller.tmc.tanzu.vmware.com         0.0.21            Reconcile failed: Expected to find at least one version, but did not <span class="o">(</span>details: a...   51d
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">minio                          minio.bitnami.com                                   12.6.4            Reconcile failed: Expected to find at least one version, but did not <span class="o">(</span>details: a...   51d
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">pinniped                       pinniped.bitnami.com                                1.2.1             Reconcile failed: Expected to find at least one version, but did not <span class="o">(</span>details: a...   51d
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">postgres                       tmc-local-postgres.tmc.tanzu.vmware.com             0.0.46            Reconcile failed: Expected to find at least one version, but did not <span class="o">(</span>details: a...   51d
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">postgres-endpoint-controller   postgres-endpoint-controller.tmc.tanzu.vmware.com   0.1.43            Reconcile failed: Expected to find at least one version, but did not <span class="o">(</span>details: a...   51d
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">s3-access-operator             s3-access-operator.tmc.tanzu.vmware.com             0.1.22            Reconcile failed: Expected to find at least one version, but did not <span class="o">(</span>details: a...   51d
+</span></span><span class="line"><span class="ln">10</span><span class="cl">tanzu-mission-control          tmc.tanzu.vmware.com                                1.0.1             Reconciling                                                                           51d
+</span></span><span class="line"><span class="ln">11</span><span class="cl">tmc-local-monitoring           monitoring.tmc.tanzu.vmware.com                     0.0.13            Reconcile failed: Expected to find at least one version, but did not <span class="o">(</span>details: a...   51d
+</span></span><span class="line"><span class="ln">12</span><span class="cl">tmc-local-stack                tmc-local-stack.tmc.tanzu.vmware.com                0.0.17161         Reconcile failed: Expected to find at least one version, but did not <span class="o">(</span>details: a...   51d
+</span></span><span class="line"><span class="ln">13</span><span class="cl">tmc-local-stack-secrets        tmc-local-stack-secrets.tmc.tanzu.vmware.com        0.0.21880         Reconcile succeeded                                                                   51d
+</span></span><span class="line"><span class="ln">14</span><span class="cl">tmc-local-support              tmc-local-support.tmc.tanzu.vmware.com              0.0.17161         Reconcile failed: Expected to find at least one version, but did not <span class="o">(</span>details: a...   51d
+</span></span></code></pre></div><p>But after a little while I tried it again and now it looked much better:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl">NAME                           PACKAGE NAME                                        PACKAGE VERSION   DESCRIPTION           AGE
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">contour                        contour.bitnami.com                                 12.2.6            Reconcile succeeded   51d
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">kafka                          kafka.bitnami.com                                   23.0.7            Reconcile succeeded   51d
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">kafka-topic-controller         kafka-topic-controller.tmc.tanzu.vmware.com         0.0.22            Reconcile succeeded   51d
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">minio                          minio.bitnami.com                                   12.6.12           Reconcile succeeded   51d
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">pinniped                       pinniped.bitnami.com                                1.2.8             Reconcile succeeded   51d
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">postgres                       tmc-local-postgres.tmc.tanzu.vmware.com             0.0.67            Reconcile succeeded   51d
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">postgres-endpoint-controller   postgres-endpoint-controller.tmc.tanzu.vmware.com   0.1.47            Reconcile succeeded   51d
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">s3-access-operator             s3-access-operator.tmc.tanzu.vmware.com             0.1.24            Reconcile succeeded   51d
+</span></span><span class="line"><span class="ln">10</span><span class="cl">tanzu-mission-control          tmc.tanzu.vmware.com                                1.0.1             Reconciling           51d
+</span></span><span class="line"><span class="ln">11</span><span class="cl">tmc-local-monitoring           monitoring.tmc.tanzu.vmware.com                     0.0.14            Reconciling           51d
+</span></span><span class="line"><span class="ln">12</span><span class="cl">tmc-local-stack                tmc-local-stack.tmc.tanzu.vmware.com                0.0.21880         Reconcile succeeded   51d
+</span></span><span class="line"><span class="ln">13</span><span class="cl">tmc-local-stack-secrets        tmc-local-stack-secrets.tmc.tanzu.vmware.com        0.0.21880         Reconcile succeeded   51d
+</span></span><span class="line"><span class="ln">14</span><span class="cl">tmc-local-support              tmc-local-support.tmc.tanzu.vmware.com              0.0.21880         Reconcile succeeded   51d
+</span></span></code></pre></div><p>And if I look at the pods for the deployment:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl">NAME                                                 READY   STATUS      RESTARTS        AGE
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">account-manager-server-dd4cb648-mhwsr                1/1     Running     <span class="m">2</span> <span class="o">(</span>8m35s ago<span class="o">)</span>   51d
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">account-manager-server-dd4cb648-s6n52                1/1     Running     <span class="m">2</span> <span class="o">(</span>8m34s ago<span class="o">)</span>   51d
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">agent-gateway-server-ffbd987f9-79p4v                 1/1     Running     <span class="m">0</span>               7m48s
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">agent-gateway-server-ffbd987f9-7ggg4                 1/1     Running     <span class="m">0</span>               7m48s
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">alertmanager-tmc-local-monitoring-tmc-local-0        2/2     Running     <span class="m">0</span>               51d
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">api-gateway-server-6ccff88f7c-5wjm7                  1/1     Running     <span class="m">0</span>               7m48s
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">api-gateway-server-6ccff88f7c-c6srd                  1/1     Running     <span class="m">0</span>               7m48s
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">audit-service-consumer-6665d4968-mq5k7               1/1     Running     <span class="m">0</span>               7m52s
+</span></span><span class="line"><span class="ln">10</span><span class="cl">audit-service-consumer-6665d4968-nbmcp               1/1     Running     <span class="m">0</span>               7m52s
+</span></span><span class="line"><span class="ln">11</span><span class="cl">audit-service-server-58f8cb48b-cwjd2                 1/1     Running     <span class="m">0</span>               7m51s
+</span></span><span class="line"><span class="ln">12</span><span class="cl">audit-service-server-58f8cb48b-drgjq                 1/1     Running     <span class="m">0</span>               7m51s
+</span></span><span class="line"><span class="ln">13</span><span class="cl">auth-manager-server-777cff744d-9whfl                 1/1     Running     <span class="m">1</span> <span class="o">(</span>51d ago<span class="o">)</span>     51d
+</span></span><span class="line"><span class="ln">14</span><span class="cl">auth-manager-server-777cff744d-hbqrl                 1/1     Running     <span class="m">1</span> <span class="o">(</span>51d ago<span class="o">)</span>     51d
+</span></span><span class="line"><span class="ln">15</span><span class="cl">auth-manager-server-777cff744d-xxq4w                 1/1     Running     <span class="m">2</span> <span class="o">(</span>51d ago<span class="o">)</span>     51d
+</span></span><span class="line"><span class="ln">16</span><span class="cl">authentication-server-555cd5b896-k7lb7               1/1     Running     <span class="m">0</span>               51d
+</span></span><span class="line"><span class="ln">17</span><span class="cl">authentication-server-555cd5b896-nvhtm               1/1     Running     <span class="m">0</span>               51d
+</span></span><span class="line"><span class="ln">18</span><span class="cl">cluster-agent-service-server-596cdb5968-5dnjz        1/1     Running     <span class="m">0</span>               51d
+</span></span><span class="line"><span class="ln">19</span><span class="cl">cluster-agent-service-server-596cdb5968-p2629        1/1     Running     <span class="m">0</span>               51d
+</span></span><span class="line"><span class="ln">20</span><span class="cl">cluster-config-server-7b5c95f48b-rsvv8               1/1     Running     <span class="m">2</span> <span class="o">(</span>51d ago<span class="o">)</span>     51d
+</span></span><span class="line"><span class="ln">21</span><span class="cl">cluster-config-server-7b5c95f48b-t89bm               1/1     Running     <span class="m">2</span> <span class="o">(</span>51d ago<span class="o">)</span>     51d
+</span></span><span class="line"><span class="ln">22</span><span class="cl">cluster-object-service-server-844fc87799-9jjcp       1/1     Running     <span class="m">0</span>               51d
+</span></span><span class="line"><span class="ln">23</span><span class="cl">cluster-object-service-server-844fc87799-mkvvv       1/1     Running     <span class="m">0</span>               51d
+</span></span><span class="line"><span class="ln">24</span><span class="cl">cluster-reaper-server-68b94fdcc6-l4nk4               1/1     Running     <span class="m">0</span>               51d
+</span></span><span class="line"><span class="ln">25</span><span class="cl">cluster-secret-server-6cdc68c88c-2ntj2               1/1     Running     <span class="m">1</span> <span class="o">(</span>51d ago<span class="o">)</span>     51d
+</span></span><span class="line"><span class="ln">26</span><span class="cl">cluster-secret-server-6cdc68c88c-7vld7               1/1     Running     <span class="m">1</span> <span class="o">(</span>51d ago<span class="o">)</span>     51d
+</span></span><span class="line"><span class="ln">27</span><span class="cl">cluster-service-server-76d9cc4845-mbmxj              1/1     Running     <span class="m">0</span>               7m51s
+</span></span><span class="line"><span class="ln">28</span><span class="cl">cluster-service-server-76d9cc4845-tl6dg              1/1     Running     <span class="m">0</span>               7m51s
+</span></span><span class="line"><span class="ln">29</span><span class="cl">cluster-sync-egest-5946d85c48-5zzfh                  1/1     Running     <span class="m">0</span>               51d
+</span></span><span class="line"><span class="ln">30</span><span class="cl">cluster-sync-egest-5946d85c48-jstjl                  1/1     Running     <span class="m">0</span>               51d
+</span></span><span class="line"><span class="ln">31</span><span class="cl">cluster-sync-ingest-b8b4b4f7b-b7t2t                  1/1     Running     <span class="m">0</span>               51d
+</span></span><span class="line"><span class="ln">32</span><span class="cl">cluster-sync-ingest-b8b4b4f7b-vjrr7                  1/1     Running     <span class="m">0</span>               51d
+</span></span><span class="line"><span class="ln">33</span><span class="cl">contour-contour-certgen-9nhxm                        0/1     Completed   <span class="m">0</span>               13m
+</span></span><span class="line"><span class="ln">34</span><span class="cl">contour-contour-f99f8c554-hhl45                      1/1     Running     <span class="m">0</span>               13m
+</span></span><span class="line"><span class="ln">35</span><span class="cl">contour-envoy-dkgmp                                  2/2     Running     <span class="m">0</span>               12m
+</span></span><span class="line"><span class="ln">36</span><span class="cl">contour-envoy-knpcp                                  2/2     Running     <span class="m">0</span>               13m
+</span></span><span class="line"><span class="ln">37</span><span class="cl">contour-envoy-mdw4l                                  2/2     Running     <span class="m">0</span>               11m
+</span></span><span class="line"><span class="ln">38</span><span class="cl">contour-envoy-w4wl6                                  2/2     Running     <span class="m">0</span>               10m
+</span></span><span class="line"><span class="ln">39</span><span class="cl">dataprotection-server-7bd8f57c9c-2b6vc               1/1     Running     <span class="m">0</span>               7m51s
+</span></span><span class="line"><span class="ln">40</span><span class="cl">dataprotection-server-7bd8f57c9c-bxzt2               1/1     Running     <span class="m">0</span>               7m51s
+</span></span><span class="line"><span class="ln">41</span><span class="cl">events-service-consumer-75d7bfbc4f-dkdgt             1/1     Running     <span class="m">0</span>               51d
+</span></span><span class="line"><span class="ln">42</span><span class="cl">events-service-consumer-75d7bfbc4f-hmc4c             1/1     Running     <span class="m">0</span>               51d
+</span></span><span class="line"><span class="ln">43</span><span class="cl">events-service-server-57cb555cc6-6tc27               1/1     Running     <span class="m">0</span>               51d
+</span></span><span class="line"><span class="ln">44</span><span class="cl">events-service-server-57cb555cc6-7jp92               1/1     Running     <span class="m">0</span>               51d
+</span></span><span class="line"><span class="ln">45</span><span class="cl">fanout-service-server-5d854fdcb9-shmsm               1/1     Running     <span class="m">0</span>               51d
+</span></span><span class="line"><span class="ln">46</span><span class="cl">fanout-service-server-5d854fdcb9-z4wb9               1/1     Running     <span class="m">0</span>               51d
+</span></span><span class="line"><span class="ln">47</span><span class="cl">feature-flag-service-server-58cb8b8967-bw8nw         1/1     Running     <span class="m">0</span>               7m49s
+</span></span><span class="line"><span class="ln">48</span><span class="cl">inspection-server-84fbb9f554-8kjll                   2/2     Running     <span class="m">0</span>               51d
+</span></span><span class="line"><span class="ln">49</span><span class="cl">inspection-server-84fbb9f554-b4kwq                   2/2     Running     <span class="m">0</span>               51d
+</span></span><span class="line"><span class="ln">50</span><span class="cl">intent-server-79db6f6cc8-5bb64                       1/1     Running     <span class="m">0</span>               51d
+</span></span><span class="line"><span class="ln">51</span><span class="cl">intent-server-79db6f6cc8-wq46l                       1/1     Running     <span class="m">0</span>               51d
+</span></span><span class="line"><span class="ln">52</span><span class="cl">kafka-0                                              1/1     Running     <span class="m">0</span>               9m37s
+</span></span><span class="line"><span class="ln">53</span><span class="cl">kafka-exporter-f665b6bc5-g6bfg                       1/1     Running     <span class="m">4</span> <span class="o">(</span>8m13s ago<span class="o">)</span>   9m40s
+</span></span><span class="line"><span class="ln">54</span><span class="cl">kafka-topic-controller-7745b56c4c-jxfbv              1/1     Running     <span class="m">0</span>               9m57s
+</span></span><span class="line"><span class="ln">55</span><span class="cl">landing-service-server-86987d87b9-rgxtj              1/1     Running     <span class="m">0</span>               7m49s
+</span></span><span class="line"><span class="ln">56</span><span class="cl">minio-676cfff6d6-pk5m4                               1/1     Running     <span class="m">0</span>               8m50s
+</span></span><span class="line"><span class="ln">57</span><span class="cl">minio-provisioning-4wx4j                             0/1     Completed   <span class="m">0</span>               8m52s
+</span></span><span class="line"><span class="ln">58</span><span class="cl">onboarding-service-server-7dfd944785-6p4qs           1/1     Running     <span class="m">0</span>               7m49s
+</span></span><span class="line"><span class="ln">59</span><span class="cl">onboarding-service-server-7dfd944785-fknhq           1/1     Running     <span class="m">0</span>               7m49s
+</span></span><span class="line"><span class="ln">60</span><span class="cl">package-deployment-server-5446696ff4-l4phd           1/1     Running     <span class="m">0</span>               51d
+</span></span><span class="line"><span class="ln">61</span><span class="cl">package-deployment-server-5446696ff4-w8sl4           1/1     Running     <span class="m">0</span>               51d
+</span></span><span class="line"><span class="ln">62</span><span class="cl">pinniped-supervisor-f44756bc7-bwtz6                  1/1     Running     <span class="m">0</span>               10m
+</span></span><span class="line"><span class="ln">63</span><span class="cl">policy-engine-server-6455f7db8f-748mk                1/1     Running     <span class="m">0</span>               51d
+</span></span><span class="line"><span class="ln">64</span><span class="cl">policy-engine-server-6455f7db8f-pnpr8                1/1     Running     <span class="m">0</span>               51d
+</span></span><span class="line"><span class="ln">65</span><span class="cl">policy-insights-server-6cc68b7d7f-5w9c6              1/1     Running     <span class="m">2</span> <span class="o">(</span>51d ago<span class="o">)</span>     51d
+</span></span><span class="line"><span class="ln">66</span><span class="cl">policy-sync-service-server-8687654cc9-q98bm          1/1     Running     <span class="m">0</span>               7m49s
+</span></span><span class="line"><span class="ln">67</span><span class="cl">policy-view-service-server-7659f84d-qxdkc            1/1     Running     <span class="m">0</span>               51d
+</span></span><span class="line"><span class="ln">68</span><span class="cl">policy-view-service-server-7659f84d-v95w4            1/1     Running     <span class="m">0</span>               51d
+</span></span><span class="line"><span class="ln">69</span><span class="cl">postgres-endpoint-controller-99987dc75-s2xzv         1/1     Running     <span class="m">0</span>               9m15s
+</span></span><span class="line"><span class="ln">70</span><span class="cl">postgres-postgresql-0                                2/2     Running     <span class="m">0</span>               9m32s
+</span></span><span class="line"><span class="ln">71</span><span class="cl">prometheus-server-tmc-local-monitoring-tmc-local-0   2/2     Running     <span class="m">0</span>               6m
+</span></span><span class="line"><span class="ln">72</span><span class="cl">provisioner-service-server-85fb5dc6bc-7n7jh          1/1     Running     <span class="m">0</span>               51d
+</span></span><span class="line"><span class="ln">73</span><span class="cl">provisioner-service-server-85fb5dc6bc-lw8pm          1/1     Running     <span class="m">0</span>               51d
+</span></span><span class="line"><span class="ln">74</span><span class="cl">resource-manager-server-5d69d9fd88-5q97d             1/1     Running     <span class="m">0</span>               7m52s
+</span></span><span class="line"><span class="ln">75</span><span class="cl">resource-manager-server-5d69d9fd88-fw75m             1/1     Running     <span class="m">0</span>               7m52s
+</span></span><span class="line"><span class="ln">76</span><span class="cl">s3-access-operator-7ddb9d9695-l5nx4                  1/1     Running     <span class="m">0</span>               9m8s
+</span></span><span class="line"><span class="ln">77</span><span class="cl">schema-service-schema-server-7cc9696fc5-mmv5t        1/1     Running     <span class="m">0</span>               7m51s
+</span></span><span class="line"><span class="ln">78</span><span class="cl">telemetry-event-service-consumer-699db98fc7-kfpht    1/1     Running     <span class="m">0</span>               51d
+</span></span><span class="line"><span class="ln">79</span><span class="cl">telemetry-event-service-consumer-699db98fc7-pg2xg    1/1     Running     <span class="m">0</span>               51d
+</span></span><span class="line"><span class="ln">80</span><span class="cl">tenancy-service-server-6db748f79-pqfzx               1/1     Running     <span class="m">0</span>               7m48s
+</span></span><span class="line"><span class="ln">81</span><span class="cl">ui-server-75ccd455b8-55tkg                           1/1     Running     <span class="m">0</span>               7m50s
+</span></span><span class="line"><span class="ln">82</span><span class="cl">ui-server-75ccd455b8-nzw6f                           1/1     Running     <span class="m">0</span>               7m50s
+</span></span><span class="line"><span class="ln">83</span><span class="cl">wcm-server-6b4f9c6-c6944                             1/1     Running     <span class="m">0</span>               7m51s
+</span></span><span class="line"><span class="ln">84</span><span class="cl">wcm-server-6b4f9c6-wbdm9                             1/1     Running     <span class="m">0</span>               7m51s
+</span></span></code></pre></div><p>It looks good, all pods in a running or completed state. Now the logging into the UI:</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="tmc-ui"
+      
+        class="image_figure image_internal image_processed"
+        width="2260"
+        height="1744"
+        src="/2023/09/06/tmc-self-managed-upgrade-to-1.0.1/images/image-20230906135332343.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>Thats it. This concludes this post of how to upgrade TMC Self-Managed</p>
+
+    </div>
+
+
+
+
+  </article>
+<aside class="sidebar">
+  <section class="sidebar_inner">
+    <br>
+    
+  
+  <div class="search">
+    <input type="search" class="search_field form_field" placeholder='Search...' id="find" autocomplete="off" data-scope='post'>
+    <label for="find" class="search_label"><svg class="icon">
+  <title>search</title>
+  <use xlink:href="#search"></use>
+</svg>
+
+    </label>
+    
+    <div class="search_results results"></div>
+  </div>
+
+        <h2>Hi there</h2>
+      <div class="author_bio">
+        This blog is a WIP, sometimes I just throw up some topics for myself to remember to be finished later. Stay tuned...
+      </div>
+      <a href='https://blog.andreasm.io/about/' class="button mt-1" role="button" title='Read More'>Read More</a>
+
+    
+    
+    <h2 class="mt-4">Recent Posts</h2>
+    <ul class="flex-column">
+      <li>
+        <a href="https://blog.andreasm.io/2023/09/06/tmc-self-managed-upgrade-to-1.0.1/" class="nav-link" title="TMC Self-Managed Upgrade to 1.0.1">TMC Self-Managed Upgrade to 1.0.1</a>
+      </li>
+      <li>
+        <a href="https://blog.andreasm.io/2023/08/29/tkg-2.3-deployment-in-multiple-availability-zones/" class="nav-link" title="TKG 2.3 deployment in multiple availability zones">TKG 2.3 deployment in multiple availability zones</a>
+      </li>
+      <li>
+        <a href="https://blog.andreasm.io/2023/07/12/installing-tmc-local-on-vsphere-8-with-tanzu-using-keycloak-as-oidc-provider/" class="nav-link" title="Installing TMC local on vSphere 8 with Tanzu using Keycloak as OIDC provider">Installing TMC local on vSphere 8 with Tanzu using Keycloak as OIDC provider</a>
+      </li>
+      <li>
+        <a href="https://blog.andreasm.io/2023/06/21/securing-kubernetes-clusters-with-antrea-network-policies/" class="nav-link" title="Securing Kubernetes clusters with Antrea Network Policies">Securing Kubernetes clusters with Antrea Network Policies</a>
+      </li>
+      <li>
+        <a href="https://blog.andreasm.io/2023/06/01/managing-antrea-in-vsphere-with-tanzu/" class="nav-link" title="Managing Antrea in vSphere with Tanzu">Managing Antrea in vSphere with Tanzu</a>
+      </li>
+      <li>
+        <a href="https://blog.andreasm.io/2023/05/30/tanzu-kubernetes-grid-2.2-remote-workload-clusters/" class="nav-link" title="Tanzu Kubernetes Grid 2.2 &amp; Remote Workload Clusters">Tanzu Kubernetes Grid 2.2 &amp; Remote Workload Clusters</a>
+      </li>
+      <li>
+        <a href="https://blog.andreasm.io/2023/05/03/vsphere-with-tanzu-and-multi-zones-part2/" class="nav-link" title="vSphere with Tanzu and Multi Zones part2">vSphere with Tanzu and Multi Zones part2</a>
+      </li>
+      <li>
+        <a href="https://blog.andreasm.io/2023/05/03/vsphere-with-tanzu-multi-three-zones-and-nsx/" class="nav-link" title="vSphere with Tanzu, Multi (three) Zones and NSX">vSphere with Tanzu, Multi (three) Zones and NSX</a>
+      </li>
+    </ul>
+    <div>
+      <h2 class="mt-4 taxonomy" id="categories-section">Categories</h2>
+      <nav class="tags_nav">
+        <a href='https://blog.andreasm.io/categories/kubernetes/' class="post_tag button button_translucent" title="kubernetes">
+          KUBERNETES
+          <span class="button_tally">30</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/networking/' class="post_tag button button_translucent" title="networking">
+          NETWORKING
+          <span class="button_tally">18</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/tanzu/' class="post_tag button button_translucent" title="tanzu">
+          TANZU
+          <span class="button_tally">10</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/loadbalancing/' class="post_tag button button_translucent" title="loadbalancing">
+          LOADBALANCING
+          <span class="button_tally">7</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/cni/' class="post_tag button button_translucent" title="cni">
+          CNI
+          <span class="button_tally">6</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/security/' class="post_tag button button_translucent" title="security">
+          SECURITY
+          <span class="button_tally">5</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/avi/' class="post_tag button button_translucent" title="avi">
+          AVI
+          <span class="button_tally">4</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/nsx/' class="post_tag button button_translucent" title="nsx">
+          NSX
+          <span class="button_tally">3</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/blog/' class="post_tag button button_translucent" title="blog">
+          BLOG
+          <span class="button_tally">2</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/vmware-nsx/' class="post_tag button button_translucent" title="vmware-nsx">
+          VMWARE-NSX
+          <span class="button_tally">2</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/antrea/' class="post_tag button button_translucent" title="antrea">
+          ANTREA
+          <span class="button_tally">1</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/certificate/' class="post_tag button button_translucent" title="certificate">
+          CERTIFICATE
+          <span class="button_tally">1</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/docker/' class="post_tag button button_translucent" title="docker">
+          DOCKER
+          <span class="button_tally">1</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/github/' class="post_tag button button_translucent" title="github">
+          GITHUB
+          <span class="button_tally">1</span>
+        </a>
+        
+        
+        <br>
+        <div class="post_tags_toggle button">All Categories</div>
+        <div class="post_tags">
+          <div class="tags_list">
+            
+            <a href='https://blog.andreasm.io/categories/antrea/' class=" post_tag button button_translucent" data-position=1 title="antrea">ANTREA<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/avi/' class=" post_tag button button_translucent" data-position=4 title="avi">AVI<span class="button_tally">4</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/blog/' class=" post_tag button button_translucent" data-position=2 title="blog">BLOG<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/certificate/' class=" post_tag button button_translucent" data-position=1 title="certificate">CERTIFICATE<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/cni/' class=" post_tag button button_translucent" data-position=6 title="cni">CNI<span class="button_tally">6</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/docker/' class=" post_tag button button_translucent" data-position=1 title="docker">DOCKER<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/github/' class=" post_tag button button_translucent" data-position=1 title="github">GITHUB<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/harbor/' class=" post_tag button button_translucent" data-position=1 title="harbor">HARBOR<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/helm/' class=" post_tag button button_translucent" data-position=1 title="helm">HELM<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/home-automation/' class=" post_tag button button_translucent" data-position=1 title="home-automation">HOME-AUTOMATION<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/hugo/' class=" post_tag button button_translucent" data-position=1 title="hugo">HUGO<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/kubernetes/' class=" post_tag button button_translucent" data-position=30 title="kubernetes">KUBERNETES<span class="button_tally">30</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/lcm/' class=" post_tag button button_translucent" data-position=1 title="lcm">LCM<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/lifecycle-management/' class=" post_tag button button_translucent" data-position=1 title="lifecycle-management">LIFECYCLE-MANAGEMENT<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/loadbalancing/' class=" post_tag button button_translucent" data-position=7 title="loadbalancing">LOADBALANCING<span class="button_tally">7</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/logging/' class=" post_tag button button_translucent" data-position=1 title="logging">LOGGING<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/management/' class=" post_tag button button_translucent" data-position=1 title="management">MANAGEMENT<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/monitoring/' class=" post_tag button button_translucent" data-position=1 title="monitoring">MONITORING<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/netowkring/' class=" post_tag button button_translucent" data-position=1 title="netowkring">NETOWKRING<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/networking/' class=" post_tag button button_translucent" data-position=18 title="networking">NETWORKING<span class="button_tally">18</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/nsx/' class=" post_tag button button_translucent" data-position=3 title="nsx">NSX<span class="button_tally">3</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/nsx-t/' class=" post_tag button button_translucent" data-position=1 title="nsx-t">NSX-T<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/pinniped/' class=" post_tag button button_translucent" data-position=1 title="pinniped">PINNIPED<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/rbac/' class=" post_tag button button_translucent" data-position=1 title="rbac">RBAC<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/security/' class=" post_tag button button_translucent" data-position=5 title="security">SECURITY<span class="button_tally">5</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/storage/' class=" post_tag button button_translucent" data-position=1 title="storage">STORAGE<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/tanzu/' class=" post_tag button button_translucent" data-position=10 title="tanzu">TANZU<span class="button_tally">10</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/tanzu-mission-control/' class=" post_tag button button_translucent" data-position=1 title="tanzu-mission-control">TANZU-MISSION-CONTROL<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/tkg/' class=" post_tag button button_translucent" data-position=1 title="tkg">TKG<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/tmc/' class=" post_tag button button_translucent" data-position=1 title="tmc">TMC<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/troubleshooting/' class=" post_tag button button_translucent" data-position=1 title="troubleshooting">TROUBLESHOOTING<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/virtualization/' class=" post_tag button button_translucent" data-position=1 title="virtualization">VIRTUALIZATION<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/vmare-nsx-intelligence/' class=" post_tag button button_translucent" data-position=1 title="vmare-nsx-intelligence">VMARE-NSX-INTELLIGENCE<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/vmware-cloud/' class=" post_tag button button_translucent" data-position=1 title="vmware-cloud">VMWARE-CLOUD<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/vmware-nsx/' class=" post_tag button button_translucent" data-position=2 title="vmware-nsx">VMWARE-NSX<span class="button_tally">2</span>
+            </a>
+            
+            <div class="tags_sort"><span title="sort alphabetically">[A~Z]</span><span title="sort by count">[0~9]</span>
+            </div>
+            <span class="tags_hide"><svg class="icon">
+            <use xlink:href="#closeme"></use>
+          </svg></span>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div>
+      <h2 class="mt-4 taxonomy" id="tags-section">Tags</h2>
+      <nav class="tags_nav">
+        <a href='https://blog.andreasm.io/tags/kubernetes/' class="post_tag button button_translucent" title="kubernetes">
+          KUBERNETES
+          <span class="button_tally">15</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/nsx/' class="post_tag button button_translucent" title="nsx">
+          NSX
+          <span class="button_tally">10</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/tanzu/' class="post_tag button button_translucent" title="tanzu">
+          TANZU
+          <span class="button_tally">9</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/antrea/' class="post_tag button button_translucent" title="antrea">
+          ANTREA
+          <span class="button_tally">8</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/ako/' class="post_tag button button_translucent" title="ako">
+          AKO
+          <span class="button_tally">7</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/security/' class="post_tag button button_translucent" title="security">
+          SECURITY
+          <span class="button_tally">6</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/avi/' class="post_tag button button_translucent" title="avi">
+          AVI
+          <span class="button_tally">4</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/ingress/' class="post_tag button button_translucent" title="ingress">
+          INGRESS
+          <span class="button_tally">4</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/availability/' class="post_tag button button_translucent" title="availability">
+          AVAILABILITY
+          <span class="button_tally">3</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/loadbalancing/' class="post_tag button button_translucent" title="loadbalancing">
+          LOADBALANCING
+          <span class="button_tally">3</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/authentication/' class="post_tag button button_translucent" title="authentication">
+          AUTHENTICATION
+          <span class="button_tally">2</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/cert-manager/' class="post_tag button button_translucent" title="cert-manager">
+          CERT-MANAGER
+          <span class="button_tally">2</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/docker/' class="post_tag button button_translucent" title="docker">
+          DOCKER
+          <span class="button_tally">2</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/hugo/' class="post_tag button button_translucent" title="hugo">
+          HUGO
+          <span class="button_tally">2</span>
+        </a>
+        
+        
+        <br>
+        <div class="post_tags_toggle button">All Tags</div>
+        <div class="post_tags">
+          <div class="tags_list">
+            
+            <a href='https://blog.andreasm.io/tags/ako/' class=" post_tag button button_translucent" data-position=7 title="ako">AKO<span class="button_tally">7</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/amko/' class=" post_tag button button_translucent" data-position=1 title="amko">AMKO<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/antrea/' class=" post_tag button button_translucent" data-position=8 title="antrea">ANTREA<span class="button_tally">8</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/authentication/' class=" post_tag button button_translucent" data-position=2 title="authentication">AUTHENTICATION<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/automation/' class=" post_tag button button_translucent" data-position=1 title="automation">AUTOMATION<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/availability/' class=" post_tag button button_translucent" data-position=3 title="availability">AVAILABILITY<span class="button_tally">3</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/avi/' class=" post_tag button button_translucent" data-position=4 title="avi">AVI<span class="button_tally">4</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/cert-manager/' class=" post_tag button button_translucent" data-position=2 title="cert-manager">CERT-MANAGER<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/certificate/' class=" post_tag button button_translucent" data-position=1 title="certificate">CERTIFICATE<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/cni/' class=" post_tag button button_translucent" data-position=1 title="cni">CNI<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/custom-resource-definitions/' class=" post_tag button button_translucent" data-position=1 title="custom-resource-definitions">CUSTOM-RESOURCE-DEFINITIONS<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/distributed-firewall/' class=" post_tag button button_translucent" data-position=1 title="distributed-firewall">DISTRIBUTED-FIREWALL<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/dns-service/' class=" post_tag button button_translucent" data-position=1 title="dns-service">DNS-SERVICE<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/docker/' class=" post_tag button button_translucent" data-position=2 title="docker">DOCKER<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/github/' class=" post_tag button button_translucent" data-position=1 title="github">GITHUB<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/grafana/' class=" post_tag button button_translucent" data-position=1 title="grafana">GRAFANA<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/gslb/' class=" post_tag button button_translucent" data-position=1 title="gslb">GSLB<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/harbor/' class=" post_tag button button_translucent" data-position=1 title="harbor">HARBOR<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/home-assistant/' class=" post_tag button button_translucent" data-position=1 title="home-assistant">HOME-ASSISTANT<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/hugo/' class=" post_tag button button_translucent" data-position=2 title="hugo">HUGO<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/ids/' class=" post_tag button button_translucent" data-position=1 title="ids">IDS<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/informational/' class=" post_tag button button_translucent" data-position=2 title="informational">INFORMATIONAL<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/ingress/' class=" post_tag button button_translucent" data-position=4 title="ingress">INGRESS<span class="button_tally">4</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/ips/' class=" post_tag button button_translucent" data-position=1 title="ips">IPS<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/keycloak/' class=" post_tag button button_translucent" data-position=1 title="keycloak">KEYCLOAK<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/kubernetes/' class=" post_tag button button_translucent" data-position=15 title="kubernetes">KUBERNETES<span class="button_tally">15</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/lifecycle-management/' class=" post_tag button button_translucent" data-position=1 title="lifecycle-management">LIFECYCLE-MANAGEMENT<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/loadbalancer/' class=" post_tag button button_translucent" data-position=1 title="loadbalancer">LOADBALANCER<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/loadbalancing/' class=" post_tag button button_translucent" data-position=3 title="loadbalancing">LOADBALANCING<span class="button_tally">3</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/lodbalancing/' class=" post_tag button button_translucent" data-position=1 title="lodbalancing">LODBALANCING<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/loki/' class=" post_tag button button_translucent" data-position=1 title="loki">LOKI<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/management/' class=" post_tag button button_translucent" data-position=1 title="management">MANAGEMENT<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/multi-dc/' class=" post_tag button button_translucent" data-position=1 title="multi-dc">MULTI-DC<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/network/' class=" post_tag button button_translucent" data-position=2 title="network">NETWORK<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/network-policies/' class=" post_tag button button_translucent" data-position=2 title="network-policies">NETWORK-POLICIES<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/nfs/' class=" post_tag button button_translucent" data-position=1 title="nfs">NFS<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/nsx/' class=" post_tag button button_translucent" data-position=10 title="nsx">NSX<span class="button_tally">10</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/nsx-advanced-loadbalancer/' class=" post_tag button button_translucent" data-position=1 title="nsx-advanced-loadbalancer">NSX-ADVANCED-LOADBALANCER<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/nsx-application-platform/' class=" post_tag button button_translucent" data-position=1 title="nsx-application-platform">NSX-APPLICATION-PLATFORM<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/nsx-t/' class=" post_tag button button_translucent" data-position=2 title="nsx-t">NSX-T<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/persistent-storage/' class=" post_tag button button_translucent" data-position=1 title="persistent-storage">PERSISTENT-STORAGE<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/pinniped/' class=" post_tag button button_translucent" data-position=1 title="pinniped">PINNIPED<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/prometheus/' class=" post_tag button button_translucent" data-position=1 title="prometheus">PROMETHEUS<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/promtail/' class=" post_tag button button_translucent" data-position=1 title="promtail">PROMTAIL<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/pvc/' class=" post_tag button button_translucent" data-position=1 title="pvc">PVC<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/rbac/' class=" post_tag button button_translucent" data-position=1 title="rbac">RBAC<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/registry/' class=" post_tag button button_translucent" data-position=1 title="registry">REGISTRY<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/security/' class=" post_tag button button_translucent" data-position=6 title="security">SECURITY<span class="button_tally">6</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/static-content-generator/' class=" post_tag button button_translucent" data-position=1 title="static-content-generator">STATIC-CONTENT-GENERATOR<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/static-site-generator/' class=" post_tag button button_translucent" data-position=1 title="static-site-generator">STATIC-SITE-GENERATOR<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/tanzu/' class=" post_tag button button_translucent" data-position=9 title="tanzu">TANZU<span class="button_tally">9</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/tanzu-kubernetes-grid/' class=" post_tag button button_translucent" data-position=1 title="tanzu-kubernetes-grid">TANZU-KUBERNETES-GRID<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/tkg/' class=" post_tag button button_translucent" data-position=1 title="tkg">TKG<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/tkg-2.1/' class=" post_tag button button_translucent" data-position=1 title="tkg-2.1">TKG-2.1<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/tmc/' class=" post_tag button button_translucent" data-position=1 title="tmc">TMC<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/tmc-local/' class=" post_tag button button_translucent" data-position=1 title="tmc-local">TMC-LOCAL<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/tmc-sm/' class=" post_tag button button_translucent" data-position=1 title="tmc-sm">TMC-SM<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/troubleshooting/' class=" post_tag button button_translucent" data-position=2 title="troubleshooting">TROUBLESHOOTING<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/unifi/' class=" post_tag button button_translucent" data-position=1 title="unifi">UNIFI<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/vmconaws/' class=" post_tag button button_translucent" data-position=1 title="vmconaws">VMCONAWS<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/vsphere/' class=" post_tag button button_translucent" data-position=1 title="vsphere">VSPHERE<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/vsphere-replication/' class=" post_tag button button_translucent" data-position=1 title="vsphere-replication">VSPHERE-REPLICATION<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/zwave/' class=" post_tag button button_translucent" data-position=1 title="zwave">ZWAVE<span class="button_tally">1</span>
+            </a>
+            
+            <div class="tags_sort"><span title="sort alphabetically">[A~Z]</span><span title="sort by count">[0~9]</span>
+            </div>
+            <span class="tags_hide"><svg class="icon">
+            <use xlink:href="#closeme"></use>
+          </svg></span>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </section>
+</aside>
+
+  
+</div>
+    </main><svg width="0" height="0" class="hidden">
+  <symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="facebook">
+    <path d="M437 0H75C33.648 0 0 33.648 0 75v362c0 41.352 33.648 75 75 75h151V331h-60v-90h60v-61c0-49.629 40.371-90 90-90h91v90h-91v61h91l-15 90h-76v181h121c41.352 0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zm0 0"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18.001 18.001" id="twitter">
+    <path d="M15.891 4.013c.808-.496 1.343-1.173 1.605-2.034a8.68 8.68 0 0 1-2.351.861c-.703-.756-1.593-1.14-2.66-1.14-1.043 0-1.924.366-2.643 1.078a3.56 3.56 0 0 0-1.076 2.605c0 .309.039.585.117.819-3.076-.105-5.622-1.381-7.628-3.837-.34.601-.51 1.213-.51 1.846 0 1.301.549 2.332 1.645 3.089-.625-.053-1.176-.211-1.645-.47 0 .929.273 1.705.82 2.388a3.623 3.623 0 0 0 2.115 1.291c-.312.08-.641.118-.979.118-.312 0-.533-.026-.664-.083.23.757.664 1.371 1.291 1.841a3.652 3.652 0 0 0 2.152.743C4.148 14.173 2.625 14.69.902 14.69c-.422 0-.721-.006-.902-.038 1.697 1.102 3.586 1.649 5.676 1.649 2.139 0 4.029-.542 5.674-1.626 1.645-1.078 2.859-2.408 3.639-3.974a10.77 10.77 0 0 0 1.172-4.892v-.468a7.788 7.788 0 0 0 1.84-1.921 8.142 8.142 0 0 1-2.11.593z"
+      ></path>
+  </symbol>
+  <symbol aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="mail">
+    <path  d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="calendar">
+    <path d="M452 40h-24V0h-40v40H124V0H84v40H60C26.916 40 0 66.916 0 100v352c0 33.084 26.916 60 60 60h392c33.084 0 60-26.916 60-60V100c0-33.084-26.916-60-60-60zm20 412c0 11.028-8.972 20-20 20H60c-11.028 0-20-8.972-20-20V188h432v264zm0-304H40v-48c0-11.028 8.972-20 20-20h24v40h40V80h264v40h40V80h24c11.028 0 20 8.972 20 20v48z"></path>
+    <path d="M76 230h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zM76 310h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zM76 390h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zm80-80h40v40h-40z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="github">
+    <path d="M255.968 5.329C114.624 5.329 0 120.401 0 262.353c0 113.536 73.344 209.856 175.104 243.872 12.8 2.368 17.472-5.568 17.472-12.384 0-6.112-.224-22.272-.352-43.712-71.2 15.52-86.24-34.464-86.24-34.464-11.616-29.696-28.416-37.6-28.416-37.6-23.264-15.936 1.728-15.616 1.728-15.616 25.696 1.824 39.2 26.496 39.2 26.496 22.848 39.264 59.936 27.936 74.528 21.344 2.304-16.608 8.928-27.936 16.256-34.368-56.832-6.496-116.608-28.544-116.608-127.008 0-28.064 9.984-51.008 26.368-68.992-2.656-6.496-11.424-32.64 2.496-68 0 0 21.504-6.912 70.4 26.336 20.416-5.696 42.304-8.544 64.096-8.64 21.728.128 43.648 2.944 64.096 8.672 48.864-33.248 70.336-26.336 70.336-26.336 13.952 35.392 5.184 61.504 2.56 68 16.416 17.984 26.304 40.928 26.304 68.992 0 98.72-59.84 120.448-116.864 126.816 9.184 7.936 17.376 23.616 17.376 47.584 0 34.368-.32 62.08-.32 70.496 0 6.88 4.608 14.88 17.6 12.352C438.72 472.145 512 375.857 512 262.353 512 120.401 397.376 5.329 255.968 5.329z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 212 212" id="gitlab">
+    <path d="M12.3 74.7h54L43.3 3c-1-3.6-6.4-3.6-7.6 0L12.3 74.8z" />
+    <path d="M12.3 74.7L.5 111c-1 3.2 0 6.8 3 8.8l101.6 74-92.5-119z"/>
+    <path d="M105 193.7l-38.6-119h-54l92.7 119z"/>
+    <path d="M105 193.7l38.7-119H66.4l38.7 119z"/>
+    <path d="M105 193.7l38.7-119H198l-93 119z"/>
+    <path d="M198 74.7l11.6 36.2c1 3 0 6.6-3 8.6l-101.5 74 93-119z"/>
+    <path d="M198 74.7h-54.3L167 3c1.2-3.6 6.4-3.6 7.6 0L198 74.8z"/> 
+  </symbol>
+  <symbol viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="rss">
+    <circle cx="3.429" cy="20.571" r="3.429"></circle>
+    <path d="M11.429 24h4.57C15.999 15.179 8.821 8.001 0 8v4.572c6.302.001 11.429 5.126 11.429 11.428z"></path>
+    <path d="M24 24C24 10.766 13.234 0 0 0v4.571c10.714 0 19.43 8.714 19.43 19.429z"></path>
+  </symbol>
+  <symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="linkedin">
+    <path d="M437 0H75C33.648 0 0 33.648 0 75v362c0 41.352 33.648 75 75 75h362c41.352 0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zM181 406h-60V196h60zm0-240h-60v-60h60zm210 240h-60V286c0-16.54-13.46-30-30-30s-30 13.46-30 30v120h-60V196h60v11.309C286.719 202.422 296.93 196 316 196c40.691.043 75 36.547 75 79.688zm0 0"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 612 612" id="to-top">
+    <path d="M604.501 440.509L325.398 134.956c-5.331-5.357-12.423-7.627-19.386-7.27-6.989-.357-14.056 1.913-19.387 7.27L7.499 440.509c-9.999 10.024-9.999 26.298 0 36.323s26.223 10.024 36.222 0l262.293-287.164L568.28 476.832c9.999 10.024 26.222 10.024 36.221 0 9.999-10.023 9.999-26.298 0-36.323z"></path>
+  </symbol>
+  <symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="carly">
+    <path d="M504.971 239.029L448 182.059V84c0-46.317-37.682-84-84-84h-44c-13.255 0-24 10.745-24 24s10.745 24 24 24h44c19.851 0 36 16.149 36 36v108c0 6.365 2.529 12.47 7.029 16.971L454.059 256l-47.029 47.029A24.002 24.002 0 0 0 400 320v108c0 19.851-16.149 36-36 36h-44c-13.255 0-24 10.745-24 24s10.745 24 24 24h44c46.318 0 84-37.683 84-84v-98.059l56.971-56.971c9.372-9.372 9.372-24.568 0-33.941zM112 192V84c0-19.851 16.149-36 36-36h44c13.255 0 24-10.745 24-24S205.255 0 192 0h-44c-46.318 0-84 37.683-84 84v98.059l-56.971 56.97c-9.373 9.373-9.373 24.568 0 33.941L64 329.941V428c0 46.317 37.682 84 84 84h44c13.255 0 24-10.745 24-24s-10.745-24-24-24h-44c-19.851 0-36-16.149-36-36V320c0-6.365-2.529-12.47-7.029-16.971L57.941 256l47.029-47.029A24.002 24.002 0 0 0 112 192z"></path>
+  </symbol>
+  <symbol viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="copy">
+    <path d="M23 2.75A2.75 2.75 0 0 0 20.25 0H8.75A2.75 2.75 0 0 0 6 2.75v13.5A2.75 2.75 0 0 0 8.75 19h11.5A2.75 2.75 0 0 0 23 16.25zM18.25 14.5h-7.5a.75.75 0 0 1 0-1.5h7.5a.75.75 0 0 1 0 1.5zm0-3h-7.5a.75.75 0 0 1 0-1.5h7.5a.75.75 0 0 1 0 1.5zm0-3h-7.5a.75.75 0 0 1 0-1.5h7.5a.75.75 0 0 1 0 1.5z"></path>
+    <path d="M8.75 20.5a4.255 4.255 0 0 1-4.25-4.25V2.75c0-.086.02-.166.025-.25H3.75A2.752 2.752 0 0 0 1 5.25v16A2.752 2.752 0 0 0 3.75 24h12a2.752 2.752 0 0 0 2.75-2.75v-.75z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.001 512.001" id="closeme">
+    <path d="M284.286 256.002L506.143 34.144c7.811-7.811 7.811-20.475 0-28.285-7.811-7.81-20.475-7.811-28.285 0L256 227.717 34.143 5.859c-7.811-7.811-20.475-7.811-28.285 0-7.81 7.811-7.811 20.475 0 28.285l221.857 221.857L5.858 477.859c-7.811 7.811-7.811 20.475 0 28.285a19.938 19.938 0 0 0 14.143 5.857 19.94 19.94 0 0 0 14.143-5.857L256 284.287l221.857 221.857c3.905 3.905 9.024 5.857 14.143 5.857s10.237-1.952 14.143-5.857c7.811-7.811 7.811-20.475 0-28.285L284.286 256.002z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="open-menu">
+    <path d="M492 236H20c-11.046 0-20 8.954-20 20s8.954 20 20 20h472c11.046 0 20-8.954 20-20s-8.954-20-20-20zm0-160H20C8.954 76 0 84.954 0 96s8.954 20 20 20h472c11.046 0 20-8.954 20-20s-8.954-20-20-20zm0 320H20c-11.046 0-20 8.954-20 20s8.954 20 20 20h472c11.046 0 20-8.954 20-20s-8.954-20-20-20z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="instagram">
+    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id=youtube>
+    <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="stackoverflow">
+    <path d="M21 27v-8h3v11H0V19h3v8h18z"></path><path d="M17.1.2L15 1.8l7.9 10.6 2.1-1.6L17.1.2zm3.7 14.7L10.6 6.4l1.7-2 10.2 8.5-1.7 2zM7.2 12.3l12 5.6 1.1-2.4-12-5.6-1.1 2.4zm-1.8 6.8l13.56 1.96.17-2.38-13.26-2.55-.47 2.97zM19 25H5v-3h14v3z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="xing">
+    <path d="M18.188 0c-.517 0-.741.325-.927.66 0 0-7.455 13.224-7.702 13.657.015.024 4.919 9.023 4.919 9.023.17.308.436.66.967.66h3.454c.211 0 .375-.078.463-.22.089-.151.089-.346-.009-.536l-4.879-8.916c-.004-.006-.004-.016 0-.022L22.139.756c.095-.191.097-.387.006-.535C22.056.078 21.894 0 21.686 0h-3.498zM3.648 4.74c-.211 0-.385.074-.473.216-.09.149-.078.339.02.531l2.34 4.05c.004.01.004.016 0 .021L1.86 16.051c-.099.188-.093.381 0 .529.085.142.239.234.45.234h3.461c.518 0 .766-.348.945-.667l3.734-6.609-2.378-4.155c-.172-.315-.434-.659-.962-.659H3.648v.016z"/>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 71 55" id="discord">
+    <path d="M60.1045 4.8978C55.5792 2.8214 50.7265 1.2916 45.6527 0.41542C45.5603 0.39851 45.468 0.440769 45.4204 0.525289C44.7963 1.6353 44.105 3.0834 43.6209 4.2216C38.1637 3.4046 32.7345 3.4046 27.3892 4.2216C26.905 3.0581 26.1886 1.6353 25.5617 0.525289C25.5141 0.443589 25.4218 0.40133 25.3294 0.41542C20.2584 1.2888 15.4057 2.8186 10.8776 4.8978C10.8384 4.9147 10.8048 4.9429 10.7825 4.9795C1.57795 18.7309 -0.943561 32.1443 0.293408 45.3914C0.299005 45.4562 0.335386 45.5182 0.385761 45.5576C6.45866 50.0174 12.3413 52.7249 18.1147 54.5195C18.2071 54.5477 18.305 54.5139 18.3638 54.4378C19.7295 52.5728 20.9469 50.6063 21.9907 48.5383C22.0523 48.4172 21.9935 48.2735 21.8676 48.2256C19.9366 47.4931 18.0979 46.6 16.3292 45.5858C16.1893 45.5041 16.1781 45.304 16.3068 45.2082C16.679 44.9293 17.0513 44.6391 17.4067 44.3461C17.471 44.2926 17.5606 44.2813 17.6362 44.3151C29.2558 49.6202 41.8354 49.6202 53.3179 44.3151C53.3935 44.2785 53.4831 44.2898 53.5502 44.3433C53.9057 44.6363 54.2779 44.9293 54.6529 45.2082C54.7816 45.304 54.7732 45.5041 54.6333 45.5858C52.8646 46.6197 51.0259 47.4931 49.0921 48.2228C48.9662 48.2707 48.9102 48.4172 48.9718 48.5383C50.038 50.6034 51.2554 52.5699 52.5959 54.435C52.6519 54.5139 52.7526 54.5477 52.845 54.5195C58.6464 52.7249 64.529 50.0174 70.6019 45.5576C70.6551 45.5182 70.6887 45.459 70.6943 45.3942C72.1747 30.0791 68.2147 16.7757 60.1968 4.9823C60.1772 4.9429 60.1437 4.9147 60.1045 4.8978ZM23.7259 37.3253C20.2276 37.3253 17.3451 34.1136 17.3451 30.1693C17.3451 26.225 20.1717 23.0133 23.7259 23.0133C27.308 23.0133 30.1626 26.2532 30.1066 30.1693C30.1066 34.1136 27.28 37.3253 23.7259 37.3253ZM47.3178 37.3253C43.8196 37.3253 40.9371 34.1136 40.9371 30.1693C40.9371 26.225 43.7636 23.0133 47.3178 23.0133C50.9 23.0133 53.7545 26.2532 53.6986 30.1693C53.6986 34.1136 50.9 37.3253 47.3178 37.3253Z"/>
+  </symbol>
+</svg>
+
+
+<footer class="footer">
+  <div class="footer_inner wrap pale">
+    <img src='https://blog.andreasm.io/icons/apple-touch-icon.png' class="icon icon_2 transparent" alt="From 0.985mhz... to several Ghz">
+    <p>Copyright&nbsp;2016-&nbsp;<span class="year"></span>&nbsp;FROM 0.985MHZ... TO SEVERAL GHZ. All Rights Reserved</p><a class="to_top" href="#documentTop">
+  <svg class="icon">
+  <title>to-top</title>
+  <use xlink:href="#to-top"></use>
+</svg>
+
+</a>
+
+  </div>
+</footer>
+
+<script type="text/javascript" src="https://blog.andreasm.io/en/js/bundle.5548d358738600c857a1f05f0459418da7143d4426c66a08bf3f15ded1b39dd2136bf104a559247a909fc4dcc45b8e06bad0870ece4c71ee5303d30550def8bd.js" integrity="sha512-VUjTWHOGAMhXofBfBFlBjacUPUQmxmoIvz8V3tGzndITa/EEpVkkepCfxNzEW44GutCHDs5Mce5TA9MFUN74vQ==" crossorigin="anonymous"></script>
+
+  <script src="https://blog.andreasm.io/js/search.min.df4d84e4983f0c71dd495e07a09815d920553c3ddf3d0767801c73373573aa17e1b489e4453272dbf4ce2a38a3d01a10b170744e50dd6bec85a598221867ba9a.js"></script>
+
+  </body>
+</html>
