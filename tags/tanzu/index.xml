@@ -7,7 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Myself</copyright>
-    <lastBuildDate>Thu, 01 Jun 2023 11:14:32 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/tanzu/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 07 Sep 2023 07:46:13 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/tanzu/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>TKG Autoscaler</title>
+      <link>https://blog.andreasm.io/2023/09/07/tkg-autoscaler/</link>
+      <pubDate>Thu, 07 Sep 2023 07:46:13 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2023/09/07/tkg-autoscaler/</guid>
+      <description>
+        
+          
+            In this post I will go through the TKG Autoscaler, how to configure it and how it works.
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>Managing Antrea in vSphere with Tanzu</title>
       <link>https://blog.andreasm.io/2023/06/01/managing-antrea-in-vsphere-with-tanzu/</link>
