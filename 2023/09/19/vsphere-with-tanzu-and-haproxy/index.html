@@ -1,0 +1,2305 @@
+
+<!DOCTYPE html>
+<html
+  lang="en"
+  data-figures=""
+  
+    class="page"
+  
+  
+  
+    data-mode="dim"
+  >
+  <head>
+<title>vSphere with Tanzu and HAproxy | From 0.985mhz... to several Ghz</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TVPYDVE8KR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-TVPYDVE8KR');
+</script>
+
+
+
+  
+<meta property="og:locale" content="en" />
+
+<meta property="og:type" content="article">
+<meta name="description" content="Short post how to deploy TKGs using HAProxy" />
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:creator" content="">
+<meta name="twitter:title" content="vSphere with Tanzu and HAproxy" />
+<meta name="twitter:image" content="https://blog.andreasm.io/2023/09/19/vsphere-with-tanzu-and-haproxy/images/logo-vmware-tanzu.png"/>
+<meta property="og:url" content="https://blog.andreasm.io/2023/09/19/vsphere-with-tanzu-and-haproxy/" />
+<meta property="og:title" content="vSphere with Tanzu and HAproxy" />
+<meta property="og:description" content="Short post how to deploy TKGs using HAProxy" />
+<meta property="og:image" content="https://blog.andreasm.io/2023/09/19/vsphere-with-tanzu-and-haproxy/images/logo-vmware-tanzu.png" />
+  <meta name="keywords" content="nsx,vmware,kubernetes" />
+
+<link rel="apple-touch-icon" sizes="180x180" href="https://blog.andreasm.io/icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://blog.andreasm.io/icons/favicon-32x32.png">
+<link rel="manifest" href="https://blog.andreasm.io/icons/site.webmanifest">
+
+<link rel="canonical" href="https://blog.andreasm.io/2023/09/19/vsphere-with-tanzu-and-haproxy/">
+
+
+
+<link rel="preload" href="https://blog.andreasm.io/css/styles.6c67fa3a7f5290a2facfb027358dd2bdb5450d04b8de427c8a74d79f524a7fb716b470b14b6ba95f1b7cf3aa9a2219a7294a6adeaf16a1080f432eae45d8c03c.css" integrity = "sha512-bGf6On9SkKL6z7AnNY3SvbVFDQS43kJ8inTXn1JKf7cWtHCxS2upXxt886qaIhmnKUpq3q8WoQgPQy6uRdjAPA==" as="style" crossorigin="anonymous">
+
+
+
+<link rel="preload" href="https://blog.andreasm.io/en/js/bundle.5548d358738600c857a1f05f0459418da7143d4426c66a08bf3f15ded1b39dd2136bf104a559247a909fc4dcc45b8e06bad0870ece4c71ee5303d30550def8bd.js" as="script" integrity=
+"sha512-VUjTWHOGAMhXofBfBFlBjacUPUQmxmoIvz8V3tGzndITa/EEpVkkepCfxNzEW44GutCHDs5Mce5TA9MFUN74vQ==" crossorigin="anonymous">
+
+
+<link rel="stylesheet" type="text/css" href="https://blog.andreasm.io/css/styles.6c67fa3a7f5290a2facfb027358dd2bdb5450d04b8de427c8a74d79f524a7fb716b470b14b6ba95f1b7cf3aa9a2219a7294a6adeaf16a1080f432eae45d8c03c.css" integrity="sha512-bGf6On9SkKL6z7AnNY3SvbVFDQS43kJ8inTXn1JKf7cWtHCxS2upXxt886qaIhmnKUpq3q8WoQgPQy6uRdjAPA==" crossorigin="anonymous">
+
+
+  </head>
+  <body
+    data-code="7"
+    data-lines="false"
+    id="documentTop"
+    data-lang="en"
+  >
+
+<header class="nav_header" >
+  <nav class="nav"><a href='https://blog.andreasm.io/' class="nav_brand nav_item" title="From 0.985mhz... to several Ghz">
+  <img src="https://blog.andreasm.io/quote3.png" class="logo" alt="From 0.985mhz... to several Ghz">
+  <div class="nav_close">
+    <div><svg class="icon">
+  <title>open-menu</title>
+  <use xlink:href="#open-menu"></use>
+</svg>
+<svg class="icon">
+  <title>closeme</title>
+  <use xlink:href="#closeme"></use>
+</svg>
+</div>
+  </div>
+</a>
+
+    <div class='nav_body nav_body_left'>
+      
+      
+      
+        
+
+  <div class="nav_parent">
+    <a href="https://blog.andreasm.io/" class="nav_item" title="Home">Home </a>
+  </div>
+  <div class="nav_parent">
+    <a href="https://blog.andreasm.io/about/" class="nav_item" title="About">About </a>
+  </div>
+      
+<div class='follow'>
+<div class="color_mode">
+  <input type="checkbox" class="color_choice" id="mode">
+</div>
+
+</div>
+
+    </div>
+  </nav>
+</header>
+
+    <main>
+  
+<div class="grid-inverse wrap content">
+  <article class="post_content">
+    <h1 class="post_title">vSphere with Tanzu and HAproxy</h1>
+  <div class="post_meta">
+    <span><svg class="icon">
+  <title>calendar</title>
+  <use xlink:href="#calendar"></use>
+</svg>
+</span>
+    <span class="post_date">
+      19-09-2023</span>
+    <span class="post_time"> · 21 min read</span><span>&nbsp;· <a href='https://blog.andreasm.io/tags/load-balancing/' title="load-balancing" class="post_tag button button_translucent">load-balancing
+        </a><a href='https://blog.andreasm.io/tags/kubernetes-api-endpoint/' title="Kubernetes-api-endpoint" class="post_tag button button_translucent">Kubernetes-api-endpoint
+        </a><a href='https://blog.andreasm.io/tags/tkgs/' title="TKGs" class="post_tag button button_translucent">TKGs
+        </a><a href='https://blog.andreasm.io/tags/vsphere-with-tanzu/' title="vSphere-with-tanzu" class="post_tag button button_translucent">vSphere-with-tanzu
+        </a>
+    </span>
+  </div>
+
+      <div class="post_toc">
+        <h2>Overview</h2>
+        <nav id="TableOfContents">
+  <ul>
+    <li><a href="#install-haproxy">Install HAProxy</a>
+      <ul>
+        <li><a href="#haproxy-ova-deployment">HAProxy OVA deployment</a></li>
+        <li><a href="#ssh-into-the-haproxy-appliance">SSH into the HAProxy appliance</a></li>
+      </ul>
+    </li>
+    <li><a href="#enable-supervisor-in-vsphere-using-haproxy">Enable Supervisor in vSphere using HAProxy</a></li>
+    <li><a href="#add-additional-workload-network">Add additional workload network</a></li>
+    <li><a href="#restore-from-a-deletedcrashedkilled-haproxy-appliance">Restore from a deleted/crashed/killed HAProxy appliance</a></li>
+  </ul>
+</nav>
+      </div>
+    
+    <div class="post_body"><h1 id="vsphere-with-tanzu-and-haproxy">vSphere with Tanzu and HAProxy</h1>
+<p>Using HAProxy is an option if in need of a an easy and quick way to deploy vSphere with Tanzu. There is no redundancy built into this approach as the HAProxy appliance only consist of one appliance. A support contract is directly with HAProxy not VMware. I would probably recommend this approach for poc, smaller environments, test environments etc. In production environments I would highly recommend NSX Advanced Loadbalancer for many many reasons like resiliency, scalbility and a whole bunch of enterprise features. See my post covering vSphere with Tanzu and NSX-ALB <a href="https://blog.andreasm.io/2022/10/26/vsphere-8-with-tanzu-using-vds-and-avi-loadbalancer/">here</a> and <a href="https://blog.andreasm.io/2022/10/26/vsphere-8-with-tanzu-using-nsx-t-avi-loadbalancer/">here</a></p>
+<p>Before I begin this post I will just quickly go through the two different ways HAProxy can be deployed to support a vSphere with Tanzu deployment. The two options are called <strong>Default</strong> and <strong>Frontend</strong>. The difference being how the HAProxy network is configured.
+Lets start with the <strong>Default</strong> option:
+The <strong>Default</strong> option basically means you will deploy the HAProxy appliance using only 2 network interfaces. One network interface is being used for management and the second one will be a combined interface for both VIP(frontend) and data-network(workload network).</p>
+<img src=images/image-20230919125336749.png style="width:600px" />
+<p>I dont like this approach as it does not give me the option to have a separation between the workload network and the frontend network, meaning there is no distinction networking/firewall wise when restricting traffic from any to the VIP of the kubernetes api. For more information on this topology have a look <a href="https://docs.vmware.com/en/VMware-vSphere/8.0/vsphere-with-tanzu-concepts-planning/GUID-1F885AAE-92FF-41E6-BF04-0F0FD4173BD9.html#supervisor-topology-with-one-workload-network-and-haproxy-with-two-virtual-nics-3">here</a> in the VMware official documentation.</p>
+<p>So I will opt for the second option, <strong>Frontend</strong>, when using HAProxy in vSphere with Tanzu.</p>
+<img src=images/image-20230919125913082.png style="width:550px" />
+<p>This option will deploy the HAProxy appliance with three network interfaces. A separate interface for management, workload and frontend (VIP/Kubernetes API). When users hit the VIP or the frontend network assigned it is a separate network interface on the HAProxy appliance, and will forward the traffic (using routes internally in the HAProxy) to forward the requests to the correct kubernetes api in the workload network. It also supports any additional workload networks which I will show later.
+For more information on the <strong>Frontend</strong> topology head over <a href="https://docs.vmware.com/en/VMware-vSphere/8.0/vsphere-with-tanzu-concepts-planning/GUID-1F885AAE-92FF-41E6-BF04-0F0FD4173BD9.html#supervisor-topology-with-multiple-workload-networks-and-ha-proxy-with-three-virtual-nics-6">here</a></p>
+<p>Thats it for the introduction, lets do the actual implementation of this.</p>
+<h2 id="install-haproxy">Install HAProxy</h2>
+<p>First thing first, prepare the three network in vCenter using either VDS portgroups or NSX backed overlay segments. 1 portgroup for the management interface, one for the default workload network and one for the HAProxy frontend network. In my setup I will be using this IP information:</p>
+<ul>
+<li>Management network - NSX backed overlay segment: Network = 10.13.10.0/24, GW = 10.13.10.1, HAProxy Interface IP = 10.13.10.199. Routed</li>
+<li>Workload network - VLAN backed VDS portgroup: Network = 10.13.201.0/24, GW = 10.13.201.1, HAProxy Interface IP = 10.13.201.10. Routed</li>
+<li>Frontend network - VLAN backed VDS portgroup: Network = 10.13.200.0/24, GW = 10.13.200.1, HAProxy Interface IP = 10.13.200.10. Routed</li>
+</ul>
+<p>When the networks is ready it is time to deploy the HAProxy appliance/vm itself. To deploy the HAProxy I will use the OVA approach described <a href="https://github.com/haproxytech/vmware-haproxy">here</a>.
+Then it is getting hold of the HAProxy OVA to be used for this purpose which can be found <a href="https://github.com/haproxytech/vmware-haproxy/releases">here</a>, or directly to the OVA version 0.2.0 <a href="https://cdn.haproxy.com/download/haproxy/vsphere/ova/haproxy-v0.2.0.ova">here</a>.</p>
+<p>Before deploying the OVA prepare the additional information below:</p>
+<ul>
+<li>DNS server = 172.24.3.1</li>
+<li>LoadBalancer IP Range = 10.13.200.32/27 - this is just a range I have defined inside the HAProxy frontend network. The Frontend network is 10.13.200.0/24 (where my HAProxy will use 10.13.200.10) and the range I will make available for HAProxy to use is 10.13.200.32/27 which gives me 30 usable addresses x.x.x.33-x.x.x.62. There is also the option to add more ranges e.g 10.13.200.64/27 and so on.</li>
+</ul>
+<p>To save some time I will skip directly to the actual ova deployment from my vCenter server.</p>
+<h3 id="haproxy-ova-deployment">HAProxy OVA deployment</h3>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="ova_source_file"
+      
+        class="image_figure image_internal image_processed"
+        width="2266"
+        height="1170"
+        src="/2023/09/19/vsphere-with-tanzu-and-haproxy/images/image-20230919134010021.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="vcenter-placement"
+      
+        class="image_figure image_internal image_processed"
+        width="2256"
+        height="1186"
+        src="/2023/09/19/vsphere-with-tanzu-and-haproxy/images/image-20230919134026604.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="cluster-placement"
+      
+        class="image_figure image_internal image_processed"
+        width="2276"
+        height="1182"
+        src="/2023/09/19/vsphere-with-tanzu-and-haproxy/images/image-20230919134042051.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="details-1"
+      
+        class="image_figure image_internal image_processed"
+        width="2274"
+        height="1186"
+        src="/2023/09/19/vsphere-with-tanzu-and-haproxy/images/image-20230919134110951.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="eula"
+      
+        class="image_figure image_internal image_processed"
+        width="2294"
+        height="1194"
+        src="/2023/09/19/vsphere-with-tanzu-and-haproxy/images/image-20230919134127715.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>The next step below is where I select the network topology, I will here choose <strong>Frontend</strong></p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="topology-selection"
+      
+        class="image_figure image_internal image_processed"
+        width="2258"
+        height="1174"
+        src="/2023/09/19/vsphere-with-tanzu-and-haproxy/images/image-20230919134145529.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="datastore"
+      
+        class="image_figure image_internal image_processed"
+        width="2282"
+        height="1190"
+        src="/2023/09/19/vsphere-with-tanzu-and-haproxy/images/image-20230919134220490.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>In the step below I will select my three prepared networks accordingly.</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="the-three-networks"
+      
+        class="image_figure image_internal image_processed"
+        width="2264"
+        height="1176"
+        src="/2023/09/19/vsphere-with-tanzu-and-haproxy/images/image-20230919134257510.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>Enter the root password for the appliance/os itself, check Permit Root Login (useful for troubleshooting and for this demo), leave the TLS sections default blank.</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="password-root"
+      
+        class="image_figure image_internal image_processed"
+        width="2272"
+        height="1060"
+        src="/2023/09/19/vsphere-with-tanzu-and-haproxy/images/image-20230919134349317.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>Fill in hostname if wanted, DNS server(s) the appliance management ip in CIDR format 10.13.10.199/24 and the gateway 10.13.10.1.</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="network-info-1"
+      
+        class="image_figure image_internal image_processed"
+        width="2262"
+        height="1060"
+        src="/2023/09/19/vsphere-with-tanzu-and-haproxy/images/image-20230919134443305.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>Then it is the workload related network settings. Workload IP 10.13.201.10/24 and gateway 10.13.201.1. The <strong>Additional Workload Networks</strong> can be ignored (it does not seem to have any effect), I will go through that later adding additional workload networks. Then it is the Frontend IP = 10.13.200.10/24. It does say optional, but its only optional if doing the <strong>Default</strong> setup with only two nics.</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="network-info-2"
+      
+        class="image_figure image_internal image_processed"
+        width="2276"
+        height="1052"
+        src="/2023/09/19/vsphere-with-tanzu-and-haproxy/images/image-20230919134545618.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>Frontend gateway = 10.13.200.1. Not optional when doing the <strong>Frontend</strong> setup. Then it is the range you want HAProxy to use for VIP. I have defined a range of 30 usable address by filling in the CIDR 10.13.200.32/27 as below. This can be one of many ranges if you want. Leave the port as default, if not in need of changing it. Then I define a custom API username for the Supervisor to use against the HAProxy, in my case <em>admin</em>.</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="network-info-3"
+      
+        class="image_figure image_internal image_processed"
+        width="2266"
+        height="968"
+        src="/2023/09/19/vsphere-with-tanzu-and-haproxy/images/image-20230919134827590.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>Then it is the password for the API admin user. The password I have chosen is ..... .... ..</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="api-password"
+      
+        class="image_figure image_internal image_processed"
+        width="2282"
+        height="586"
+        src="/2023/09/19/vsphere-with-tanzu-and-haproxy/images/image-20230919134924196.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>Then do a quick review and make sure everything is there. Click finish and wait.</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="summary"
+      
+        class="image_figure image_internal image_processed"
+        width="2280"
+        height="1176"
+        src="/2023/09/19/vsphere-with-tanzu-and-haproxy/images/image-20230919135003643.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<img src=images/image-20230919135031618.png style="width:500px" />
+<h3 id="ssh-into-the-haproxy-appliance">SSH into the HAProxy appliance</h3>
+<p>When the appliance has been deployed and powered on, ssh into the HAProxy appliance using its IP address in the management network and using root as username and password defined above.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl">ssh root@10.13.10.199
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">The authenticity of host <span class="s1">&#39;10.13.10.199 (10.13.10.199)&#39;</span> can<span class="s1">&#39;t be established.
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="s1">ED25519 key fingerprint is SHA256:Asefsdfgsdfsdgsdg5kyKHX0.
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="s1">This key is not known by any other names
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="s1">Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="s1">Warning: Permanently added &#39;</span>10.13.10.199<span class="err">&#39;</span> <span class="o">(</span>ED25519<span class="o">)</span> to the list of known hosts.
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="o">(</span>root@10.13.10.199<span class="o">)</span> Password:
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl"> 12:06:48 up <span class="m">2</span> min,  <span class="m">0</span> users,  load average: 0.15, 0.12, 0.05
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">tdnf update info not available yet!
+</span></span><span class="line"><span class="ln">10</span><span class="cl">root@haproxy <span class="o">[</span> ~ <span class="o">]</span><span class="c1">#</span>
+</span></span></code></pre></div><p>The reason I want to log in here is because I need the CA.CRT generated so I can tell the Supervisor to use that later on, but also to do some information dump on certain config files that will be good to know about.</p>
+<p>The most important part, the certificate. When enabling the Supervisor later I will need the certificate. Grab this by using this command:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">root@haproxy <span class="o">[</span> ~ <span class="o">]</span><span class="c1"># cat /etc/haproxy/ca.crt</span>
+</span></span><span class="line"><span class="ln">2</span><span class="cl">-----BEGIN CERTIFICATE-----
+</span></span><span class="line"><span class="ln">3</span><span class="cl">MIIDJ6HD6qCAn3KyQ0KNTJiqT7HgwRvFgZoHcG9vWXjvZy2
+</span></span><span class="line"><span class="ln">4</span><span class="cl">.....................................
+</span></span><span class="line"><span class="ln">5</span><span class="cl">qUOOIbrvQStRTqJl/DjEKi0FyR3lJ1OTOHAbD4YJltSixLkVHRqEH/PY0CbwUNib
+</span></span><span class="line"><span class="ln">6</span><span class="cl">wEkCcibnNLMVLvqvXmyvj0x/Hg<span class="o">==</span>
+</span></span><span class="line"><span class="ln">7</span><span class="cl">-----END CERTIFICATE-----
+</span></span></code></pre></div><p>Then there is a couple of config files that is relevant to know about, it would be interesting to have a look at them now before enabling the supervisor and another look after it has been enabled. So lets have a look now.</p>
+<p>I will just run all of them in the same window:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">  1</span><span class="cl"><span class="c1">########## haproxy.cfg ################</span>
+</span></span><span class="line"><span class="ln">  2</span><span class="cl">root@haproxy <span class="o">[</span> ~ <span class="o">]</span><span class="c1"># cat /etc/haproxy/haproxy.cfg</span>
+</span></span><span class="line"><span class="ln">  3</span><span class="cl">global
+</span></span><span class="line"><span class="ln">  4</span><span class="cl">  log stdout format raw local0 info
+</span></span><span class="line"><span class="ln">  5</span><span class="cl">  chroot /var/lib/haproxy
+</span></span><span class="line"><span class="ln">  6</span><span class="cl">  stats socket /run/haproxy.sock user haproxy group haproxy mode <span class="m">660</span> level admin expose-fd listeners
+</span></span><span class="line"><span class="ln">  7</span><span class="cl">  stats timeout 30s
+</span></span><span class="line"><span class="ln">  8</span><span class="cl">  user haproxy
+</span></span><span class="line"><span class="ln">  9</span><span class="cl">  group haproxy
+</span></span><span class="line"><span class="ln"> 10</span><span class="cl">  master-worker
+</span></span><span class="line"><span class="ln"> 11</span><span class="cl">  <span class="c1"># Setting maxconn in the global section is what successfully sets the ulimit on the</span>
+</span></span><span class="line"><span class="ln"> 12</span><span class="cl">  <span class="c1"># host, otherwise we run out of file descriptors (defaulted at 4096).</span>
+</span></span><span class="line"><span class="ln"> 13</span><span class="cl">  maxconn <span class="m">60000</span>
+</span></span><span class="line"><span class="ln"> 14</span><span class="cl">  <span class="c1"># This property indicates the number of maximum number of reloads a worker</span>
+</span></span><span class="line"><span class="ln"> 15</span><span class="cl">  <span class="c1"># will survive before being forcefully killed. This number is required to control</span>
+</span></span><span class="line"><span class="ln"> 16</span><span class="cl">  <span class="c1"># the rate at which processes can scale due to the number of reloads outscaling</span>
+</span></span><span class="line"><span class="ln"> 17</span><span class="cl">  <span class="c1"># the rate processes are reaped when all of their connections have been cleaned up.</span>
+</span></span><span class="line"><span class="ln"> 18</span><span class="cl">  <span class="c1"># This number was derived by taking the average virtual memory consumption for a</span>
+</span></span><span class="line"><span class="ln"> 19</span><span class="cl">  <span class="c1"># single HA Proxy process under load, ~28MB, and allocating HA Proxy 3GB out of 4GB</span>
+</span></span><span class="line"><span class="ln"> 20</span><span class="cl">  <span class="c1"># of the total virtual memory space.</span>
+</span></span><span class="line"><span class="ln"> 21</span><span class="cl">  mworker-max-reloads <span class="m">100</span>
+</span></span><span class="line"><span class="ln"> 22</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 23</span><span class="cl">  <span class="c1"># Default SSL material locations</span>
+</span></span><span class="line"><span class="ln"> 24</span><span class="cl">  ca-base /etc/ssl/certs
+</span></span><span class="line"><span class="ln"> 25</span><span class="cl">  crt-base /etc/ssl/private
+</span></span><span class="line"><span class="ln"> 26</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 27</span><span class="cl">  <span class="c1"># Default ciphers to use on SSL-enabled listening sockets.</span>
+</span></span><span class="line"><span class="ln"> 28</span><span class="cl">  <span class="c1"># For more information, see ciphers(1SSL). This list is from:</span>
+</span></span><span class="line"><span class="ln"> 29</span><span class="cl">  <span class="c1">#  https://hynek.me/articles/hardening-your-web-servers-ssl-ciphers/</span>
+</span></span><span class="line"><span class="ln"> 30</span><span class="cl">  <span class="c1"># An alternative list with additional directives can be obtained from</span>
+</span></span><span class="line"><span class="ln"> 31</span><span class="cl">  <span class="c1">#  https://mozilla.github.io/server-side-tls/ssl-config-generator/?server=haproxy</span>
+</span></span><span class="line"><span class="ln"> 32</span><span class="cl">  ssl-default-bind-ciphers ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:RSA+AESGCM:RSA+AES:!aNULL:!MD5:!DSS
+</span></span><span class="line"><span class="ln"> 33</span><span class="cl">  ssl-default-bind-options no-sslv3
+</span></span><span class="line"><span class="ln"> 34</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 35</span><span class="cl">defaults
+</span></span><span class="line"><span class="ln"> 36</span><span class="cl">  mode    tcp
+</span></span><span class="line"><span class="ln"> 37</span><span class="cl">  log     global
+</span></span><span class="line"><span class="ln"> 38</span><span class="cl">  option  tcplog
+</span></span><span class="line"><span class="ln"> 39</span><span class="cl">  option  dontlognull
+</span></span><span class="line"><span class="ln"> 40</span><span class="cl">  option  tcp-smart-accept
+</span></span><span class="line"><span class="ln"> 41</span><span class="cl">  timeout check       5s
+</span></span><span class="line"><span class="ln"> 42</span><span class="cl">  timeout connect     9s
+</span></span><span class="line"><span class="ln"> 43</span><span class="cl">  timeout client      10s
+</span></span><span class="line"><span class="ln"> 44</span><span class="cl">  timeout queue       5m
+</span></span><span class="line"><span class="ln"> 45</span><span class="cl">  timeout server      10s
+</span></span><span class="line"><span class="ln"> 46</span><span class="cl">  <span class="c1"># tunnel timeout needs to be set at a lowish value to deal with the frequent</span>
+</span></span><span class="line"><span class="ln"> 47</span><span class="cl">  <span class="c1"># reloads invoked by dataplaneapi at scale. With a higher value set, established</span>
+</span></span><span class="line"><span class="ln"> 48</span><span class="cl">  <span class="c1"># connections will hang around and prevent haproxy from killing all off older processes</span>
+</span></span><span class="line"><span class="ln"> 49</span><span class="cl">  <span class="c1"># because those old processes won&#39;t terminate those established connections unless</span>
+</span></span><span class="line"><span class="ln"> 50</span><span class="cl">  <span class="c1"># it is told to do so. Having these processes linger for too long can eventually</span>
+</span></span><span class="line"><span class="ln"> 51</span><span class="cl">  <span class="c1"># starve the system of resources as the spawn rate of processes exceeds the death rate.</span>
+</span></span><span class="line"><span class="ln"> 52</span><span class="cl">  timeout tunnel      5m
+</span></span><span class="line"><span class="ln"> 53</span><span class="cl">  timeout client-fin  10s
+</span></span><span class="line"><span class="ln"> 54</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 55</span><span class="cl"><span class="c1"># Stats are disabled by default because enabling them on a non-local IP address</span>
+</span></span><span class="line"><span class="ln"> 56</span><span class="cl"><span class="c1"># would result in allocating a port that could result in a conflict with one</span>
+</span></span><span class="line"><span class="ln"> 57</span><span class="cl"><span class="c1"># of the binds programmed at runtime.</span>
+</span></span><span class="line"><span class="ln"> 58</span><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="ln"> 59</span><span class="cl"><span class="c1"># To enable stats, uncomment the following section and replace SYSTEM_IP_ADDR</span>
+</span></span><span class="line"><span class="ln"> 60</span><span class="cl"><span class="c1"># with the IP address of the HAProxy host.</span>
+</span></span><span class="line"><span class="ln"> 61</span><span class="cl"><span class="c1">#frontend stats</span>
+</span></span><span class="line"><span class="ln"> 62</span><span class="cl"><span class="c1">#  mode  http</span>
+</span></span><span class="line"><span class="ln"> 63</span><span class="cl"><span class="c1">#  bind  SYSTEM_IP_ADDR:8404</span>
+</span></span><span class="line"><span class="ln"> 64</span><span class="cl"><span class="c1">#  stats enable</span>
+</span></span><span class="line"><span class="ln"> 65</span><span class="cl"><span class="c1">#  stats uri     /stats</span>
+</span></span><span class="line"><span class="ln"> 66</span><span class="cl"><span class="c1">#  stats refresh 500ms</span>
+</span></span><span class="line"><span class="ln"> 67</span><span class="cl"><span class="c1">#  stats hide-version</span>
+</span></span><span class="line"><span class="ln"> 68</span><span class="cl"><span class="c1">#  stats show-legends</span>
+</span></span><span class="line"><span class="ln"> 69</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 70</span><span class="cl">userlist controller
+</span></span><span class="line"><span class="ln"> 71</span><span class="cl">  user admin password <span class="nv">$dfsdfsdf</span>/mdsfsdfb<span class="nv">$6</span>/xsdfsdfsdf379dfsdfMOJ/W1
+</span></span><span class="line"><span class="ln"> 72</span><span class="cl"><span class="c1">##################### haproxy.cfg - no entries yet for any virtual services ###############################</span>
+</span></span><span class="line"><span class="ln"> 73</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 74</span><span class="cl"><span class="c1">##################### any-ip-routes ###########################</span>
+</span></span><span class="line"><span class="ln"> 75</span><span class="cl">root@haproxy <span class="o">[</span> ~ <span class="o">]</span><span class="c1"># cat /etc/vmware/anyip-routes.cfg</span>
+</span></span><span class="line"><span class="ln"> 76</span><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="ln"> 77</span><span class="cl"><span class="c1"># Configuration file that contains a line-delimited list of CIDR values</span>
+</span></span><span class="line"><span class="ln"> 78</span><span class="cl"><span class="c1"># that define the network ranges used to bind the load balancer&#39;s frontends</span>
+</span></span><span class="line"><span class="ln"> 79</span><span class="cl"><span class="c1"># to virtual IP addresses.</span>
+</span></span><span class="line"><span class="ln"> 80</span><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="ln"> 81</span><span class="cl"><span class="c1"># * Lines beginning with a comment character, #, are ignored</span>
+</span></span><span class="line"><span class="ln"> 82</span><span class="cl"><span class="c1"># * This file is used by the anyip-routes service</span>
+</span></span><span class="line"><span class="ln"> 83</span><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="ln"> 84</span><span class="cl">10.13.200.32/27
+</span></span><span class="line"><span class="ln"> 85</span><span class="cl"><span class="c1">################### any-ip-routes #########################</span>
+</span></span><span class="line"><span class="ln"> 86</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 87</span><span class="cl"><span class="c1">################## route-tables #######################</span>
+</span></span><span class="line"><span class="ln"> 88</span><span class="cl">root@haproxy <span class="o">[</span> ~ <span class="o">]</span><span class="c1"># cat /etc/vmware/route-tables.cfg</span>
+</span></span><span class="line"><span class="ln"> 89</span><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="ln"> 90</span><span class="cl"><span class="c1"># Configuration file that contains a line-delimited list of values used to</span>
+</span></span><span class="line"><span class="ln"> 91</span><span class="cl"><span class="c1"># create route tables on which default gateways are defined. This enables</span>
+</span></span><span class="line"><span class="ln"> 92</span><span class="cl"><span class="c1"># the use of IP policy to ensure traffic to interfaces that do not use the</span>
+</span></span><span class="line"><span class="ln"> 93</span><span class="cl"><span class="c1"># default gateway is routed correctly.</span>
+</span></span><span class="line"><span class="ln"> 94</span><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="ln"> 95</span><span class="cl"><span class="c1"># * Lines beginning with a comment character, #, are ignored</span>
+</span></span><span class="line"><span class="ln"> 96</span><span class="cl"><span class="c1"># * This file is used by the route-tables service</span>
+</span></span><span class="line"><span class="ln"> 97</span><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="ln"> 98</span><span class="cl"><span class="c1"># Each line that contains a value must adhere to the following,</span>
+</span></span><span class="line"><span class="ln"> 99</span><span class="cl"><span class="c1"># comma-separated format:</span>
+</span></span><span class="line"><span class="ln">100</span><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="ln">101</span><span class="cl"><span class="c1">#   &lt;TableID&gt;,&lt;TableName&gt;,&lt;MACAddress&gt;,&lt;NetworkCIDR&gt;,&lt;Gateway4&gt;</span>
+</span></span><span class="line"><span class="ln">102</span><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="ln">103</span><span class="cl"><span class="c1"># The fields in the above format are as follows:</span>
+</span></span><span class="line"><span class="ln">104</span><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="ln">105</span><span class="cl"><span class="c1"># * TableID      The route table ID. This value should be an integer between</span>
+</span></span><span class="line"><span class="ln">106</span><span class="cl"><span class="c1">#                2-250. Please see /etc/iproute2/rt_tables for a list of the</span>
+</span></span><span class="line"><span class="ln">107</span><span class="cl"><span class="c1">#                route table IDs currently in use, including reserved IDs.</span>
+</span></span><span class="line"><span class="ln">108</span><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="ln">109</span><span class="cl"><span class="c1"># * TableName    The name of the route table. This value will be appended</span>
+</span></span><span class="line"><span class="ln">110</span><span class="cl"><span class="c1">#                to a constant prefix, used to identify route tables managed</span>
+</span></span><span class="line"><span class="ln">111</span><span class="cl"><span class="c1">#                by the route-tables service.</span>
+</span></span><span class="line"><span class="ln">112</span><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="ln">113</span><span class="cl"><span class="c1"># * MACAddress   The MAC address of the interface connected to the network</span>
+</span></span><span class="line"><span class="ln">114</span><span class="cl"><span class="c1">#                specified by NetworkCIDR</span>
+</span></span><span class="line"><span class="ln">115</span><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="ln">116</span><span class="cl"><span class="c1"># * NetworkCIDR  The CIDR of the network to which the interface by MACAddress</span>
+</span></span><span class="line"><span class="ln">117</span><span class="cl"><span class="c1">#                is connected</span>
+</span></span><span class="line"><span class="ln">118</span><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="ln">119</span><span class="cl"><span class="c1"># * Gateway4     The IPv4 address of the gateway used by the network specified</span>
+</span></span><span class="line"><span class="ln">120</span><span class="cl"><span class="c1">#                by NetworkCIDR</span>
+</span></span><span class="line"><span class="ln">121</span><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="ln">122</span><span class="cl"><span class="c1"># For example, the following lines are valid values:</span>
+</span></span><span class="line"><span class="ln">123</span><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="ln">124</span><span class="cl"><span class="c1">#   2,frontend,00:00:00🆎cd:ef,192.168.1.0/24,192.168.1.1</span>
+</span></span><span class="line"><span class="ln">125</span><span class="cl"><span class="c1">#   3,workload,00:00:00:12:34:56,192.168.2.0/24,192.168.2.1</span>
+</span></span><span class="line"><span class="ln">126</span><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="ln">127</span><span class="cl">
+</span></span><span class="line"><span class="ln">128</span><span class="cl">2,workload,00:50:56:b4:ca:fd,10.13.201.10/24,10.13.201.1
+</span></span><span class="line"><span class="ln">129</span><span class="cl">2,workload,00:50:56:b4:ca:fd,10.13.201.10/24
+</span></span><span class="line"><span class="ln">130</span><span class="cl">3,frontend,00:50:56:b4:ef:d1,10.13.200.10/24,10.13.200.1
+</span></span><span class="line"><span class="ln">131</span><span class="cl">3,frontend,00:50:56:b4:ef:d1,10.13.200.10/24
+</span></span><span class="line"><span class="ln">132</span><span class="cl"><span class="c1">#################################### route-tables ####################</span>
+</span></span><span class="line"><span class="ln">133</span><span class="cl">
+</span></span><span class="line"><span class="ln">134</span><span class="cl"><span class="c1">########### iproute2 tables ##################</span>
+</span></span><span class="line"><span class="ln">135</span><span class="cl">root@haproxy <span class="o">[</span> ~ <span class="o">]</span><span class="c1"># cat /etc/iproute2/rt_tables</span>
+</span></span><span class="line"><span class="ln">136</span><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="ln">137</span><span class="cl"><span class="c1"># reserved values</span>
+</span></span><span class="line"><span class="ln">138</span><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="ln">139</span><span class="cl">255	<span class="nb">local</span>
+</span></span><span class="line"><span class="ln">140</span><span class="cl">254	main
+</span></span><span class="line"><span class="ln">141</span><span class="cl">253	default
+</span></span><span class="line"><span class="ln">142</span><span class="cl">0	unspec
+</span></span><span class="line"><span class="ln">143</span><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="ln">144</span><span class="cl"><span class="c1"># local</span>
+</span></span><span class="line"><span class="ln">145</span><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="ln">146</span><span class="cl"><span class="c1">#1	inr.ruhep</span>
+</span></span><span class="line"><span class="ln">147</span><span class="cl">2	rtctl_workload
+</span></span><span class="line"><span class="ln">148</span><span class="cl">2	rtctl_workload
+</span></span><span class="line"><span class="ln">149</span><span class="cl">3	rtctl_frontend
+</span></span><span class="line"><span class="ln">150</span><span class="cl">3	rtctl_frontend
+</span></span><span class="line"><span class="ln">151</span><span class="cl"><span class="c1">################ iproute2 tables ##################</span>
+</span></span></code></pre></div><p>One can also view the current configuration of the HAProxy appliance under vApp Settings in vCenter like this:</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="vapp-options"
+      
+        class="image_figure image_internal image_processed"
+        width="2756"
+        height="1388"
+        src="/2023/09/19/vsphere-with-tanzu-and-haproxy/images/image-20230919143835391.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>This concludes the deployment of the HAProxy appliance, next step is to enable the Supervisor using this HAProxy appliance for the L4 VIPs.</p>
+<h2 id="enable-supervisor-in-vsphere-using-haproxy">Enable Supervisor in vSphere using HAProxy</h2>
+<p>Head over to workload management in vCenter and click <em>get started</em></p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="get-started"
+      
+        class="image_figure image_internal image_processed"
+        width="2378"
+        height="874"
+        src="/2023/09/19/vsphere-with-tanzu-and-haproxy/images/image-20230919143533444.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="step-1"
+      
+        class="image_figure image_internal image_processed"
+        width="2702"
+        height="1234"
+        src="/2023/09/19/vsphere-with-tanzu-and-haproxy/images/image-20230919143930116.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="step-2"
+      
+        class="image_figure image_internal image_processed"
+        width="2730"
+        height="1298"
+        src="/2023/09/19/vsphere-with-tanzu-and-haproxy/images/image-20230919144014502.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="step-3"
+      
+        class="image_figure image_internal image_processed"
+        width="2710"
+        height="540"
+        src="/2023/09/19/vsphere-with-tanzu-and-haproxy/images/image-20230919144038243.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="step-4"
+      
+        class="image_figure image_internal image_processed"
+        width="2720"
+        height="1416"
+        src="/2023/09/19/vsphere-with-tanzu-and-haproxy/images/image-20230919144233434.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="step-4-cont&amp;#39;d"
+      
+        class="image_figure image_internal image_processed"
+        width="2682"
+        height="340"
+        src="/2023/09/19/vsphere-with-tanzu-and-haproxy/images/image-20230919144251004.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="step-5"
+      
+        class="image_figure image_internal image_processed"
+        width="2706"
+        height="1540"
+        src="/2023/09/19/vsphere-with-tanzu-and-haproxy/images/image-20230919144357711.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="step-6"
+      
+        class="image_figure image_internal image_processed"
+        width="2698"
+        height="1442"
+        src="/2023/09/19/vsphere-with-tanzu-and-haproxy/images/image-20230919144445405.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="step-6-cont&amp;#39;d"
+      
+        class="image_figure image_internal image_processed"
+        width="2702"
+        height="970"
+        src="/2023/09/19/vsphere-with-tanzu-and-haproxy/images/image-20230919144540366.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="last-step"
+      
+        class="image_figure image_internal image_processed"
+        width="2686"
+        height="940"
+        src="/2023/09/19/vsphere-with-tanzu-and-haproxy/images/image-20230919144602870.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="progress"
+      
+        class="image_figure image_internal image_processed"
+        width="2722"
+        height="524"
+        src="/2023/09/19/vsphere-with-tanzu-and-haproxy/images/image-20230919144632512.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>Sit back and wait.... and wait.....</p>
+<p>And after some waiting it should be green and ready and the Supervisor Control Plane IP should be an IP address from the LoadBalancer range:</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="finished"
+      
+        class="image_figure image_internal image_processed"
+        width="2732"
+        height="560"
+        src="/2023/09/19/vsphere-with-tanzu-and-haproxy/images/image-20230919153624287.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>Now I just want to check the HAProxy config (/etc/haproxy/haproxy.cfg) to see if there has been any update there:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl">haproxy.cfg -&gt;
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">frontend domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-kube-system-kube-apiserver-lb-svc
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">  mode tcp
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">  <span class="nb">bind</span> 10.13.200.34:443 name domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-kube-system-kube-apiserver-lb-svc-10.13.200.34:nginx
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">  <span class="nb">bind</span> 10.13.200.34:6443 name domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-kube-system-kube-apiserver-lb-svc-10.13.200.34:kube-apiserver
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">  log-tag domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-kube-system-kube-apiserver-lb-svc
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">  option tcplog
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">  use_backend domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-kube-system-kube-apiserver-lb-svc-kube-apiserver <span class="k">if</span> <span class="o">{</span> dst_port <span class="m">6443</span> <span class="o">}</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">  use_backend domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-kube-system-kube-apiserver-lb-svc-nginx <span class="k">if</span> <span class="o">{</span> dst_port <span class="m">443</span> <span class="o">}</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">
+</span></span><span class="line"><span class="ln">11</span><span class="cl">frontend domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-vmware-system-csi-vsphere-csi-controller
+</span></span><span class="line"><span class="ln">12</span><span class="cl">  mode tcp
+</span></span><span class="line"><span class="ln">13</span><span class="cl">  <span class="nb">bind</span> 10.13.200.33:2112 name domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-vmware-system-csi-vsphere-csi-controller-10.13.200.33:ctlr
+</span></span><span class="line"><span class="ln">14</span><span class="cl">  <span class="nb">bind</span> 10.13.200.33:2113 name domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-vmware-system-csi-vsphere-csi-controller-10.13.200.33:syncer
+</span></span><span class="line"><span class="ln">15</span><span class="cl">  log-tag domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-vmware-system-csi-vsphere-csi-controller
+</span></span><span class="line"><span class="ln">16</span><span class="cl">  option tcplog
+</span></span><span class="line"><span class="ln">17</span><span class="cl">  use_backend domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-vmware-system-csi-vsphere-csi-controller-syncer <span class="k">if</span> <span class="o">{</span> dst_port <span class="m">2113</span> <span class="o">}</span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">  use_backend domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-vmware-system-csi-vsphere-csi-controller-ctlr <span class="k">if</span> <span class="o">{</span> dst_port <span class="m">2112</span> <span class="o">}</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">
+</span></span><span class="line"><span class="ln">20</span><span class="cl">backend domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-kube-system-kube-apiserver-lb-svc-kube-apiserver
+</span></span><span class="line"><span class="ln">21</span><span class="cl">  mode tcp
+</span></span><span class="line"><span class="ln">22</span><span class="cl">  balance roundrobin
+</span></span><span class="line"><span class="ln">23</span><span class="cl">  option tcp-check
+</span></span><span class="line"><span class="ln">24</span><span class="cl">  log-tag domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-kube-system-kube-apiserver-lb-svc-kube-apiserver
+</span></span><span class="line"><span class="ln">25</span><span class="cl">  server domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-kube-system-kube-apiserver-lb-svc-10.13.201.20:6443 10.13.201.20:6443 check weight <span class="m">100</span> verify none
+</span></span><span class="line"><span class="ln">26</span><span class="cl">  server domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-kube-system-kube-apiserver-lb-svc-10.13.201.21:6443 10.13.201.21:6443 check weight <span class="m">100</span> verify none
+</span></span><span class="line"><span class="ln">27</span><span class="cl">  server domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-kube-system-kube-apiserver-lb-svc-10.13.201.22:6443 10.13.201.22:6443 check weight <span class="m">100</span> verify none
+</span></span><span class="line"><span class="ln">28</span><span class="cl">
+</span></span><span class="line"><span class="ln">29</span><span class="cl">backend domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-kube-system-kube-apiserver-lb-svc-nginx
+</span></span><span class="line"><span class="ln">30</span><span class="cl">  mode tcp
+</span></span><span class="line"><span class="ln">31</span><span class="cl">  balance roundrobin
+</span></span><span class="line"><span class="ln">32</span><span class="cl">  option tcp-check
+</span></span><span class="line"><span class="ln">33</span><span class="cl">  log-tag domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-kube-system-kube-apiserver-lb-svc-nginx
+</span></span><span class="line"><span class="ln">34</span><span class="cl">  server domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-kube-system-kube-apiserver-lb-svc-10.13.201.20:443 10.13.201.20:443 check weight <span class="m">100</span> verify none
+</span></span><span class="line"><span class="ln">35</span><span class="cl">  server domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-kube-system-kube-apiserver-lb-svc-10.13.201.21:443 10.13.201.21:443 check weight <span class="m">100</span> verify none
+</span></span><span class="line"><span class="ln">36</span><span class="cl">  server domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-kube-system-kube-apiserver-lb-svc-10.13.201.22:443 10.13.201.22:443 check weight <span class="m">100</span> verify none
+</span></span><span class="line"><span class="ln">37</span><span class="cl">
+</span></span><span class="line"><span class="ln">38</span><span class="cl">backend domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-vmware-system-csi-vsphere-csi-controller-ctlr
+</span></span><span class="line"><span class="ln">39</span><span class="cl">  mode tcp
+</span></span><span class="line"><span class="ln">40</span><span class="cl">  balance roundrobin
+</span></span><span class="line"><span class="ln">41</span><span class="cl">  option tcp-check
+</span></span><span class="line"><span class="ln">42</span><span class="cl">  log-tag domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-vmware-system-csi-vsphere-csi-controller-ctlr
+</span></span><span class="line"><span class="ln">43</span><span class="cl">  server domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-vmware-system-csi-vsphere-csi-controller-10.13.201.20:2112 10.13.201.20:2112 check weight <span class="m">100</span> verify none
+</span></span><span class="line"><span class="ln">44</span><span class="cl">  server domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-vmware-system-csi-vsphere-csi-controller-10.13.201.21:2112 10.13.201.21:2112 check weight <span class="m">100</span> verify none
+</span></span><span class="line"><span class="ln">45</span><span class="cl">  server domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-vmware-system-csi-vsphere-csi-controller-10.13.201.22:2112 10.13.201.22:2112 check weight <span class="m">100</span> verify none
+</span></span><span class="line"><span class="ln">46</span><span class="cl">
+</span></span><span class="line"><span class="ln">47</span><span class="cl">backend domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-vmware-system-csi-vsphere-csi-controller-syncer
+</span></span><span class="line"><span class="ln">48</span><span class="cl">  mode tcp
+</span></span><span class="line"><span class="ln">49</span><span class="cl">  balance roundrobin
+</span></span><span class="line"><span class="ln">50</span><span class="cl">  option tcp-check
+</span></span><span class="line"><span class="ln">51</span><span class="cl">  log-tag domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-vmware-system-csi-vsphere-csi-controller-syncer
+</span></span><span class="line"><span class="ln">52</span><span class="cl">  server domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-vmware-system-csi-vsphere-csi-controller-10.13.201.20:2113 10.13.201.20:2113 check weight <span class="m">100</span> verify none
+</span></span><span class="line"><span class="ln">53</span><span class="cl">  server domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-vmware-system-csi-vsphere-csi-controller-10.13.201.21:2113 10.13.201.21:2113 check weight <span class="m">100</span> verify none
+</span></span><span class="line"><span class="ln">54</span><span class="cl">  server domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-vmware-system-csi-vsphere-csi-controller-10.13.201.22:2113 10.13.201.22:2113 check weight <span class="m">100</span> verify none
+</span></span></code></pre></div><p>So it seems. All the virtual services for the Supervisor Cluster entries has been added. I should now be able to reach the Kubernetes API endpoint and log-in using the loadbalancer/external ip provided by HAProxy 10.13.200.34</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl">vsphere-kubectl login --server<span class="o">=</span><span class="s2">&#34;10.13.200.34&#34;</span> --insecure-skip-tls-verify --vsphere-username<span class="o">=</span>andreasm@cpod-domain.net
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">KUBECTL_VSPHERE_PASSWORD environment variable is not set. Please enter the password below
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">Password:
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">Logged in successfully.
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">You have access to the following contexts:
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">   10.13.200.34
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">
+</span></span><span class="line"><span class="ln">10</span><span class="cl">If the context you wish to use is not in this list, you may need to try
+</span></span><span class="line"><span class="ln">11</span><span class="cl">logging in again later, or contact your cluster administrator.
+</span></span><span class="line"><span class="ln">12</span><span class="cl">
+</span></span><span class="line"><span class="ln">13</span><span class="cl">To change context, use <span class="sb">`</span>kubectl config use-context &lt;workload name&gt;<span class="sb">`</span>
+</span></span></code></pre></div><p>Now I can just go ahead and deploy my first workload cluster and get started doing some Kubernetes'ing using the default Workload Network defined. Then it will be like the diagram below:</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="haproxy-3-nic-topology"
+      
+        class="image_figure image_internal image_processed"
+        width="2112"
+        height="642"
+        src="/2023/09/19/vsphere-with-tanzu-and-haproxy/images/image-20230920093320864.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>But instead I want to create a new vSphere Namespace in a new subnet/workload network and deploy a workload cluster there. Lets see how this works out.</p>
+<h2 id="add-additional-workload-network">Add additional workload network</h2>
+<p>Assuming I have certain requirement that some Workload Clusters needs to be in separate IP subnets, such as exhausted existing default workload network, ip separation, security zones etc. I need to have the ability to define and add additional workload networks.</p>
+<p>I already have a new workload network defined. Its configured using NSX overlay segment has the following CIDR: 10.13.21.0/24. The only requirement seems to be needed for HAProxy to use this new network I just need to make sure the Workload network can reach the additional networks I add. So routing between the defautl workload network and any additional workload networks added needs to be in place. No other configuration is needed on the HAProxy side. The diagram below tries to illustrate a second workload network:</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="additional-network"
+      
+        class="image_figure image_internal image_processed"
+        width="2784"
+        height="768"
+        src="/2023/09/19/vsphere-with-tanzu-and-haproxy/images/image-20230920094721759.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>When a new workload cluster is provisioned in the new workload network the VIP/LoadBalancer range will be the same, but instead HAProxy needs to route the traffic from its Workload network to the new workload network. Its not HAProxy that is responsible for the actual routing, that is something that needs to be in place in the infrastructure. HAProxy receives the traffic on the Frontend/LoadBalancer network interface, forwards it to the workload interface which then uses its configured gateway to forward the traffic to the new workload network where there is a router in between that knows about those network and can forward it to the correct destination and back again.</p>
+<p>Lets try to deploy a workload cluster in the new workload network above, creating a new vSphere Namespace with this network.</p>
+<img src=images/image-20230919162347315.png alt="add-network" style="width:550px" />
+<p>Click ADD and populate the necessary fields</p>
+<img src=images/image-20230919162432678.png style="width:550px" alt="add-network-2" />
+<p>Create the namespace using and select the new network:</p>
+<img src="images/image-20230919162804335.png" alt="new-namespace" style="width:600px" />
+<p>Now, deploy a cluster in this namespace:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">cluster.x-k8s.io/v1beta1</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Cluster</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">cluster-2</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">ns-stc-wld-1</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">  </span><span class="nt">clusterNetwork</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">    </span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">      </span><span class="nt">cidrBlocks</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;20.30.0.0/16&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">    </span><span class="nt">pods</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">      </span><span class="nt">cidrBlocks</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;20.40.0.0/16&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">    </span><span class="nt">serviceDomain</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;cluster.local&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">  </span><span class="nt">topology</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">    </span><span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l">tanzukubernetescluster</span><span class="w">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l">v1.26.5---vmware.2-fips.1-tkg.1</span><span class="w">
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w">    </span><span class="nt">controlPlane</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w">      </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w">      </span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w">        </span><span class="nt">annotations</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w">          </span><span class="nt">run.tanzu.vmware.com/resolve-os-image</span><span class="p">:</span><span class="w"> </span><span class="l">os-name=ubuntu</span><span class="w">
+</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="w">    </span><span class="nt">workers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="w">      </span><span class="nt">machineDeployments</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="w">        </span>- <span class="nt">class</span><span class="p">:</span><span class="w"> </span><span class="l">node-pool</span><span class="w">
+</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">node-pool-01</span><span class="w">
+</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="w">          </span><span class="nt">replicas</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="w">          </span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="w">            </span><span class="nt">annotations</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="w">              </span><span class="nt">run.tanzu.vmware.com/resolve-os-image</span><span class="p">:</span><span class="w"> </span><span class="l">os-name=ubuntu</span><span class="w">
+</span></span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="w">    </span><span class="nt">variables</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">30</span><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">vmClass</span><span class="w">
+</span></span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="w">        </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l">best-effort-small</span><span class="w">
+</span></span></span><span class="line"><span class="ln">32</span><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">storageClass</span><span class="w">
+</span></span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="w">        </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span><span class="l">vsan-default-storage-policy</span><span class="w">
+</span></span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">kubectl apply -f cluster-2.yaml
+</span></span><span class="line"><span class="ln">2</span><span class="cl">cluster.cluster.x-k8s.io/cluster-2 created
+</span></span></code></pre></div><p>And here the cluster has been deployed:</p>
+<img src=images/image-20230919171812044.png style="width:600px" />
+<p>This looks very promising, as the first indicator of something not working is it only deploys the first control plane and stops. Let me log into the cluster and check the Kubernetes API access also.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">andreasm@ubuntu02:~$ k get nodes -o wide
+</span></span><span class="line"><span class="ln">2</span><span class="cl">NAME                                           STATUS   ROLES           AGE   VERSION                   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION      CONTAINER-RUNTIME
+</span></span><span class="line"><span class="ln">3</span><span class="cl">cluster-2-8tq8q-mvj5d                          Ready    control-plane   15m   v1.26.5+vmware.2-fips.1   10.13.21.20   &lt;none&gt;        Ubuntu 20.04.6 LTS   5.4.0-155-generic   containerd://1.6.18-1-gdbc99e5b1
+</span></span><span class="line"><span class="ln">4</span><span class="cl">cluster-2-node-pool-01-jqdms-b8fd8b5bb-7mjkh   Ready    &lt;none&gt;          11m   v1.26.5+vmware.2-fips.1   10.13.21.22   &lt;none&gt;        Ubuntu 20.04.6 LTS   5.4.0-155-generic   containerd://1.6.18-1-gdbc99e5b1
+</span></span><span class="line"><span class="ln">5</span><span class="cl">cluster-2-node-pool-01-jqdms-b8fd8b5bb-cxjqn   Ready    &lt;none&gt;          11m   v1.26.5+vmware.2-fips.1   10.13.21.21   &lt;none&gt;        Ubuntu 20.04.6 LTS   5.4.0-155-generic   containerd://1.6.18-1-gdbc99e5b1
+</span></span></code></pre></div><p>The nodes are using IP address in the new workload network (10.13.21.0/24) and below we can see the loadbalanced kubernetes api for this workload cluster has been assigned the ip 10.13.200.35 from the HAProxy loadbalancer range.</p>
+<p>And a quick look at the haproxy.cfg file again:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">frontend domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-ns-stc-wld-1-cluster-2-control-plane-service
+</span></span><span class="line"><span class="ln">2</span><span class="cl">  mode tcp
+</span></span><span class="line"><span class="ln">3</span><span class="cl">  <span class="nb">bind</span> 10.13.200.35:6443 name domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-ns-stc-wld-1-cluster-2-control-plane-service-10.13.200.35:apiserver
+</span></span><span class="line"><span class="ln">4</span><span class="cl">  log-tag domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-ns-stc-wld-1-cluster-2-control-plane-service
+</span></span><span class="line"><span class="ln">5</span><span class="cl">  option tcplog
+</span></span><span class="line"><span class="ln">6</span><span class="cl">  use_backend domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-ns-stc-wld-1-cluster-2-control-plane-service-apiserver <span class="k">if</span> <span class="o">{</span> dst_port <span class="m">6443</span> <span class="o">}</span>
+</span></span></code></pre></div><p>The entry for the new Cluster-2 has been added.</p>
+<h2 id="restore-from-a-deletedcrashedkilled-haproxy-appliance">Restore from a deleted/crashed/killed HAProxy appliance</h2>
+<p>This exercise will involve deleting my existing HAProxy appliance. In the meantime I will loose access to my Supervisor cluster and any other workload cluster that has been deployed. I will have to re-deploy the HAProxy again, following the exact same deployment procedure as described above and update my Supervisor so it can reconfigure it back as it was before I deleted the old HAProxy deployment. So lets start by deleting the existing HAProxy appliance.</p>
+<img src=images/image-20230920095644434.png alt="delete-vm" style="width:500px"/>
+<p>Recent task</p>
+<img src=images/image-20230920095705746.png style="width:500px" alt="recent-task" />
+<p>Now that is gone.</p>
+<p>Lets check my access to the Supervisor API:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">andreasm@ubuntu02:~$ k get pods -A
+</span></span><span class="line"><span class="ln">2</span><span class="cl">Unable to connect to the server: dial tcp 10.13.200.34:6443: connect: no route to host
+</span></span></code></pre></div><p>Not good. So lets redeploy the HAProxy</p>
+<p>Its deployed
+
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="image-20230920100801269"
+      
+        class="image_figure image_internal image_processed"
+        width="1050"
+        height="66"
+        src="/2023/09/19/vsphere-with-tanzu-and-haproxy/images/image-20230920100801269.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>Power it on, can I reach the Supervisor API?</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">andreasm@ubuntu02:~$ k get pods -A
+</span></span><span class="line"><span class="ln">2</span><span class="cl">The connection to the server 10.13.200.34:6443 was refused - did you specify the right host or port?
+</span></span></code></pre></div><p>No luck yet.</p>
+<p>Log in with SSH and check the HAProxy config:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl">aandreasm@linuxvm02:~/.ssh$ ssh root@10.13.10.199
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">The authenticity of host <span class="s1">&#39;10.13.10.199 (10.13.10.199)&#39;</span> can<span class="s1">&#39;t be established.
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="s1">ED25519 key fingerprint is SHA256:BJGSoo5icUWW7+s2FIKBQV+bg33ZOhk10s9+LFoQgXs.
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="s1">This key is not known by any other names
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="s1">Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="s1">Warning: Permanently added &#39;</span>10.13.10.199<span class="s1">&#39; (ED25519) to the list of known hosts.
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="s1">(root@10.13.10.199) Password:
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="s1"> 08:09:36 up 0 min,  0 users,  load average: 0.09, 0.03, 0.01
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="s1">tdnf update info not available yet!
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="s1">root@haproxy [ ~ ]#
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="s1">root@haproxy [ ~ ]# cat /etc/haproxy/haproxy.cfg
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="s1">global
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="s1">  log stdout format raw local0 info
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="s1">  chroot /var/lib/haproxy
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="s1">  stats socket /run/haproxy.sock user haproxy group haproxy mode 660 level admin expose-fd listeners
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="s1">  stats timeout 30s
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="s1">  user haproxy
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="s1">  group haproxy
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="s1">  master-worker
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="s1">  # Setting maxconn in the global section is what successfully sets the ulimit on the
+</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="s1">  # host, otherwise we run out of file descriptors (defaulted at 4096).
+</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="s1">  maxconn 60000
+</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="s1">  # This property indicates the number of maximum number of reloads a worker
+</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="s1">  # will survive before being forcefully killed. This number is required to control
+</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="s1">  # the rate at which processes can scale due to the number of reloads outscaling
+</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="s1">  # the rate processes are reaped when all of their connections have been cleaned up.
+</span></span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="s1">  # This number was derived by taking the average virtual memory consumption for a
+</span></span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="s1">  # single HA Proxy process under load, ~28MB, and allocating HA Proxy 3GB out of 4GB
+</span></span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="s1">  # of the total virtual memory space.
+</span></span></span><span class="line"><span class="ln">30</span><span class="cl"><span class="s1">  mworker-max-reloads 100
+</span></span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="ln">32</span><span class="cl"><span class="s1">  # Default SSL material locations
+</span></span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="s1">  ca-base /etc/ssl/certs
+</span></span></span><span class="line"><span class="ln">34</span><span class="cl"><span class="s1">  crt-base /etc/ssl/private
+</span></span></span><span class="line"><span class="ln">35</span><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="ln">36</span><span class="cl"><span class="s1">  # Default ciphers to use on SSL-enabled listening sockets.
+</span></span></span><span class="line"><span class="ln">37</span><span class="cl"><span class="s1">  # For more information, see ciphers(1SSL). This list is from:
+</span></span></span><span class="line"><span class="ln">38</span><span class="cl"><span class="s1">  #  https://hynek.me/articles/hardening-your-web-servers-ssl-ciphers/
+</span></span></span><span class="line"><span class="ln">39</span><span class="cl"><span class="s1">  # An alternative list with additional directives can be obtained from
+</span></span></span><span class="line"><span class="ln">40</span><span class="cl"><span class="s1">  #  https://mozilla.github.io/server-side-tls/ssl-config-generator/?server=haproxy
+</span></span></span><span class="line"><span class="ln">41</span><span class="cl"><span class="s1">  ssl-default-bind-ciphers ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:RSA+AESGCM:RSA+AES:!aNULL:!MD5:!DSS
+</span></span></span><span class="line"><span class="ln">42</span><span class="cl"><span class="s1">  ssl-default-bind-options no-sslv3
+</span></span></span><span class="line"><span class="ln">43</span><span class="cl"><span class="s1">
+</span></span></span><span class="line"><span class="ln">44</span><span class="cl"><span class="s1">defaults
+</span></span></span><span class="line"><span class="ln">45</span><span class="cl"><span class="s1">  mode    tcp
+</span></span></span><span class="line"><span class="ln">46</span><span class="cl"><span class="s1">  log     global
+</span></span></span><span class="line"><span class="ln">47</span><span class="cl"><span class="s1">  option  tcplog
+</span></span></span><span class="line"><span class="ln">48</span><span class="cl"><span class="s1">  option  dontlognull
+</span></span></span><span class="line"><span class="ln">49</span><span class="cl"><span class="s1">  option  tcp-smart-accept
+</span></span></span><span class="line"><span class="ln">50</span><span class="cl"><span class="s1">  timeout check       5s
+</span></span></span><span class="line"><span class="ln">51</span><span class="cl"><span class="s1">  timeout connect     9s
+</span></span></span><span class="line"><span class="ln">52</span><span class="cl"><span class="s1">  timeout client      10s
+</span></span></span><span class="line"><span class="ln">53</span><span class="cl"><span class="s1">  timeout queue       5m
+</span></span></span><span class="line"><span class="ln">54</span><span class="cl"><span class="s1">  timeout server      10s
+</span></span></span><span class="line"><span class="ln">55</span><span class="cl"><span class="s1">  # tunnel timeout needs to be set at a lowish value to deal with the frequent
+</span></span></span><span class="line"><span class="ln">56</span><span class="cl"><span class="s1">  # reloads invoked by dataplaneapi at scale. With a higher value set, established
+</span></span></span><span class="line"><span class="ln">57</span><span class="cl"><span class="s1">  # connections will hang around and prevent haproxy from killing all off older processes
+</span></span></span><span class="line"><span class="ln">58</span><span class="cl"><span class="s1">  # because those old processes won&#39;</span>t terminate those established connections unless
+</span></span><span class="line"><span class="ln">59</span><span class="cl">  <span class="c1"># it is told to do so. Having these processes linger for too long can eventually</span>
+</span></span><span class="line"><span class="ln">60</span><span class="cl">  <span class="c1"># starve the system of resources as the spawn rate of processes exceeds the death rate.</span>
+</span></span><span class="line"><span class="ln">61</span><span class="cl">  timeout tunnel      5m
+</span></span><span class="line"><span class="ln">62</span><span class="cl">  timeout client-fin  10s
+</span></span><span class="line"><span class="ln">63</span><span class="cl">
+</span></span><span class="line"><span class="ln">64</span><span class="cl"><span class="c1"># Stats are disabled by default because enabling them on a non-local IP address</span>
+</span></span><span class="line"><span class="ln">65</span><span class="cl"><span class="c1"># would result in allocating a port that could result in a conflict with one</span>
+</span></span><span class="line"><span class="ln">66</span><span class="cl"><span class="c1"># of the binds programmed at runtime.</span>
+</span></span><span class="line"><span class="ln">67</span><span class="cl"><span class="c1">#</span>
+</span></span><span class="line"><span class="ln">68</span><span class="cl"><span class="c1"># To enable stats, uncomment the following section and replace SYSTEM_IP_ADDR</span>
+</span></span><span class="line"><span class="ln">69</span><span class="cl"><span class="c1"># with the IP address of the HAProxy host.</span>
+</span></span><span class="line"><span class="ln">70</span><span class="cl"><span class="c1">#frontend stats</span>
+</span></span><span class="line"><span class="ln">71</span><span class="cl"><span class="c1">#  mode  http</span>
+</span></span><span class="line"><span class="ln">72</span><span class="cl"><span class="c1">#  bind  SYSTEM_IP_ADDR:8404</span>
+</span></span><span class="line"><span class="ln">73</span><span class="cl"><span class="c1">#  stats enable</span>
+</span></span><span class="line"><span class="ln">74</span><span class="cl"><span class="c1">#  stats uri     /stats</span>
+</span></span><span class="line"><span class="ln">75</span><span class="cl"><span class="c1">#  stats refresh 500ms</span>
+</span></span><span class="line"><span class="ln">76</span><span class="cl"><span class="c1">#  stats hide-version</span>
+</span></span><span class="line"><span class="ln">77</span><span class="cl"><span class="c1">#  stats show-legends</span>
+</span></span><span class="line"><span class="ln">78</span><span class="cl">
+</span></span><span class="line"><span class="ln">79</span><span class="cl"><span class="c1">#  ###No entries.....</span>
+</span></span></code></pre></div><p>Certainly a new appliance, not the same authenticity fingerprint. But no entries.. Now I will head over to the Workload Management in vCenter and update the certificate under the LoadBalancer section with the new certificate from the newly deployed HAProxy.</p>
+<p>Note.. If I had copied out the cert and key from the old one I could have imported them back again during deployment.</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="image-20230920101433074"
+      
+        class="image_figure image_internal image_processed"
+        width="2130"
+        height="1306"
+        src="/2023/09/19/vsphere-with-tanzu-and-haproxy/images/image-20230920101433074.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>Click save. I still cant reach the my kubernetes api endpoints. The next I need to to is just restart the WCP service from the vCenter VAMI.</p>
+<img src=images/image-20230920101603157.png style="width:1000px" />
+<p>Scroll all the way down to find the WCP service, select it, scroll all the way up again.</p>
+<img src=images/image-20230920101619958.png style="width:600px" />
+<p>Click restart.</p>
+<img src=images/image-20230920101631589.png style="width:500px" />
+<p>After the service has been restarted having a look inside tha haproxy.cfg file again now:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl">frontend domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-kube-system-kube-apiserver-lb-svc
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">  mode tcp
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">  <span class="nb">bind</span> 10.13.200.34:443 name domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-kube-system-kube-apiserver-lb-svc-10.13.200.34:nginx
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">  <span class="nb">bind</span> 10.13.200.34:6443 name domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-kube-system-kube-apiserver-lb-svc-10.13.200.34:kube-apiserver
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">  log-tag domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-kube-system-kube-apiserver-lb-svc
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">  option tcplog
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">  use_backend domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-kube-system-kube-apiserver-lb-svc-nginx <span class="k">if</span> <span class="o">{</span> dst_port <span class="m">443</span> <span class="o">}</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">  use_backend domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-kube-system-kube-apiserver-lb-svc-kube-apiserver <span class="k">if</span> <span class="o">{</span> dst_port <span class="m">6443</span> <span class="o">}</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">
+</span></span><span class="line"><span class="ln">10</span><span class="cl">frontend domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-ns-stc-wld-1-cluster-2-control-plane-service
+</span></span><span class="line"><span class="ln">11</span><span class="cl">  mode tcp
+</span></span><span class="line"><span class="ln">12</span><span class="cl">  <span class="nb">bind</span> 10.13.200.35:6443 name domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-ns-stc-wld-1-cluster-2-control-plane-service-10.13.200.35:apiserver
+</span></span><span class="line"><span class="ln">13</span><span class="cl">  log-tag domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-ns-stc-wld-1-cluster-2-control-plane-service
+</span></span><span class="line"><span class="ln">14</span><span class="cl">  option tcplog
+</span></span><span class="line"><span class="ln">15</span><span class="cl">  use_backend domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-ns-stc-wld-1-cluster-2-control-plane-service-apiserver <span class="k">if</span> <span class="o">{</span> dst_port <span class="m">6443</span> <span class="o">}</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">
+</span></span><span class="line"><span class="ln">17</span><span class="cl">frontend domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-vmware-system-csi-vsphere-csi-controller
+</span></span><span class="line"><span class="ln">18</span><span class="cl">  mode tcp
+</span></span><span class="line"><span class="ln">19</span><span class="cl">  <span class="nb">bind</span> 10.13.200.33:2112 name domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-vmware-system-csi-vsphere-csi-controller-10.13.200.33:ctlr
+</span></span><span class="line"><span class="ln">20</span><span class="cl">  <span class="nb">bind</span> 10.13.200.33:2113 name domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-vmware-system-csi-vsphere-csi-controller-10.13.200.33:syncer
+</span></span><span class="line"><span class="ln">21</span><span class="cl">  log-tag domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-vmware-system-csi-vsphere-csi-controller
+</span></span><span class="line"><span class="ln">22</span><span class="cl">  option tcplog
+</span></span><span class="line"><span class="ln">23</span><span class="cl">  use_backend domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-vmware-system-csi-vsphere-csi-controller-syncer <span class="k">if</span> <span class="o">{</span> dst_port <span class="m">2113</span> <span class="o">}</span>
+</span></span><span class="line"><span class="ln">24</span><span class="cl">  use_backend domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-vmware-system-csi-vsphere-csi-controller-ctlr <span class="k">if</span> <span class="o">{</span> dst_port <span class="m">2112</span> <span class="o">}</span>
+</span></span><span class="line"><span class="ln">25</span><span class="cl">
+</span></span><span class="line"><span class="ln">26</span><span class="cl">backend domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-kube-system-kube-apiserver-lb-svc-kube-apiserver
+</span></span><span class="line"><span class="ln">27</span><span class="cl">  mode tcp
+</span></span><span class="line"><span class="ln">28</span><span class="cl">  balance roundrobin
+</span></span><span class="line"><span class="ln">29</span><span class="cl">  option tcp-check
+</span></span><span class="line"><span class="ln">30</span><span class="cl">  log-tag domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-kube-system-kube-apiserver-lb-svc-kube-apiserver
+</span></span><span class="line"><span class="ln">31</span><span class="cl">  server domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-kube-system-kube-apiserver-lb-svc-10.13.201.20:6443 10.13.201.20:6443 check weight <span class="m">100</span> verify none
+</span></span><span class="line"><span class="ln">32</span><span class="cl">  server domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-kube-system-kube-apiserver-lb-svc-10.13.201.21:6443 10.13.201.21:6443 check weight <span class="m">100</span> verify none
+</span></span><span class="line"><span class="ln">33</span><span class="cl">  server domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-kube-system-kube-apiserver-lb-svc-10.13.201.22:6443 10.13.201.22:6443 check weight <span class="m">100</span> verify none
+</span></span><span class="line"><span class="ln">34</span><span class="cl">
+</span></span><span class="line"><span class="ln">35</span><span class="cl">backend domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-kube-system-kube-apiserver-lb-svc-nginx
+</span></span><span class="line"><span class="ln">36</span><span class="cl">  mode tcp
+</span></span><span class="line"><span class="ln">37</span><span class="cl">  balance roundrobin
+</span></span><span class="line"><span class="ln">38</span><span class="cl">  option tcp-check
+</span></span><span class="line"><span class="ln">39</span><span class="cl">  log-tag domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-kube-system-kube-apiserver-lb-svc-nginx
+</span></span><span class="line"><span class="ln">40</span><span class="cl">  server domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-kube-system-kube-apiserver-lb-svc-10.13.201.20:443 10.13.201.20:443 check weight <span class="m">100</span> verify none
+</span></span><span class="line"><span class="ln">41</span><span class="cl">  server domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-kube-system-kube-apiserver-lb-svc-10.13.201.21:443 10.13.201.21:443 check weight <span class="m">100</span> verify none
+</span></span><span class="line"><span class="ln">42</span><span class="cl">  server domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-kube-system-kube-apiserver-lb-svc-10.13.201.22:443 10.13.201.22:443 check weight <span class="m">100</span> verify none
+</span></span><span class="line"><span class="ln">43</span><span class="cl">
+</span></span><span class="line"><span class="ln">44</span><span class="cl">backend domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-ns-stc-wld-1-cluster-2-control-plane-service-apiserver
+</span></span><span class="line"><span class="ln">45</span><span class="cl">  mode tcp
+</span></span><span class="line"><span class="ln">46</span><span class="cl">  balance roundrobin
+</span></span><span class="line"><span class="ln">47</span><span class="cl">  option tcp-check
+</span></span><span class="line"><span class="ln">48</span><span class="cl">  log-tag domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-ns-stc-wld-1-cluster-2-control-plane-service-apiserver
+</span></span><span class="line"><span class="ln">49</span><span class="cl">  server domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-ns-stc-wld-1-cluster-2-control-plane-service-10.13.21.20:6443 10.13.21.20:6443 check weight <span class="m">100</span> verify none
+</span></span><span class="line"><span class="ln">50</span><span class="cl">
+</span></span><span class="line"><span class="ln">51</span><span class="cl">backend domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-vmware-system-csi-vsphere-csi-controller-ctlr
+</span></span><span class="line"><span class="ln">52</span><span class="cl">  mode tcp
+</span></span><span class="line"><span class="ln">53</span><span class="cl">  balance roundrobin
+</span></span><span class="line"><span class="ln">54</span><span class="cl">  option tcp-check
+</span></span><span class="line"><span class="ln">55</span><span class="cl">  log-tag domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-vmware-system-csi-vsphere-csi-controller-ctlr
+</span></span><span class="line"><span class="ln">56</span><span class="cl">  server domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-vmware-system-csi-vsphere-csi-controller-10.13.201.20:2112 10.13.201.20:2112 check weight <span class="m">100</span> verify none
+</span></span><span class="line"><span class="ln">57</span><span class="cl">  server domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-vmware-system-csi-vsphere-csi-controller-10.13.201.21:2112 10.13.201.21:2112 check weight <span class="m">100</span> verify none
+</span></span><span class="line"><span class="ln">58</span><span class="cl">  server domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-vmware-system-csi-vsphere-csi-controller-10.13.201.22:2112 10.13.201.22:2112 check weight <span class="m">100</span> verify none
+</span></span><span class="line"><span class="ln">59</span><span class="cl">
+</span></span><span class="line"><span class="ln">60</span><span class="cl">backend domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-vmware-system-csi-vsphere-csi-controller-syncer
+</span></span><span class="line"><span class="ln">61</span><span class="cl">  mode tcp
+</span></span><span class="line"><span class="ln">62</span><span class="cl">  balance roundrobin
+</span></span><span class="line"><span class="ln">63</span><span class="cl">  option tcp-check
+</span></span><span class="line"><span class="ln">64</span><span class="cl">  log-tag domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-vmware-system-csi-vsphere-csi-controller-syncer
+</span></span><span class="line"><span class="ln">65</span><span class="cl">  server domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-vmware-system-csi-vsphere-csi-controller-10.13.201.20:2113 10.13.201.20:2113 check weight <span class="m">100</span> verify none
+</span></span><span class="line"><span class="ln">66</span><span class="cl">  server domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-vmware-system-csi-vsphere-csi-controller-10.13.201.21:2113 10.13.201.21:2113 check weight <span class="m">100</span> verify none
+</span></span><span class="line"><span class="ln">67</span><span class="cl">  server domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-vmware-system-csi-vsphere-csi-controller-10.13.201.22:2113 10.13.201.22:2113 check weight <span class="m">100</span> verify none
+</span></span><span class="line"><span class="ln">68</span><span class="cl">root@haproxy <span class="o">[</span> ~ <span class="o">]</span><span class="c1">#</span>
+</span></span></code></pre></div><p>All my entries are back, and I can reach my kubernetes cluster again:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl">andreasm@ubuntu02:~$ k get nodes
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">NAME                                           STATUS   ROLES                  AGE   VERSION
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">42344c0c03ff6c1cf443328504169cbe               Ready    control-plane,master   19h   v1.25.6+vmware.wcp.2
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">4234cc01880600b11de8b894be0c2a30               Ready    control-plane,master   19h   v1.25.6+vmware.wcp.2
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">4234d1cd346addba50a751b3cbdfd5ed               Ready    control-plane,master   19h   v1.25.6+vmware.wcp.2
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">esx01.cpod.domain.net                          Ready    agent                  18h   v1.25.6-sph-cf2e16c
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">esx02.cpod.domain.net                          Ready    agent                  18h   v1.25.6-sph-cf2e16c
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">esx03.cpod.domain.net                          Ready    agent                  18h   v1.25.6-sph-cf2e16c
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">esx04.cpod.domain.net                          Ready    agent                  18h   v1.25.6-sph-cf2e16c
+</span></span><span class="line"><span class="ln">10</span><span class="cl">
+</span></span><span class="line"><span class="ln">11</span><span class="cl">andreasm@ubuntu02:~$ k config use-context cluster-2
+</span></span><span class="line"><span class="ln">12</span><span class="cl">Switched to context <span class="s2">&#34;cluster-2&#34;</span>.
+</span></span><span class="line"><span class="ln">13</span><span class="cl">andreasm@ubuntu02:~$ k get nodes -o wide
+</span></span><span class="line"><span class="ln">14</span><span class="cl">NAME                                           STATUS   ROLES           AGE     VERSION                   INTERNAL-IP   EXTERNAL-IP   OS-IMAGE             KERNEL-VERSION      CONTAINER-RUNTIME
+</span></span><span class="line"><span class="ln">15</span><span class="cl">cluster-2-8tq8q-mvj5d                          Ready    control-plane   17h     v1.26.5+vmware.2-fips.1   10.13.21.20   &lt;none&gt;        Ubuntu 20.04.6 LTS   5.4.0-155-generic   containerd://1.6.18-1-gdbc99e5b1
+</span></span><span class="line"><span class="ln">16</span><span class="cl">cluster-2-node-pool-01-jqdms-b8fd8b5bb-klqff   Ready    &lt;none&gt;          5m18s   v1.26.5+vmware.2-fips.1   10.13.21.23   &lt;none&gt;        Ubuntu 20.04.6 LTS   5.4.0-155-generic   containerd://1.6.18-1-gdbc99e5b1
+</span></span><span class="line"><span class="ln">17</span><span class="cl">cluster-2-node-pool-01-jqdms-b8fd8b5bb-m76rf   Ready    &lt;none&gt;          5m18s   v1.26.5+vmware.2-fips.1   10.13.21.22   &lt;none&gt;        Ubuntu 20.04.6 LTS   5.4.0-155-generic   containerd://1.6.18-1-gdbc99e5b1
+</span></span></code></pre></div><p>All services back up again.</p>
+<p>This concludes this post. Thanks for reading.</p>
+
+    </div>
+
+
+
+
+  </article>
+<aside class="sidebar">
+  <section class="sidebar_inner">
+    <br>
+    
+  
+  <div class="search">
+    <input type="search" class="search_field form_field" placeholder='Search...' id="find" autocomplete="off" data-scope='post'>
+    <label for="find" class="search_label"><svg class="icon">
+  <title>search</title>
+  <use xlink:href="#search"></use>
+</svg>
+
+    </label>
+    
+    <div class="search_results results"></div>
+  </div>
+
+        <h2>Hi there</h2>
+      <div class="author_bio">
+        This blog is a WIP, sometimes I just throw up some topics for myself to remember to be finished later. Stay tuned...
+      </div>
+      <a href='https://blog.andreasm.io/about/' class="button mt-1" role="button" title='Read More'>Read More</a>
+
+    
+    
+    <h2 class="mt-4">Recent Posts</h2>
+    <ul class="flex-column">
+      <li>
+        <a href="https://blog.andreasm.io/2023/09/19/vsphere-with-tanzu-and-haproxy/" class="nav-link" title="vSphere with Tanzu and HAproxy">vSphere with Tanzu and HAproxy</a>
+      </li>
+      <li>
+        <a href="https://blog.andreasm.io/2023/09/07/tkg-autoscaler/" class="nav-link" title="TKG Autoscaler">TKG Autoscaler</a>
+      </li>
+      <li>
+        <a href="https://blog.andreasm.io/2023/09/06/tmc-self-managed-upgrade-to-1.0.1/" class="nav-link" title="TMC Self-Managed Upgrade to 1.0.1">TMC Self-Managed Upgrade to 1.0.1</a>
+      </li>
+      <li>
+        <a href="https://blog.andreasm.io/2023/08/29/tkg-2.3-deployment-in-multiple-availability-zones/" class="nav-link" title="TKG 2.3 deployment in multiple availability zones">TKG 2.3 deployment in multiple availability zones</a>
+      </li>
+      <li>
+        <a href="https://blog.andreasm.io/2023/07/12/installing-tmc-local-on-vsphere-8-with-tanzu-using-keycloak-as-oidc-provider/" class="nav-link" title="Installing TMC local on vSphere 8 with Tanzu using Keycloak as OIDC provider">Installing TMC local on vSphere 8 with Tanzu using Keycloak as OIDC provider</a>
+      </li>
+      <li>
+        <a href="https://blog.andreasm.io/2023/06/21/securing-kubernetes-clusters-with-antrea-network-policies/" class="nav-link" title="Securing Kubernetes clusters with Antrea Network Policies">Securing Kubernetes clusters with Antrea Network Policies</a>
+      </li>
+      <li>
+        <a href="https://blog.andreasm.io/2023/06/01/managing-antrea-in-vsphere-with-tanzu/" class="nav-link" title="Managing Antrea in vSphere with Tanzu">Managing Antrea in vSphere with Tanzu</a>
+      </li>
+      <li>
+        <a href="https://blog.andreasm.io/2023/05/30/tanzu-kubernetes-grid-2.2-remote-workload-clusters/" class="nav-link" title="Tanzu Kubernetes Grid 2.2 &amp; Remote Workload Clusters">Tanzu Kubernetes Grid 2.2 &amp; Remote Workload Clusters</a>
+      </li>
+    </ul>
+    <div>
+      <h2 class="mt-4 taxonomy" id="categories-section">Categories</h2>
+      <nav class="tags_nav">
+        <a href='https://blog.andreasm.io/categories/kubernetes/' class="post_tag button button_translucent" title="kubernetes">
+          KUBERNETES
+          <span class="button_tally">32</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/networking/' class="post_tag button button_translucent" title="networking">
+          NETWORKING
+          <span class="button_tally">18</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/tanzu/' class="post_tag button button_translucent" title="tanzu">
+          TANZU
+          <span class="button_tally">10</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/loadbalancing/' class="post_tag button button_translucent" title="loadbalancing">
+          LOADBALANCING
+          <span class="button_tally">7</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/cni/' class="post_tag button button_translucent" title="cni">
+          CNI
+          <span class="button_tally">6</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/security/' class="post_tag button button_translucent" title="security">
+          SECURITY
+          <span class="button_tally">5</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/avi/' class="post_tag button button_translucent" title="avi">
+          AVI
+          <span class="button_tally">4</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/nsx/' class="post_tag button button_translucent" title="nsx">
+          NSX
+          <span class="button_tally">3</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/blog/' class="post_tag button button_translucent" title="blog">
+          BLOG
+          <span class="button_tally">2</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/vmware-nsx/' class="post_tag button button_translucent" title="vmware-nsx">
+          VMWARE-NSX
+          <span class="button_tally">2</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/antrea/' class="post_tag button button_translucent" title="antrea">
+          ANTREA
+          <span class="button_tally">1</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/autoscaling/' class="post_tag button button_translucent" title="autoscaling">
+          AUTOSCALING
+          <span class="button_tally">1</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/certificate/' class="post_tag button button_translucent" title="certificate">
+          CERTIFICATE
+          <span class="button_tally">1</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/categories/docker/' class="post_tag button button_translucent" title="docker">
+          DOCKER
+          <span class="button_tally">1</span>
+        </a>
+        
+        
+        <br>
+        <div class="post_tags_toggle button">All Categories</div>
+        <div class="post_tags">
+          <div class="tags_list">
+            
+            <a href='https://blog.andreasm.io/categories/antrea/' class=" post_tag button button_translucent" data-position=1 title="antrea">ANTREA<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/autoscaling/' class=" post_tag button button_translucent" data-position=1 title="autoscaling">AUTOSCALING<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/avi/' class=" post_tag button button_translucent" data-position=4 title="avi">AVI<span class="button_tally">4</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/blog/' class=" post_tag button button_translucent" data-position=2 title="blog">BLOG<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/certificate/' class=" post_tag button button_translucent" data-position=1 title="certificate">CERTIFICATE<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/cni/' class=" post_tag button button_translucent" data-position=6 title="cni">CNI<span class="button_tally">6</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/docker/' class=" post_tag button button_translucent" data-position=1 title="docker">DOCKER<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/github/' class=" post_tag button button_translucent" data-position=1 title="github">GITHUB<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/harbor/' class=" post_tag button button_translucent" data-position=1 title="harbor">HARBOR<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/helm/' class=" post_tag button button_translucent" data-position=1 title="helm">HELM<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/home-automation/' class=" post_tag button button_translucent" data-position=1 title="home-automation">HOME-AUTOMATION<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/hugo/' class=" post_tag button button_translucent" data-position=1 title="hugo">HUGO<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/kubernetes/' class=" post_tag button button_translucent" data-position=32 title="kubernetes">KUBERNETES<span class="button_tally">32</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/lcm/' class=" post_tag button button_translucent" data-position=1 title="lcm">LCM<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/lifecycle-management/' class=" post_tag button button_translucent" data-position=1 title="lifecycle-management">LIFECYCLE-MANAGEMENT<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/loadbalancing/' class=" post_tag button button_translucent" data-position=7 title="loadbalancing">LOADBALANCING<span class="button_tally">7</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/logging/' class=" post_tag button button_translucent" data-position=1 title="logging">LOGGING<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/management/' class=" post_tag button button_translucent" data-position=1 title="management">MANAGEMENT<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/monitoring/' class=" post_tag button button_translucent" data-position=1 title="monitoring">MONITORING<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/netowkring/' class=" post_tag button button_translucent" data-position=1 title="netowkring">NETOWKRING<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/network/' class=" post_tag button button_translucent" data-position=1 title="network">NETWORK<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/networking/' class=" post_tag button button_translucent" data-position=18 title="networking">NETWORKING<span class="button_tally">18</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/nsx/' class=" post_tag button button_translucent" data-position=3 title="nsx">NSX<span class="button_tally">3</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/nsx-t/' class=" post_tag button button_translucent" data-position=1 title="nsx-t">NSX-T<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/pinniped/' class=" post_tag button button_translucent" data-position=1 title="pinniped">PINNIPED<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/rbac/' class=" post_tag button button_translucent" data-position=1 title="rbac">RBAC<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/security/' class=" post_tag button button_translucent" data-position=5 title="security">SECURITY<span class="button_tally">5</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/storage/' class=" post_tag button button_translucent" data-position=1 title="storage">STORAGE<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/tanzu/' class=" post_tag button button_translucent" data-position=10 title="tanzu">TANZU<span class="button_tally">10</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/tanzu-mission-control/' class=" post_tag button button_translucent" data-position=1 title="tanzu-mission-control">TANZU-MISSION-CONTROL<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/tkg/' class=" post_tag button button_translucent" data-position=1 title="tkg">TKG<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/tmc/' class=" post_tag button button_translucent" data-position=1 title="tmc">TMC<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/troubleshooting/' class=" post_tag button button_translucent" data-position=1 title="troubleshooting">TROUBLESHOOTING<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/virtualization/' class=" post_tag button button_translucent" data-position=1 title="virtualization">VIRTUALIZATION<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/vmare-nsx-intelligence/' class=" post_tag button button_translucent" data-position=1 title="vmare-nsx-intelligence">VMARE-NSX-INTELLIGENCE<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/vmware-cloud/' class=" post_tag button button_translucent" data-position=1 title="vmware-cloud">VMWARE-CLOUD<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/vmware-nsx/' class=" post_tag button button_translucent" data-position=2 title="vmware-nsx">VMWARE-NSX<span class="button_tally">2</span>
+            </a>
+            
+            <div class="tags_sort"><span title="sort alphabetically">[A~Z]</span><span title="sort by count">[0~9]</span>
+            </div>
+            <span class="tags_hide"><svg class="icon">
+            <use xlink:href="#closeme"></use>
+          </svg></span>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div>
+      <h2 class="mt-4 taxonomy" id="tags-section">Tags</h2>
+      <nav class="tags_nav">
+        <a href='https://blog.andreasm.io/tags/kubernetes/' class="post_tag button button_translucent" title="kubernetes">
+          KUBERNETES
+          <span class="button_tally">16</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/nsx/' class="post_tag button button_translucent" title="nsx">
+          NSX
+          <span class="button_tally">10</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/tanzu/' class="post_tag button button_translucent" title="tanzu">
+          TANZU
+          <span class="button_tally">10</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/antrea/' class="post_tag button button_translucent" title="antrea">
+          ANTREA
+          <span class="button_tally">8</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/ako/' class="post_tag button button_translucent" title="ako">
+          AKO
+          <span class="button_tally">7</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/security/' class="post_tag button button_translucent" title="security">
+          SECURITY
+          <span class="button_tally">6</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/avi/' class="post_tag button button_translucent" title="avi">
+          AVI
+          <span class="button_tally">4</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/ingress/' class="post_tag button button_translucent" title="ingress">
+          INGRESS
+          <span class="button_tally">4</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/availability/' class="post_tag button button_translucent" title="availability">
+          AVAILABILITY
+          <span class="button_tally">3</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/loadbalancing/' class="post_tag button button_translucent" title="loadbalancing">
+          LOADBALANCING
+          <span class="button_tally">3</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/authentication/' class="post_tag button button_translucent" title="authentication">
+          AUTHENTICATION
+          <span class="button_tally">2</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/cert-manager/' class="post_tag button button_translucent" title="cert-manager">
+          CERT-MANAGER
+          <span class="button_tally">2</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/docker/' class="post_tag button button_translucent" title="docker">
+          DOCKER
+          <span class="button_tally">2</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/hugo/' class="post_tag button button_translucent" title="hugo">
+          HUGO
+          <span class="button_tally">2</span>
+        </a>
+        
+        
+        <br>
+        <div class="post_tags_toggle button">All Tags</div>
+        <div class="post_tags">
+          <div class="tags_list">
+            
+            <a href='https://blog.andreasm.io/tags/ako/' class=" post_tag button button_translucent" data-position=7 title="ako">AKO<span class="button_tally">7</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/amko/' class=" post_tag button button_translucent" data-position=1 title="amko">AMKO<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/antrea/' class=" post_tag button button_translucent" data-position=8 title="antrea">ANTREA<span class="button_tally">8</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/authentication/' class=" post_tag button button_translucent" data-position=2 title="authentication">AUTHENTICATION<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/automation/' class=" post_tag button button_translucent" data-position=1 title="automation">AUTOMATION<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/autoscaling/' class=" post_tag button button_translucent" data-position=1 title="autoscaling">AUTOSCALING<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/availability/' class=" post_tag button button_translucent" data-position=3 title="availability">AVAILABILITY<span class="button_tally">3</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/avi/' class=" post_tag button button_translucent" data-position=4 title="avi">AVI<span class="button_tally">4</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/cert-manager/' class=" post_tag button button_translucent" data-position=2 title="cert-manager">CERT-MANAGER<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/certificate/' class=" post_tag button button_translucent" data-position=1 title="certificate">CERTIFICATE<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/cni/' class=" post_tag button button_translucent" data-position=1 title="cni">CNI<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/custom-resource-definitions/' class=" post_tag button button_translucent" data-position=1 title="custom-resource-definitions">CUSTOM-RESOURCE-DEFINITIONS<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/distributed-firewall/' class=" post_tag button button_translucent" data-position=1 title="distributed-firewall">DISTRIBUTED-FIREWALL<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/dns-service/' class=" post_tag button button_translucent" data-position=1 title="dns-service">DNS-SERVICE<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/docker/' class=" post_tag button button_translucent" data-position=2 title="docker">DOCKER<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/github/' class=" post_tag button button_translucent" data-position=1 title="github">GITHUB<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/grafana/' class=" post_tag button button_translucent" data-position=1 title="grafana">GRAFANA<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/gslb/' class=" post_tag button button_translucent" data-position=1 title="gslb">GSLB<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/harbor/' class=" post_tag button button_translucent" data-position=1 title="harbor">HARBOR<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/home-assistant/' class=" post_tag button button_translucent" data-position=1 title="home-assistant">HOME-ASSISTANT<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/hugo/' class=" post_tag button button_translucent" data-position=2 title="hugo">HUGO<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/ids/' class=" post_tag button button_translucent" data-position=1 title="ids">IDS<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/informational/' class=" post_tag button button_translucent" data-position=2 title="informational">INFORMATIONAL<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/ingress/' class=" post_tag button button_translucent" data-position=4 title="ingress">INGRESS<span class="button_tally">4</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/ips/' class=" post_tag button button_translucent" data-position=1 title="ips">IPS<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/keycloak/' class=" post_tag button button_translucent" data-position=1 title="keycloak">KEYCLOAK<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/kubernetes/' class=" post_tag button button_translucent" data-position=16 title="kubernetes">KUBERNETES<span class="button_tally">16</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/kubernetes-api-endpoint/' class=" post_tag button button_translucent" data-position=1 title="kubernetes-api-endpoint">KUBERNETES-API-ENDPOINT<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/lifecycle-management/' class=" post_tag button button_translucent" data-position=1 title="lifecycle-management">LIFECYCLE-MANAGEMENT<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/load-balancing/' class=" post_tag button button_translucent" data-position=1 title="load-balancing">LOAD-BALANCING<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/loadbalancer/' class=" post_tag button button_translucent" data-position=1 title="loadbalancer">LOADBALANCER<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/loadbalancing/' class=" post_tag button button_translucent" data-position=3 title="loadbalancing">LOADBALANCING<span class="button_tally">3</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/lodbalancing/' class=" post_tag button button_translucent" data-position=1 title="lodbalancing">LODBALANCING<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/loki/' class=" post_tag button button_translucent" data-position=1 title="loki">LOKI<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/management/' class=" post_tag button button_translucent" data-position=1 title="management">MANAGEMENT<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/multi-dc/' class=" post_tag button button_translucent" data-position=1 title="multi-dc">MULTI-DC<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/network/' class=" post_tag button button_translucent" data-position=2 title="network">NETWORK<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/network-policies/' class=" post_tag button button_translucent" data-position=2 title="network-policies">NETWORK-POLICIES<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/nfs/' class=" post_tag button button_translucent" data-position=1 title="nfs">NFS<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/nsx/' class=" post_tag button button_translucent" data-position=10 title="nsx">NSX<span class="button_tally">10</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/nsx-advanced-loadbalancer/' class=" post_tag button button_translucent" data-position=1 title="nsx-advanced-loadbalancer">NSX-ADVANCED-LOADBALANCER<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/nsx-application-platform/' class=" post_tag button button_translucent" data-position=1 title="nsx-application-platform">NSX-APPLICATION-PLATFORM<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/nsx-t/' class=" post_tag button button_translucent" data-position=2 title="nsx-t">NSX-T<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/persistent-storage/' class=" post_tag button button_translucent" data-position=1 title="persistent-storage">PERSISTENT-STORAGE<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/pinniped/' class=" post_tag button button_translucent" data-position=1 title="pinniped">PINNIPED<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/prometheus/' class=" post_tag button button_translucent" data-position=1 title="prometheus">PROMETHEUS<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/promtail/' class=" post_tag button button_translucent" data-position=1 title="promtail">PROMTAIL<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/pvc/' class=" post_tag button button_translucent" data-position=1 title="pvc">PVC<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/rbac/' class=" post_tag button button_translucent" data-position=1 title="rbac">RBAC<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/registry/' class=" post_tag button button_translucent" data-position=1 title="registry">REGISTRY<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/security/' class=" post_tag button button_translucent" data-position=6 title="security">SECURITY<span class="button_tally">6</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/static-content-generator/' class=" post_tag button button_translucent" data-position=1 title="static-content-generator">STATIC-CONTENT-GENERATOR<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/static-site-generator/' class=" post_tag button button_translucent" data-position=1 title="static-site-generator">STATIC-SITE-GENERATOR<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/tanzu/' class=" post_tag button button_translucent" data-position=10 title="tanzu">TANZU<span class="button_tally">10</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/tanzu-kubernetes-grid/' class=" post_tag button button_translucent" data-position=1 title="tanzu-kubernetes-grid">TANZU-KUBERNETES-GRID<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/tkg/' class=" post_tag button button_translucent" data-position=1 title="tkg">TKG<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/tkg-2.1/' class=" post_tag button button_translucent" data-position=1 title="tkg-2.1">TKG-2.1<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/tkgs/' class=" post_tag button button_translucent" data-position=1 title="tkgs">TKGS<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/tmc/' class=" post_tag button button_translucent" data-position=1 title="tmc">TMC<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/tmc-local/' class=" post_tag button button_translucent" data-position=1 title="tmc-local">TMC-LOCAL<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/tmc-sm/' class=" post_tag button button_translucent" data-position=1 title="tmc-sm">TMC-SM<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/troubleshooting/' class=" post_tag button button_translucent" data-position=2 title="troubleshooting">TROUBLESHOOTING<span class="button_tally">2</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/unifi/' class=" post_tag button button_translucent" data-position=1 title="unifi">UNIFI<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/vmconaws/' class=" post_tag button button_translucent" data-position=1 title="vmconaws">VMCONAWS<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/vsphere/' class=" post_tag button button_translucent" data-position=1 title="vsphere">VSPHERE<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/vsphere-replication/' class=" post_tag button button_translucent" data-position=1 title="vsphere-replication">VSPHERE-REPLICATION<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/vsphere-with-tanzu/' class=" post_tag button button_translucent" data-position=1 title="vsphere-with-tanzu">VSPHERE-WITH-TANZU<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/zwave/' class=" post_tag button button_translucent" data-position=1 title="zwave">ZWAVE<span class="button_tally">1</span>
+            </a>
+            
+            <div class="tags_sort"><span title="sort alphabetically">[A~Z]</span><span title="sort by count">[0~9]</span>
+            </div>
+            <span class="tags_hide"><svg class="icon">
+            <use xlink:href="#closeme"></use>
+          </svg></span>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </section>
+</aside>
+
+  
+</div>
+    </main><svg width="0" height="0" class="hidden">
+  <symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="facebook">
+    <path d="M437 0H75C33.648 0 0 33.648 0 75v362c0 41.352 33.648 75 75 75h151V331h-60v-90h60v-61c0-49.629 40.371-90 90-90h91v90h-91v61h91l-15 90h-76v181h121c41.352 0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zm0 0"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18.001 18.001" id="twitter">
+    <path d="M15.891 4.013c.808-.496 1.343-1.173 1.605-2.034a8.68 8.68 0 0 1-2.351.861c-.703-.756-1.593-1.14-2.66-1.14-1.043 0-1.924.366-2.643 1.078a3.56 3.56 0 0 0-1.076 2.605c0 .309.039.585.117.819-3.076-.105-5.622-1.381-7.628-3.837-.34.601-.51 1.213-.51 1.846 0 1.301.549 2.332 1.645 3.089-.625-.053-1.176-.211-1.645-.47 0 .929.273 1.705.82 2.388a3.623 3.623 0 0 0 2.115 1.291c-.312.08-.641.118-.979.118-.312 0-.533-.026-.664-.083.23.757.664 1.371 1.291 1.841a3.652 3.652 0 0 0 2.152.743C4.148 14.173 2.625 14.69.902 14.69c-.422 0-.721-.006-.902-.038 1.697 1.102 3.586 1.649 5.676 1.649 2.139 0 4.029-.542 5.674-1.626 1.645-1.078 2.859-2.408 3.639-3.974a10.77 10.77 0 0 0 1.172-4.892v-.468a7.788 7.788 0 0 0 1.84-1.921 8.142 8.142 0 0 1-2.11.593z"
+      ></path>
+  </symbol>
+  <symbol aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="mail">
+    <path  d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="calendar">
+    <path d="M452 40h-24V0h-40v40H124V0H84v40H60C26.916 40 0 66.916 0 100v352c0 33.084 26.916 60 60 60h392c33.084 0 60-26.916 60-60V100c0-33.084-26.916-60-60-60zm20 412c0 11.028-8.972 20-20 20H60c-11.028 0-20-8.972-20-20V188h432v264zm0-304H40v-48c0-11.028 8.972-20 20-20h24v40h40V80h264v40h40V80h24c11.028 0 20 8.972 20 20v48z"></path>
+    <path d="M76 230h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zM76 310h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zM76 390h40v40H76zm80 0h40v40h-40zm80 0h40v40h-40zm80 0h40v40h-40zm80-80h40v40h-40z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="github">
+    <path d="M255.968 5.329C114.624 5.329 0 120.401 0 262.353c0 113.536 73.344 209.856 175.104 243.872 12.8 2.368 17.472-5.568 17.472-12.384 0-6.112-.224-22.272-.352-43.712-71.2 15.52-86.24-34.464-86.24-34.464-11.616-29.696-28.416-37.6-28.416-37.6-23.264-15.936 1.728-15.616 1.728-15.616 25.696 1.824 39.2 26.496 39.2 26.496 22.848 39.264 59.936 27.936 74.528 21.344 2.304-16.608 8.928-27.936 16.256-34.368-56.832-6.496-116.608-28.544-116.608-127.008 0-28.064 9.984-51.008 26.368-68.992-2.656-6.496-11.424-32.64 2.496-68 0 0 21.504-6.912 70.4 26.336 20.416-5.696 42.304-8.544 64.096-8.64 21.728.128 43.648 2.944 64.096 8.672 48.864-33.248 70.336-26.336 70.336-26.336 13.952 35.392 5.184 61.504 2.56 68 16.416 17.984 26.304 40.928 26.304 68.992 0 98.72-59.84 120.448-116.864 126.816 9.184 7.936 17.376 23.616 17.376 47.584 0 34.368-.32 62.08-.32 70.496 0 6.88 4.608 14.88 17.6 12.352C438.72 472.145 512 375.857 512 262.353 512 120.401 397.376 5.329 255.968 5.329z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 212 212" id="gitlab">
+    <path d="M12.3 74.7h54L43.3 3c-1-3.6-6.4-3.6-7.6 0L12.3 74.8z" />
+    <path d="M12.3 74.7L.5 111c-1 3.2 0 6.8 3 8.8l101.6 74-92.5-119z"/>
+    <path d="M105 193.7l-38.6-119h-54l92.7 119z"/>
+    <path d="M105 193.7l38.7-119H66.4l38.7 119z"/>
+    <path d="M105 193.7l38.7-119H198l-93 119z"/>
+    <path d="M198 74.7l11.6 36.2c1 3 0 6.6-3 8.6l-101.5 74 93-119z"/>
+    <path d="M198 74.7h-54.3L167 3c1.2-3.6 6.4-3.6 7.6 0L198 74.8z"/> 
+  </symbol>
+  <symbol viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="rss">
+    <circle cx="3.429" cy="20.571" r="3.429"></circle>
+    <path d="M11.429 24h4.57C15.999 15.179 8.821 8.001 0 8v4.572c6.302.001 11.429 5.126 11.429 11.428z"></path>
+    <path d="M24 24C24 10.766 13.234 0 0 0v4.571c10.714 0 19.43 8.714 19.43 19.429z"></path>
+  </symbol>
+  <symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="linkedin">
+    <path d="M437 0H75C33.648 0 0 33.648 0 75v362c0 41.352 33.648 75 75 75h362c41.352 0 75-33.648 75-75V75c0-41.352-33.648-75-75-75zM181 406h-60V196h60zm0-240h-60v-60h60zm210 240h-60V286c0-16.54-13.46-30-30-30s-30 13.46-30 30v120h-60V196h60v11.309C286.719 202.422 296.93 196 316 196c40.691.043 75 36.547 75 79.688zm0 0"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 612 612" id="to-top">
+    <path d="M604.501 440.509L325.398 134.956c-5.331-5.357-12.423-7.627-19.386-7.27-6.989-.357-14.056 1.913-19.387 7.27L7.499 440.509c-9.999 10.024-9.999 26.298 0 36.323s26.223 10.024 36.222 0l262.293-287.164L568.28 476.832c9.999 10.024 26.222 10.024 36.221 0 9.999-10.023 9.999-26.298 0-36.323z"></path>
+  </symbol>
+  <symbol viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" id="carly">
+    <path d="M504.971 239.029L448 182.059V84c0-46.317-37.682-84-84-84h-44c-13.255 0-24 10.745-24 24s10.745 24 24 24h44c19.851 0 36 16.149 36 36v108c0 6.365 2.529 12.47 7.029 16.971L454.059 256l-47.029 47.029A24.002 24.002 0 0 0 400 320v108c0 19.851-16.149 36-36 36h-44c-13.255 0-24 10.745-24 24s10.745 24 24 24h44c46.318 0 84-37.683 84-84v-98.059l56.971-56.971c9.372-9.372 9.372-24.568 0-33.941zM112 192V84c0-19.851 16.149-36 36-36h44c13.255 0 24-10.745 24-24S205.255 0 192 0h-44c-46.318 0-84 37.683-84 84v98.059l-56.971 56.97c-9.373 9.373-9.373 24.568 0 33.941L64 329.941V428c0 46.317 37.682 84 84 84h44c13.255 0 24-10.745 24-24s-10.745-24-24-24h-44c-19.851 0-36-16.149-36-36V320c0-6.365-2.529-12.47-7.029-16.971L57.941 256l47.029-47.029A24.002 24.002 0 0 0 112 192z"></path>
+  </symbol>
+  <symbol viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="copy">
+    <path d="M23 2.75A2.75 2.75 0 0 0 20.25 0H8.75A2.75 2.75 0 0 0 6 2.75v13.5A2.75 2.75 0 0 0 8.75 19h11.5A2.75 2.75 0 0 0 23 16.25zM18.25 14.5h-7.5a.75.75 0 0 1 0-1.5h7.5a.75.75 0 0 1 0 1.5zm0-3h-7.5a.75.75 0 0 1 0-1.5h7.5a.75.75 0 0 1 0 1.5zm0-3h-7.5a.75.75 0 0 1 0-1.5h7.5a.75.75 0 0 1 0 1.5z"></path>
+    <path d="M8.75 20.5a4.255 4.255 0 0 1-4.25-4.25V2.75c0-.086.02-.166.025-.25H3.75A2.752 2.752 0 0 0 1 5.25v16A2.752 2.752 0 0 0 3.75 24h12a2.752 2.752 0 0 0 2.75-2.75v-.75z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512.001 512.001" id="closeme">
+    <path d="M284.286 256.002L506.143 34.144c7.811-7.811 7.811-20.475 0-28.285-7.811-7.81-20.475-7.811-28.285 0L256 227.717 34.143 5.859c-7.811-7.811-20.475-7.811-28.285 0-7.81 7.811-7.811 20.475 0 28.285l221.857 221.857L5.858 477.859c-7.811 7.811-7.811 20.475 0 28.285a19.938 19.938 0 0 0 14.143 5.857 19.94 19.94 0 0 0 14.143-5.857L256 284.287l221.857 221.857c3.905 3.905 9.024 5.857 14.143 5.857s10.237-1.952 14.143-5.857c7.811-7.811 7.811-20.475 0-28.285L284.286 256.002z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="open-menu">
+    <path d="M492 236H20c-11.046 0-20 8.954-20 20s8.954 20 20 20h472c11.046 0 20-8.954 20-20s-8.954-20-20-20zm0-160H20C8.954 76 0 84.954 0 96s8.954 20 20 20h472c11.046 0 20-8.954 20-20s-8.954-20-20-20zm0 320H20c-11.046 0-20 8.954-20 20s8.954 20 20 20h472c11.046 0 20-8.954 20-20s-8.954-20-20-20z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="instagram">
+    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id=youtube>
+    <path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="stackoverflow">
+    <path d="M21 27v-8h3v11H0V19h3v8h18z"></path><path d="M17.1.2L15 1.8l7.9 10.6 2.1-1.6L17.1.2zm3.7 14.7L10.6 6.4l1.7-2 10.2 8.5-1.7 2zM7.2 12.3l12 5.6 1.1-2.4-12-5.6-1.1 2.4zm-1.8 6.8l13.56 1.96.17-2.38-13.26-2.55-.47 2.97zM19 25H5v-3h14v3z"></path>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" id="xing">
+    <path d="M18.188 0c-.517 0-.741.325-.927.66 0 0-7.455 13.224-7.702 13.657.015.024 4.919 9.023 4.919 9.023.17.308.436.66.967.66h3.454c.211 0 .375-.078.463-.22.089-.151.089-.346-.009-.536l-4.879-8.916c-.004-.006-.004-.016 0-.022L22.139.756c.095-.191.097-.387.006-.535C22.056.078 21.894 0 21.686 0h-3.498zM3.648 4.74c-.211 0-.385.074-.473.216-.09.149-.078.339.02.531l2.34 4.05c.004.01.004.016 0 .021L1.86 16.051c-.099.188-.093.381 0 .529.085.142.239.234.45.234h3.461c.518 0 .766-.348.945-.667l3.734-6.609-2.378-4.155c-.172-.315-.434-.659-.962-.659H3.648v.016z"/>
+  </symbol>
+  <symbol xmlns="http://www.w3.org/2000/svg" viewBox="0 0 71 55" id="discord">
+    <path d="M60.1045 4.8978C55.5792 2.8214 50.7265 1.2916 45.6527 0.41542C45.5603 0.39851 45.468 0.440769 45.4204 0.525289C44.7963 1.6353 44.105 3.0834 43.6209 4.2216C38.1637 3.4046 32.7345 3.4046 27.3892 4.2216C26.905 3.0581 26.1886 1.6353 25.5617 0.525289C25.5141 0.443589 25.4218 0.40133 25.3294 0.41542C20.2584 1.2888 15.4057 2.8186 10.8776 4.8978C10.8384 4.9147 10.8048 4.9429 10.7825 4.9795C1.57795 18.7309 -0.943561 32.1443 0.293408 45.3914C0.299005 45.4562 0.335386 45.5182 0.385761 45.5576C6.45866 50.0174 12.3413 52.7249 18.1147 54.5195C18.2071 54.5477 18.305 54.5139 18.3638 54.4378C19.7295 52.5728 20.9469 50.6063 21.9907 48.5383C22.0523 48.4172 21.9935 48.2735 21.8676 48.2256C19.9366 47.4931 18.0979 46.6 16.3292 45.5858C16.1893 45.5041 16.1781 45.304 16.3068 45.2082C16.679 44.9293 17.0513 44.6391 17.4067 44.3461C17.471 44.2926 17.5606 44.2813 17.6362 44.3151C29.2558 49.6202 41.8354 49.6202 53.3179 44.3151C53.3935 44.2785 53.4831 44.2898 53.5502 44.3433C53.9057 44.6363 54.2779 44.9293 54.6529 45.2082C54.7816 45.304 54.7732 45.5041 54.6333 45.5858C52.8646 46.6197 51.0259 47.4931 49.0921 48.2228C48.9662 48.2707 48.9102 48.4172 48.9718 48.5383C50.038 50.6034 51.2554 52.5699 52.5959 54.435C52.6519 54.5139 52.7526 54.5477 52.845 54.5195C58.6464 52.7249 64.529 50.0174 70.6019 45.5576C70.6551 45.5182 70.6887 45.459 70.6943 45.3942C72.1747 30.0791 68.2147 16.7757 60.1968 4.9823C60.1772 4.9429 60.1437 4.9147 60.1045 4.8978ZM23.7259 37.3253C20.2276 37.3253 17.3451 34.1136 17.3451 30.1693C17.3451 26.225 20.1717 23.0133 23.7259 23.0133C27.308 23.0133 30.1626 26.2532 30.1066 30.1693C30.1066 34.1136 27.28 37.3253 23.7259 37.3253ZM47.3178 37.3253C43.8196 37.3253 40.9371 34.1136 40.9371 30.1693C40.9371 26.225 43.7636 23.0133 47.3178 23.0133C50.9 23.0133 53.7545 26.2532 53.6986 30.1693C53.6986 34.1136 50.9 37.3253 47.3178 37.3253Z"/>
+  </symbol>
+</svg>
+
+
+<footer class="footer">
+  <div class="footer_inner wrap pale">
+    <img src='https://blog.andreasm.io/icons/apple-touch-icon.png' class="icon icon_2 transparent" alt="From 0.985mhz... to several Ghz">
+    <p>Copyright&nbsp;2016-&nbsp;<span class="year"></span>&nbsp;FROM 0.985MHZ... TO SEVERAL GHZ. All Rights Reserved</p><a class="to_top" href="#documentTop">
+  <svg class="icon">
+  <title>to-top</title>
+  <use xlink:href="#to-top"></use>
+</svg>
+
+</a>
+
+  </div>
+</footer>
+
+<script type="text/javascript" src="https://blog.andreasm.io/en/js/bundle.5548d358738600c857a1f05f0459418da7143d4426c66a08bf3f15ded1b39dd2136bf104a559247a909fc4dcc45b8e06bad0870ece4c71ee5303d30550def8bd.js" integrity="sha512-VUjTWHOGAMhXofBfBFlBjacUPUQmxmoIvz8V3tGzndITa/EEpVkkepCfxNzEW44GutCHDs5Mce5TA9MFUN74vQ==" crossorigin="anonymous"></script>
+
+  <script src="https://blog.andreasm.io/js/search.min.df4d84e4983f0c71dd495e07a09815d920553c3ddf3d0767801c73373573aa17e1b489e4453272dbf4ce2a38a3d01a10b170744e50dd6bec85a598221867ba9a.js"></script>
+
+  </body>
+</html>

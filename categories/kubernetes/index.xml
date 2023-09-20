@@ -7,7 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Myself</copyright>
-    <lastBuildDate>Thu, 07 Sep 2023 07:46:13 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 19 Sep 2023 09:38:19 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>vSphere with Tanzu and HAproxy</title>
+      <link>https://blog.andreasm.io/2023/09/19/vsphere-with-tanzu-and-haproxy/</link>
+      <pubDate>Tue, 19 Sep 2023 09:38:19 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2023/09/19/vsphere-with-tanzu-and-haproxy/</guid>
+      <description>
+        
+          
+            In this post I will quickly go through how to use vSphere with Tanzu together HAProxy exposing the Kubernetes API
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>TKG Autoscaler</title>
       <link>https://blog.andreasm.io/2023/09/07/tkg-autoscaler/</link>
