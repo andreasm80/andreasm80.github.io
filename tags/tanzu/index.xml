@@ -7,7 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Myself</copyright>
-    <lastBuildDate>Thu, 07 Sep 2023 07:46:13 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/tanzu/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 23 Sep 2023 21:35:17 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/tanzu/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>vSphere with Tanzu 8 U2 using NSX AND NSX Advanced Loadbalancer</title>
+      <link>https://blog.andreasm.io/2023/09/23/vsphere-with-tanzu-8-u2-using-nsx-and-nsx-advanced-loadbalancer/</link>
+      <pubDate>Sat, 23 Sep 2023 21:35:17 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2023/09/23/vsphere-with-tanzu-8-u2-using-nsx-and-nsx-advanced-loadbalancer/</guid>
+      <description>
+        
+          
+            A quick test on the new feature in vSphere 8 U2 with Tanzu using NSX and NSX Advanced Loadbalancer for Kubernetes API endpoint
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>TKG Autoscaler</title>
       <link>https://blog.andreasm.io/2023/09/07/tkg-autoscaler/</link>
