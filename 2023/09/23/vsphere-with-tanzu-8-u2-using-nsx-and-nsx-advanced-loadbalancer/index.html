@@ -166,6 +166,7 @@
     <li><a href="#creating-vsphere-namespaces-in-other-networks---override-supervisor-workload-network">Creating vSphere Namespaces in other networks - override supervisor workload network</a></li>
     <li><a href="#l4-services-inside-the-workload-clusters">L4 services inside the workload clusters</a></li>
     <li><a href="#l7-services-inside-the-workload-clusters">L7 services inside the workload clusters</a></li>
+    <li><a href="#credits">Credits</a></li>
   </ul>
 </nav>
       </div>
@@ -1533,6 +1534,8 @@ SSH into the NSX-ALB controller, enter into <strong>shell</strong> and enter the
 </span></span><span class="line"><span class="ln">2</span><span class="cl">No resources found
 </span></span></code></pre></div><p>So this means we still need to deploy AKO to be able to use Ingress. I have a post of how that is done <a href="https://blog.andreasm.io/2022/10/26/vsphere-8-with-tanzu-using-nsx-t-avi-loadbalancer/#configure-avi-as-ingress-controller-l7-with-nsx-as-l4-lb">here</a> where NSX is providing the IP addresses for the Ingress, but I expect now it will be NSX-ALB providing the IP addresses using the ingress cidr configured in the namespace. So the only difference is NSX-ALB is providing it instead of NSX.</p>
 <p>This concludes this post.</p>
+<h2 id="credits">Credits</h2>
+<p>A big thanks goes to Tom Schwaller, Container Networking TPM @VMware, (Twitter/X handle @tom_schwaller), for getting me started on this post, and for providing useful insights on the requirements for getting this to work.</p>
 
     </div>
 
