@@ -120,7 +120,7 @@
 </span>
     <span class="post_date">
       01-06-2023</span>
-    <span class="post_time"> · 56 min read</span><span>&nbsp;· <a href='https://blog.andreasm.io/tags/antrea/' title="antrea" class="post_tag button button_translucent">antrea
+    <span class="post_time"> · 58 min read</span><span>&nbsp;· <a href='https://blog.andreasm.io/tags/antrea/' title="antrea" class="post_tag button button_translucent">antrea
         </a><a href='https://blog.andreasm.io/tags/tanzu/' title="tanzu" class="post_tag button button_translucent">tanzu
         </a><a href='https://blog.andreasm.io/tags/nsx-t/' title="nsx-t" class="post_tag button button_translucent">nsx-t
         </a>
@@ -131,7 +131,11 @@
         <h2>Overview</h2>
         <nav id="TableOfContents">
   <ul>
-    <li><a href="#managing-antrea-settings-and-feature-gates-in-tkg-2-clusters">Managing Antrea settings and Feature Gates in TKG 2 clusters</a></li>
+    <li><a href="#managing-antrea-settings-and-feature-gates-in-tkg-2-clusters">Managing Antrea settings and Feature Gates in TKG 2 clusters</a>
+      <ul>
+        <li><a href="#getting-the-antrea-config-templates-for-a-specific-tkr-version">Getting the Antrea config &quot;templates&quot; for a specific TKR version</a></li>
+      </ul>
+    </li>
     <li><a href="#integrating-antrea-with-nsx-t">Integrating Antrea with NSX-T</a></li>
     <li><a href="#antrea-security-policies">Antrea Security Policies</a>
       <ul>
@@ -389,7 +393,73 @@ To summarize, the feature gates that can be adjusted is these (as of TKR 1.24.9)
 </span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">      </span><span class="nt">noSNAT</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
 </span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w">      </span><span class="nt">tlsCipherSuites</span><span class="p">:</span><span class="w"> </span><span class="l">TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_256_GCM_SHA384</span><span class="w">
 </span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w">      </span><span class="nt">trafficEncapMode</span><span class="p">:</span><span class="w"> </span><span class="l">encap</span><span class="w">
-</span></span></span></code></pre></div><h2 id="integrating-antrea-with-nsx-t">Integrating Antrea with NSX-T</h2>
+</span></span></span></code></pre></div><h3 id="getting-the-antrea-config-templates-for-a-specific-tkr-version">Getting the Antrea config &quot;templates&quot; for a specific TKR version</h3>
+<p>Usually with new TKR versions, a new version of Antrea is shipped. And with a new version of Antrea is shipped it most liley containt new and exciting features. So if you want to see which feature gates are being available in your latest and greatest TKR, run these commands from the Supervisor context:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1"># to get all the Antrea configs </span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">andreasm@ubuntu02:~/avi_nsxt_wcp$ k get antreaconfigs.cni.tanzu.vmware.com -A
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">NAMESPACE           NAME                                           TRAFFICENCAPMODE   DEFAULTMTU   ANTREAPROXY   ANTREAPOLICY   SECRETREF
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">ns-stc-1            cluster-1-antrea-package                       encap                           <span class="nb">true</span>          <span class="nb">true</span>           cluster-1-antrea-data-values
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">vmware-system-tkg   v1.23.15---vmware.1-tkg.4                      encap                           <span class="nb">true</span>          <span class="nb">true</span>
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">vmware-system-tkg   v1.23.15---vmware.1-tkg.4-routable             noEncap                         <span class="nb">true</span>          <span class="nb">true</span>
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">vmware-system-tkg   v1.23.8---vmware.2-tkg.2-zshippable            encap                           <span class="nb">true</span>          <span class="nb">true</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">vmware-system-tkg   v1.23.8---vmware.2-tkg.2-zshippable-routable   noEncap                         <span class="nb">true</span>          <span class="nb">true</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">vmware-system-tkg   v1.24.9---vmware.1-tkg.4                       encap                           <span class="nb">true</span>          <span class="nb">true</span>
+</span></span><span class="line"><span class="ln">10</span><span class="cl">vmware-system-tkg   v1.24.9---vmware.1-tkg.4-routable              noEncap                         <span class="nb">true</span>          <span class="nb">true</span>
+</span></span><span class="line"><span class="ln">11</span><span class="cl">vmware-system-tkg   v1.25.7---vmware.3-fips.1-tkg.1                encap                           <span class="nb">true</span>          <span class="nb">true</span>
+</span></span><span class="line"><span class="ln">12</span><span class="cl">vmware-system-tkg   v1.25.7---vmware.3-fips.1-tkg.1-routable       noEncap                         <span class="nb">true</span>          <span class="nb">true</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl">vmware-system-tkg   v1.26.5---vmware.2-fips.1-tkg.1                encap                           <span class="nb">true</span>          <span class="nb">true</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">vmware-system-tkg   v1.26.5---vmware.2-fips.1-tkg.1-routable       noEncap                         <span class="nb">true</span>          <span class="nb">true</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">
+</span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="c1"># Get the content of a specific Antrea config</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">andreasm@ubuntu02:~/avi_nsxt_wcp$ k get antreaconfigs.cni.tanzu.vmware.com -n vmware-system-tkg v1.26.5---vmware.2-fips.1-tkg.1 -oyaml
+</span></span><span class="line"><span class="ln">18</span><span class="cl">apiVersion: cni.tanzu.vmware.com/v1alpha1
+</span></span><span class="line"><span class="ln">19</span><span class="cl">kind: AntreaConfig
+</span></span><span class="line"><span class="ln">20</span><span class="cl">metadata:
+</span></span><span class="line"><span class="ln">21</span><span class="cl">  annotations:
+</span></span><span class="line"><span class="ln">22</span><span class="cl">    tkg.tanzu.vmware.com/template-config: <span class="s2">&#34;true&#34;</span>
+</span></span><span class="line"><span class="ln">23</span><span class="cl">  creationTimestamp: <span class="s2">&#34;2023-09-24T17:49:37Z&#34;</span>
+</span></span><span class="line"><span class="ln">24</span><span class="cl">  generation: <span class="m">1</span>
+</span></span><span class="line"><span class="ln">25</span><span class="cl">  name: v1.26.5---vmware.2-fips.1-tkg.1
+</span></span><span class="line"><span class="ln">26</span><span class="cl">  namespace: vmware-system-tkg
+</span></span><span class="line"><span class="ln">27</span><span class="cl">  resourceVersion: <span class="s2">&#34;19483&#34;</span>
+</span></span><span class="line"><span class="ln">28</span><span class="cl">  uid: 8cdaa6ec-4059-4d35-a0d4-63711831edc8
+</span></span><span class="line"><span class="ln">29</span><span class="cl">spec:
+</span></span><span class="line"><span class="ln">30</span><span class="cl">  antrea:
+</span></span><span class="line"><span class="ln">31</span><span class="cl">    config:
+</span></span><span class="line"><span class="ln">32</span><span class="cl">      antreaProxy:
+</span></span><span class="line"><span class="ln">33</span><span class="cl">        proxyLoadBalancerIPs: <span class="nb">true</span>
+</span></span><span class="line"><span class="ln">34</span><span class="cl">      defaultMTU: <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="ln">35</span><span class="cl">      disableTXChecksumOffload: <span class="nb">false</span>
+</span></span><span class="line"><span class="ln">36</span><span class="cl">      disableUdpTunnelOffload: <span class="nb">false</span>
+</span></span><span class="line"><span class="ln">37</span><span class="cl">      dnsServerOverride: <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="ln">38</span><span class="cl">      enableBridgingMode: <span class="nb">false</span>
+</span></span><span class="line"><span class="ln">39</span><span class="cl">      enableUsageReporting: <span class="nb">false</span>
+</span></span><span class="line"><span class="ln">40</span><span class="cl">      featureGates:
+</span></span><span class="line"><span class="ln">41</span><span class="cl">        AntreaIPAM: <span class="nb">false</span>
+</span></span><span class="line"><span class="ln">42</span><span class="cl">        AntreaPolicy: <span class="nb">true</span>
+</span></span><span class="line"><span class="ln">43</span><span class="cl">        AntreaProxy: <span class="nb">true</span>
+</span></span><span class="line"><span class="ln">44</span><span class="cl">        AntreaTraceflow: <span class="nb">true</span>
+</span></span><span class="line"><span class="ln">45</span><span class="cl">        Egress: <span class="nb">true</span>
+</span></span><span class="line"><span class="ln">46</span><span class="cl">        EndpointSlice: <span class="nb">true</span>
+</span></span><span class="line"><span class="ln">47</span><span class="cl">        FlowExporter: <span class="nb">false</span>
+</span></span><span class="line"><span class="ln">48</span><span class="cl">        Multicast: <span class="nb">false</span>
+</span></span><span class="line"><span class="ln">49</span><span class="cl">        Multicluster: <span class="nb">false</span>
+</span></span><span class="line"><span class="ln">50</span><span class="cl">        NetworkPolicyStats: <span class="nb">true</span>
+</span></span><span class="line"><span class="ln">51</span><span class="cl">        NodePortLocal: <span class="nb">true</span>
+</span></span><span class="line"><span class="ln">52</span><span class="cl">        SecondaryNetwork: <span class="nb">false</span>
+</span></span><span class="line"><span class="ln">53</span><span class="cl">        ServiceExternalIP: <span class="nb">false</span>
+</span></span><span class="line"><span class="ln">54</span><span class="cl">        TopologyAwareHints: <span class="nb">false</span>
+</span></span><span class="line"><span class="ln">55</span><span class="cl">        TrafficControl: <span class="nb">false</span>
+</span></span><span class="line"><span class="ln">56</span><span class="cl">      flowExporter:
+</span></span><span class="line"><span class="ln">57</span><span class="cl">        activeFlowTimeout: 60s
+</span></span><span class="line"><span class="ln">58</span><span class="cl">        collectorAddress: flow-aggregator/flow-aggregator:4739:tls
+</span></span><span class="line"><span class="ln">59</span><span class="cl">      noSNAT: <span class="nb">false</span>
+</span></span><span class="line"><span class="ln">60</span><span class="cl">      tlsCipherSuites: TLS_ECDHE_ECDSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256,TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,TLS_RSA_WITH_AES_256_GCM_SHA384
+</span></span><span class="line"><span class="ln">61</span><span class="cl">      trafficEncapMode: encap
+</span></span><span class="line"><span class="ln">62</span><span class="cl">      tunnelCsum: <span class="nb">false</span>
+</span></span><span class="line"><span class="ln">63</span><span class="cl">      tunnelPort: <span class="m">0</span>
+</span></span></code></pre></div><p>With the above you can always get the latest config coming with the specific TKR release and use it as a template for your TKC cluster.</p>
+<h2 id="integrating-antrea-with-nsx-t">Integrating Antrea with NSX-T</h2>
 <p>To enable the NSX-T Antrea integration there is a couple of steps that needs to be prepared. All the steps can be followed <a href="https://docs.vmware.com/en/VMware-NSX/4.1/administration/GUID-9197EF8A-7998-4D1B-B968-067007C56B5C.html">here</a>. I have decided to create a script that automates all these steps. So if you dont want to go through all these steps manually by following the link above you can use this script instead and just enter the necesarry information as prompted, and have the pre-requisities in place before excecuting. Copy and paste the below script into a .sh file on your Linux jumpiest and make it executable with chmod +x.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">  1</span><span class="cl"><span class="cp">#!/bin/bash
 </span></span></span><span class="line"><span class="ln">  2</span><span class="cl"><span class="cp"></span>
@@ -3330,6 +3400,9 @@ I will need to generate some more activity for the recommendation engine to get 
     <h2 class="mt-4">Recent Posts</h2>
     <ul class="flex-column">
       <li>
+        <a href="https://blog.andreasm.io/2023/09/25/antrea-multi-cluster-in-tkg-and-vsphere-with-tanzu/" class="nav-link" title="Antrea Multi-cluster - in TKG and vSphere with Tanzu">Antrea Multi-cluster - in TKG and vSphere with Tanzu</a>
+      </li>
+      <li>
         <a href="https://blog.andreasm.io/2023/09/23/vsphere-with-tanzu-8-u2-using-nsx-and-nsx-advanced-loadbalancer/" class="nav-link" title="vSphere with Tanzu 8 U2 using NSX AND NSX Advanced Loadbalancer">vSphere with Tanzu 8 U2 using NSX AND NSX Advanced Loadbalancer</a>
       </li>
       <li>
@@ -3350,16 +3423,13 @@ I will need to generate some more activity for the recommendation engine to get 
       <li>
         <a href="https://blog.andreasm.io/2023/06/21/securing-kubernetes-clusters-with-antrea-network-policies/" class="nav-link" title="Securing Kubernetes clusters with Antrea Network Policies">Securing Kubernetes clusters with Antrea Network Policies</a>
       </li>
-      <li>
-        <a href="https://blog.andreasm.io/2023/06/01/managing-antrea-in-vsphere-with-tanzu/" class="nav-link" title="Managing Antrea in vSphere with Tanzu">Managing Antrea in vSphere with Tanzu</a>
-      </li>
     </ul>
     <div>
       <h2 class="mt-4 taxonomy" id="categories-section">Categories</h2>
       <nav class="tags_nav">
         <a href='https://blog.andreasm.io/categories/kubernetes/' class="post_tag button button_translucent" title="kubernetes">
           KUBERNETES
-          <span class="button_tally">33</span>
+          <span class="button_tally">34</span>
         </a>
         
         <a href='https://blog.andreasm.io/categories/networking/' class="post_tag button button_translucent" title="networking">
@@ -3372,14 +3442,14 @@ I will need to generate some more activity for the recommendation engine to get 
           <span class="button_tally">11</span>
         </a>
         
-        <a href='https://blog.andreasm.io/categories/loadbalancing/' class="post_tag button button_translucent" title="loadbalancing">
-          LOADBALANCING
+        <a href='https://blog.andreasm.io/categories/cni/' class="post_tag button button_translucent" title="cni">
+          CNI
           <span class="button_tally">7</span>
         </a>
         
-        <a href='https://blog.andreasm.io/categories/cni/' class="post_tag button button_translucent" title="cni">
-          CNI
-          <span class="button_tally">6</span>
+        <a href='https://blog.andreasm.io/categories/loadbalancing/' class="post_tag button button_translucent" title="loadbalancing">
+          LOADBALANCING
+          <span class="button_tally">7</span>
         </a>
         
         <a href='https://blog.andreasm.io/categories/security/' class="post_tag button button_translucent" title="security">
@@ -3397,6 +3467,11 @@ I will need to generate some more activity for the recommendation engine to get 
           <span class="button_tally">4</span>
         </a>
         
+        <a href='https://blog.andreasm.io/categories/antrea/' class="post_tag button button_translucent" title="antrea">
+          ANTREA
+          <span class="button_tally">2</span>
+        </a>
+        
         <a href='https://blog.andreasm.io/categories/blog/' class="post_tag button button_translucent" title="blog">
           BLOG
           <span class="button_tally">2</span>
@@ -3405,11 +3480,6 @@ I will need to generate some more activity for the recommendation engine to get 
         <a href='https://blog.andreasm.io/categories/vmware-nsx/' class="post_tag button button_translucent" title="vmware-nsx">
           VMWARE-NSX
           <span class="button_tally">2</span>
-        </a>
-        
-        <a href='https://blog.andreasm.io/categories/antrea/' class="post_tag button button_translucent" title="antrea">
-          ANTREA
-          <span class="button_tally">1</span>
         </a>
         
         <a href='https://blog.andreasm.io/categories/autoscaling/' class="post_tag button button_translucent" title="autoscaling">
@@ -3433,7 +3503,7 @@ I will need to generate some more activity for the recommendation engine to get 
         <div class="post_tags">
           <div class="tags_list">
             
-            <a href='https://blog.andreasm.io/categories/antrea/' class=" post_tag button button_translucent" data-position=1 title="antrea">ANTREA<span class="button_tally">1</span>
+            <a href='https://blog.andreasm.io/categories/antrea/' class=" post_tag button button_translucent" data-position=2 title="antrea">ANTREA<span class="button_tally">2</span>
             </a>
             
             
@@ -3453,7 +3523,7 @@ I will need to generate some more activity for the recommendation engine to get 
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/cni/' class=" post_tag button button_translucent" data-position=6 title="cni">CNI<span class="button_tally">6</span>
+            <a href='https://blog.andreasm.io/categories/cni/' class=" post_tag button button_translucent" data-position=7 title="cni">CNI<span class="button_tally">7</span>
             </a>
             
             
@@ -3481,7 +3551,7 @@ I will need to generate some more activity for the recommendation engine to get 
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/kubernetes/' class=" post_tag button button_translucent" data-position=33 title="kubernetes">KUBERNETES<span class="button_tally">33</span>
+            <a href='https://blog.andreasm.io/categories/kubernetes/' class=" post_tag button button_translucent" data-position=34 title="kubernetes">KUBERNETES<span class="button_tally">34</span>
             </a>
             
             
@@ -3598,7 +3668,12 @@ I will need to generate some more activity for the recommendation engine to get 
       <nav class="tags_nav">
         <a href='https://blog.andreasm.io/tags/kubernetes/' class="post_tag button button_translucent" title="kubernetes">
           KUBERNETES
-          <span class="button_tally">17</span>
+          <span class="button_tally">18</span>
+        </a>
+        
+        <a href='https://blog.andreasm.io/tags/tanzu/' class="post_tag button button_translucent" title="tanzu">
+          TANZU
+          <span class="button_tally">12</span>
         </a>
         
         <a href='https://blog.andreasm.io/tags/nsx/' class="post_tag button button_translucent" title="nsx">
@@ -3606,14 +3681,9 @@ I will need to generate some more activity for the recommendation engine to get 
           <span class="button_tally">11</span>
         </a>
         
-        <a href='https://blog.andreasm.io/tags/tanzu/' class="post_tag button button_translucent" title="tanzu">
-          TANZU
-          <span class="button_tally">11</span>
-        </a>
-        
         <a href='https://blog.andreasm.io/tags/antrea/' class="post_tag button button_translucent" title="antrea">
           ANTREA
-          <span class="button_tally">8</span>
+          <span class="button_tally">9</span>
         </a>
         
         <a href='https://blog.andreasm.io/tags/ako/' class="post_tag button button_translucent" title="ako">
@@ -3661,8 +3731,8 @@ I will need to generate some more activity for the recommendation engine to get 
           <span class="button_tally">2</span>
         </a>
         
-        <a href='https://blog.andreasm.io/tags/docker/' class="post_tag button button_translucent" title="docker">
-          DOCKER
+        <a href='https://blog.andreasm.io/tags/cni/' class="post_tag button button_translucent" title="cni">
+          CNI
           <span class="button_tally">2</span>
         </a>
         
@@ -3680,7 +3750,7 @@ I will need to generate some more activity for the recommendation engine to get 
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/antrea/' class=" post_tag button button_translucent" data-position=8 title="antrea">ANTREA<span class="button_tally">8</span>
+            <a href='https://blog.andreasm.io/tags/antrea/' class=" post_tag button button_translucent" data-position=9 title="antrea">ANTREA<span class="button_tally">9</span>
             </a>
             
             
@@ -3712,7 +3782,7 @@ I will need to generate some more activity for the recommendation engine to get 
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/cni/' class=" post_tag button button_translucent" data-position=1 title="cni">CNI<span class="button_tally">1</span>
+            <a href='https://blog.andreasm.io/tags/cni/' class=" post_tag button button_translucent" data-position=2 title="cni">CNI<span class="button_tally">2</span>
             </a>
             
             
@@ -3776,7 +3846,7 @@ I will need to generate some more activity for the recommendation engine to get 
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/kubernetes/' class=" post_tag button button_translucent" data-position=17 title="kubernetes">KUBERNETES<span class="button_tally">17</span>
+            <a href='https://blog.andreasm.io/tags/kubernetes/' class=" post_tag button button_translucent" data-position=18 title="kubernetes">KUBERNETES<span class="button_tally">18</span>
             </a>
             
             
@@ -3809,6 +3879,10 @@ I will need to generate some more activity for the recommendation engine to get 
             
             
             <a href='https://blog.andreasm.io/tags/management/' class=" post_tag button button_translucent" data-position=1 title="management">MANAGEMENT<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/multi-cluster/' class=" post_tag button button_translucent" data-position=1 title="multi-cluster">MULTI-CLUSTER<span class="button_tally">1</span>
             </a>
             
             
@@ -3884,7 +3958,7 @@ I will need to generate some more activity for the recommendation engine to get 
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/tanzu/' class=" post_tag button button_translucent" data-position=11 title="tanzu">TANZU<span class="button_tally">11</span>
+            <a href='https://blog.andreasm.io/tags/tanzu/' class=" post_tag button button_translucent" data-position=12 title="tanzu">TANZU<span class="button_tally">12</span>
             </a>
             
             
