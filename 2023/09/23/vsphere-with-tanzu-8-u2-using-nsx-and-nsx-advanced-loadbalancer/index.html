@@ -120,7 +120,7 @@
 </span>
     <span class="post_date">
       23-09-2023</span>
-    <span class="post_time"> · 21 min read</span><span>&nbsp;· <a href='https://blog.andreasm.io/tags/kubernetes/' title="kubernetes" class="post_tag button button_translucent">kubernetes
+    <span class="post_time"> · 20 min read</span><span>&nbsp;· <a href='https://blog.andreasm.io/tags/kubernetes/' title="kubernetes" class="post_tag button button_translucent">kubernetes
         </a><a href='https://blog.andreasm.io/tags/loadbalancing/' title="Loadbalancing" class="post_tag button button_translucent">Loadbalancing
         </a><a href='https://blog.andreasm.io/tags/network/' title="network" class="post_tag button button_translucent">network
         </a><a href='https://blog.andreasm.io/tags/nsx/' title="nsx" class="post_tag button button_translucent">nsx
@@ -135,6 +135,7 @@
   <ul>
     <li><a href="#pre-requisites-and-assumptions">Pre-requisites and assumptions</a></li>
     <li><a href="#vsphere-preparations---requirements">vSphere preparations - requirements</a></li>
+    <li><a href="#nsx-t-preparations">NSX-T preparations</a></li>
     <li><a href="#nsx-alb-preparations---requirements">NSX-ALB preparations - requirements</a>
       <ul>
         <li><a href="#nsx-cloud">NSX cloud</a></li>
@@ -236,8 +237,10 @@
 I already have my vSphere 8 U2 environment running, I already have my NSX 4.1.1 environment configured and lastly I already have my NSX-ALB controller 22.1.4 deployed and working. My lab is used for many things so I am not deploying NSX and NSX-ALB from scratch just for this post, they are already running a bunch of other stuff including the NSX-LAB controller. In the next chapters I will go through what I had to prepare on the NSX side (if any) and the NSX-ALB side (there are a couple of steps there).</p>
 <h2 id="vsphere-preparations---requirements">vSphere preparations - requirements</h2>
 <p>I only needed to upgrade my current vSphere 8 U1 environment to vSphere 8 U2, as always starting with the vCenter server using the VAMI interface, then updated the ESXi image in LCM to do a rolling upgrade of the ESXi hosts to 8 U2.</p>
+<h2 id="nsx-t-preparations">NSX-T preparations</h2>
+<p>For information how to install NSX, see my post <a href="https://blog.andreasm.io/2022/10/26/vsphere-8-with-tanzu-using-nsx-t-avi-loadbalancer/">here</a></p>
 <h2 id="nsx-alb-preparations---requirements">NSX-ALB preparations - requirements</h2>
-<p>Instead of going through all the steps in configuring the NSX-ALB I will only post the settings that is specific/or needed for the NSX+NSX-ALB feature to work. As I already have a working NSX-ALB environment running and in use for other needs, its not that many changes I had to do. So I will show them here in their own section starting with the cloud.</p>
+<p>Instead of going through all the steps in configuring the NSX-ALB I will only post the settings that is specific/or needed for the NSX+NSX-ALB feature to work. As I already have a working NSX-ALB environment running and in use for other needs, its not that many changes I had to do. So I will show them here in their own section starting with the cloud. For reference how to install NSX-ALB I have done a post on that <a href="https://blog.andreasm.io/2022/10/26/vsphere-8-with-tanzu-using-nsx-t-avi-loadbalancer/#configure-nsx-cloud-in-avi---network-preparations">here</a>.</p>
 <h3 id="nsx-cloud">NSX cloud</h3>
 <p>In my NSX-ALB I already have two clouds configured, both of them are NSX clouds. If you start from scratch all the necessary config needs to be done of course. See my posts <a href="https://blog.andreasm.io/2022/10/26/vsphere-8-with-tanzu-using-nsx-t-avi-loadbalancer/#configure-nsx-cloud-in-avi---network-preparations">here</a>. In the NSX cloud I will be using for this I need to enable DHCP. That is done by editing your specific cloud and checking the box DHCP:</p>
 <img src=images/image-20230923234304721.png style="width:600px" />
@@ -251,6 +254,41 @@ I already have my vSphere 8 U2 environment running, I already have my NSX 4.1.1 
 <h3 id="ipam-profile">IPAM profile</h3>
 <p>You need to make sure that you have configured an IPAM profile. Again, I already have that configured. The deployment will use this IPAM profile to configure the new usable VIP networks you define as the ingress cidr in TKG.</p>
 <img src=images/image-20230924122526763.png style="width:500px" />
+
+<div class="notices warning">
+    <div class="label">Important</div>
+    <p>In your IPAM profile it is very important to <strong>not</strong> have the <strong>Allocate ip in VRF</strong> option selected. This must be de-selected.</p>
+
+  </div>
+
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="vrf-option"
+      
+        class="image_figure image_internal image_processed"
+        width="585"
+        height="608"
+        src="/2023/09/23/vsphere-with-tanzu-8-u2-using-nsx-and-nsx-advanced-loadbalancer/images/image-20231003171934860.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
 <p>Then make sure your NSX cloud has this IPAM profile select:</p>
 <img src=images/image-20230924122247879.png style="width:600px" />
 <h3 id="default-service-engine-group">Default Service-Engine Group</h3>
@@ -435,7 +473,7 @@ I already have my vSphere 8 U2 environment running, I already have my NSX 4.1.1 
 <ul>
 <li>Need to have configured a NSX Cloud with the DHCP option enabled</li>
 <li>Created a custom certificate (not configured to be used yet)</li>
-<li>Created and configured an IPAM profile, updated the NSX cloud to use this profile</li>
+<li>Created and configured an IPAM profile, updated the NSX cloud to use this profile, in the IPAM profile <em>Allocate IP in VRF</em> i de-selected.</li>
 </ul>
 <h2 id="nsx-preparations---requirements---adding-the-nsx-alb-controller-endpoint-using-api">NSX preparations - requirements - adding the NSX-ALB controller endpoint using API</h2>
 <p>I already have a working NSX 4.1.1 environment. The only thing I need to to here is to add the NSX-ALB controller (alb endpoint) so my NSX environment is aware of my NSX-ALB controller. The reason for this is that some configurations in NSX-ALB will be automatically done by NCP during TKG deployment using api. So the NSX manager will need to know the username and password of the NSX-ALB controller or controller-cluster.</p>
@@ -907,198 +945,7 @@ SSH into the NSX-ALB controller, enter into <strong>shell</strong> and enter the
 <img src=images/image-20230924190351709.png style="width:900px" />
 <p>Now, its just clicking finish and monitor the progress.</p>
 <img src=images/image-20230924190430363.png style="width:900px" />
-
-<div class="notices info">
-    <div class="label">Info</div>
-    <p>I have done this installation several times now, and I have discovered that in my environment some times my VRF context is not automatically being updated after a new data network is being added by the WCP installer in my NSX-ALB NSX cloud. So I have to monitor this installation until it reach the LoadBalancer configuration step, then go into my NSX-ALB NSX cloud, click save. Then it will update my VRF Context with the new network. And the installation will continue.</p>
-
-  </div>
-
-<p>In the progress of the Workload Management enablement it will stop here, and indicating this:</p>
-<img src=images/image-20230924193525221.png style="width:800px" />
-<p>And you see these events in your NSX-ALB manager:</p>
-<p>
-  <figure>
-  <picture>
-
-    
-      
-        
-        
-        
-        
-        
-        
-    <img
-      loading="lazy"
-      decoding="async"
-      alt="image-20230924193723878"
-      
-        class="image_figure image_internal image_processed"
-        width="2526"
-        height="718"
-        src="/2023/09/23/vsphere-with-tanzu-8-u2-using-nsx-and-nsx-advanced-loadbalancer/images/image-20230924193723878.png"
-      
-      
-    />
-
-    </picture>
-</figure>
-</p>
-<p>You will see a new network being added to the NSX Cloud when you edit the cloud:</p>
-<img src=images/image-20230924200512432.png style="width:800px" />
-<p>By just clicking save, it will add this network as a VRF Context.</p>
-
-<div class="notices info">
-    <div class="label">Info</div>
-    <p>I also notice that it will create the VIP network profile using the <em>global</em> VRF Context. I do not have any routes that support this in my Global VRF Context, So I need to  switch to the newly created VRF Context: domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b. I dont think it is correct that it should use the <em>Global VRF</em> context.</p>
-
-  </div>
-
-<p>You will see this event in NSX-ALB (no suitable network found):</p>
-<p>
-  <figure>
-  <picture>
-
-    
-      
-        
-        
-        
-        
-        
-        
-    <img
-      loading="lazy"
-      decoding="async"
-      alt="event-no-networks-found"
-      
-        class="image_figure image_internal image_processed"
-        width="2508"
-        height="822"
-        src="/2023/09/23/vsphere-with-tanzu-8-u2-using-nsx-and-nsx-advanced-loadbalancer/images/image-20230924194358954.png"
-      
-      
-    />
-
-    </picture>
-</figure>
-</p>
-<p>
-  <figure>
-  <picture>
-
-    
-      
-        
-        
-        
-        
-        
-        
-    <img
-      loading="lazy"
-      decoding="async"
-      alt="new-network-profiles"
-      
-        class="image_figure image_internal image_processed"
-        width="3046"
-        height="1524"
-        src="/2023/09/23/vsphere-with-tanzu-8-u2-using-nsx-and-nsx-advanced-loadbalancer/images/image-20230924194123217.png"
-      
-      
-    />
-
-    </picture>
-</figure>
-</p>
-<p>As you can see, it does create a new VRF Context, sometimes it is being added automatically, or you have to go in and click save on the NSX Cloud for it to add the vrf context.</p>
-<p>
-  <figure>
-  <picture>
-
-    
-      
-        
-        
-        
-        
-        
-        
-    <img
-      loading="lazy"
-      decoding="async"
-      alt="vrf-context"
-      
-        class="image_figure image_internal image_processed"
-        width="3032"
-        height="940"
-        src="/2023/09/23/vsphere-with-tanzu-8-u2-using-nsx-and-nsx-advanced-loadbalancer/images/image-20230924194140519.png"
-      
-      
-    />
-
-    </picture>
-</figure>
-</p>
-<p>I edit the vcf-ako-net-domain network profile and change the routing context to the domain-c8:50xxxxx context.</p>
-<p>
-  <figure>
-  <picture>
-
-    
-      
-        
-        
-        
-        
-        
-        
-    <img
-      loading="lazy"
-      decoding="async"
-      alt="change-routing-context"
-      
-        class="image_figure image_internal image_processed"
-        width="2052"
-        height="1502"
-        src="/2023/09/23/vsphere-with-tanzu-8-u2-using-nsx-and-nsx-advanced-loadbalancer/images/image-20230924194324069.png"
-      
-      
-    />
-
-    </picture>
-</figure>
-</p>
-<p>
-  <figure>
-  <picture>
-
-    
-      
-        
-        
-        
-        
-        
-        
-    <img
-      loading="lazy"
-      decoding="async"
-      alt="image-20230924194719124"
-      
-        class="image_figure image_internal image_processed"
-        width="3020"
-        height="1512"
-        src="/2023/09/23/vsphere-with-tanzu-8-u2-using-nsx-and-nsx-advanced-loadbalancer/images/image-20230924194719124.png"
-      
-      
-    />
-
-    </picture>
-</figure>
-</p>
-<p>This will probably not be an issue if you deploy the NSX-ALB controller also as part of this installation. But in my environment I already have NSX-ALB running and configured for other services also. After tackling these two issues, the installation continues. One will soon see two new Virtual Services being created, two new service engines (according to my defaul-service-engine grup config) being deployed.</p>
+<p>One will soon see two new Virtual Services being created, two new service engines (according to my default-service-engine group config) being deployed.</p>
 <img src=images/image-20230924194912944.png style="width:800px" />
 <img src=images/image-20230924195553894.png style="width:800px" />
 <p>When everything is ready and available the virtual services will become yellow/green (fully green after a while as it depends on how long the VS is down before it becomes available/up):</p>
