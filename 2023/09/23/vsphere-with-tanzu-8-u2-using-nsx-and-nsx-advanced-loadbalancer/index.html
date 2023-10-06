@@ -1280,9 +1280,9 @@ SSH into the NSX-ALB controller, enter into <strong>shell</strong> and enter the
 <h2 id="creating-vsphere-namespaces-in-other-networks---override-supervisor-workload-network">Creating vSphere Namespaces in other networks - override supervisor workload network</h2>
 <p>I went ahead and created a new vSphere Namespace with these settings:</p>
 <img src=images/image-20230924211606562.png style="width:700px" />
-<p>Immediately after, it also created some new objects in NSX like a new Tier-1, segments etc similar to what it does before vSphere 8 U2. Then in NSX-ALB new network profiles and VRF context, creating the network profile for the SE in the new VRF <em>t1-domain-xxxxxx-xxxxx-xxx-xxx-x-ns-stc-1</em>.</p>
+<p>Immediately after, it also created some new objects in NSX like a new Tier-1, segments etc similar to what it does before vSphere 8 U2. Then in NSX-ALB new network profiles and VRF context, creating the network profile for the SEs in the new VRF <em>t1-domain-xxxxxx-xxxxx-xxx-xxx-x-ns-stc-1</em>.</p>
 <p>The ingress cidr (VIP) network profile <em>vcf-ako-net-domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-ns-stc-1</em> was created using the global vrf.
-If you remember I deselected the option in my IPAM profile <strong>Allocate ip in VRF</strong>, so it will use the global vrf here.</p>
+If you remember I deselected the option in my IPAM profile <strong>Allocate ip in VRF</strong>, so it will use the global vrf here also (as in the initial deployment of the Supervisor cluster).</p>
 <p>
   <figure>
   <picture>
@@ -1298,12 +1298,12 @@ If you remember I deselected the option in my IPAM profile <strong>Allocate ip i
     <img
       loading="lazy"
       decoding="async"
-      alt="image-20230924210534812"
+      alt="new-network-pfofiles"
       
         class="image_figure image_internal image_processed"
-        width="3020"
-        height="1354"
-        src="/2023/09/23/vsphere-with-tanzu-8-u2-using-nsx-and-nsx-advanced-loadbalancer/images/image-20230924210534812.png"
+        width="2998"
+        height="1154"
+        src="/2023/09/23/vsphere-with-tanzu-8-u2-using-nsx-and-nsx-advanced-loadbalancer/images/image-20231006104304250.png"
       
       
     />
@@ -1311,7 +1311,7 @@ If you remember I deselected the option in my IPAM profile <strong>Allocate ip i
     </picture>
 </figure>
 </p>
-<p>Now I can deploy my workload cluster in the newly create vSphere namespace.</p>
+<p>Now I can deploy my workload cluster in the newly created vSphere namespace.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">andreasm@ubuntu02:~/avi_nsxt_wcp$ k apply -f cluster-1-default.yaml
 </span></span><span class="line"><span class="ln">2</span><span class="cl">cluster.cluster.x-k8s.io/cluster-1 created
 </span></span></code></pre></div><p>In NSX-ALB shortly after a new VS is created</p>
