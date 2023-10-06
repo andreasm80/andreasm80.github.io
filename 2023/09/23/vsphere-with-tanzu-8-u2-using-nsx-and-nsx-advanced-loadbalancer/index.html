@@ -120,7 +120,7 @@
 </span>
     <span class="post_date">
       23-09-2023</span>
-    <span class="post_time"> · 20 min read</span><span>&nbsp;· <a href='https://blog.andreasm.io/tags/kubernetes/' title="kubernetes" class="post_tag button button_translucent">kubernetes
+    <span class="post_time"> · 21 min read</span><span>&nbsp;· <a href='https://blog.andreasm.io/tags/kubernetes/' title="kubernetes" class="post_tag button button_translucent">kubernetes
         </a><a href='https://blog.andreasm.io/tags/loadbalancing/' title="Loadbalancing" class="post_tag button button_translucent">Loadbalancing
         </a><a href='https://blog.andreasm.io/tags/network/' title="network" class="post_tag button button_translucent">network
         </a><a href='https://blog.andreasm.io/tags/nsx/' title="nsx" class="post_tag button button_translucent">nsx
@@ -247,7 +247,7 @@ I already have my vSphere 8 U2 environment running, I already have my NSX 4.1.1 
 
 <div class="notices info">
     <div class="label">Info</div>
-    <p>If you happen to have multiple clouds configured it will figure out wich cloud it will use. The NSX manager knows which NSX cloud it must use, most likely because it will use the cloud that is the same NSX the API comes from. In my lab I have two NSX clouds configured, and it will select the correct cloud.</p>
+    <p>If you happen to have multiple clouds configured it will figure out wich cloud it will use. The NSX manager knows which NSX cloud it must use, most likely because it will use the cloud that is the same NSX the API comes from. In my lab I have two NSX clouds configured, and it will select the correct cloud. My two NSX clouds are two unique NSX instances, if having two NSX clouds of same NSX instance I am not sure how it can select the right cloud.</p>
 
   </div>
 
@@ -635,6 +635,9 @@ SSH into the NSX-ALB controller, enter into <strong>shell</strong> and enter the
 </span></span><span class="line"><span class="ln">51</span><span class="cl">+----------------------------------+------------------------------------+
 </span></span></code></pre></div><p>Notice the <strong>welcome_workflow_complete</strong> is set to <em>False</em>. Set this to true using the following command:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl"><span class="o">[</span>admin:172-24-3-50<span class="o">]</span>: &gt; configure systemconfiguration welcome_workflow_complete <span class="m">1</span>
+</span></span></code></pre></div><p>Or</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl"><span class="o">[</span>admin:172-24-3-50<span class="o">]</span>: &gt; configure systemconfiguration
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="o">[</span>admin:172-24-3-50-configure<span class="o">]</span>: &gt; welcome_workflow_complete <span class="o">(</span>hit henter<span class="o">)</span>
 </span></span></code></pre></div><p>If you show the systemconfiguration again now it should be changed to True...  Logout and back in to the NSX-ALB gui and you should not be asked to do the initial setup wizard.</p>
 <h3 id="custom-certificate-in-the-nsx-alb-controller">Custom certificate in the NSX-ALB controller</h3>
 <p>After adding the NSX-ALB endpoint, configure NSX-ALB to use the newly created custom certificate created earlier. Head over to Administration -&gt; System Settings:</p>
@@ -1269,15 +1272,17 @@ SSH into the NSX-ALB controller, enter into <strong>shell</strong> and enter the
 <p>One new Service Engine Group</p>
 <img src=images/image-20230924204213823.png style="width:800px" />
 <p>Two new Network Profiles</p>
-<img src=images/image-20230924204302982.png style="width:800px" />
+<p>(notice the ingress cidr network profile (VIP) is placed in the global vrf)</p>
+<img src=images/image-20231006101952239.png style="width:800px" />
 <p>One new VRF context</p>
 <img src=images/image-20230924204406099.png style="width:800px" />
 <p>Now I can consume my newly provisioned Supervisor cluster through NSX-ALB - In the next chapters I have provisioned a workload cluster in a different network, different from the default workload network of the Supervisor. Then I will provision some L4 services (serviceType loadBalancer) and Ingress (L7) inside this cluster. Lets see what happens</p>
 <h2 id="creating-vsphere-namespaces-in-other-networks---override-supervisor-workload-network">Creating vSphere Namespaces in other networks - override supervisor workload network</h2>
 <p>I went ahead and created a new vSphere Namespace with these settings:</p>
 <img src=images/image-20230924211606562.png style="width:700px" />
-<p>Immediately after it also created some new objects in NSX like a new Tier-1, segments etc similar to what it does before vSphere 8 U2. Then in NSX-ALB new netowork profiles and VRF context, but seems to be missing the VRF context her also.</p>
-<p>The network profile <em>vcf-ako-net-domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-ns-stc-1</em> was created using the global vrf.</p>
+<p>Immediately after, it also created some new objects in NSX like a new Tier-1, segments etc similar to what it does before vSphere 8 U2. Then in NSX-ALB new network profiles and VRF context, creating the network profile for the SE in the new VRF <em>t1-domain-xxxxxx-xxxxx-xxx-xxx-x-ns-stc-1</em>.</p>
+<p>The ingress cidr (VIP) network profile <em>vcf-ako-net-domain-c8:5071d9d4-373d-49aa-a202-4c4ed81adc3b-ns-stc-1</em> was created using the global vrf.
+If you remember I deselected the option in my IPAM profile <strong>Allocate ip in VRF</strong>, so it will use the global vrf here.</p>
 <p>
   <figure>
   <picture>
@@ -1306,9 +1311,7 @@ SSH into the NSX-ALB controller, enter into <strong>shell</strong> and enter the
     </picture>
 </figure>
 </p>
-<p>Will be switching to the new context:</p>
-<img src=images/image-20230924210919966.png style="width:800px" />
-<p>Now I can deploy the cluster itself.</p>
+<p>Now I can deploy my workload cluster in the newly create vSphere namespace.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">andreasm@ubuntu02:~/avi_nsxt_wcp$ k apply -f cluster-1-default.yaml
 </span></span><span class="line"><span class="ln">2</span><span class="cl">cluster.cluster.x-k8s.io/cluster-1 created
 </span></span></code></pre></div><p>In NSX-ALB shortly after a new VS is created</p>
