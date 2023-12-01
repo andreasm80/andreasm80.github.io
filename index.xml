@@ -7,7 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Myself</copyright>
-    <lastBuildDate>Mon, 25 Sep 2023 10:59:30 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 23 Nov 2023 08:17:49 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>TKGi with NSX and NSX Advanced LoadBalancer</title>
+      <link>https://blog.andreasm.io/2023/11/23/tkgi-with-nsx-and-nsx-advanced-loadbalancer/</link>
+      <pubDate>Thu, 23 Nov 2023 08:17:49 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/2023/11/23/tkgi-with-nsx-and-nsx-advanced-loadbalancer/</guid>
+      <description>
+        
+          
+            In this post I will go through installation of TKGi, using the EPMC installer, then how to configure TKGi to use NSX Advanced LoadBalancer
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>Antrea Multi-cluster - in TKG and vSphere with Tanzu</title>
       <link>https://blog.andreasm.io/2023/09/25/antrea-multi-cluster-in-tkg-and-vsphere-with-tanzu/</link>

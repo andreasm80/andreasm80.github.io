@@ -7,7 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Myself</copyright>
-    <lastBuildDate>Tue, 30 May 2023 14:54:29 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/loadbalancing/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 23 Nov 2023 08:17:49 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/loadbalancing/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>TKGi with NSX and NSX Advanced LoadBalancer</title>
+      <link>https://blog.andreasm.io/2023/11/23/tkgi-with-nsx-and-nsx-advanced-loadbalancer/</link>
+      <pubDate>Thu, 23 Nov 2023 08:17:49 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/2023/11/23/tkgi-with-nsx-and-nsx-advanced-loadbalancer/</guid>
+      <description>
+        
+          
+            In this post I will go through installation of TKGi, using the EPMC installer, then how to configure TKGi to use NSX Advanced LoadBalancer
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>Tanzu Kubernetes Grid 2.2 &amp; Remote Workload Clusters</title>
       <link>https://blog.andreasm.io/2023/05/30/tanzu-kubernetes-grid-2.2-remote-workload-clusters/</link>
