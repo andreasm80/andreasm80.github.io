@@ -7,7 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Myself</copyright>
-    <lastBuildDate>Wed, 19 Oct 2022 10:54:37 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/monitoring/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 18 Dec 2023 11:49:56 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/monitoring/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>A Quick Glance at Cilium CNI</title>
+      <link>https://blog.andreasm.io/2023/12/18/a-quick-glance-at-cilium-cni/</link>
+      <pubDate>Mon, 18 Dec 2023 11:49:56 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/2023/12/18/a-quick-glance-at-cilium-cni/</guid>
+      <description>
+        
+          
+            In this post I will deploy Cilium in my k8s cluster and test some features and how it is to manage
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>Monitoring With Prometheus, Loki, Promtail and Grafana</title>
       <link>https://blog.andreasm.io/2022/10/19/monitoring-with-prometheus-loki-promtail-and-grafana/</link>
