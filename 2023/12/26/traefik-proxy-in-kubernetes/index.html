@@ -120,7 +120,7 @@
 </span>
     <span class="post_date">
       26-12-2023</span>
-    <span class="post_time"> · 31 min read</span><span>&nbsp;· <a href='https://blog.andreasm.io/tags/cert-manager/' title="cert-manager" class="post_tag button button_translucent">cert-manager
+    <span class="post_time"> · 32 min read</span><span>&nbsp;· <a href='https://blog.andreasm.io/tags/cert-manager/' title="cert-manager" class="post_tag button button_translucent">cert-manager
         </a><a href='https://blog.andreasm.io/tags/proxy/' title="proxy" class="post_tag button button_translucent">proxy
         </a><a href='https://blog.andreasm.io/tags/traefik/' title="traefik" class="post_tag button button_translucent">traefik
         </a><a href='https://blog.andreasm.io/tags/loadbalancing/' title="loadbalancing" class="post_tag button button_translucent">loadbalancing
@@ -1067,8 +1067,8 @@ My lab in this post:</p>
 <p>Instead of configuring Traefik to generate the certificates I need for my HTTPS services I have already configured Cert-Manager to create the certificates I need, you can read how I have done it <a href="https://blog.andreasm.io/2022/10/11/cert-manager-and-letsencrypt/">here</a>. I use mostly wildcard certificates, and dont see the need to request certificates all the time.</p>
 <p>Then I use reflector to share/sync the certificates across namespaces. Read more on reflector <a href="https://cert-manager.io/v1.8-docs/faq/sync-secrets/#using-reflector">here</a> and <a href="https://github.com/emberstack/kubernetes-reflector/blob/main/README.md">here</a>.</p>
 <h2 id="monitoring-with-prometheus-and-grafana">Monitoring with Prometheus and Grafana</h2>
-<p>Another nice feature is Traefiks built in Prometheus metrics. These Prometheus metrics can be used as datasource in Grafana. So here is how I configured Prometheus and Grafana.</p>
-<p>I followed this <a href="https://roundly-consulting.com/blog/grafana-with-prometheus-for-traefik-in-minikube">blog's</a> procedure to configure Traefik with Prometheus.</p>
+<p>Another nice feature is Traefik's built in Prometheus metrics. These Prometheus metrics can then be used as datasource in Grafana. So here is how I configured Prometheus and Grafana.</p>
+<p>I followed these two blog's <a href="https://traefik.io/blog/capture-traefik-metrics-for-apps-on-kubernetes-with-prometheus/">here</a> and <a href="https://roundly-consulting.com/blog/grafana-with-prometheus-for-traefik-in-minikube">here</a>, used them in combination to configure Traefik with Prometheus.</p>
 <h3 id="prometheus">Prometheus</h3>
 <p>I will start by getting Prometheus up and running, then Grafana</p>
 <p>In my Traefik value.yaml I made these changes before I ran helm upgrade on the Traefik installation:</p>
@@ -1106,8 +1106,9 @@ First yaml <em>traefik-metrics-service</em>:</p>
 </span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">    </span><span class="nt">app.kubernetes.io/instance</span><span class="p">:</span><span class="w"> </span><span class="l">traefik-traefik</span><span class="w">
 </span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">    </span><span class="nt">app.kubernetes.io/name</span><span class="p">:</span><span class="w"> </span><span class="l">traefik</span><span class="w">
 </span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">ClusterIP</span><span class="w">
-</span></span></span></code></pre></div><p>Again as I have not enabled any services in the Helm values during installation of Traefik I need to create a service that expose the metrics entrypoint using ClusterIP. I am using ClusterIP as I am not planning on making it available outside the same Kubernetes cluster as Traefik is running in.</p>
-<p>Then the second file is the Prometheus configMap telling Promethus what to scrape:</p>
+</span></span></span></code></pre></div><p>As I followed the two blogs above there is a couple of approaches to make this work, and this first file is kind of optional if you dont want to expose the metrics through an IngressRoute or other means outside your Kubernetes cluster.</p>
+<p>But for an easy way to just check whether there is metrics coming one can temporarily expose this information. Again as I have not enabled any services in the Helm values during installation of Traefik I need to create a service that expose the metrics entrypoint using ClusterIP. I am using ClusterIP as I am not planning on making it available outside the same Kubernetes cluster as Traefik is running in.</p>
+<p>Then the second file is the Prometheus configMap telling Promethus what to scrape. I found that the information covered in the Traefik blog <a href="https://traefik.io/blog/capture-traefik-metrics-for-apps-on-kubernetes-with-prometheus/">post</a> gave more information in Prometheus so I used that one:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
 </span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ConfigMap</span><span class="w">
 </span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
@@ -1120,10 +1121,36 @@ First yaml <em>traefik-metrics-service</em>:</p>
 </span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="sd">      evaluation_interval: 5s
 </span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="sd">    scrape_configs:
 </span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="sd">    - job_name: &#39;traefik&#39;
-</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="sd">      static_configs:
-</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="sd">      - targets: [&#39;traefik-metrics.traefik.svc.cluster.local:9100&#39;]</span><span class="w">    
-</span></span></span></code></pre></div><p>The target is the ClusterIP service I created in the first yaml file. Just telling Prometheus where to get the metrics from.</p>
-<p>Then I created the third yaml file that creates the PersistenVolumeClaim for my Prometheus instance:</p>
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="sd">      kubernetes_sd_configs:
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="sd">        - role: pod
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="sd">          selectors:
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="sd">            - role: pod
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="sd">              label: &#34;app.kubernetes.io/name=traefik&#34;
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="sd">      relabel_configs:
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="sd">        - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_scrape]
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="sd">          action: keep
+</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="sd">          regex: true
+</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="sd">        - source_labels: [__meta_kubernetes_pod_annotation_prometheus_io_path]
+</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="sd">          action: replace
+</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="sd">          target_label: __metrics_path__
+</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="sd">          regex: (.+)
+</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="sd">        - source_labels: [__address__, __meta_kubernetes_pod_annotation_prometheus_io_port]
+</span></span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="sd">          action: replace
+</span></span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="sd">          regex: ([^:]+)(?::\\d+)?;(\\d+)
+</span></span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="sd">          replacement: $1:$2
+</span></span></span><span class="line"><span class="ln">30</span><span class="cl"><span class="sd">          target_label: __address__
+</span></span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="sd">        - source_labels: [__meta_kubernetes_service_annotation_prometheus_io_scheme]
+</span></span></span><span class="line"><span class="ln">32</span><span class="cl"><span class="sd">          action: replace
+</span></span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="sd">          target_label: __scheme__
+</span></span></span><span class="line"><span class="ln">34</span><span class="cl"><span class="sd">          regex: (https?)</span><span class="w">    
+</span></span></span></code></pre></div><p>This approach will scrape the metrics from the relevant Traefik pods, using annotation. But it also means I need to give the Prometheus pod access to scrape pods not in its own namespace. So I will go ahead and create a service account, role and role binding for that:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">andreasm@linuxmgmt01:~/prod-cluster-1/traefik/traefik-dashboard$ kubectl -n prometheus create serviceaccount prometheus
+</span></span><span class="line"><span class="ln">2</span><span class="cl">serviceaccount/prometheus created
+</span></span><span class="line"><span class="ln">3</span><span class="cl">andreasm@linuxmgmt01:~/prod-cluster-1/traefik/traefik-dashboard$ k create clusterrole prometheus --verb<span class="o">=</span>get,list,watch --resource<span class="o">=</span>pods,services,endpoints
+</span></span><span class="line"><span class="ln">4</span><span class="cl">clusterrole.rbac.authorization.k8s.io/prometheus created
+</span></span><span class="line"><span class="ln">5</span><span class="cl">andreasm@linuxmgmt01:~/prod-cluster-1/traefik/traefik-dashboard$ kubectl create clusterrolebinding prometheus --clusterrole<span class="o">=</span>prometheus --serviceaccount<span class="o">=</span>prometheus:prometheus
+</span></span><span class="line"><span class="ln">6</span><span class="cl">clusterrolebinding.rbac.authorization.k8s.io/prometheus created 
+</span></span></code></pre></div><p>Then I created the third yaml file that creates the PersistentVolumeClaim for my Prometheus instance:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
 </span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">PersistentVolumeClaim</span><span class="w">
 </span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
@@ -1151,24 +1178,25 @@ First yaml <em>traefik-metrics-service</em>:</p>
 </span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">      </span><span class="nt">labels</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">        </span><span class="nt">app</span><span class="p">:</span><span class="w"> </span><span class="l">prometheus</span><span class="w">
 </span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">    </span><span class="nt">spec</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w">      </span><span class="nt">containers</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">prometheus</span><span class="w">
-</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w">        </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">prom/prometheus:latest</span><span class="w">
-</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w">        </span><span class="nt">ports</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w">        </span>- <span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">9090</span><span class="w">
-</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">default</span><span class="w">
-</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="w">        </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">prometheus-storage</span><span class="w">
-</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="w">          </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/prometheus</span><span class="w">
-</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">config-volume</span><span class="w">
-</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="w">          </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/etc/prometheus</span><span class="w">
-</span></span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="w">      </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">prometheus-storage</span><span class="w">
-</span></span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="w">          </span><span class="nt">persistentVolumeClaim</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">30</span><span class="cl"><span class="w">            </span><span class="nt">claimName</span><span class="p">:</span><span class="w"> </span><span class="l">prometheus-storage-persistence</span><span class="w">
-</span></span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">config-volume</span><span class="w">
-</span></span></span><span class="line"><span class="ln">32</span><span class="cl"><span class="w">          </span><span class="nt">configMap</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">prometheus-config</span><span class="w">
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w">      </span><span class="nt">serviceAccountName</span><span class="p">:</span><span class="w"> </span><span class="l">prometheus</span><span class="w"> </span><span class="c"># Remember to add the serviceaccount for scrape access</span><span class="w">
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w">      </span><span class="nt">containers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">prometheus</span><span class="w">
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w">        </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">prom/prometheus:latest</span><span class="w">
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w">        </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="w">        </span>- <span class="nt">containerPort</span><span class="p">:</span><span class="w"> </span><span class="m">9090</span><span class="w">
+</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">default</span><span class="w">
+</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="w">        </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">prometheus-storage</span><span class="w">
+</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="w">          </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/prometheus</span><span class="w">
+</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">config-volume</span><span class="w">
+</span></span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="w">          </span><span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/etc/prometheus</span><span class="w">
+</span></span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="w">      </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">prometheus-storage</span><span class="w">
+</span></span></span><span class="line"><span class="ln">30</span><span class="cl"><span class="w">          </span><span class="nt">persistentVolumeClaim</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="w">            </span><span class="nt">claimName</span><span class="p">:</span><span class="w"> </span><span class="l">prometheus-storage-persistence</span><span class="w">
+</span></span></span><span class="line"><span class="ln">32</span><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">config-volume</span><span class="w">
+</span></span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="w">          </span><span class="nt">configMap</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">34</span><span class="cl"><span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">prometheus-config</span><span class="w">
 </span></span></span></code></pre></div><p>The fifth yaml file is the Prometheus service where I expose Prometheus internally in the cluster:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Service</span><span class="w">
 </span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
@@ -1215,12 +1243,12 @@ First yaml <em>traefik-metrics-service</em>:</p>
     <img
       loading="lazy"
       decoding="async"
-      alt="prometheus-dashboard"
+      alt="prometheus-target"
       
         class="image_figure image_internal image_processed"
-        width="3566"
-        height="726"
-        src="/2023/12/26/traefik-proxy-in-kubernetes/images/image-20231228142829554.png"
+        width="3580"
+        height="1364"
+        src="/2023/12/26/traefik-proxy-in-kubernetes/images/image-20231228233759384.png"
       
       
     />
