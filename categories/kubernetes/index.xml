@@ -7,7 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Myself</copyright>
-    <lastBuildDate>Mon, 18 Dec 2023 11:49:56 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 26 Dec 2023 20:31:45 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Traefik Proxy in Kubernetes</title>
+      <link>https://blog.andreasm.io/2023/12/26/traefik-proxy-in-kubernetes/</link>
+      <pubDate>Tue, 26 Dec 2023 20:31:45 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/2023/12/26/traefik-proxy-in-kubernetes/</guid>
+      <description>
+        
+          
+            In this post I will go through how I have configured and run Traefik in my Kubernetes lab.
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>A Quick Glance at Cilium CNI</title>
       <link>https://blog.andreasm.io/2023/12/18/a-quick-glance-at-cilium-cni/</link>
