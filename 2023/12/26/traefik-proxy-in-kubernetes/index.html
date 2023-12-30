@@ -1068,7 +1068,7 @@ My lab in this post:</p>
 <p>Then I use reflector to share/sync the certificates across namespaces. Read more on reflector <a href="https://cert-manager.io/v1.8-docs/faq/sync-secrets/#using-reflector">here</a> and <a href="https://github.com/emberstack/kubernetes-reflector/blob/main/README.md">here</a>.</p>
 <h2 id="monitoring-with-prometheus-and-grafana">Monitoring with Prometheus and Grafana</h2>
 <p>Another nice feature is Traefik's built in Prometheus metrics. These Prometheus metrics can then be used as datasource in Grafana. So here is how I configured Prometheus and Grafana.</p>
-<p>I followed these two blog's <a href="https://traefik.io/blog/capture-traefik-metrics-for-apps-on-kubernetes-with-prometheus/">here</a> and <a href="https://roundly-consulting.com/blog/grafana-with-prometheus-for-traefik-in-minikube">here</a>, used them in combination to configure Traefik with Prometheus.</p>
+<p>I followed these two blog post's <a href="https://traefik.io/blog/capture-traefik-metrics-for-apps-on-kubernetes-with-prometheus/">here</a> and <a href="https://roundly-consulting.com/blog/grafana-with-prometheus-for-traefik-in-minikube">here</a>, used them in combination to configure Traefik with Prometheus.</p>
 <h3 id="prometheus">Prometheus</h3>
 <p>I will start by getting Prometheus up and running, then Grafana</p>
 <p>In my Traefik value.yaml I made these changes before I ran helm upgrade on the Traefik installation:</p>
@@ -1106,9 +1106,9 @@ First yaml <em>traefik-metrics-service</em>:</p>
 </span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">    </span><span class="nt">app.kubernetes.io/instance</span><span class="p">:</span><span class="w"> </span><span class="l">traefik-traefik</span><span class="w">
 </span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">    </span><span class="nt">app.kubernetes.io/name</span><span class="p">:</span><span class="w"> </span><span class="l">traefik</span><span class="w">
 </span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">  </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">ClusterIP</span><span class="w">
-</span></span></span></code></pre></div><p>As I followed the two blogs above there is a couple of approaches to make this work, and this first file is kind of optional if you dont want to expose the metrics through an IngressRoute or other means outside your Kubernetes cluster.</p>
-<p>But for an easy way to just check whether there is metrics coming one can temporarily expose this information. Again as I have not enabled any services in the Helm values during installation of Traefik I need to create a service that expose the metrics entrypoint using ClusterIP. I am using ClusterIP as I am not planning on making it available outside the same Kubernetes cluster as Traefik is running in.</p>
-<p>Then the second file is the Prometheus configMap telling Promethus what to scrape. I found that the information covered in the Traefik blog <a href="https://traefik.io/blog/capture-traefik-metrics-for-apps-on-kubernetes-with-prometheus/">post</a> gave more information in Prometheus so I used that one:</p>
+</span></span></span></code></pre></div><p>As I followed the two blogs above there is a couple of approaches to make this work.  One approach is to to expose the metrics using ClusterIP by applying the yaml above. Then the Prometheus target is refering to this svc (requires Prometheus to be runnning on same cluster).  The other approach is to configure Prometheus scraping the Traefik pods.</p>
+<p>One can also use this ClusterIP service later on with an IngressRoute to expose it outside its Kubernetes cluster for an easy way to just check whether there is metrics coming or need to access this metrics externally. If scraping the pods, this service is not needed as Prometheus will scrape the Traefik pods directly.</p>
+<p>Then I need to create a  Prometheus configMap telling Promethus what and how to scrape. I will paste below two ways Prometheus can scrape the metrics. The first yaml will scrape the pods directly using the kubernetes_sd_config and filter on the annotations on the Traefik pods.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
 </span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ConfigMap</span><span class="w">
 </span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
@@ -1150,7 +1150,22 @@ First yaml <em>traefik-metrics-service</em>:</p>
 </span></span><span class="line"><span class="ln">4</span><span class="cl">clusterrole.rbac.authorization.k8s.io/prometheus created
 </span></span><span class="line"><span class="ln">5</span><span class="cl">andreasm@linuxmgmt01:~/prod-cluster-1/traefik/traefik-dashboard$ kubectl create clusterrolebinding prometheus --clusterrole<span class="o">=</span>prometheus --serviceaccount<span class="o">=</span>prometheus:prometheus
 </span></span><span class="line"><span class="ln">6</span><span class="cl">clusterrolebinding.rbac.authorization.k8s.io/prometheus created 
-</span></span></code></pre></div><p>Then I created the third yaml file that creates the PersistentVolumeClaim for my Prometheus instance:</p>
+</span></span></code></pre></div><p>The second approach is to point to the ClusterIP metrics service (defined above) and let Prometheus scrape this service instead. This approach does not need the serviceAccount.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">ConfigMap</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">prometheus-config</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">prometheus</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w"></span><span class="nt">data</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">  </span><span class="nt">prometheus.yml</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="sd">    global:
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="sd">      scrape_interval: 5s
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="sd">      evaluation_interval: 5s
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="sd">    scrape_configs:
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="sd">    - job_name: &#39;traefik&#39;
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="sd">      static_configs:
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="sd">      - targets: [&#39;traefik-metrics.traefik.svc.cluster.local:9100&#39;]</span><span class="w">    
+</span></span></span></code></pre></div><p>Then I created the third yaml file that creates the PersistentVolumeClaim for my Prometheus instance:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1</span><span class="w">
 </span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">PersistentVolumeClaim</span><span class="w">
 </span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
@@ -1227,7 +1242,8 @@ First yaml <em>traefik-metrics-service</em>:</p>
 </span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">        </span>- <span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Service</span><span class="w">
 </span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">prometheus</span><span class="w">
 </span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">          </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">9090</span><span class="w">
-</span></span></span></code></pre></div><p>Here comes the DNS record into play, the record I created earlier. Now after I have applied all the above yaml Prometheus should be up and running and I can use the IngressRoute to access the Prometheus Dashboard from my laptop.</p>
+</span></span></span></code></pre></div><p>Here comes the DNS record into play, the record I created earlier. Now after I have applied all the above yamls Prometheus should be up and running and I can use the IngressRoute to access the Prometheus Dashboard from my laptop.</p>
+<p>Screnshot below is when scraping the pods directly</p>
 <p>
   <figure>
   <picture>
@@ -1243,12 +1259,41 @@ First yaml <em>traefik-metrics-service</em>:</p>
     <img
       loading="lazy"
       decoding="async"
-      alt="prometheus-target"
+      alt="prometheus-pod-target"
       
         class="image_figure image_internal image_processed"
         width="3580"
         height="1364"
         src="/2023/12/26/traefik-proxy-in-kubernetes/images/image-20231228233759384.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>Screenshot below is scraping the metrics-service:</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="prometheus-service-scraping"
+      
+        class="image_figure image_internal image_processed"
+        width="3554"
+        height="1124"
+        src="/2023/12/26/traefik-proxy-in-kubernetes/images/image-20231230184538838.png"
       
       
     />
