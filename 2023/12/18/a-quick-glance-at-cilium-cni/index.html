@@ -120,7 +120,7 @@
 </span>
     <span class="post_date">
       18-12-2023</span>
-    <span class="post_time"> · 40 min read</span><span>&nbsp;· <a href='https://blog.andreasm.io/tags/cilium/' title="cilium" class="post_tag button button_translucent">cilium
+    <span class="post_time"> · 41 min read</span><span>&nbsp;· <a href='https://blog.andreasm.io/tags/cilium/' title="cilium" class="post_tag button button_translucent">cilium
         </a><a href='https://blog.andreasm.io/tags/kubernetes/' title="kubernetes" class="post_tag button button_translucent">kubernetes
         </a><a href='https://blog.andreasm.io/tags/cni/' title="cni" class="post_tag button button_translucent">cni
         </a><a href='https://blog.andreasm.io/tags/networking/' title="networking" class="post_tag button button_translucent">networking
@@ -142,6 +142,7 @@
     </li>
     <li><a href="#install-cilium-cni">Install Cilium CNI</a>
       <ul>
+        <li><a href="#install-cilium-on-a-cluster-with-no-kube-proxy">Install Cilium on a cluster with no kube-proxy</a></li>
         <li><a href="#enabling-features-using-helm">Enabling features using Helm</a></li>
         <li><a href="#enabling-features-using-cilium-cli">Enabling features using Cilium cli</a></li>
       </ul>
@@ -429,6 +430,16 @@
 </span></span><span class="line"><span class="ln">8</span><span class="cl">ℹ️  Cilium will fully replace all functionalities of kube-proxy
 </span></span></code></pre></div><p>Thats it.... 😄</p>
 <p>Version 1.14.5 is the latest stable at the writing of this post.</p>
+<h3 id="install-cilium-on-a-cluster-with-no-kube-proxy">Install Cilium on a cluster with no kube-proxy</h3>
+<p>If I have prepared my cluster as above with no kube-proxy I need to install Cilium using the following command:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl"><span class="nv">API_SERVER_IP</span><span class="o">=</span>10.160.1.111
+</span></span><span class="line"><span class="ln">2</span><span class="cl"><span class="nv">API_SERVER_PORT</span><span class="o">=</span><span class="m">6443</span>
+</span></span><span class="line"><span class="ln">3</span><span class="cl">helm install cilium cilium/cilium --version 1.14.5 -f cilium.1.14.5.values-prod-cluster-1.yaml <span class="se">\
+</span></span></span><span class="line"><span class="ln">4</span><span class="cl"><span class="se"></span>    --namespace kube-system <span class="se">\
+</span></span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="se"></span>    --set <span class="nv">kubeProxyReplacement</span><span class="o">=</span>strict <span class="se">\
+</span></span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="se"></span>    --set <span class="nv">k8sServiceHost</span><span class="o">=</span><span class="si">${</span><span class="nv">API_SERVER_IP</span><span class="si">}</span> <span class="se">\
+</span></span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="se"></span>    --set <span class="nv">k8sServicePort</span><span class="o">=</span><span class="si">${</span><span class="nv">API_SERVER_PORT</span><span class="si">}</span>
+</span></span></code></pre></div><p>Where the API_SERVER_PORT is one of my k8s control plane node (I did try to use the loadbalanced IP for the k8s api endpoint as I have 3 control plane nodes but that did not work out so I went with the IP of my first cp node). The value file is the value file I am using to set all the Cilium settings, more on that later.</p>
 <p>Now, whats inside my Kubernetes cluster now:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl">andreasm@linuxmgmt01:~/test-cluster-1$ k get pods -A
 </span></span><span class="line"><span class="ln"> 2</span><span class="cl">NAMESPACE     NAME                                    READY   STATUS    RESTARTS       AGE
