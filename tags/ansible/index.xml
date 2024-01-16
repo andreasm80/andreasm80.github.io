@@ -9,11 +9,11 @@
     <copyright>Myself</copyright>
     <lastBuildDate>Mon, 15 Jan 2024 14:15:19 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/ansible/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Proxmox with OpenTofu Ansible and Kubernetes</title>
-      <link>https://blog.andreasm.io/2024/01/15/proxmox-with-opentofu-ansible-and-kubernetes/</link>
+      <title>Proxmox with OpenTofu Kubespray and Kubernetes</title>
+      <link>https://blog.andreasm.io/2024/01/15/proxmox-with-opentofu-kubespray-and-kubernetes/</link>
       <pubDate>Mon, 15 Jan 2024 14:15:19 +0100</pubDate>
       
-      <guid>https://blog.andreasm.io/2024/01/15/proxmox-with-opentofu-ansible-and-kubernetes/</guid>
+      <guid>https://blog.andreasm.io/2024/01/15/proxmox-with-opentofu-kubespray-and-kubernetes/</guid>
       <description>
         
           
