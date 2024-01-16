@@ -2,22 +2,52 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://blog.andreasm.io/categories/</loc>
-    <lastmod>2023-12-26T20:31:45+01:00</lastmod>
+    <loc>https://blog.andreasm.io/tags/ansible/</loc>
+    <lastmod>2024-01-15T14:15:19+01:00</lastmod>
   </url><url>
-    <loc>https://blog.andreasm.io/tags/cert-manager/</loc>
-    <lastmod>2023-12-26T20:31:45+01:00</lastmod>
+    <loc>https://blog.andreasm.io/categories/automation/</loc>
+    <lastmod>2024-01-15T14:15:19+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/categories/</loc>
+    <lastmod>2024-01-15T14:15:19+01:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/</loc>
+    <lastmod>2024-01-15T14:15:19+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/kubernetes/</loc>
+    <lastmod>2024-01-15T14:15:19+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/categories/kubernetes/</loc>
+    <lastmod>2024-01-15T14:15:19+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/kubespray/</loc>
+    <lastmod>2024-01-15T14:15:19+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/opentofu/</loc>
+    <lastmod>2024-01-15T14:15:19+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/post/</loc>
+    <lastmod>2024-01-15T14:15:19+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/proxmox/</loc>
+    <lastmod>2024-01-15T14:15:19+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/2024/01/15/proxmox-with-opentofu-ansible-and-kubernetes/</loc>
+    <lastmod>2024-01-15T14:15:19+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/</loc>
+    <lastmod>2024-01-15T14:15:19+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/terraform/</loc>
+    <lastmod>2024-01-15T14:15:19+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/cert-manager/</loc>
     <lastmod>2023-12-26T20:31:45+01:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/tags/ingress/</loc>
     <lastmod>2023-12-26T20:31:45+01:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/categories/ingress/</loc>
-    <lastmod>2023-12-26T20:31:45+01:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/categories/kubernetes/</loc>
     <lastmod>2023-12-26T20:31:45+01:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/tags/loadbalancing/</loc>
@@ -29,13 +59,7 @@
     <loc>https://blog.andreasm.io/categories/network/</loc>
     <lastmod>2023-12-26T20:31:45+01:00</lastmod>
   </url><url>
-    <loc>https://blog.andreasm.io/post/</loc>
-    <lastmod>2023-12-26T20:31:45+01:00</lastmod>
-  </url><url>
     <loc>https://blog.andreasm.io/tags/proxy/</loc>
-    <lastmod>2023-12-26T20:31:45+01:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/tags/</loc>
     <lastmod>2023-12-26T20:31:45+01:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/tags/traefik/</loc>
@@ -60,9 +84,6 @@
     <lastmod>2023-12-18T11:49:56+01:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/categories/ebpf/</loc>
-    <lastmod>2023-12-18T11:49:56+01:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/tags/kubernetes/</loc>
     <lastmod>2023-12-18T11:49:56+01:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/categories/monitoring/</loc>

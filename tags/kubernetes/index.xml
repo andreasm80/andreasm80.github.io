@@ -7,7 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Myself</copyright>
-    <lastBuildDate>Mon, 18 Dec 2023 11:49:56 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 15 Jan 2024 14:15:19 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/kubernetes/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Proxmox with OpenTofu Ansible and Kubernetes</title>
+      <link>https://blog.andreasm.io/2024/01/15/proxmox-with-opentofu-ansible-and-kubernetes/</link>
+      <pubDate>Mon, 15 Jan 2024 14:15:19 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/2024/01/15/proxmox-with-opentofu-ansible-and-kubernetes/</guid>
+      <description>
+        
+          
+            In this post I will quickly go through how I made use of OpenTofu to provision VMs on my Proxmox cluster and Ansible using Kubespray to deploy my Kubernetes clusters on demand.
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>A Quick Glance at Cilium CNI</title>
       <link>https://blog.andreasm.io/2023/12/18/a-quick-glance-at-cilium-cni/</link>
