@@ -7,7 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Myself</copyright>
-    <lastBuildDate>Thu, 23 Nov 2023 08:17:49 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/tanzu/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 04 Feb 2024 11:28:21 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/tanzu/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Argo CD &amp; vSphere with Tanzu</title>
+      <link>https://blog.andreasm.io/2024/02/04/argo-cd-vsphere-with-tanzu/</link>
+      <pubDate>Sun, 04 Feb 2024 11:28:21 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/2024/02/04/argo-cd-vsphere-with-tanzu/</guid>
+      <description>
+        
+          
+            In this post I am using ArgoCD bootstrapping Tanzu Kubernetes Clusters with AKO and Antrea configs
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>TKGi with NSX and NSX Advanced LoadBalancer</title>
       <link>https://blog.andreasm.io/2023/11/23/tkgi-with-nsx-and-nsx-advanced-loadbalancer/</link>

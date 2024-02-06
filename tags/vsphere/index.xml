@@ -7,7 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Myself</copyright>
-    <lastBuildDate>Mon, 10 Apr 2017 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/vsphere/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 04 Feb 2024 11:28:21 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/vsphere/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Argo CD &amp; vSphere with Tanzu</title>
+      <link>https://blog.andreasm.io/2024/02/04/argo-cd-vsphere-with-tanzu/</link>
+      <pubDate>Sun, 04 Feb 2024 11:28:21 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/2024/02/04/argo-cd-vsphere-with-tanzu/</guid>
+      <description>
+        
+          
+            In this post I am using ArgoCD bootstrapping Tanzu Kubernetes Clusters with AKO and Antrea configs
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>vSphere Replication 6.1.2 vCenter plugin fails after upgrade (vCenter 6.0 U3)</title>
       <link>https://blog.andreasm.io/2017/04/10/vsphere-replication-6.1.2-vcenter-plugin-fails-after-upgrade-vcenter-6.0-u3/</link>
