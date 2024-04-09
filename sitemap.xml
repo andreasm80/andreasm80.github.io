@@ -2,6 +2,51 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://blog.andreasm.io/tags/avi/</loc>
+    <lastmod>2024-04-08T14:56:56+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/categories/avi/</loc>
+    <lastmod>2024-04-08T14:56:56+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/categories/</loc>
+    <lastmod>2024-04-08T14:56:56+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/</loc>
+    <lastmod>2024-04-08T14:56:56+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/kubernetes/</loc>
+    <lastmod>2024-04-08T14:56:56+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/categories/kubernetes/</loc>
+    <lastmod>2024-04-08T14:56:56+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/loadbalancing/</loc>
+    <lastmod>2024-04-08T14:56:56+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/multi-tenancy/</loc>
+    <lastmod>2024-04-08T14:56:56+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/networking/</loc>
+    <lastmod>2024-04-08T14:56:56+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/nsx/</loc>
+    <lastmod>2024-04-08T14:56:56+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/categories/nsx/</loc>
+    <lastmod>2024-04-08T14:56:56+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/post/</loc>
+    <lastmod>2024-04-08T14:56:56+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/</loc>
+    <lastmod>2024-04-08T14:56:56+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/categories/tanzu/</loc>
+    <lastmod>2024-04-08T14:56:56+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/2024/04/08/vsphere-with-tanzu-avi-and-multiple-supervisors/</loc>
+    <lastmod>2024-04-08T14:56:56+02:00</lastmod>
+  </url><url>
     <loc>https://blog.andreasm.io/tags/ako/</loc>
     <lastmod>2024-02-04T11:28:21+01:00</lastmod>
   </url><url>
@@ -23,40 +68,13 @@
     <loc>https://blog.andreasm.io/categories/automation/</loc>
     <lastmod>2024-02-04T11:28:21+01:00</lastmod>
   </url><url>
-    <loc>https://blog.andreasm.io/tags/avi/</loc>
-    <lastmod>2024-02-04T11:28:21+01:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/categories/avi/</loc>
-    <lastmod>2024-02-04T11:28:21+01:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/categories/</loc>
-    <lastmod>2024-02-04T11:28:21+01:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/</loc>
-    <lastmod>2024-02-04T11:28:21+01:00</lastmod>
-  </url><url>
     <loc>https://blog.andreasm.io/tags/gitops/</loc>
     <lastmod>2024-02-04T11:28:21+01:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/categories/gitops/</loc>
     <lastmod>2024-02-04T11:28:21+01:00</lastmod>
   </url><url>
-    <loc>https://blog.andreasm.io/tags/kubernetes/</loc>
-    <lastmod>2024-02-04T11:28:21+01:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/categories/kubernetes/</loc>
-    <lastmod>2024-02-04T11:28:21+01:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/post/</loc>
-    <lastmod>2024-02-04T11:28:21+01:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/tags/</loc>
-    <lastmod>2024-02-04T11:28:21+01:00</lastmod>
-  </url><url>
     <loc>https://blog.andreasm.io/tags/tanzu/</loc>
-    <lastmod>2024-02-04T11:28:21+01:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/categories/tanzu/</loc>
     <lastmod>2024-02-04T11:28:21+01:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/tags/vsphere/</loc>
@@ -90,9 +108,6 @@
     <lastmod>2023-12-26T20:31:45+01:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/categories/ingress/</loc>
-    <lastmod>2023-12-26T20:31:45+01:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/tags/loadbalancing/</loc>
     <lastmod>2023-12-26T20:31:45+01:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/categories/loadbalancing/</loc>
@@ -131,17 +146,11 @@
     <loc>https://blog.andreasm.io/categories/monitoring/</loc>
     <lastmod>2023-12-18T11:49:56+01:00</lastmod>
   </url><url>
-    <loc>https://blog.andreasm.io/tags/networking/</loc>
-    <lastmod>2023-12-18T11:49:56+01:00</lastmod>
-  </url><url>
     <loc>https://blog.andreasm.io/categories/networking/</loc>
     <lastmod>2023-12-18T11:49:56+01:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/categories/security/</loc>
     <lastmod>2023-12-18T11:49:56+01:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/tags/nsx/</loc>
-    <lastmod>2023-11-23T08:17:49+01:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/tags/nsx-alb/</loc>
     <lastmod>2023-11-23T08:17:49+01:00</lastmod>
@@ -162,9 +171,6 @@
     <lastmod>2023-09-25T10:59:30+02:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/tags/network/</loc>
-    <lastmod>2023-09-23T21:35:17+02:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/categories/nsx/</loc>
     <lastmod>2023-09-23T21:35:17+02:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/categories/nsx-alb/</loc>

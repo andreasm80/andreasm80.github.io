@@ -7,7 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Myself</copyright>
-    <lastBuildDate>Tue, 26 Dec 2023 20:31:45 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/loadbalancing/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 08 Apr 2024 14:56:56 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/loadbalancing/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>vSphere with Tanzu - Avi and Multiple Supervisors</title>
+      <link>https://blog.andreasm.io/2024/04/08/vsphere-with-tanzu-avi-and-multiple-supervisors/</link>
+      <pubDate>Mon, 08 Apr 2024 14:56:56 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2024/04/08/vsphere-with-tanzu-avi-and-multiple-supervisors/</guid>
+      <description>
+        
+          
+            In this post I will try to describe how to use the new NSX and Avi together integration in vSphere with Tanzu in combination with several Supervisor clusters using only 1 NSX manager cluster and 1 Avi controller cluster
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>Traefik Proxy in Kubernetes</title>
       <link>https://blog.andreasm.io/2023/12/26/traefik-proxy-in-kubernetes/</link>
