@@ -61,7 +61,7 @@
 
   </head>
   <body
-    data-code="7"
+    data-code="15"
     data-lines="false"
     id="documentTop"
     data-lang="en"
@@ -208,12 +208,12 @@
 <p>To achieve what I wanted, deploy an highly available Hugo hosted blog page, I decided to run Hugo in Kubernetes.
 For that I needed</p>
 <ul>
-<li>Kubernetes cluster, obviously, consisting of several workers for the the &quot;hugo&quot; pods to run on (already covered <a href="https://yikes.guzware.net/2020/10/08/nsx-advanced-loadbalancer-with-antrea-on-native-k8s/#prepare-the-worker-and-master-nodes">here</a>.</li>
-<li>Persistent storage (NFS in my case, already covered <a href="https://yikes.guzware.net/2021/07/12/kubernetes-persistent-volumes-with-nfs/">here</a>)</li>
-<li>An Ingress controller (already covered <a href="https://yikes.guzware.net/2021/07/11/k8s-ingress-with-nsx-advanced-load-balancer/">here</a>)</li>
+<li>Kubernetes cluster, obviously, consisting of several workers for the the &quot;hugo&quot; pods to run on (already covered <a href="https://blog.andreasm.io/2020/10/08/nsx-advanced-loadbalancer-with-antrea-on-native-k8s/#prepare-the-worker-and-master-nodes">here</a>.</li>
+<li>Persistent storage (NFS in my case, already covered <a href="https://blog.andreasm.io/2021/07/12/kubernetes-persistent-volumes-with-nfs/">here</a>)</li>
+<li>An Ingress controller (already covered <a href="https://blog.andreasm.io/2021/07/11/k8s-ingress-with-nsx-advanced-load-balancer/">here</a>)</li>
 <li>A docker image with Hugo, nginx and go (will be covered here)</li>
 <li>Docker installed so you can build the image</li>
-<li>A place to host the docker image (Docker hub or Harbor registry will be covered <a href="https://yikes.guzware.net/2022/10/13/vmware-harbor-registry/">here</a>)</li>
+<li>A place to host the docker image (Docker hub or Harbor registry will be covered <a href="https://blog.andreasm.io/2022/10/13/vmware-harbor-registry/">here</a>)</li>
 </ul>
 <h2 id="create-the-docker-image">Create the Docker image</h2>
 <p>Before I can deploy Hugo I need to create an Docker image that contains the necessary bits. I have already created the <code>Dockerfile</code> here:</p>
@@ -263,9 +263,9 @@ I have updated it, and done some modifications to it.</p>
 </span></span></code></pre></div><p>This will &quot;download&quot; the image from the local docker repository and create tar file. This tar file needs to be copied to all my workers and additional control plane nodes with scp or other methods I find suitable.
 When that is done I need to upload the tar to each of their local docker repository with the following command:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">docker -i load /home/username/hugo-image.v1.tar
-</span></span></code></pre></div><p>It is ok to know about this process if you are in non-internet environments etc, but even in non-internet environment we can do this with a private registry. And thats where Harbor can come to the rescue <a href="https://yikes.guzware.net/2022/10/13/vmware-harbor-registry/">link</a>.</p>
+</span></span></code></pre></div><p>It is ok to know about this process if you are in non-internet environments etc, but even in non-internet environment we can do this with a private registry. And thats where Harbor can come to the rescue <a href="https://blog.andreasm.io/2022/10/13/vmware-harbor-registry/">link</a>.</p>
 <p>With Harbor I can have all my images hosted centrally but dont need access to the internet as it is hosted in my own environment.<br>
-I could also use Docker <a href="https://hub.docker.com/">hub</a>. Create an account there, and use it as my repository. I prefer the Harbor registry, as it provides many <a href="https://yikes.guzware.net/2022/10/13/vmware-harbor-registry/">features</a>. The continuation of this post will use Harbor, the procedure to upload/download images is the same process as with Docker hub but you log in to your own Harbor registry instead of Docker hub.</p>
+I could also use Docker <a href="https://hub.docker.com/">hub</a>. Create an account there, and use it as my repository. I prefer the Harbor registry, as it provides many <a href="https://blog.andreasm.io/2022/10/13/vmware-harbor-registry/">features</a>. The continuation of this post will use Harbor, the procedure to upload/download images is the same process as with Docker hub but you log in to your own Harbor registry instead of Docker hub.</p>
 <p>Uploading my newly created image is done like this:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">docker login registry.example.com <span class="c1">#FQDN to my selfhosted Harbor registry, and the credentials for an account I have created there. </span>
 </span></span><span class="line"><span class="ln">2</span><span class="cl">docker tag hugo-image:v1 https://registry.example.com/hugo/hugo-image:v1 <span class="c1">#&#34;/hugo/&#34; name of project in Harbor</span>
@@ -480,6 +480,9 @@ Thats how I do, it works and I find it easy to maintain and operate. And, if one
     <h2 class="mt-4">Recent Posts</h2>
     <ul class="flex-column">
       <li>
+        <a href="https://blog.andreasm.io/2024/04/16/exploring-some-antrea-features/" class="nav-link" title="Exploring some Antrea Features">Exploring some Antrea Features</a>
+      </li>
+      <li>
         <a href="https://blog.andreasm.io/2024/04/08/vsphere-with-tanzu-avi-and-multiple-supervisors/" class="nav-link" title="vSphere with Tanzu - Avi and Multiple Supervisors">vSphere with Tanzu - Avi and Multiple Supervisors</a>
       </li>
       <li>
@@ -500,16 +503,13 @@ Thats how I do, it works and I find it easy to maintain and operate. And, if one
       <li>
         <a href="https://blog.andreasm.io/2023/09/25/antrea-multi-cluster-in-tkg-and-vsphere-with-tanzu/" class="nav-link" title="Antrea Multi-cluster - in TKG and vSphere with Tanzu">Antrea Multi-cluster - in TKG and vSphere with Tanzu</a>
       </li>
-      <li>
-        <a href="https://blog.andreasm.io/2023/09/23/vsphere-with-tanzu-8-u2-using-nsx-and-nsx-advanced-loadbalancer/" class="nav-link" title="vSphere with Tanzu 8 U2 using NSX AND NSX Advanced Loadbalancer">vSphere with Tanzu 8 U2 using NSX AND NSX Advanced Loadbalancer</a>
-      </li>
     </ul>
     <div>
       <h2 class="mt-4 taxonomy" id="categories-section">Categories</h2>
       <nav class="tags_nav">
         <a href='https://blog.andreasm.io/categories/kubernetes/' class="post_tag button button_translucent" title="kubernetes">
           KUBERNETES
-          <span class="button_tally">39</span>
+          <span class="button_tally">40</span>
         </a>
         
         <a href='https://blog.andreasm.io/categories/networking/' class="post_tag button button_translucent" title="networking">
@@ -522,14 +522,14 @@ Thats how I do, it works and I find it easy to maintain and operate. And, if one
           <span class="button_tally">13</span>
         </a>
         
-        <a href='https://blog.andreasm.io/categories/loadbalancing/' class="post_tag button button_translucent" title="loadbalancing">
-          LOADBALANCING
+        <a href='https://blog.andreasm.io/categories/cni/' class="post_tag button button_translucent" title="cni">
+          CNI
           <span class="button_tally">9</span>
         </a>
         
-        <a href='https://blog.andreasm.io/categories/cni/' class="post_tag button button_translucent" title="cni">
-          CNI
-          <span class="button_tally">8</span>
+        <a href='https://blog.andreasm.io/categories/loadbalancing/' class="post_tag button button_translucent" title="loadbalancing">
+          LOADBALANCING
+          <span class="button_tally">9</span>
         </a>
         
         <a href='https://blog.andreasm.io/categories/avi/' class="post_tag button button_translucent" title="avi">
@@ -549,7 +549,7 @@ Thats how I do, it works and I find it easy to maintain and operate. And, if one
         
         <a href='https://blog.andreasm.io/categories/antrea/' class="post_tag button button_translucent" title="antrea">
           ANTREA
-          <span class="button_tally">3</span>
+          <span class="button_tally">4</span>
         </a>
         
         <a href='https://blog.andreasm.io/categories/automation/' class="post_tag button button_translucent" title="automation">
@@ -583,7 +583,7 @@ Thats how I do, it works and I find it easy to maintain and operate. And, if one
         <div class="post_tags">
           <div class="tags_list">
             
-            <a href='https://blog.andreasm.io/categories/antrea/' class=" post_tag button button_translucent" data-position=3 title="antrea">ANTREA<span class="button_tally">3</span>
+            <a href='https://blog.andreasm.io/categories/antrea/' class=" post_tag button button_translucent" data-position=4 title="antrea">ANTREA<span class="button_tally">4</span>
             </a>
             
             
@@ -611,7 +611,7 @@ Thats how I do, it works and I find it easy to maintain and operate. And, if one
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/cni/' class=" post_tag button button_translucent" data-position=8 title="cni">CNI<span class="button_tally">8</span>
+            <a href='https://blog.andreasm.io/categories/cni/' class=" post_tag button button_translucent" data-position=9 title="cni">CNI<span class="button_tally">9</span>
             </a>
             
             
@@ -651,7 +651,7 @@ Thats how I do, it works and I find it easy to maintain and operate. And, if one
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/kubernetes/' class=" post_tag button button_translucent" data-position=39 title="kubernetes">KUBERNETES<span class="button_tally">39</span>
+            <a href='https://blog.andreasm.io/categories/kubernetes/' class=" post_tag button button_translucent" data-position=40 title="kubernetes">KUBERNETES<span class="button_tally">40</span>
             </a>
             
             
@@ -772,7 +772,7 @@ Thats how I do, it works and I find it easy to maintain and operate. And, if one
       <nav class="tags_nav">
         <a href='https://blog.andreasm.io/tags/kubernetes/' class="post_tag button button_translucent" title="kubernetes">
           KUBERNETES
-          <span class="button_tally">22</span>
+          <span class="button_tally">23</span>
         </a>
         
         <a href='https://blog.andreasm.io/tags/tanzu/' class="post_tag button button_translucent" title="tanzu">
@@ -787,7 +787,7 @@ Thats how I do, it works and I find it easy to maintain and operate. And, if one
         
         <a href='https://blog.andreasm.io/tags/antrea/' class="post_tag button button_translucent" title="antrea">
           ANTREA
-          <span class="button_tally">11</span>
+          <span class="button_tally">12</span>
         </a>
         
         <a href='https://blog.andreasm.io/tags/ako/' class="post_tag button button_translucent" title="ako">
@@ -815,6 +815,11 @@ Thats how I do, it works and I find it easy to maintain and operate. And, if one
           <span class="button_tally">5</span>
         </a>
         
+        <a href='https://blog.andreasm.io/tags/cni/' class="post_tag button button_translucent" title="cni">
+          CNI
+          <span class="button_tally">4</span>
+        </a>
+        
         <a href='https://blog.andreasm.io/tags/availability/' class="post_tag button button_translucent" title="availability">
           AVAILABILITY
           <span class="button_tally">3</span>
@@ -822,11 +827,6 @@ Thats how I do, it works and I find it easy to maintain and operate. And, if one
         
         <a href='https://blog.andreasm.io/tags/cert-manager/' class="post_tag button button_translucent" title="cert-manager">
           CERT-MANAGER
-          <span class="button_tally">3</span>
-        </a>
-        
-        <a href='https://blog.andreasm.io/tags/cni/' class="post_tag button button_translucent" title="cni">
-          CNI
           <span class="button_tally">3</span>
         </a>
         
@@ -858,7 +858,7 @@ Thats how I do, it works and I find it easy to maintain and operate. And, if one
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/antrea/' class=" post_tag button button_translucent" data-position=11 title="antrea">ANTREA<span class="button_tally">11</span>
+            <a href='https://blog.andreasm.io/tags/antrea/' class=" post_tag button button_translucent" data-position=12 title="antrea">ANTREA<span class="button_tally">12</span>
             </a>
             
             
@@ -898,7 +898,7 @@ Thats how I do, it works and I find it easy to maintain and operate. And, if one
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/cni/' class=" post_tag button button_translucent" data-position=3 title="cni">CNI<span class="button_tally">3</span>
+            <a href='https://blog.andreasm.io/tags/cni/' class=" post_tag button button_translucent" data-position=4 title="cni">CNI<span class="button_tally">4</span>
             </a>
             
             
@@ -966,7 +966,7 @@ Thats how I do, it works and I find it easy to maintain and operate. And, if one
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/kubernetes/' class=" post_tag button button_translucent" data-position=22 title="kubernetes">KUBERNETES<span class="button_tally">22</span>
+            <a href='https://blog.andreasm.io/tags/kubernetes/' class=" post_tag button button_translucent" data-position=23 title="kubernetes">KUBERNETES<span class="button_tally">23</span>
             </a>
             
             

@@ -61,7 +61,7 @@
 
   </head>
   <body
-    data-code="7"
+    data-code="15"
     data-lines="false"
     id="documentTop"
     data-lang="en"
@@ -366,7 +366,7 @@ Head over to the <em>hamburger</em> menu in top left corner in your vCenter and 
 <p>NEXT</p>
 <img src=images/image-20230223091944671.png style="width:600px" />
 <p>Select the size of your SVCP and give the SVCP API endpoint a name. This is something that can be registered in DNS when deployment is finished and we know the IP it gets.</p>
-<p>Finish and wait. Its the same (waiting) process as explained <a href="https://yikes.guzware.net/2022/10/26/vsphere-8-with-tanzu-using-vds-and-avi-loadbalancer/#enable-workload-management">here</a></p>
+<p>Finish and wait. Its the same (waiting) process as explained <a href="https://blog.andreasm.io/2022/10/26/vsphere-8-with-tanzu-using-vds-and-avi-loadbalancer/#enable-workload-management">here</a></p>
 <p>If everything goes well we should have a Supervisor cluster up and running in not that many minutes. 20-30 mins?</p>
 <p>When its done deploying you will see the green status here:
 <img src=images/image-20230223093416957.png style="width:900px" /></p>
@@ -391,17 +391,17 @@ Next steps include creating namespace, deploy workload clusters.</p>
 <p>Then under Security -&gt; Distributed Firewall there will be a new section:</p>
 <img src=images/image-20230224081717088.png style="width:800px" />
 <h3 id="vsphere-namespace">vSphere Namespace</h3>
-<p>When Supervisor is up and running next step is to create a vSphere Namespace. I will go ahead and create that, but will also use the &quot;override network&quot; to create a separate network for this Namespace and also disable NAT as I want to use this cluster for Antrea Egress explained <a href="https://yikes.guzware.net/2023/02/20/antrea-egress/">here</a>.</p>
+<p>When Supervisor is up and running next step is to create a vSphere Namespace. I will go ahead and create that, but will also use the &quot;override network&quot; to create a separate network for this Namespace and also disable NAT as I want to use this cluster for Antrea Egress explained <a href="https://blog.andreasm.io/2023/02/20/antrea-egress/">here</a>.</p>
 <p>A vSphere is a construct in vSphere to adjust indidivual access settings/permissions, resources, network settings or different networks for IP separation. Click on Create Namespace and fill in relevant info. I am choosing to <em>Override Supervisor network settings</em>.</p>
 <img src=images/image-20230224082441383.png style="width:800px" />
 <p>Notice when I disable NAT Mode there will no longer be a Egress IP to populate. Thats because the TKC nodes under this namespace will not get a NAT rule applied to them in NSX and will be communicating &quot;externally&quot; with their own actual IP address. Ingress will still be relevant as the NSX-T Loadbalancer will create the K8s API endpoint to reach the control plane endpoint your respective TKC clusters.</p>
 <img src=images/image-20230224091207388.png style="width:600px" />
 <p>This option to adjust the networks in such a degree is a great flexibility with NSX. Tanzu with VDS does give you the option to select different VDS portgroups on separate vlans, but must be manually created, does not give you NAT, Ingress and Egress and VLAN/Routing must be in place in the physical environment. With NSX all the networking components are automatically created and it includes the NSX Distributed Firewall.</p>
-<p>After the vSphere Namespace has been created it is the same procedure to deploy TKC clusters regardless of using VDS or NSX. So instead of me repeating myself and saving the environment for digital ink I will refere to the process I have already described <a href="https://yikes.guzware.net/2022/10/26/vsphere-8-with-tanzu-using-vds-and-avi-loadbalancer/#vsphere-namespace">here</a></p>
+<p>After the vSphere Namespace has been created it is the same procedure to deploy TKC clusters regardless of using VDS or NSX. So instead of me repeating myself and saving the environment for digital ink I will refere to the process I have already described <a href="https://blog.andreasm.io/2022/10/26/vsphere-8-with-tanzu-using-vds-and-avi-loadbalancer/#vsphere-namespace">here</a></p>
 <h2 id="configure-avi-as-ingress-controller-l7-with-nsx-as-l4-lb">Configure Avi as Ingress controller (L7) with NSX as L4 LB</h2>
-<p>When using Antrea as the CNI in your TKC cluster (default in vSphere with Tanzu) make sure to enable NodePortLocal. This gives much better control and flexibility, follow how <a href="https://yikes.guzware.net/2022/10/26/vsphere-8-with-tanzu-using-vds-and-avi-loadbalancer/#antrea-nodeportlocal">here</a> and NodePortLocal explained <a href="https://antrea.io/docs/v1.10.0/docs/node-port-local/">here</a></p>
+<p>When using Antrea as the CNI in your TKC cluster (default in vSphere with Tanzu) make sure to enable NodePortLocal. This gives much better control and flexibility, follow how <a href="https://blog.andreasm.io/2022/10/26/vsphere-8-with-tanzu-using-vds-and-avi-loadbalancer/#antrea-nodeportlocal">here</a> and NodePortLocal explained <a href="https://antrea.io/docs/v1.10.0/docs/node-port-local/">here</a></p>
 <h3 id="configure-nsx-cloud-in-avi---network-preparations">Configure NSX cloud in Avi - network preparations</h3>
-<p>As this guide is using NSX as the underlaying networking platform instead of VDS as <a href="https://yikes.guzware.net/2022/10/26/vsphere-8-with-tanzu-using-vds-and-avi-loadbalancer/">this</a> article is using, we also have the benefit of configuring the NSX cloud in Avi instead of the vCenter Cloud. This cloud do come with some additional benefits like automatic Security Group creation in NSX, VIP advertisement through the already configured T0, SE placement dataplane/data network on separate network and VRF context.</p>
+<p>As this guide is using NSX as the underlaying networking platform instead of VDS as <a href="https://blog.andreasm.io/2022/10/26/vsphere-8-with-tanzu-using-vds-and-avi-loadbalancer/">this</a> article is using, we also have the benefit of configuring the NSX cloud in Avi instead of the vCenter Cloud. This cloud do come with some additional benefits like automatic Security Group creation in NSX, VIP advertisement through the already configured T0, SE placement dataplane/data network on separate network and VRF context.</p>
 <p>But before we can consume the NSX cloud we need to configure it. Assuming the Avi controller has already been deployed and initial config is done (username and password, dns, etc) log in to the controller and head over to Administration -&gt; User Credentials:</p>
 <img src=images/image-20230224130149390.png style="width:1000px" />
 <p>Add the credentials you want to use for both vCenter and NSX-T.  The next step is involving NSX. Head over to NSX and create two new networks. One for SE management and one for SE dataplane (the network it will use to reach the backend servers they are loadbalancing). I will now just show a screenshot of three networks already created. One segment <em>ls-avi-se-mgmt</em> for SE mgmt, one segment <em>ls-avi-generic-se-data</em> for SE communication to backend pools, and one segment <em>ls-avi-dns-se-data</em> (I will get back to the last network later when enabling the Avi DNS service).</p>
@@ -498,9 +498,9 @@ This is how to enable the DNS service in Avi after you have prepared the network
 </span></span><span class="line"><span class="ln">4</span><span class="cl">    forwarders <span class="o">{</span> 10.101.211.9<span class="p">;</span> <span class="o">}</span><span class="p">;</span>
 </span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="o">}</span><span class="p">;</span>
 </span></span></code></pre></div><h2 id="ako-in-tkc">AKO in TKC</h2>
-<p>I have already deployed a TKC cluster, which is described <a href="https://yikes.guzware.net/2022/10/26/vsphere-8-with-tanzu-using-vds-and-avi-loadbalancer/#create-workload-cluster">here</a></p>
+<p>I have already deployed a TKC cluster, which is described <a href="https://blog.andreasm.io/2022/10/26/vsphere-8-with-tanzu-using-vds-and-avi-loadbalancer/#create-workload-cluster">here</a></p>
 <p>Also make sure Antrea is configured with NodePortLocal as described also in the link above.</p>
-<p>So for Avi to work as Ingress controller we need to deploy AKO (Avi Kubernetes Operator). I have also explained these steps <a href="https://yikes.guzware.net/2022/10/26/vsphere-8-with-tanzu-using-vds-and-avi-loadbalancer/#configure-avi-as-ingress-controller-l7">here</a>
+<p>So for Avi to work as Ingress controller we need to deploy AKO (Avi Kubernetes Operator). I have also explained these steps <a href="https://blog.andreasm.io/2022/10/26/vsphere-8-with-tanzu-using-vds-and-avi-loadbalancer/#configure-avi-as-ingress-controller-l7">here</a>
 the only difference is how the value.yaml for AKO is configured. Below is how I have configured it to work in my NSX enabled environment with explanations:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c"># this file has been edited by me to easier reflect the changes I have done. So all default comments have been removed, and contains only my comments.</span><span class="w">
 </span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="nt">replicaCount</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
@@ -597,8 +597,8 @@ the only difference is how the value.yaml for AKO is configured. Below is how I 
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">helm install ako/ako --generate-name --version 1.8.2 -f values.yaml --namespace<span class="o">=</span>avi-system
 </span></span></code></pre></div><p>Check the logs of the AKO pod if it encountered some issues or not by issuing the command:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">kubectl logs -n avi-system ako-o
-</span></span></code></pre></div><p>If there is no errors there its time to deploy a couple of test applications and the Ingress itself. This is already described <a href="https://yikes.guzware.net/2022/10/26/vsphere-8-with-tanzu-using-vds-and-avi-loadbalancer/#configure-avi-as-ingress-controller-l7---continue">here</a></p>
-<p>Thats it. Now L7 is enabled on your TKC cluster with Avi as Ingress controller. There is much that can be configured with AKO CRDs. I will try to update my post <a href="https://yikes.guzware.net/2022/10/23/we-take-a-look-at-the-ako-crds/">here</a> to go through the different possibilites. In the meantime much information is described <a href="https://avinetworks.com/docs/ako/1.8/custom-resource-definitions/">here</a></p>
+</span></span></code></pre></div><p>If there is no errors there its time to deploy a couple of test applications and the Ingress itself. This is already described <a href="https://blog.andreasm.io/2022/10/26/vsphere-8-with-tanzu-using-vds-and-avi-loadbalancer/#configure-avi-as-ingress-controller-l7---continue">here</a></p>
+<p>Thats it. Now L7 is enabled on your TKC cluster with Avi as Ingress controller. There is much that can be configured with AKO CRDs. I will try to update my post <a href="https://blog.andreasm.io/2022/10/23/we-take-a-look-at-the-ako-crds/">here</a> to go through the different possibilites. In the meantime much information is described <a href="https://avinetworks.com/docs/ako/1.8/custom-resource-definitions/">here</a></p>
 <h3 id="aviinfrasetting">AviInfraSetting</h3>
 <p>If you need to have separate VIPs/different subnets for certain applications we can use AviInfraSetting to override the &quot;default&quot; settings configured in our values.yaml above. This is a nice feature to override some settings very easy. There is also the option to run several AKO instances pr TKC/k8s cluster like described <a href="https://avinetworks.com/docs/ako/1.8/multiple-ako-instances-in-a-cluster/">here</a> which I will go through another time. But now quickly <a href="https://avinetworks.com/docs/ako/1.8/custom-resource-definitions/">AviInfraSetting</a></p>
 <img src=images/image-20230301134236822.png style="width:1000px" />
@@ -699,6 +699,9 @@ the only difference is how the value.yaml for AKO is configured. Below is how I 
     <h2 class="mt-4">Recent Posts</h2>
     <ul class="flex-column">
       <li>
+        <a href="https://blog.andreasm.io/2024/04/16/exploring-some-antrea-features/" class="nav-link" title="Exploring some Antrea Features">Exploring some Antrea Features</a>
+      </li>
+      <li>
         <a href="https://blog.andreasm.io/2024/04/08/vsphere-with-tanzu-avi-and-multiple-supervisors/" class="nav-link" title="vSphere with Tanzu - Avi and Multiple Supervisors">vSphere with Tanzu - Avi and Multiple Supervisors</a>
       </li>
       <li>
@@ -719,16 +722,13 @@ the only difference is how the value.yaml for AKO is configured. Below is how I 
       <li>
         <a href="https://blog.andreasm.io/2023/09/25/antrea-multi-cluster-in-tkg-and-vsphere-with-tanzu/" class="nav-link" title="Antrea Multi-cluster - in TKG and vSphere with Tanzu">Antrea Multi-cluster - in TKG and vSphere with Tanzu</a>
       </li>
-      <li>
-        <a href="https://blog.andreasm.io/2023/09/23/vsphere-with-tanzu-8-u2-using-nsx-and-nsx-advanced-loadbalancer/" class="nav-link" title="vSphere with Tanzu 8 U2 using NSX AND NSX Advanced Loadbalancer">vSphere with Tanzu 8 U2 using NSX AND NSX Advanced Loadbalancer</a>
-      </li>
     </ul>
     <div>
       <h2 class="mt-4 taxonomy" id="categories-section">Categories</h2>
       <nav class="tags_nav">
         <a href='https://blog.andreasm.io/categories/kubernetes/' class="post_tag button button_translucent" title="kubernetes">
           KUBERNETES
-          <span class="button_tally">39</span>
+          <span class="button_tally">40</span>
         </a>
         
         <a href='https://blog.andreasm.io/categories/networking/' class="post_tag button button_translucent" title="networking">
@@ -741,14 +741,14 @@ the only difference is how the value.yaml for AKO is configured. Below is how I 
           <span class="button_tally">13</span>
         </a>
         
-        <a href='https://blog.andreasm.io/categories/loadbalancing/' class="post_tag button button_translucent" title="loadbalancing">
-          LOADBALANCING
+        <a href='https://blog.andreasm.io/categories/cni/' class="post_tag button button_translucent" title="cni">
+          CNI
           <span class="button_tally">9</span>
         </a>
         
-        <a href='https://blog.andreasm.io/categories/cni/' class="post_tag button button_translucent" title="cni">
-          CNI
-          <span class="button_tally">8</span>
+        <a href='https://blog.andreasm.io/categories/loadbalancing/' class="post_tag button button_translucent" title="loadbalancing">
+          LOADBALANCING
+          <span class="button_tally">9</span>
         </a>
         
         <a href='https://blog.andreasm.io/categories/avi/' class="post_tag button button_translucent" title="avi">
@@ -768,7 +768,7 @@ the only difference is how the value.yaml for AKO is configured. Below is how I 
         
         <a href='https://blog.andreasm.io/categories/antrea/' class="post_tag button button_translucent" title="antrea">
           ANTREA
-          <span class="button_tally">3</span>
+          <span class="button_tally">4</span>
         </a>
         
         <a href='https://blog.andreasm.io/categories/automation/' class="post_tag button button_translucent" title="automation">
@@ -802,7 +802,7 @@ the only difference is how the value.yaml for AKO is configured. Below is how I 
         <div class="post_tags">
           <div class="tags_list">
             
-            <a href='https://blog.andreasm.io/categories/antrea/' class=" post_tag button button_translucent" data-position=3 title="antrea">ANTREA<span class="button_tally">3</span>
+            <a href='https://blog.andreasm.io/categories/antrea/' class=" post_tag button button_translucent" data-position=4 title="antrea">ANTREA<span class="button_tally">4</span>
             </a>
             
             
@@ -830,7 +830,7 @@ the only difference is how the value.yaml for AKO is configured. Below is how I 
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/cni/' class=" post_tag button button_translucent" data-position=8 title="cni">CNI<span class="button_tally">8</span>
+            <a href='https://blog.andreasm.io/categories/cni/' class=" post_tag button button_translucent" data-position=9 title="cni">CNI<span class="button_tally">9</span>
             </a>
             
             
@@ -870,7 +870,7 @@ the only difference is how the value.yaml for AKO is configured. Below is how I 
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/kubernetes/' class=" post_tag button button_translucent" data-position=39 title="kubernetes">KUBERNETES<span class="button_tally">39</span>
+            <a href='https://blog.andreasm.io/categories/kubernetes/' class=" post_tag button button_translucent" data-position=40 title="kubernetes">KUBERNETES<span class="button_tally">40</span>
             </a>
             
             
@@ -991,7 +991,7 @@ the only difference is how the value.yaml for AKO is configured. Below is how I 
       <nav class="tags_nav">
         <a href='https://blog.andreasm.io/tags/kubernetes/' class="post_tag button button_translucent" title="kubernetes">
           KUBERNETES
-          <span class="button_tally">22</span>
+          <span class="button_tally">23</span>
         </a>
         
         <a href='https://blog.andreasm.io/tags/tanzu/' class="post_tag button button_translucent" title="tanzu">
@@ -1006,7 +1006,7 @@ the only difference is how the value.yaml for AKO is configured. Below is how I 
         
         <a href='https://blog.andreasm.io/tags/antrea/' class="post_tag button button_translucent" title="antrea">
           ANTREA
-          <span class="button_tally">11</span>
+          <span class="button_tally">12</span>
         </a>
         
         <a href='https://blog.andreasm.io/tags/ako/' class="post_tag button button_translucent" title="ako">
@@ -1034,6 +1034,11 @@ the only difference is how the value.yaml for AKO is configured. Below is how I 
           <span class="button_tally">5</span>
         </a>
         
+        <a href='https://blog.andreasm.io/tags/cni/' class="post_tag button button_translucent" title="cni">
+          CNI
+          <span class="button_tally">4</span>
+        </a>
+        
         <a href='https://blog.andreasm.io/tags/availability/' class="post_tag button button_translucent" title="availability">
           AVAILABILITY
           <span class="button_tally">3</span>
@@ -1041,11 +1046,6 @@ the only difference is how the value.yaml for AKO is configured. Below is how I 
         
         <a href='https://blog.andreasm.io/tags/cert-manager/' class="post_tag button button_translucent" title="cert-manager">
           CERT-MANAGER
-          <span class="button_tally">3</span>
-        </a>
-        
-        <a href='https://blog.andreasm.io/tags/cni/' class="post_tag button button_translucent" title="cni">
-          CNI
           <span class="button_tally">3</span>
         </a>
         
@@ -1077,7 +1077,7 @@ the only difference is how the value.yaml for AKO is configured. Below is how I 
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/antrea/' class=" post_tag button button_translucent" data-position=11 title="antrea">ANTREA<span class="button_tally">11</span>
+            <a href='https://blog.andreasm.io/tags/antrea/' class=" post_tag button button_translucent" data-position=12 title="antrea">ANTREA<span class="button_tally">12</span>
             </a>
             
             
@@ -1117,7 +1117,7 @@ the only difference is how the value.yaml for AKO is configured. Below is how I 
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/cni/' class=" post_tag button button_translucent" data-position=3 title="cni">CNI<span class="button_tally">3</span>
+            <a href='https://blog.andreasm.io/tags/cni/' class=" post_tag button button_translucent" data-position=4 title="cni">CNI<span class="button_tally">4</span>
             </a>
             
             
@@ -1185,7 +1185,7 @@ the only difference is how the value.yaml for AKO is configured. Below is how I 
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/kubernetes/' class=" post_tag button button_translucent" data-position=22 title="kubernetes">KUBERNETES<span class="button_tally">22</span>
+            <a href='https://blog.andreasm.io/tags/kubernetes/' class=" post_tag button button_translucent" data-position=23 title="kubernetes">KUBERNETES<span class="button_tally">23</span>
             </a>
             
             

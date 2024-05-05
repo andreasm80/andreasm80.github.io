@@ -2,22 +2,43 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://blog.andreasm.io/tags/antrea/</loc>
+    <lastmod>2024-04-16T09:25:28+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/categories/antrea/</loc>
+    <lastmod>2024-04-16T09:25:28+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/categories/</loc>
+    <lastmod>2024-04-16T09:25:28+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/cni/</loc>
+    <lastmod>2024-04-16T09:25:28+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/categories/cni/</loc>
+    <lastmod>2024-04-16T09:25:28+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/2024/04/16/exploring-some-antrea-features/</loc>
+    <lastmod>2024-04-16T09:25:28+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/</loc>
+    <lastmod>2024-04-16T09:25:28+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/kubernetes/</loc>
+    <lastmod>2024-04-16T09:25:28+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/categories/kubernetes/</loc>
+    <lastmod>2024-04-16T09:25:28+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/post/</loc>
+    <lastmod>2024-04-16T09:25:28+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/</loc>
+    <lastmod>2024-04-16T09:25:28+02:00</lastmod>
+  </url><url>
     <loc>https://blog.andreasm.io/tags/avi/</loc>
     <lastmod>2024-04-08T14:56:56+02:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/categories/avi/</loc>
-    <lastmod>2024-04-08T14:56:56+02:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/categories/</loc>
-    <lastmod>2024-04-08T14:56:56+02:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/</loc>
-    <lastmod>2024-04-08T14:56:56+02:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/tags/kubernetes/</loc>
-    <lastmod>2024-04-08T14:56:56+02:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/categories/kubernetes/</loc>
     <lastmod>2024-04-08T14:56:56+02:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/tags/loadbalancing/</loc>
@@ -35,12 +56,6 @@
     <loc>https://blog.andreasm.io/categories/nsx/</loc>
     <lastmod>2024-04-08T14:56:56+02:00</lastmod>
   </url><url>
-    <loc>https://blog.andreasm.io/post/</loc>
-    <lastmod>2024-04-08T14:56:56+02:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/tags/</loc>
-    <lastmod>2024-04-08T14:56:56+02:00</lastmod>
-  </url><url>
     <loc>https://blog.andreasm.io/categories/tanzu/</loc>
     <lastmod>2024-04-08T14:56:56+02:00</lastmod>
   </url><url>
@@ -48,12 +63,6 @@
     <lastmod>2024-04-08T14:56:56+02:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/tags/ako/</loc>
-    <lastmod>2024-02-04T11:28:21+01:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/tags/antrea/</loc>
-    <lastmod>2024-02-04T11:28:21+01:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/categories/antrea/</loc>
     <lastmod>2024-02-04T11:28:21+01:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/2024/02/04/argo-cd-vsphere-with-tanzu/</loc>
@@ -129,12 +138,6 @@
     <lastmod>2023-12-18T11:49:56+01:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/tags/cilium/</loc>
-    <lastmod>2023-12-18T11:49:56+01:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/tags/cni/</loc>
-    <lastmod>2023-12-18T11:49:56+01:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/categories/cni/</loc>
     <lastmod>2023-12-18T11:49:56+01:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/tags/ebpf/</loc>

@@ -7,7 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Myself</copyright>
-    <lastBuildDate>Mon, 18 Dec 2023 11:49:56 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/cni/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 16 Apr 2024 09:25:28 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/cni/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Exploring some Antrea Features</title>
+      <link>https://blog.andreasm.io/2024/04/16/exploring-some-antrea-features/</link>
+      <pubDate>Tue, 16 Apr 2024 09:25:28 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2024/04/16/exploring-some-antrea-features/</guid>
+      <description>
+        
+          
+            In this post I will go through a couple of Antrea features I find interesting, some new features and some older features
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>A Quick Glance at Cilium CNI</title>
       <link>https://blog.andreasm.io/2023/12/18/a-quick-glance-at-cilium-cni/</link>

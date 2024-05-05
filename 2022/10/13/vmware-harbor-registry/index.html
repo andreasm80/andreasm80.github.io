@@ -61,7 +61,7 @@
 
   </head>
   <body
-    data-code="7"
+    data-code="15"
     data-lines="false"
     id="documentTop"
     data-lang="en"
@@ -241,7 +241,7 @@
 </span></span></code></pre></div><p>Explanation:  &quot;-f&quot;  is telling helm to read the values from the specified file after, then the name of your helm installation (here harbor-deployment) then the helm repo and finally the namespace you want it deployed in.
 A couple of seconds later you should be able to log in to the GUI of Harbor through your webbrowser if everything has been set up right, Ingress, pvc, secrets.</p>
 <h3 id="certificate">Certificate</h3>
-<p>You can either use Cert-manager as explained <a href="https://yikes.guzware.net/2022/10/11/cert-manager-and-letsencrypt/">here</a> or bring your own ca signed certificates.</p>
+<p>You can either use Cert-manager as explained <a href="https://blog.andreasm.io/2022/10/11/cert-manager-and-letsencrypt/">here</a> or bring your own ca signed certificates.</p>
 <h2 id="harbor-gui">Harbor GUI</h2>
 <p>To log in to the GUI for the first time open your browser and point it to the <em>externalURL</em> you gave it in your values file and the corresponding  <em>harborAdminPassword</em> you defined. From there on you create users and projects and start exploring Harbor.</p>
 <img src=images/image-20221016215923365.png style="width:500px" />
@@ -289,6 +289,9 @@ A couple of seconds later you should be able to log in to the GUI of Harbor thro
     <h2 class="mt-4">Recent Posts</h2>
     <ul class="flex-column">
       <li>
+        <a href="https://blog.andreasm.io/2024/04/16/exploring-some-antrea-features/" class="nav-link" title="Exploring some Antrea Features">Exploring some Antrea Features</a>
+      </li>
+      <li>
         <a href="https://blog.andreasm.io/2024/04/08/vsphere-with-tanzu-avi-and-multiple-supervisors/" class="nav-link" title="vSphere with Tanzu - Avi and Multiple Supervisors">vSphere with Tanzu - Avi and Multiple Supervisors</a>
       </li>
       <li>
@@ -309,16 +312,13 @@ A couple of seconds later you should be able to log in to the GUI of Harbor thro
       <li>
         <a href="https://blog.andreasm.io/2023/09/25/antrea-multi-cluster-in-tkg-and-vsphere-with-tanzu/" class="nav-link" title="Antrea Multi-cluster - in TKG and vSphere with Tanzu">Antrea Multi-cluster - in TKG and vSphere with Tanzu</a>
       </li>
-      <li>
-        <a href="https://blog.andreasm.io/2023/09/23/vsphere-with-tanzu-8-u2-using-nsx-and-nsx-advanced-loadbalancer/" class="nav-link" title="vSphere with Tanzu 8 U2 using NSX AND NSX Advanced Loadbalancer">vSphere with Tanzu 8 U2 using NSX AND NSX Advanced Loadbalancer</a>
-      </li>
     </ul>
     <div>
       <h2 class="mt-4 taxonomy" id="categories-section">Categories</h2>
       <nav class="tags_nav">
         <a href='https://blog.andreasm.io/categories/kubernetes/' class="post_tag button button_translucent" title="kubernetes">
           KUBERNETES
-          <span class="button_tally">39</span>
+          <span class="button_tally">40</span>
         </a>
         
         <a href='https://blog.andreasm.io/categories/networking/' class="post_tag button button_translucent" title="networking">
@@ -331,14 +331,14 @@ A couple of seconds later you should be able to log in to the GUI of Harbor thro
           <span class="button_tally">13</span>
         </a>
         
-        <a href='https://blog.andreasm.io/categories/loadbalancing/' class="post_tag button button_translucent" title="loadbalancing">
-          LOADBALANCING
+        <a href='https://blog.andreasm.io/categories/cni/' class="post_tag button button_translucent" title="cni">
+          CNI
           <span class="button_tally">9</span>
         </a>
         
-        <a href='https://blog.andreasm.io/categories/cni/' class="post_tag button button_translucent" title="cni">
-          CNI
-          <span class="button_tally">8</span>
+        <a href='https://blog.andreasm.io/categories/loadbalancing/' class="post_tag button button_translucent" title="loadbalancing">
+          LOADBALANCING
+          <span class="button_tally">9</span>
         </a>
         
         <a href='https://blog.andreasm.io/categories/avi/' class="post_tag button button_translucent" title="avi">
@@ -358,7 +358,7 @@ A couple of seconds later you should be able to log in to the GUI of Harbor thro
         
         <a href='https://blog.andreasm.io/categories/antrea/' class="post_tag button button_translucent" title="antrea">
           ANTREA
-          <span class="button_tally">3</span>
+          <span class="button_tally">4</span>
         </a>
         
         <a href='https://blog.andreasm.io/categories/automation/' class="post_tag button button_translucent" title="automation">
@@ -392,7 +392,7 @@ A couple of seconds later you should be able to log in to the GUI of Harbor thro
         <div class="post_tags">
           <div class="tags_list">
             
-            <a href='https://blog.andreasm.io/categories/antrea/' class=" post_tag button button_translucent" data-position=3 title="antrea">ANTREA<span class="button_tally">3</span>
+            <a href='https://blog.andreasm.io/categories/antrea/' class=" post_tag button button_translucent" data-position=4 title="antrea">ANTREA<span class="button_tally">4</span>
             </a>
             
             
@@ -420,7 +420,7 @@ A couple of seconds later you should be able to log in to the GUI of Harbor thro
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/cni/' class=" post_tag button button_translucent" data-position=8 title="cni">CNI<span class="button_tally">8</span>
+            <a href='https://blog.andreasm.io/categories/cni/' class=" post_tag button button_translucent" data-position=9 title="cni">CNI<span class="button_tally">9</span>
             </a>
             
             
@@ -460,7 +460,7 @@ A couple of seconds later you should be able to log in to the GUI of Harbor thro
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/kubernetes/' class=" post_tag button button_translucent" data-position=39 title="kubernetes">KUBERNETES<span class="button_tally">39</span>
+            <a href='https://blog.andreasm.io/categories/kubernetes/' class=" post_tag button button_translucent" data-position=40 title="kubernetes">KUBERNETES<span class="button_tally">40</span>
             </a>
             
             
@@ -581,7 +581,7 @@ A couple of seconds later you should be able to log in to the GUI of Harbor thro
       <nav class="tags_nav">
         <a href='https://blog.andreasm.io/tags/kubernetes/' class="post_tag button button_translucent" title="kubernetes">
           KUBERNETES
-          <span class="button_tally">22</span>
+          <span class="button_tally">23</span>
         </a>
         
         <a href='https://blog.andreasm.io/tags/tanzu/' class="post_tag button button_translucent" title="tanzu">
@@ -596,7 +596,7 @@ A couple of seconds later you should be able to log in to the GUI of Harbor thro
         
         <a href='https://blog.andreasm.io/tags/antrea/' class="post_tag button button_translucent" title="antrea">
           ANTREA
-          <span class="button_tally">11</span>
+          <span class="button_tally">12</span>
         </a>
         
         <a href='https://blog.andreasm.io/tags/ako/' class="post_tag button button_translucent" title="ako">
@@ -624,6 +624,11 @@ A couple of seconds later you should be able to log in to the GUI of Harbor thro
           <span class="button_tally">5</span>
         </a>
         
+        <a href='https://blog.andreasm.io/tags/cni/' class="post_tag button button_translucent" title="cni">
+          CNI
+          <span class="button_tally">4</span>
+        </a>
+        
         <a href='https://blog.andreasm.io/tags/availability/' class="post_tag button button_translucent" title="availability">
           AVAILABILITY
           <span class="button_tally">3</span>
@@ -631,11 +636,6 @@ A couple of seconds later you should be able to log in to the GUI of Harbor thro
         
         <a href='https://blog.andreasm.io/tags/cert-manager/' class="post_tag button button_translucent" title="cert-manager">
           CERT-MANAGER
-          <span class="button_tally">3</span>
-        </a>
-        
-        <a href='https://blog.andreasm.io/tags/cni/' class="post_tag button button_translucent" title="cni">
-          CNI
           <span class="button_tally">3</span>
         </a>
         
@@ -667,7 +667,7 @@ A couple of seconds later you should be able to log in to the GUI of Harbor thro
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/antrea/' class=" post_tag button button_translucent" data-position=11 title="antrea">ANTREA<span class="button_tally">11</span>
+            <a href='https://blog.andreasm.io/tags/antrea/' class=" post_tag button button_translucent" data-position=12 title="antrea">ANTREA<span class="button_tally">12</span>
             </a>
             
             
@@ -707,7 +707,7 @@ A couple of seconds later you should be able to log in to the GUI of Harbor thro
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/cni/' class=" post_tag button button_translucent" data-position=3 title="cni">CNI<span class="button_tally">3</span>
+            <a href='https://blog.andreasm.io/tags/cni/' class=" post_tag button button_translucent" data-position=4 title="cni">CNI<span class="button_tally">4</span>
             </a>
             
             
@@ -775,7 +775,7 @@ A couple of seconds later you should be able to log in to the GUI of Harbor thro
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/kubernetes/' class=" post_tag button button_translucent" data-position=22 title="kubernetes">KUBERNETES<span class="button_tally">22</span>
+            <a href='https://blog.andreasm.io/tags/kubernetes/' class=" post_tag button button_translucent" data-position=23 title="kubernetes">KUBERNETES<span class="button_tally">23</span>
             </a>
             
             

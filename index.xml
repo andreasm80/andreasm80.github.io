@@ -7,7 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Myself</copyright>
-    <lastBuildDate>Mon, 08 Apr 2024 14:56:56 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 16 Apr 2024 09:25:28 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Exploring some Antrea Features</title>
+      <link>https://blog.andreasm.io/2024/04/16/exploring-some-antrea-features/</link>
+      <pubDate>Tue, 16 Apr 2024 09:25:28 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2024/04/16/exploring-some-antrea-features/</guid>
+      <description>
+        
+          
+            In this post I will go through a couple of Antrea features I find interesting, some new features and some older features
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>vSphere with Tanzu - Avi and Multiple Supervisors</title>
       <link>https://blog.andreasm.io/2024/04/08/vsphere-with-tanzu-avi-and-multiple-supervisors/</link>
@@ -643,7 +659,7 @@ IDS = Intrusion Detection System IPS = Intrusion Prevention System Introduction 
         
           
             NSX ALB has a very useful feature built-in, to function as DNS server for your domains defined in your NSX-ALB environment. Meaning that all host-records will be automatically resolved by fqdn as soon as the service is created.
-If you have followed my other post about how to configure the AKO (Avi Kubernetes Operator) http://yikes.guzware.net/2020/10/08/ako-with-antrea-on-native-k8s-cluster/ you are familiar with creating DNS profiles in NSX-ALB. The first step in configuring NSX-ALB as DNS provider is to configure one or more domain names in NSX-ALB.
+If you have followed my other post about how to configure the AKO (Avi Kubernetes Operator) here you are familiar with creating DNS profiles in NSX-ALB. The first step in configuring NSX-ALB as DNS provider is to configure one or more domain names in NSX-ALB.
           
           
         
