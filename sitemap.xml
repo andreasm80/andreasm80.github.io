@@ -2,13 +2,49 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://blog.andreasm.io/categories/</loc>
+    <lastmod>2024-05-05T21:18:48+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/</loc>
+    <lastmod>2024-05-05T21:18:48+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/categories/kubernetes/</loc>
+    <lastmod>2024-05-05T21:18:48+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/kubernetes-management/</loc>
+    <lastmod>2024-05-05T21:18:48+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/categories/kubernetes-management/</loc>
+    <lastmod>2024-05-05T21:18:48+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/post/</loc>
+    <lastmod>2024-05-05T21:18:48+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/rancher/</loc>
+    <lastmod>2024-05-05T21:18:48+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/categories/rancher/</loc>
+    <lastmod>2024-05-05T21:18:48+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/rke2/</loc>
+    <lastmod>2024-05-05T21:18:48+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/categories/rke2/</loc>
+    <lastmod>2024-05-05T21:18:48+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/suse/</loc>
+    <lastmod>2024-05-05T21:18:48+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/</loc>
+    <lastmod>2024-05-05T21:18:48+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/2024/05/05/taking-rancher-by-suse-for-a-spin/</loc>
+    <lastmod>2024-05-05T21:18:48+02:00</lastmod>
+  </url><url>
     <loc>https://blog.andreasm.io/tags/antrea/</loc>
     <lastmod>2024-04-16T09:25:28+02:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/categories/antrea/</loc>
-    <lastmod>2024-04-16T09:25:28+02:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/categories/</loc>
     <lastmod>2024-04-16T09:25:28+02:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/tags/cni/</loc>
@@ -20,19 +56,7 @@
     <loc>https://blog.andreasm.io/2024/04/16/exploring-some-antrea-features/</loc>
     <lastmod>2024-04-16T09:25:28+02:00</lastmod>
   </url><url>
-    <loc>https://blog.andreasm.io/</loc>
-    <lastmod>2024-04-16T09:25:28+02:00</lastmod>
-  </url><url>
     <loc>https://blog.andreasm.io/tags/kubernetes/</loc>
-    <lastmod>2024-04-16T09:25:28+02:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/categories/kubernetes/</loc>
-    <lastmod>2024-04-16T09:25:28+02:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/post/</loc>
-    <lastmod>2024-04-16T09:25:28+02:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/tags/</loc>
     <lastmod>2024-04-16T09:25:28+02:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/tags/avi/</loc>

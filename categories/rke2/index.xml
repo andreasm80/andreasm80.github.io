@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>RKE2 on From 0.985mhz... to several Ghz</title>
+    <link>https://blog.andreasm.io/categories/rke2/</link>
+    <description>Recent content in RKE2 on From 0.985mhz... to several Ghz</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>Myself</copyright>
+    <lastBuildDate>Sun, 05 May 2024 21:18:48 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/rke2/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Taking Rancher by SUSE for a Spin</title>
+      <link>https://blog.andreasm.io/2024/05/05/taking-rancher-by-suse-for-a-spin/</link>
+      <pubDate>Sun, 05 May 2024 21:18:48 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2024/05/05/taking-rancher-by-suse-for-a-spin/</guid>
+      <description>
+        
+          
+            In this post I wil go through Rancher and test out some of the possibilties and capabilties managing Kubernetes using Rancher.
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

@@ -120,7 +120,7 @@
 </span>
     <span class="post_date">
       15-01-2024</span>
-    <span class="post_time"> · 35 min read</span><span>&nbsp;· <a href='https://blog.andreasm.io/tags/kubernetes/' title="kubernetes" class="post_tag button button_translucent">kubernetes
+    <span class="post_time"> · 40 min read</span><span>&nbsp;· <a href='https://blog.andreasm.io/tags/kubernetes/' title="kubernetes" class="post_tag button button_translucent">kubernetes
         </a><a href='https://blog.andreasm.io/tags/proxmox/' title="proxmox" class="post_tag button button_translucent">proxmox
         </a><a href='https://blog.andreasm.io/tags/ansible/' title="ansible" class="post_tag button button_translucent">ansible
         </a><a href='https://blog.andreasm.io/tags/terraform/' title="terraform" class="post_tag button button_translucent">terraform
@@ -192,6 +192,12 @@
         <li><a href="#configure-opentofu-to-kick-off-kubespray">Configure OpenTofu to kick off Kubespray</a></li>
         <li><a href="#a-fully-automated-provisioning-of-kubernetes-on-proxmox-using-opentofu-ansible-and-kubespray">A fully automated provisioning of Kubernetes on Proxmox using OpenTofu, Ansible and Kubespray</a></li>
         <li><a href="#cleaning-up">Cleaning up</a></li>
+      </ul>
+    </li>
+    <li><a href="#preparing-a-bunch-of-hosts-for-rancher-rke2-clusters">Preparing a bunch of hosts for Rancher RKE2 clusters</a>
+      <ul>
+        <li><a href="#proxmox-vm-resource">Proxmox VM resource</a></li>
+        <li><a href="#proxmox-virtual-environment-file">Proxmox virtual environment file</a></li>
       </ul>
     </li>
     <li><a href="#summary">Summary</a></li>
@@ -1237,6 +1243,302 @@ I am using count.index in some of the fields where I need to automatically gener
 </span></span><span class="line"><span class="ln">45</span><span class="cl">
 </span></span><span class="line"><span class="ln">46</span><span class="cl">Destroy complete! Resources: <span class="m">9</span> destroyed.
 </span></span></code></pre></div><p>Now all the VMs, everything that has been deployed with OpenTofu is gone again. And it takes a couple of seconds or minutes depending on whether I have configured the provider to do a shutdown or stop of the VMs on <em>tofu destroy</em>. I am currently using shutdown.</p>
+<h2 id="preparing-a-bunch-of-hosts-for-rancher-rke2-clusters">Preparing a bunch of hosts for Rancher RKE2 clusters</h2>
+<p>I decided to give Rancher a run in another post (post this post) and discovered I needed to solve hostnames in the VMs being created. RKE2 requires all nodes have unique hostnames, see <a href="https://docs.rke2.io/install/requirements">here</a> Kubespray took care of that for me above, but if I just wanted to deploy a bunch of VMs with nothing more than the OS itself deployed, that means only provisioned using OpenTofu, I needed some way to also update the hostname inside the VMs also. Below is two updated resource that handles this for me. So now I can just deploy as many VMs I want, hostname is being taken care of by the OpenTofu deployment, and I can just hand them to Rancher to create my RKE2 clusters on.</p>
+<h3 id="proxmox-vm-resource">Proxmox VM resource</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln">  1</span><span class="cl"><span class="l">resource &#34;proxmox_virtual_environment_vm&#34; &#34;rke2-cp-vms-cl01&#34; {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">  2</span><span class="cl"><span class="w">  </span><span class="l">count       = 3</span><span class="w">
+</span></span></span><span class="line"><span class="ln">  3</span><span class="cl"><span class="w">  </span><span class="l">name        = &#34;rke2-cp-vm-${count.index + 1}-cl-01&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">  4</span><span class="cl"><span class="w">  </span><span class="l">description = &#34;Managed by Terraform&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">  5</span><span class="cl"><span class="w">  </span><span class="l">tags        = [&#34;terraform&#34;, &#34;ubuntu&#34;, &#34;k8s-cp&#34;]</span><span class="w">
+</span></span></span><span class="line"><span class="ln">  6</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">  7</span><span class="cl"><span class="w">  </span><span class="l">timeout_clone = 180</span><span class="w">
+</span></span></span><span class="line"><span class="ln">  8</span><span class="cl"><span class="w">  </span><span class="l">timeout_create = 180</span><span class="w">
+</span></span></span><span class="line"><span class="ln">  9</span><span class="cl"><span class="w">  </span><span class="l">timeout_migrate = 180</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 10</span><span class="cl"><span class="w">  </span><span class="l">timeout_reboot = 180</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 11</span><span class="cl"><span class="w">  </span><span class="l">timeout_shutdown_vm = 180</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 12</span><span class="cl"><span class="w">  </span><span class="l">timeout_start_vm = 180</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 13</span><span class="cl"><span class="w">  </span><span class="l">timeout_stop_vm = 180</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 14</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 15</span><span class="cl"><span class="w">  </span><span class="l">node_name = &#34;proxmox-02&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 16</span><span class="cl"><span class="w">  </span><span class="l">vm_id     = &#34;102${count.index + 1}&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 17</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 18</span><span class="cl"><span class="w">  </span><span class="l">cpu {</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 19</span><span class="cl"><span class="w">    </span><span class="l">cores = 4</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 20</span><span class="cl"><span class="w">    </span><span class="l">type = &#34;host&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 21</span><span class="cl"><span class="w">  </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln"> 22</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 23</span><span class="cl"><span class="w">  </span><span class="l">memory {</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 24</span><span class="cl"><span class="w">    </span><span class="l">dedicated = 6144</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 25</span><span class="cl"><span class="w">  </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln"> 26</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 27</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 28</span><span class="cl"><span class="w">  </span><span class="l">agent {</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 29</span><span class="cl"><span class="w">    </span><span class="c"># read &#39;Qemu guest agent&#39; section, change to true only when ready</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 30</span><span class="cl"><span class="w">    </span><span class="l">enabled = true</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 31</span><span class="cl"><span class="w">  </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln"> 32</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 33</span><span class="cl"><span class="w">  </span><span class="l">startup {</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 34</span><span class="cl"><span class="w">    </span><span class="l">order      = &#34;3&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 35</span><span class="cl"><span class="w">    </span><span class="l">up_delay   = &#34;60&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 36</span><span class="cl"><span class="w">    </span><span class="l">down_delay = &#34;60&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 37</span><span class="cl"><span class="w">  </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln"> 38</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 39</span><span class="cl"><span class="w">  </span><span class="l">disk {</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 40</span><span class="cl"><span class="w">    </span><span class="l">datastore_id = &#34;raid-10-node02&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 41</span><span class="cl"><span class="w">    </span><span class="l">file_id      = &#34;local:iso/jammy-server-cloudimg-amd64.img&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 42</span><span class="cl"><span class="w">    </span><span class="l">interface    = &#34;virtio0&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 43</span><span class="cl"><span class="w">    </span><span class="l">iothread     = true</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 44</span><span class="cl"><span class="w">    </span><span class="l">discard      = &#34;on&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 45</span><span class="cl"><span class="w">    </span><span class="l">size         = 40</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 46</span><span class="cl"><span class="w">    </span><span class="l">file_format  = &#34;raw&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 47</span><span class="cl"><span class="w">  </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln"> 48</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 49</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 50</span><span class="cl"><span class="w">  </span><span class="l">initialization {</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 51</span><span class="cl"><span class="w">    </span><span class="l">dns {</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 52</span><span class="cl"><span class="w">      </span><span class="l">servers = [&#34;10.100.1.7&#34;, &#34;10.100.1.6&#34;]</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 53</span><span class="cl"><span class="w">      </span><span class="l">domain = &#34;my-domain.net&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 54</span><span class="cl"><span class="w">    </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln"> 55</span><span class="cl"><span class="w">    </span><span class="l">ip_config {</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 56</span><span class="cl"><span class="w">      </span><span class="l">ipv4 {</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 57</span><span class="cl"><span class="w">        </span><span class="l">address = &#34;10.170.0.1${count.index + 1}/24&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 58</span><span class="cl"><span class="w">        </span><span class="l">gateway = &#34;10.170.0.1&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 59</span><span class="cl"><span class="w">      </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln"> 60</span><span class="cl"><span class="w">    </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln"> 61</span><span class="cl"><span class="w">    </span><span class="l">datastore_id = &#34;raid-10-node02&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 62</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 63</span><span class="cl"><span class="w">    </span><span class="l">user_data_file_id = proxmox_virtual_environment_file.rke2-cp-vms-cl01[count.index].id</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 64</span><span class="cl"><span class="w">  </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln"> 65</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 66</span><span class="cl"><span class="w">  </span><span class="l">network_device {</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 67</span><span class="cl"><span class="w">    </span><span class="l">bridge = &#34;vmbr0&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 68</span><span class="cl"><span class="w">    </span><span class="l">vlan_id = &#34;217&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 69</span><span class="cl"><span class="w">  </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln"> 70</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 71</span><span class="cl"><span class="w">  </span><span class="l">operating_system {</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 72</span><span class="cl"><span class="w">    </span><span class="l">type = &#34;l26&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 73</span><span class="cl"><span class="w">  </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln"> 74</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 75</span><span class="cl"><span class="w">  </span><span class="l">keyboard_layout = &#34;no&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 76</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 77</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 78</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 79</span><span class="cl"><span class="w">  </span><span class="l">lifecycle {</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 80</span><span class="cl"><span class="w">    </span><span class="l">ignore_changes = [</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 81</span><span class="cl"><span class="w">      </span><span class="l">network_device,</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 82</span><span class="cl"><span class="w">    </span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 83</span><span class="cl"><span class="w">  </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln"> 84</span><span class="cl"><span class="w">  </span><span class="l">depends_on = [proxmox_virtual_environment_file.rke2-cp-vms-cl01]</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 85</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 86</span><span class="cl"><span class="w"></span>}<span class="w">
+</span></span></span><span class="line"><span class="ln"> 87</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 88</span><span class="cl"><span class="w"></span><span class="l">resource &#34;proxmox_virtual_environment_vm&#34; &#34;rke2-worker-vms-cl01&#34; {</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 89</span><span class="cl"><span class="w">  </span><span class="l">count       = 3</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 90</span><span class="cl"><span class="w">  </span><span class="l">name        = &#34;rke2-node-vm-${count.index + 1}-cl-01&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 91</span><span class="cl"><span class="w">  </span><span class="l">description = &#34;Managed by Terraform&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 92</span><span class="cl"><span class="w">  </span><span class="l">tags        = [&#34;terraform&#34;, &#34;ubuntu&#34;, &#34;k8s-node&#34;]</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 93</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 94</span><span class="cl"><span class="w">  </span><span class="l">node_name = &#34;proxmox-02&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 95</span><span class="cl"><span class="w">  </span><span class="l">vm_id     = &#34;102${count.index + 5}&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 96</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 97</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 98</span><span class="cl"><span class="w">  </span><span class="l">timeout_clone = 180</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 99</span><span class="cl"><span class="w">  </span><span class="l">timeout_create = 180</span><span class="w">
+</span></span></span><span class="line"><span class="ln">100</span><span class="cl"><span class="w">  </span><span class="l">timeout_migrate = 180</span><span class="w">
+</span></span></span><span class="line"><span class="ln">101</span><span class="cl"><span class="w">  </span><span class="l">timeout_reboot = 180</span><span class="w">
+</span></span></span><span class="line"><span class="ln">102</span><span class="cl"><span class="w">  </span><span class="l">timeout_shutdown_vm = 180</span><span class="w">
+</span></span></span><span class="line"><span class="ln">103</span><span class="cl"><span class="w">  </span><span class="l">timeout_start_vm = 180</span><span class="w">
+</span></span></span><span class="line"><span class="ln">104</span><span class="cl"><span class="w">  </span><span class="l">timeout_stop_vm = 180</span><span class="w">
+</span></span></span><span class="line"><span class="ln">105</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">106</span><span class="cl"><span class="w">  </span><span class="l">cpu {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">107</span><span class="cl"><span class="w">    </span><span class="l">cores = 4</span><span class="w">
+</span></span></span><span class="line"><span class="ln">108</span><span class="cl"><span class="w">    </span><span class="l">type = &#34;host&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">109</span><span class="cl"><span class="w">  </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">110</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">111</span><span class="cl"><span class="w">  </span><span class="l">memory {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">112</span><span class="cl"><span class="w">    </span><span class="l">dedicated = 6144</span><span class="w">
+</span></span></span><span class="line"><span class="ln">113</span><span class="cl"><span class="w">  </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">114</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">115</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">116</span><span class="cl"><span class="w">  </span><span class="l">agent {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">117</span><span class="cl"><span class="w">    </span><span class="c"># read &#39;Qemu guest agent&#39; section, change to true only when ready</span><span class="w">
+</span></span></span><span class="line"><span class="ln">118</span><span class="cl"><span class="w">    </span><span class="l">enabled = true</span><span class="w">
+</span></span></span><span class="line"><span class="ln">119</span><span class="cl"><span class="w">  </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">120</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">121</span><span class="cl"><span class="w">  </span><span class="l">startup {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">122</span><span class="cl"><span class="w">    </span><span class="l">order      = &#34;3&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">123</span><span class="cl"><span class="w">    </span><span class="l">up_delay   = &#34;60&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">124</span><span class="cl"><span class="w">    </span><span class="l">down_delay = &#34;60&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">125</span><span class="cl"><span class="w">  </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">126</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">127</span><span class="cl"><span class="w">  </span><span class="l">disk {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">128</span><span class="cl"><span class="w">    </span><span class="l">datastore_id = &#34;raid-10-node02&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">129</span><span class="cl"><span class="w">    </span><span class="l">file_id      = &#34;local:iso/jammy-server-cloudimg-amd64.img&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">130</span><span class="cl"><span class="w">    </span><span class="l">interface    = &#34;virtio0&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">131</span><span class="cl"><span class="w">    </span><span class="l">iothread     = true</span><span class="w">
+</span></span></span><span class="line"><span class="ln">132</span><span class="cl"><span class="w">    </span><span class="l">discard      = &#34;on&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">133</span><span class="cl"><span class="w">    </span><span class="l">size         = 60</span><span class="w">
+</span></span></span><span class="line"><span class="ln">134</span><span class="cl"><span class="w">    </span><span class="l">file_format  = &#34;raw&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">135</span><span class="cl"><span class="w">  </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">136</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">137</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">138</span><span class="cl"><span class="w">  </span><span class="l">initialization {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">139</span><span class="cl"><span class="w">    </span><span class="l">dns {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">140</span><span class="cl"><span class="w">      </span><span class="l">servers = [&#34;10.100.1.7&#34;, &#34;10.100.1.6&#34;]</span><span class="w">
+</span></span></span><span class="line"><span class="ln">141</span><span class="cl"><span class="w">      </span><span class="l">domain = &#34;my-domain.net&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">142</span><span class="cl"><span class="w">    </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">143</span><span class="cl"><span class="w">    </span><span class="l">ip_config {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">144</span><span class="cl"><span class="w">      </span><span class="l">ipv4 {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">145</span><span class="cl"><span class="w">        </span><span class="l">address = &#34;10.170.0.1${count.index + 5}/24&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">146</span><span class="cl"><span class="w">        </span><span class="l">gateway = &#34;10.170.0.1&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">147</span><span class="cl"><span class="w">      </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">148</span><span class="cl"><span class="w">    </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">149</span><span class="cl"><span class="w">    </span><span class="l">datastore_id = &#34;raid-10-node02&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">150</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">151</span><span class="cl"><span class="w">    </span><span class="l">user_data_file_id = proxmox_virtual_environment_file.rke2-worker-vms-cl01[count.index].id</span><span class="w">
+</span></span></span><span class="line"><span class="ln">152</span><span class="cl"><span class="w">  </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">153</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">154</span><span class="cl"><span class="w">  </span><span class="l">network_device {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">155</span><span class="cl"><span class="w">    </span><span class="l">bridge = &#34;vmbr0&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">156</span><span class="cl"><span class="w">    </span><span class="l">vlan_id = &#34;217&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">157</span><span class="cl"><span class="w">  </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">158</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">159</span><span class="cl"><span class="w">  </span><span class="l">operating_system {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">160</span><span class="cl"><span class="w">    </span><span class="l">type = &#34;l26&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">161</span><span class="cl"><span class="w">  </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">162</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">163</span><span class="cl"><span class="w">  </span><span class="l">keyboard_layout = &#34;no&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">164</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">165</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">166</span><span class="cl"><span class="w">  </span><span class="l">lifecycle {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">167</span><span class="cl"><span class="w">    </span><span class="l">ignore_changes = [</span><span class="w">
+</span></span></span><span class="line"><span class="ln">168</span><span class="cl"><span class="w">      </span><span class="l">network_device,</span><span class="w">
+</span></span></span><span class="line"><span class="ln">169</span><span class="cl"><span class="w">    </span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="ln">170</span><span class="cl"><span class="w">  </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">171</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">172</span><span class="cl"><span class="w">  </span><span class="l">depends_on = [proxmox_virtual_environment_file.rke2-worker-vms-cl01]</span><span class="w">
+</span></span></span><span class="line"><span class="ln">173</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">174</span><span class="cl"><span class="w"></span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">175</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">176</span><span class="cl"><span class="w"></span><span class="l">resource &#34;null_resource&#34; &#34;rke2-cp-vms-cl01&#34; {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">177</span><span class="cl"><span class="w">  </span><span class="l">count = 3</span><span class="w">
+</span></span></span><span class="line"><span class="ln">178</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">179</span><span class="cl"><span class="w">  </span><span class="l">provisioner &#34;remote-exec&#34; {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">180</span><span class="cl"><span class="w">    </span><span class="l">inline = [&#34;sudo hostnamectl set-hostname rke2-cp-vm-${count.index + 1}-cl-01.my-domain.net&#34;]</span><span class="w">
+</span></span></span><span class="line"><span class="ln">181</span><span class="cl"><span class="w">    </span><span class="l">connection {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">182</span><span class="cl"><span class="w">      </span><span class="l">type        = &#34;ssh&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">183</span><span class="cl"><span class="w">      </span><span class="l">user        = &#34;ubuntu&#34; </span><span class="w"> </span><span class="c"># or another user</span><span class="w">
+</span></span></span><span class="line"><span class="ln">184</span><span class="cl"><span class="w">      </span><span class="l">private_key = file(&#34;${var.private_key_path}&#34;)</span><span class="w">
+</span></span></span><span class="line"><span class="ln">185</span><span class="cl"><span class="w">      </span><span class="nt">host        = element([for ip in flatten(proxmox_virtual_environment_vm.rke2-cp-vms-cl01[count.index].ipv4_addresses) </span><span class="p">:</span><span class="w"> </span><span class="l">ip if ip != &#34;127.0.0.1&#34;], 0)</span><span class="w">
+</span></span></span><span class="line"><span class="ln">186</span><span class="cl"><span class="w">    </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">187</span><span class="cl"><span class="w">  </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">188</span><span class="cl"><span class="w">  </span><span class="l">depends_on = [proxmox_virtual_environment_vm.rke2-cp-vms-cl01]</span><span class="w">
+</span></span></span><span class="line"><span class="ln">189</span><span class="cl"><span class="w"></span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">190</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">191</span><span class="cl"><span class="w"></span><span class="l">resource &#34;null_resource&#34; &#34;rke2-worker-vms-cl01&#34; {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">192</span><span class="cl"><span class="w">  </span><span class="l">count = 3</span><span class="w">
+</span></span></span><span class="line"><span class="ln">193</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">194</span><span class="cl"><span class="w">  </span><span class="l">provisioner &#34;remote-exec&#34; {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">195</span><span class="cl"><span class="w">    </span><span class="l">inline = [&#34;sudo hostnamectl set-hostname rke2-node-vm-${count.index + 1}-cl-01.my-domain.net&#34;]</span><span class="w">
+</span></span></span><span class="line"><span class="ln">196</span><span class="cl"><span class="w">    </span><span class="l">connection {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">197</span><span class="cl"><span class="w">      </span><span class="l">type        = &#34;ssh&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">198</span><span class="cl"><span class="w">      </span><span class="l">user        = &#34;ubuntu&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">199</span><span class="cl"><span class="w">      </span><span class="l">private_key = file(&#34;${var.private_key_path}&#34;)</span><span class="w">
+</span></span></span><span class="line"><span class="ln">200</span><span class="cl"><span class="w">      </span><span class="nt">host = element([for ip in flatten(proxmox_virtual_environment_vm.rke2-worker-vms-cl01[count.index].ipv4_addresses) </span><span class="p">:</span><span class="w"> </span><span class="l">ip if ip != &#34;127.0.0.1&#34;], 0)</span><span class="w">
+</span></span></span><span class="line"><span class="ln">201</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">202</span><span class="cl"><span class="w">    </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">203</span><span class="cl"><span class="w">  </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">204</span><span class="cl"><span class="w">  </span><span class="l">depends_on = [proxmox_virtual_environment_vm.rke2-worker-vms-cl01]</span><span class="w">
+</span></span></span><span class="line"><span class="ln">205</span><span class="cl"><span class="w"></span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">206</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">207</span><span class="cl"><span class="w"></span><span class="l">output &#34;usable_cp_vm_ipv4_addresses&#34; {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">208</span><span class="cl"><span class="w">  </span><span class="nt">value = [for ip in flatten(proxmox_virtual_environment_vm.rke2-cp-vms-cl01[*].ipv4_addresses) </span><span class="p">:</span><span class="w"> </span><span class="l">ip if ip != &#34;127.0.0.1&#34;]</span><span class="w">
+</span></span></span><span class="line"><span class="ln">209</span><span class="cl"><span class="w"></span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">210</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">211</span><span class="cl"><span class="w"></span><span class="l">output &#34;usable_worker_vm_ipv4_addresses&#34; {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">212</span><span class="cl"><span class="w">  </span><span class="nt">value = [for ip in flatten(proxmox_virtual_environment_vm.rke2-worker-vms-cl01[*].ipv4_addresses) </span><span class="p">:</span><span class="w"> </span><span class="l">ip if ip != &#34;127.0.0.1&#34;]</span><span class="w">
+</span></span></span><span class="line"><span class="ln">213</span><span class="cl"><span class="w"></span>}<span class="w">
+</span></span></span></code></pre></div><p>I have added a remote-exec resource to remotely log in to the provisioned VMs, execute the <em>hostname set-hostname</em> command. To get around cycle dependencies I had to add a &quot;null_resource&quot; before the remote-exec. I have also divided the vm resource config to separate the type of VMs from each other so I can configure them different from each other (control plane nodes and worker nodes). The two last entries was only added to verify if it could pick up the correct IP address from the VMs.</p>
+<h3 id="proxmox-virtual-environment-file">Proxmox virtual environment file</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c"># CP VMs</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="l">resource &#34;proxmox_virtual_environment_file&#34; &#34;rke2-cp-vms-cl01&#34; {</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w">  </span><span class="l">count = 3</span><span class="w"> </span><span class="c"># adjust pr total amount of VMs</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">  </span><span class="l">content_type = &#34;snippets&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">  </span><span class="l">datastore_id = &#34;local&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">  </span><span class="l">node_name    = &#34;proxmox-02&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">  </span><span class="l">source_raw {</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">    </span><span class="l">data = &lt;&lt;EOF</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w"></span><span class="c">#cloud-config</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w"></span><span class="nt">chpasswd</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">  </span><span class="nt">list</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="sd">    ubuntu:ubuntu</span><span class="w">    
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">  </span><span class="nt">expire</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w"></span><span class="nt">packages</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w">  </span>- <span class="l">qemu-guest-agent</span><span class="w">
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w"></span><span class="nt">timezone</span><span class="p">:</span><span class="w"> </span><span class="l">Europe/Oslo</span><span class="w">
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w"></span><span class="nt">users</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w">  </span>- <span class="l">default</span><span class="w">
+</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu</span><span class="w">
+</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="w">    </span><span class="nt">groups</span><span class="p">:</span><span class="w"> </span><span class="l">sudo</span><span class="w">
+</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="w">    </span><span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="l">/bin/bash</span><span class="w">
+</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="w">    </span><span class="nt">ssh-authorized-keys</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="w">      </span>- <span class="l">${trimspace(&#34;ssh-rsa E8lMzi2QtaV6FbEGQG41sKUetP4IfQ9OKQb4n3pIleyuFySijxWS37krexsd9E2rkJFjz0rhh1idWb4vfzQH15lsBIaA1JpcYTqJWp6QwJ8oV2psQUi/knwVNfn3EckKrkNsGwUw6+d&#34;)}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="w">    </span><span class="nt">sudo</span><span class="p">:</span><span class="w"> </span><span class="l">ALL=(ALL) NOPASSWD:ALL</span><span class="w">
+</span></span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="w"></span><span class="nt">power_state</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="w">    </span><span class="nt">delay</span><span class="p">:</span><span class="w"> </span><span class="l">now</span><span class="w">
+</span></span></span><span class="line"><span class="ln">30</span><span class="cl"><span class="w">    </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l">reboot</span><span class="w">
+</span></span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="w">    </span><span class="nt">message</span><span class="p">:</span><span class="w"> </span><span class="l">Rebooting after cloud-init completion</span><span class="w">
+</span></span></span><span class="line"><span class="ln">32</span><span class="cl"><span class="w">    </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">34</span><span class="cl"><span class="w"></span><span class="l">EOF</span><span class="w">
+</span></span></span><span class="line"><span class="ln">35</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">36</span><span class="cl"><span class="w">    </span><span class="l">file_name = &#34;rke2-cp-vms-${count.index + 1}-cl01.yaml&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">37</span><span class="cl"><span class="w">  </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">38</span><span class="cl"><span class="w"></span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">39</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">40</span><span class="cl"><span class="w"></span><span class="c"># Node VMs</span><span class="w">
+</span></span></span><span class="line"><span class="ln">41</span><span class="cl"><span class="w"></span><span class="l">resource &#34;proxmox_virtual_environment_file&#34; &#34;rke2-worker-vms-cl01&#34; {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">42</span><span class="cl"><span class="w">  </span><span class="l">count = 3</span><span class="w"> </span><span class="c"># adjust pr total amount of VMs</span><span class="w">
+</span></span></span><span class="line"><span class="ln">43</span><span class="cl"><span class="w">  </span><span class="l">content_type = &#34;snippets&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">44</span><span class="cl"><span class="w">  </span><span class="l">datastore_id = &#34;local&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">45</span><span class="cl"><span class="w">  </span><span class="l">node_name    = &#34;proxmox-02&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">46</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">47</span><span class="cl"><span class="w">  </span><span class="l">source_raw {</span><span class="w">
+</span></span></span><span class="line"><span class="ln">48</span><span class="cl"><span class="w">    </span><span class="l">data = &lt;&lt;EOF</span><span class="w">
+</span></span></span><span class="line"><span class="ln">49</span><span class="cl"><span class="w"></span><span class="c">#cloud-config</span><span class="w">
+</span></span></span><span class="line"><span class="ln">50</span><span class="cl"><span class="w"></span><span class="nt">chpasswd</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">51</span><span class="cl"><span class="w">  </span><span class="nt">list</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="ln">52</span><span class="cl"><span class="sd">    ubuntu:ubuntu</span><span class="w">    
+</span></span></span><span class="line"><span class="ln">53</span><span class="cl"><span class="w">  </span><span class="nt">expire</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="ln">54</span><span class="cl"><span class="w"></span><span class="nt">packages</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">55</span><span class="cl"><span class="w">  </span>- <span class="l">qemu-guest-agent</span><span class="w">
+</span></span></span><span class="line"><span class="ln">56</span><span class="cl"><span class="w"></span><span class="nt">timezone</span><span class="p">:</span><span class="w"> </span><span class="l">Europe/Oslo</span><span class="w">
+</span></span></span><span class="line"><span class="ln">57</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">58</span><span class="cl"><span class="w"></span><span class="nt">users</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">59</span><span class="cl"><span class="w">  </span>- <span class="l">default</span><span class="w">
+</span></span></span><span class="line"><span class="ln">60</span><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu</span><span class="w">
+</span></span></span><span class="line"><span class="ln">61</span><span class="cl"><span class="w">    </span><span class="nt">groups</span><span class="p">:</span><span class="w"> </span><span class="l">sudo</span><span class="w">
+</span></span></span><span class="line"><span class="ln">62</span><span class="cl"><span class="w">    </span><span class="nt">shell</span><span class="p">:</span><span class="w"> </span><span class="l">/bin/bash</span><span class="w">
+</span></span></span><span class="line"><span class="ln">63</span><span class="cl"><span class="w">    </span><span class="nt">ssh-authorized-keys</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">64</span><span class="cl"><span class="w">      </span>- <span class="l">${trimspace(&#34;ssh-rsa AAAAB3NxTSy6hioyUwiRpVUKYDf9zsU4P87zIqasRHMPfoj2PI0YCPihDpQj/e0VtkQaBhyfLoFuLa+zTEDjR5nYt1P0MRWPRuOxY/ls04VCpVvA9mUSYF8ftAXf2SXRY7sqQE3dg4Bav7FdHe1labQH4logd1N5ra9PS+bVGcBDstSH/t7Zkf/Na1EMqN75M5PKiFzHpde7xFnvaRbcVdzr64xTXP2vVj+jTlcMBRAoJQHIO4703jy3Ma2fJbYxipSsl1TGDgUFxf3rDjW/gKOWQhbCVheDMGC94&#34;)}</span><span class="w">
+</span></span></span><span class="line"><span class="ln">65</span><span class="cl"><span class="w">    </span><span class="nt">sudo</span><span class="p">:</span><span class="w"> </span><span class="l">ALL=(ALL) NOPASSWD:ALL</span><span class="w">
+</span></span></span><span class="line"><span class="ln">66</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">67</span><span class="cl"><span class="w"></span><span class="nt">power_state</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">68</span><span class="cl"><span class="w">    </span><span class="nt">delay</span><span class="p">:</span><span class="w"> </span><span class="l">now</span><span class="w">
+</span></span></span><span class="line"><span class="ln">69</span><span class="cl"><span class="w">    </span><span class="nt">mode</span><span class="p">:</span><span class="w"> </span><span class="l">reboot</span><span class="w">
+</span></span></span><span class="line"><span class="ln">70</span><span class="cl"><span class="w">    </span><span class="nt">message</span><span class="p">:</span><span class="w"> </span><span class="l">Rebooting after cloud-init completion</span><span class="w">
+</span></span></span><span class="line"><span class="ln">71</span><span class="cl"><span class="w">    </span><span class="nt">condition</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="ln">72</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">73</span><span class="cl"><span class="w"></span><span class="l">EOF</span><span class="w">
+</span></span></span><span class="line"><span class="ln">74</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">75</span><span class="cl"><span class="w">    </span><span class="l">file_name = &#34;rke2-worker-vms-${count.index + 1}-cl01.yaml&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">76</span><span class="cl"><span class="w">  </span>}<span class="w">
+</span></span></span><span class="line"><span class="ln">77</span><span class="cl"><span class="w"></span>}<span class="w">
+</span></span></span></code></pre></div><p>In the cloud init environment resource I have also added to entries to separate the control plane nodes from the worker nodes so I can easier configure them differently. Every file_name created will accomodate the actual name of the node it belongs to. So the Proxmox snippets being created will now be 1 snippet pr VM created. They will be removed when the project is deleted by <em>tofu destroy</em>.</p>
 <h2 id="summary">Summary</h2>
 <p>There is so much more that can be adjusted, improved and explored in general. But this post is just how I have done it now to solve a task I have been waiting to finally get some time to do. I will maybe do a follow up post where I do some improvements after some time using it and gained more experience on it. This includes improving the OpenTofu configs and Kubespray.</p>
 
@@ -1274,6 +1576,9 @@ I am using count.index in some of the fields where I need to automatically gener
     <h2 class="mt-4">Recent Posts</h2>
     <ul class="flex-column">
       <li>
+        <a href="https://blog.andreasm.io/2024/05/05/taking-rancher-by-suse-for-a-spin/" class="nav-link" title="Taking Rancher by SUSE for a Spin">Taking Rancher by SUSE for a Spin</a>
+      </li>
+      <li>
         <a href="https://blog.andreasm.io/2024/04/16/exploring-some-antrea-features/" class="nav-link" title="Exploring some Antrea Features">Exploring some Antrea Features</a>
       </li>
       <li>
@@ -1294,16 +1599,13 @@ I am using count.index in some of the fields where I need to automatically gener
       <li>
         <a href="https://blog.andreasm.io/2023/11/23/tkgi-with-nsx-and-nsx-advanced-loadbalancer/" class="nav-link" title="TKGi with NSX and NSX Advanced LoadBalancer">TKGi with NSX and NSX Advanced LoadBalancer</a>
       </li>
-      <li>
-        <a href="https://blog.andreasm.io/2023/09/25/antrea-multi-cluster-in-tkg-and-vsphere-with-tanzu/" class="nav-link" title="Antrea Multi-cluster - in TKG and vSphere with Tanzu">Antrea Multi-cluster - in TKG and vSphere with Tanzu</a>
-      </li>
     </ul>
     <div>
       <h2 class="mt-4 taxonomy" id="categories-section">Categories</h2>
       <nav class="tags_nav">
         <a href='https://blog.andreasm.io/categories/kubernetes/' class="post_tag button button_translucent" title="kubernetes">
           KUBERNETES
-          <span class="button_tally">40</span>
+          <span class="button_tally">41</span>
         </a>
         
         <a href='https://blog.andreasm.io/categories/networking/' class="post_tag button button_translucent" title="networking">
@@ -1445,7 +1747,11 @@ I am using count.index in some of the fields where I need to automatically gener
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/kubernetes/' class=" post_tag button button_translucent" data-position=40 title="kubernetes">KUBERNETES<span class="button_tally">40</span>
+            <a href='https://blog.andreasm.io/categories/kubernetes/' class=" post_tag button button_translucent" data-position=41 title="kubernetes">KUBERNETES<span class="button_tally">41</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/kubernetes-management/' class=" post_tag button button_translucent" data-position=1 title="kubernetes-management">KUBERNETES-MANAGEMENT<span class="button_tally">1</span>
             </a>
             
             
@@ -1497,7 +1803,15 @@ I am using count.index in some of the fields where I need to automatically gener
             </a>
             
             
+            <a href='https://blog.andreasm.io/categories/rancher/' class=" post_tag button button_translucent" data-position=1 title="rancher">RANCHER<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.andreasm.io/categories/rbac/' class=" post_tag button button_translucent" data-position=1 title="rbac">RBAC<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/rke2/' class=" post_tag button button_translucent" data-position=1 title="rke2">RKE2<span class="button_tally">1</span>
             </a>
             
             
@@ -1768,6 +2082,10 @@ I am using count.index in some of the fields where I need to automatically gener
             </a>
             
             
+            <a href='https://blog.andreasm.io/tags/kubernetes-management/' class=" post_tag button button_translucent" data-position=1 title="kubernetes-management">KUBERNETES-MANAGEMENT<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.andreasm.io/tags/kubespray/' class=" post_tag button button_translucent" data-position=1 title="kubespray">KUBESPRAY<span class="button_tally">1</span>
             </a>
             
@@ -1868,11 +2186,19 @@ I am using count.index in some of the fields where I need to automatically gener
             </a>
             
             
+            <a href='https://blog.andreasm.io/tags/rancher/' class=" post_tag button button_translucent" data-position=1 title="rancher">RANCHER<span class="button_tally">1</span>
+            </a>
+            
+            
             <a href='https://blog.andreasm.io/tags/rbac/' class=" post_tag button button_translucent" data-position=1 title="rbac">RBAC<span class="button_tally">1</span>
             </a>
             
             
             <a href='https://blog.andreasm.io/tags/registry/' class=" post_tag button button_translucent" data-position=1 title="registry">REGISTRY<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/rke2/' class=" post_tag button button_translucent" data-position=1 title="rke2">RKE2<span class="button_tally">1</span>
             </a>
             
             
@@ -1885,6 +2211,10 @@ I am using count.index in some of the fields where I need to automatically gener
             
             
             <a href='https://blog.andreasm.io/tags/static-site-generator/' class=" post_tag button button_translucent" data-position=1 title="static-site-generator">STATIC-SITE-GENERATOR<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/suse/' class=" post_tag button button_translucent" data-position=1 title="suse">SUSE<span class="button_tally">1</span>
             </a>
             
             
