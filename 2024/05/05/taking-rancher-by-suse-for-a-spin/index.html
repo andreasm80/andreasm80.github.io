@@ -120,7 +120,7 @@
 </span>
     <span class="post_date">
       05-05-2024</span>
-    <span class="post_time"> · 43 min read</span><span>&nbsp;· <a href='https://blog.andreasm.io/tags/suse/' title="suse" class="post_tag button button_translucent">suse
+    <span class="post_time"> · 52 min read</span><span>&nbsp;· <a href='https://blog.andreasm.io/tags/suse/' title="suse" class="post_tag button button_translucent">suse
         </a><a href='https://blog.andreasm.io/tags/rancher/' title="rancher" class="post_tag button button_translucent">rancher
         </a><a href='https://blog.andreasm.io/tags/kubernetes-management/' title="kubernetes-management" class="post_tag button button_translucent">kubernetes-management
         </a><a href='https://blog.andreasm.io/tags/rke2/' title="rke2" class="post_tag button button_translucent">rke2
@@ -201,6 +201,13 @@
         <li><a href="#scaling-nodes-vertically---add-cpu-ram-and-disk">Scaling nodes vertically - add cpu, ram and disk</a></li>
         <li><a href="#upgrading-kubernetes-clusters">Upgrading Kubernetes clusters</a></li>
         <li><a href="#installing-another-ingress-controller-than-the-default-ngninx---avi-kubernetes-operator">Installing another Ingress controller than the default Ngninx - Avi Kubernetes Operator</a></li>
+      </ul>
+    </li>
+    <li><a href="#installing-custom-cni---bootstrapping-new-clusters-using-antrea-cni">Installing Custom CNI - bootstrapping new clusters using Antrea CNI</a>
+      <ul>
+        <li><a href="#add-on-config-using-manifest">Add-on Config using manifest</a></li>
+        <li><a href="#add-on-config-using-helm-charts">Add-on Config using Helm Charts</a></li>
+        <li><a href="#upgrading-or-changing-version-of-the-antrea-cni-using-rancher">Upgrading or changing version of the Antrea CNI using Rancher</a></li>
       </ul>
     </li>
     <li><a href="#neuvector">NeuVector</a></li>
@@ -4033,6 +4040,843 @@ I will now select the latest version available and then save:</p>
     </picture>
 </figure>
 </p>
+<h2 id="installing-custom-cni---bootstrapping-new-clusters-using-antrea-cni">Installing Custom CNI - bootstrapping new clusters using Antrea CNI</h2>
+<p>What if I want to use a CNI that is not in the list of CNIs in Rancher?</p>
+<p>Rancher provide a list of tested CNIs to choose from when deploying a new RKE2 cluster, but one is not limited to only choose one of these CNIs. It is possible to create a cluster using your own preferred CNI. So in this chapter I will go through how I can deploy a new RKE2 cluster using Antrea as my CNI.</p>
+<p>Before I can bootstrap a cluster with Antrea (or any custom CNI) I need to tell Rancher to not deploy any CNI from the list of provided CNIs. This involves editing the cluster deployment using the YAML editor in Rancher. There is two ways I can install Antrea as the CNI during cluster creation/bootsrap, one is using the Antrea deployment manifest the other is using Helm Charts. The Helm Chart approach is the recommended way if you ask me, but one may not always have the option use Helm Chart that is way I have included both approaches. Below I will go through both of them, starting with the Antrea manifest. I need to complete one of these steps before clicking on the <em>create</em> cluster button.</p>
+<h3 id="add-on-config-using-manifest">Add-on Config using manifest</h3>
+<p>After I have gone through the typical cluster creation steps, node pool config, cluster config etc I will need to add my Antrea manifest in the Add-On Config section.</p>
+<p>So I will be going into the Cluster Configuration section and <em>Add-On Config</em></p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="add-on-config"
+      
+        class="image_figure image_internal image_processed"
+        width="1111"
+        height="491"
+        src="/2024/05/05/taking-rancher-by-suse-for-a-spin/images/image-20240513161022543.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>Here I can add the deployment manifest for Antrea by just copy paste the content directly from the Antrea repo <a href="https://github.com/antrea-io/antrea/blob/main/build/yamls/antrea.yml">here</a>. This will always take you to the latest version of Antrea. Do the necessary configs in the deployment yaml like enabling or disabling the Antrea feature gates, if needed. They can be changed post cluster provision too.</p>
+<p>Disregard the already populated Calico Configuration section:</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="calico-add-on-config"
+      
+        class="image_figure image_internal image_processed"
+        width="847"
+        height="1224"
+        src="/2024/05/05/taking-rancher-by-suse-for-a-spin/images/image-20240513161936973.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>This will be removed at a later stage completely. I need to paste my Antrea deployment manifest under <em>Additional Manifest</em></p>
+<p>When done proceed to the step which involves disabling the default CNI that Rancher wants to deploy. It is not possible set CNI to <em>none</em> from the UI so I need to configure the yaml directly to tell it to not install any CNI. That is done by following the steps below.</p>
+<p>Click <em>edit as yaml</em></p>
+<img src=images/image-20240513144701914.png style="width:400px" />
+<p>Within my cluster yaml, there is certain blocks I need to edit and remove. Below is a &quot;default&quot; yaml using Calico as CNI, then I will paste the yaml which I have edited to allow me to install my custom CNI. See comments in the yamls by extending the code-field. I have only pasted parts of the yaml that is involved to make it &quot;shorter&quot;.</p>
+<p>The &quot;untouched&quot; yaml:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c"># Before edited - expand field for all content to display</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">provisioning.cattle.io/v1</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Cluster</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">rke2-cluster-4-antrea</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">  </span><span class="nt">annotations</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">    </span><span class="nt">field.cattle.io/description</span><span class="p">:</span><span class="w"> </span><span class="l">RKE Cluster with Antrea</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">    </span><span class="c">#  key: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">    </span>{}<span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">    </span><span class="c">#  key: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">fleet-default</span><span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">  </span><span class="nt">cloudCredentialSecretName</span><span class="p">:</span><span class="w"> </span><span class="l">cattle-global-data:cc-qsq7b</span><span class="w">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">  </span><span class="nt">clusterAgentDeploymentCustomization</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w">  </span><span class="nt">kubernetesVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1.28.8+rke2r1</span><span class="w">
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w">  </span><span class="nt">localClusterAuthEndpoint</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w">    </span><span class="nt">caCerts</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w">    </span><span class="nt">fqdn</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="w">  </span><span class="nt">rkeConfig</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="w">    </span><span class="nt">chartValues</span><span class="p">:</span><span class="w"> </span><span class="c">## Need to add {} due to remove the below line</span><span class="w">
+</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="w">      </span><span class="nt">rke2-calico</span><span class="p">:</span><span class="w"> </span>{}<span class="w"> </span><span class="c">### This needs to be removed</span><span class="w">
+</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="w">    </span><span class="nt">etcd</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="w">      </span><span class="nt">disableSnapshots</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="w">      </span><span class="nt">s3</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="w"></span><span class="c">#        bucket: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="w"></span><span class="c">#        cloudCredentialName: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="w"></span><span class="c">#        endpoint: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">30</span><span class="cl"><span class="w"></span><span class="c">#        endpointCA: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="w"></span><span class="c">#        folder: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">32</span><span class="cl"><span class="w"></span><span class="c">#        region: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="w"></span><span class="c">#        skipSSLVerify: boolean</span><span class="w">
+</span></span></span><span class="line"><span class="ln">34</span><span class="cl"><span class="w">      </span><span class="nt">snapshotRetention</span><span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span></span></span><span class="line"><span class="ln">35</span><span class="cl"><span class="w">      </span><span class="nt">snapshotScheduleCron</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="cp">*/5</span><span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>*<span class="w">
+</span></span></span><span class="line"><span class="ln">36</span><span class="cl"><span class="w">    </span><span class="nt">machineGlobalConfig</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">37</span><span class="cl"><span class="w">      </span><span class="nt">cluster-cidr</span><span class="p">:</span><span class="w"> </span><span class="m">10.10.0.0</span><span class="l">/16</span><span class="w">
+</span></span></span><span class="line"><span class="ln">38</span><span class="cl"><span class="w">      </span><span class="nt">cni</span><span class="p">:</span><span class="w"> </span><span class="l">calico</span><span class="w"> </span><span class="c">### Need to set this to none</span><span class="w">
+</span></span></span><span class="line"><span class="ln">39</span><span class="cl"><span class="w">      </span><span class="nt">disable-kube-proxy</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="ln">40</span><span class="cl"><span class="w">      </span><span class="nt">etcd-expose-metrics</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="ln">41</span><span class="cl"><span class="w">      </span><span class="nt">service-cidr</span><span class="p">:</span><span class="w"> </span><span class="m">10.20.0.0</span><span class="l">/16</span><span class="w">
+</span></span></span><span class="line"><span class="ln">42</span><span class="cl"><span class="w">      </span><span class="nt">profile</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span></span></span></code></pre></div><p>The edited yaml:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c"># Before edited - expand field for all content to display</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">provisioning.cattle.io/v1</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Cluster</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">rke2-cluster-4-antrea</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">  </span><span class="nt">annotations</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">    </span><span class="nt">field.cattle.io/description</span><span class="p">:</span><span class="w"> </span><span class="l">RKE Cluster with Antrea</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">    </span><span class="c">#  key: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">    </span>{}<span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">    </span><span class="c">#  key: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">fleet-default</span><span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">  </span><span class="nt">cloudCredentialSecretName</span><span class="p">:</span><span class="w"> </span><span class="l">cattle-global-data:cc-qsq7b</span><span class="w">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">  </span><span class="nt">clusterAgentDeploymentCustomization</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w">  </span><span class="nt">kubernetesVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1.28.8+rke2r1</span><span class="w">
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w">  </span><span class="nt">localClusterAuthEndpoint</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w">    </span><span class="nt">caCerts</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w">    </span><span class="nt">fqdn</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="w">  </span><span class="nt">rkeConfig</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="w">    </span><span class="nt">chartValues</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="w">    </span><span class="nt">etcd</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="w">      </span><span class="nt">disableSnapshots</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="w">      </span><span class="nt">s3</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="w"></span><span class="c">#        bucket: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="w"></span><span class="c">#        cloudCredentialName: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="w"></span><span class="c">#        endpoint: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="w"></span><span class="c">#        endpointCA: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">30</span><span class="cl"><span class="w"></span><span class="c">#        folder: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="w"></span><span class="c">#        region: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">32</span><span class="cl"><span class="w"></span><span class="c">#        skipSSLVerify: boolean</span><span class="w">
+</span></span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="w">      </span><span class="nt">snapshotRetention</span><span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span></span></span><span class="line"><span class="ln">34</span><span class="cl"><span class="w">      </span><span class="nt">snapshotScheduleCron</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="cp">*/5</span><span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>*<span class="w">
+</span></span></span><span class="line"><span class="ln">35</span><span class="cl"><span class="w">    </span><span class="nt">machineGlobalConfig</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">36</span><span class="cl"><span class="w">      </span><span class="nt">cluster-cidr</span><span class="p">:</span><span class="w"> </span><span class="m">10.10.0.0</span><span class="l">/16</span><span class="w">
+</span></span></span><span class="line"><span class="ln">37</span><span class="cl"><span class="w">      </span><span class="nt">cni</span><span class="p">:</span><span class="w"> </span><span class="l">none</span><span class="w">
+</span></span></span><span class="line"><span class="ln">38</span><span class="cl"><span class="w">      </span><span class="nt">disable-kube-proxy</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w"> </span><span class="c">## See comment below</span><span class="w">
+</span></span></span><span class="line"><span class="ln">39</span><span class="cl"><span class="w">      </span><span class="nt">etcd-expose-metrics</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="ln">40</span><span class="cl"><span class="w">      </span><span class="nt">service-cidr</span><span class="p">:</span><span class="w"> </span><span class="m">10.20.0.0</span><span class="l">/16</span><span class="w">
+</span></span></span><span class="line"><span class="ln">41</span><span class="cl"><span class="w">      </span><span class="nt">profile</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span></span></span></code></pre></div><p>After editing the yaml as indicated above it is time to click Create.</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="create-no-cni"
+      
+        class="image_figure image_internal image_processed"
+        width="2245"
+        height="349"
+        src="/2024/05/05/taking-rancher-by-suse-for-a-spin/images/image-20240513151518462.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>After a couple of minutes the cluster should be getting green and ready to consume with Antrea as the CNI.</p>
+<p>Next up is the Helm Chart approach.</p>
+<h3 id="add-on-config-using-helm-charts">Add-on Config using Helm Charts</h3>
+<p>I will follow almost the same approach as above, but instead of providing the Antrea manifest, I will be providing the Antrea Helm Chart repo.</p>
+<p>So to save some digital ink, head over to Add-On Config and populate the Additional Manifest with the following content:</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="antrea-helm-chart"
+      
+        class="image_figure image_internal image_processed"
+        width="2235"
+        height="504"
+        src="/2024/05/05/taking-rancher-by-suse-for-a-spin/images/image-20240514203207791.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>Below is the yaml:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">helm.cattle.io/v1</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">HelmChart</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">antrea</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">kube-system</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w">  </span><span class="nt">bootstrap</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w"> </span><span class="c"># this is important</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">  </span><span class="nt">chart</span><span class="p">:</span><span class="w"> </span><span class="l">antrea</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">  </span><span class="nt">targetNamespace</span><span class="p">:</span><span class="w"> </span><span class="l">kube-system</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">  </span><span class="nt">repo</span><span class="p">:</span><span class="w"> </span><span class="l">https://charts.antrea.io</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">  </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="l">v1.15.1</span><span class="w"> </span><span class="c"># if I want a specific version to be installed</span><span class="w">
+</span></span></span></code></pre></div><p>Below is a template to see which key/values that can be used:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">helm.cattle.io/v1</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">HelmChart</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="c">#string</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">default</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w"></span><span class="c">#  annotations:  key: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w"></span><span class="c">#  labels:  key: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w"></span><span class="c">#  authPassCredentials: boolean</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w"></span><span class="c">#  authSecret:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w"></span><span class="c">#    name: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w"></span><span class="c">#  backOffLimit: int</span><span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w"></span><span class="c">#  bootstrap: boolean</span><span class="w">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w"></span><span class="c">#  chart: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w"></span><span class="c">#  chartContent: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w"></span><span class="c">#  createNamespace: boolean</span><span class="w">
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w"></span><span class="c">#  dockerRegistrySecret:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w"></span><span class="c">#    name: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w"></span><span class="c">#  failurePolicy: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w"></span><span class="c">#  helmVersion: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="w"></span><span class="c">#  jobImage: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="w"></span><span class="c">#  podSecurityContext:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="w"></span><span class="c">#    fsGroup: int</span><span class="w">
+</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="w"></span><span class="c">#    fsGroupChangePolicy: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="w"></span><span class="c">#    runAsGroup: int</span><span class="w">
+</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="w"></span><span class="c">#    runAsNonRoot: boolean</span><span class="w">
+</span></span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="w"></span><span class="c">#    runAsUser: int</span><span class="w">
+</span></span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="w"></span><span class="c">#    seLinuxOptions:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="w"></span><span class="c">#      type: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">30</span><span class="cl"><span class="w"></span><span class="c">#      level: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="w"></span><span class="c">#      role: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">32</span><span class="cl"><span class="w"></span><span class="c">#      user: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="w"></span><span class="c">#    seccompProfile:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">34</span><span class="cl"><span class="w"></span><span class="c">#      type: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">35</span><span class="cl"><span class="w"></span><span class="c">#      localhostProfile: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">36</span><span class="cl"><span class="w"></span><span class="c">#    supplementalGroups:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">37</span><span class="cl"><span class="w"></span><span class="c">#      - int</span><span class="w">
+</span></span></span><span class="line"><span class="ln">38</span><span class="cl"><span class="w"></span><span class="c">#    sysctls:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">39</span><span class="cl"><span class="w"></span><span class="c">#      - name: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">40</span><span class="cl"><span class="w"></span><span class="c">#        value: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">41</span><span class="cl"><span class="w"></span><span class="c">#    windowsOptions:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">42</span><span class="cl"><span class="w"></span><span class="c">#      gmsaCredentialSpec: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">43</span><span class="cl"><span class="w"></span><span class="c">#      gmsaCredentialSpecName: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">44</span><span class="cl"><span class="w"></span><span class="c">#      hostProcess: boolean</span><span class="w">
+</span></span></span><span class="line"><span class="ln">45</span><span class="cl"><span class="w"></span><span class="c">#      runAsUserName: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">46</span><span class="cl"><span class="w"></span><span class="c">#  repo: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">47</span><span class="cl"><span class="w"></span><span class="c">#  repoCA: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">48</span><span class="cl"><span class="w"></span><span class="c">#  repoCAConfigMap:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">49</span><span class="cl"><span class="w"></span><span class="c">#    name: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">50</span><span class="cl"><span class="w"></span><span class="c">#  securityContext:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">51</span><span class="cl"><span class="w"></span><span class="c">#    allowPrivilegeEscalation: boolean</span><span class="w">
+</span></span></span><span class="line"><span class="ln">52</span><span class="cl"><span class="w"></span><span class="c">#    capabilities:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">53</span><span class="cl"><span class="w"></span><span class="c">#      add:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">54</span><span class="cl"><span class="w"></span><span class="c">#        - string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">55</span><span class="cl"><span class="w"></span><span class="c">#      drop:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">56</span><span class="cl"><span class="w"></span><span class="c">#        - string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">57</span><span class="cl"><span class="w"></span><span class="c">#    privileged: boolean</span><span class="w">
+</span></span></span><span class="line"><span class="ln">58</span><span class="cl"><span class="w"></span><span class="c">#    procMount: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">59</span><span class="cl"><span class="w"></span><span class="c">#    readOnlyRootFilesystem: boolean</span><span class="w">
+</span></span></span><span class="line"><span class="ln">60</span><span class="cl"><span class="w"></span><span class="c">#    runAsGroup: int</span><span class="w">
+</span></span></span><span class="line"><span class="ln">61</span><span class="cl"><span class="w"></span><span class="c">#    runAsNonRoot: boolean</span><span class="w">
+</span></span></span><span class="line"><span class="ln">62</span><span class="cl"><span class="w"></span><span class="c">#    runAsUser: int</span><span class="w">
+</span></span></span><span class="line"><span class="ln">63</span><span class="cl"><span class="w"></span><span class="c">#    seLinuxOptions:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">64</span><span class="cl"><span class="w"></span><span class="c">#      type: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">65</span><span class="cl"><span class="w"></span><span class="c">#      level: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">66</span><span class="cl"><span class="w"></span><span class="c">#      role: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">67</span><span class="cl"><span class="w"></span><span class="c">#      user: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">68</span><span class="cl"><span class="w"></span><span class="c">#    seccompProfile:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">69</span><span class="cl"><span class="w"></span><span class="c">#      type: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">70</span><span class="cl"><span class="w"></span><span class="c">#      localhostProfile: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">71</span><span class="cl"><span class="w"></span><span class="c">#    windowsOptions:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">72</span><span class="cl"><span class="w"></span><span class="c">#      gmsaCredentialSpec: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">73</span><span class="cl"><span class="w"></span><span class="c">#      gmsaCredentialSpecName: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">74</span><span class="cl"><span class="w"></span><span class="c">#      hostProcess: boolean</span><span class="w">
+</span></span></span><span class="line"><span class="ln">75</span><span class="cl"><span class="w"></span><span class="c">#      runAsUserName: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">76</span><span class="cl"><span class="w"></span><span class="c">#  set: map[]</span><span class="w">
+</span></span></span><span class="line"><span class="ln">77</span><span class="cl"><span class="w"></span><span class="c">#  targetNamespace: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">78</span><span class="cl"><span class="w"></span><span class="c">#  timeout: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">79</span><span class="cl"><span class="w"></span><span class="c">#  valuesContent: string</span><span class="w">
+</span></span></span><span class="line"><span class="ln">80</span><span class="cl"><span class="w"></span><span class="c">#  version: string</span><span class="w">
+</span></span></span></code></pre></div><p>Then edit the cluster yaml to disable the Rancher provided CNI, as described above.</p>
+<p>Click <em>create</em></p>
+<p>Below is a complete yaml of the cluster being provisioned with Antrea as the CNI using Helm Chart option.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln">  1</span><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">provisioning.cattle.io/v1</span><span class="w">
+</span></span></span><span class="line"><span class="ln">  2</span><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Cluster</span><span class="w">
+</span></span></span><span class="line"><span class="ln">  3</span><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">  4</span><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">rke2-cluster-4-antrea</span><span class="w">
+</span></span></span><span class="line"><span class="ln">  5</span><span class="cl"><span class="w">  </span><span class="nt">annotations</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">  6</span><span class="cl"><span class="w">    </span><span class="nt">field.cattle.io/description</span><span class="p">:</span><span class="w"> </span><span class="l">RKE2 using Antrea</span><span class="w">
+</span></span></span><span class="line"><span class="ln">  7</span><span class="cl"><span class="w">  </span><span class="nt">labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">  8</span><span class="cl"><span class="w">    </span>{}<span class="w">
+</span></span></span><span class="line"><span class="ln">  9</span><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">fleet-default</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 10</span><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 11</span><span class="cl"><span class="w">  </span><span class="nt">cloudCredentialSecretName</span><span class="p">:</span><span class="w"> </span><span class="l">cattle-global-data:cc-qsq7b</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 12</span><span class="cl"><span class="w">  </span><span class="nt">clusterAgentDeploymentCustomization</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 13</span><span class="cl"><span class="w">    </span><span class="nt">appendTolerations</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 14</span><span class="cl"><span class="w">    </span><span class="nt">overrideResourceRequirements</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 15</span><span class="cl"><span class="w">  </span><span class="nt">defaultPodSecurityAdmissionConfigurationTemplateName</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 16</span><span class="cl"><span class="w">  </span><span class="nt">defaultPodSecurityPolicyTemplateName</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 17</span><span class="cl"><span class="w">  </span><span class="nt">fleetAgentDeploymentCustomization</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 18</span><span class="cl"><span class="w">    </span><span class="nt">appendTolerations</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 19</span><span class="cl"><span class="w">    </span><span class="nt">overrideAffinity</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 20</span><span class="cl"><span class="w">    </span><span class="nt">overrideResourceRequirements</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 21</span><span class="cl"><span class="w">  </span><span class="nt">kubernetesVersion</span><span class="p">:</span><span class="w"> </span><span class="l">v1.28.9+rke2r1</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 22</span><span class="cl"><span class="w">  </span><span class="nt">localClusterAuthEndpoint</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 23</span><span class="cl"><span class="w">    </span><span class="nt">caCerts</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 24</span><span class="cl"><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 25</span><span class="cl"><span class="w">    </span><span class="nt">fqdn</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 26</span><span class="cl"><span class="w">  </span><span class="nt">rkeConfig</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 27</span><span class="cl"><span class="w">    </span><span class="nt">additionalManifest</span><span class="p">:</span><span class="w"> </span><span class="p">|-</span><span class="sd">
+</span></span></span><span class="line"><span class="ln"> 28</span><span class="cl"><span class="sd">      apiVersion: helm.cattle.io/v1
+</span></span></span><span class="line"><span class="ln"> 29</span><span class="cl"><span class="sd">      kind: HelmChart
+</span></span></span><span class="line"><span class="ln"> 30</span><span class="cl"><span class="sd">      metadata:
+</span></span></span><span class="line"><span class="ln"> 31</span><span class="cl"><span class="sd">        name: antrea
+</span></span></span><span class="line"><span class="ln"> 32</span><span class="cl"><span class="sd">        namespace: kube-system
+</span></span></span><span class="line"><span class="ln"> 33</span><span class="cl"><span class="sd">      spec:
+</span></span></span><span class="line"><span class="ln"> 34</span><span class="cl"><span class="sd">        bootstrap: true # This is important
+</span></span></span><span class="line"><span class="ln"> 35</span><span class="cl"><span class="sd">        chart: antrea
+</span></span></span><span class="line"><span class="ln"> 36</span><span class="cl"><span class="sd">        targetNamespace: kube-system
+</span></span></span><span class="line"><span class="ln"> 37</span><span class="cl"><span class="sd">        repo: https://charts.antrea.io</span><span class="w">      
+</span></span></span><span class="line"><span class="ln"> 38</span><span class="cl"><span class="w">    </span><span class="nt">chartValues</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span></span></span><span class="line"><span class="ln"> 39</span><span class="cl"><span class="w">    </span><span class="nt">etcd</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 40</span><span class="cl"><span class="w">      </span><span class="nt">disableSnapshots</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 41</span><span class="cl"><span class="w">      </span><span class="nt">s3</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 42</span><span class="cl"><span class="w">      </span><span class="nt">snapshotRetention</span><span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 43</span><span class="cl"><span class="w">      </span><span class="nt">snapshotScheduleCron</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w"> </span><span class="cp">*/5</span><span class="w"> </span>*<span class="w"> </span>*<span class="w"> </span>*<span class="w">
+</span></span></span><span class="line"><span class="ln"> 44</span><span class="cl"><span class="w">    </span><span class="nt">machineGlobalConfig</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 45</span><span class="cl"><span class="w">      </span><span class="nt">cluster-cidr</span><span class="p">:</span><span class="w"> </span><span class="m">10.10.0.0</span><span class="l">/16</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 46</span><span class="cl"><span class="w">      </span><span class="nt">cni</span><span class="p">:</span><span class="w"> </span><span class="l">none</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 47</span><span class="cl"><span class="w">      </span><span class="nt">disable-kube-proxy</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 48</span><span class="cl"><span class="w">      </span><span class="nt">etcd-expose-metrics</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 49</span><span class="cl"><span class="w">      </span><span class="nt">service-cidr</span><span class="p">:</span><span class="w"> </span><span class="m">10.20.0.0</span><span class="l">/16</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 50</span><span class="cl"><span class="w">      </span><span class="nt">profile</span><span class="p">:</span><span class="w"> </span><span class="kc">null</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 51</span><span class="cl"><span class="w">    </span><span class="nt">machinePools</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 52</span><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">pool1</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 53</span><span class="cl"><span class="w">        </span><span class="nt">etcdRole</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 54</span><span class="cl"><span class="w">        </span><span class="nt">controlPlaneRole</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 55</span><span class="cl"><span class="w">        </span><span class="nt">workerRole</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 56</span><span class="cl"><span class="w">        </span><span class="nt">hostnamePrefix</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 57</span><span class="cl"><span class="w">        </span><span class="nt">quantity</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 58</span><span class="cl"><span class="w">        </span><span class="nt">unhealthyNodeTimeout</span><span class="p">:</span><span class="w"> </span><span class="l">0m</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 59</span><span class="cl"><span class="w">        </span><span class="nt">machineConfigRef</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 60</span><span class="cl"><span class="w">          </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">VmwarevsphereConfig</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 61</span><span class="cl"><span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">nc-rke2-cluster-4-antrea-pool1-gh2nj</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 62</span><span class="cl"><span class="w">        </span><span class="nt">drainBeforeDelete</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 63</span><span class="cl"><span class="w">        </span><span class="nt">machineOS</span><span class="p">:</span><span class="w"> </span><span class="l">linux</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 64</span><span class="cl"><span class="w">        </span><span class="nt">labels</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span></span></span><span class="line"><span class="ln"> 65</span><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">pool2</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 66</span><span class="cl"><span class="w">        </span><span class="nt">etcdRole</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 67</span><span class="cl"><span class="w">        </span><span class="nt">controlPlaneRole</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 68</span><span class="cl"><span class="w">        </span><span class="nt">workerRole</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 69</span><span class="cl"><span class="w">        </span><span class="nt">hostnamePrefix</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 70</span><span class="cl"><span class="w">        </span><span class="nt">quantity</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 71</span><span class="cl"><span class="w">        </span><span class="nt">unhealthyNodeTimeout</span><span class="p">:</span><span class="w"> </span><span class="l">0m</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 72</span><span class="cl"><span class="w">        </span><span class="nt">machineConfigRef</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 73</span><span class="cl"><span class="w">          </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">VmwarevsphereConfig</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 74</span><span class="cl"><span class="w">          </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">nc-rke2-cluster-4-antrea-pool2-s5sv4</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 75</span><span class="cl"><span class="w">        </span><span class="nt">drainBeforeDelete</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 76</span><span class="cl"><span class="w">        </span><span class="nt">machineOS</span><span class="p">:</span><span class="w"> </span><span class="l">linux</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 77</span><span class="cl"><span class="w">        </span><span class="nt">labels</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span></span></span><span class="line"><span class="ln"> 78</span><span class="cl"><span class="w">    </span><span class="nt">machineSelectorConfig</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 79</span><span class="cl"><span class="w">      </span>- <span class="nt">config</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 80</span><span class="cl"><span class="w">          </span><span class="nt">protect-kernel-defaults</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 81</span><span class="cl"><span class="w">    </span><span class="nt">registries</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 82</span><span class="cl"><span class="w">      </span><span class="nt">configs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 83</span><span class="cl"><span class="w">        </span>{}<span class="w">
+</span></span></span><span class="line"><span class="ln"> 84</span><span class="cl"><span class="w">      </span><span class="nt">mirrors</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 85</span><span class="cl"><span class="w">        </span>{}<span class="w">
+</span></span></span><span class="line"><span class="ln"> 86</span><span class="cl"><span class="w">    </span><span class="nt">upgradeStrategy</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 87</span><span class="cl"><span class="w">      </span><span class="nt">controlPlaneConcurrency</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;1&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 88</span><span class="cl"><span class="w">      </span><span class="nt">controlPlaneDrainOptions</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 89</span><span class="cl"><span class="w">        </span><span class="nt">deleteEmptyDirData</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 90</span><span class="cl"><span class="w">        </span><span class="nt">disableEviction</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 91</span><span class="cl"><span class="w">        </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 92</span><span class="cl"><span class="w">        </span><span class="nt">force</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 93</span><span class="cl"><span class="w">        </span><span class="nt">gracePeriod</span><span class="p">:</span><span class="w"> </span>-<span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 94</span><span class="cl"><span class="w">        </span><span class="nt">ignoreDaemonSets</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 95</span><span class="cl"><span class="w">        </span><span class="nt">skipWaitForDeleteTimeoutSeconds</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 96</span><span class="cl"><span class="w">        </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="m">120</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 97</span><span class="cl"><span class="w">      </span><span class="nt">workerConcurrency</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;1&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 98</span><span class="cl"><span class="w">      </span><span class="nt">workerDrainOptions</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 99</span><span class="cl"><span class="w">        </span><span class="nt">deleteEmptyDirData</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="ln">100</span><span class="cl"><span class="w">        </span><span class="nt">disableEviction</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="ln">101</span><span class="cl"><span class="w">        </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="ln">102</span><span class="cl"><span class="w">        </span><span class="nt">force</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="ln">103</span><span class="cl"><span class="w">        </span><span class="nt">gracePeriod</span><span class="p">:</span><span class="w"> </span>-<span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="ln">104</span><span class="cl"><span class="w">        </span><span class="nt">ignoreDaemonSets</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="ln">105</span><span class="cl"><span class="w">        </span><span class="nt">skipWaitForDeleteTimeoutSeconds</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
+</span></span></span><span class="line"><span class="ln">106</span><span class="cl"><span class="w">        </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="m">120</span><span class="w">
+</span></span></span><span class="line"><span class="ln">107</span><span class="cl"><span class="w">  </span><span class="nt">machineSelectorConfig</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">108</span><span class="cl"><span class="w">    </span>- <span class="nt">config</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span></span></span><span class="line"><span class="ln">109</span><span class="cl"><span class="w"></span><span class="nt">__clone</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span></code></pre></div><p>By doing the steps above, I should shortly have a freshly installed Kubernetes cluster deployed using Antrea as my CNI.</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="antrea-app"
+      
+        class="image_figure image_internal image_processed"
+        width="2481"
+        height="697"
+        src="/2024/05/05/taking-rancher-by-suse-for-a-spin/images/image-20240514203832012.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="antrea-1"
+      
+        class="image_figure image_internal image_processed"
+        width="2481"
+        height="650"
+        src="/2024/05/05/taking-rancher-by-suse-for-a-spin/images/image-20240514193830195.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="antrea-tiers"
+      
+        class="image_figure image_internal image_processed"
+        width="2478"
+        height="653"
+        src="/2024/05/05/taking-rancher-by-suse-for-a-spin/images/image-20240514193904279.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1"># Run kubectl commands inside here</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="c1"># e.g. kubectl get all</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">&gt; k get pods -A
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">NAMESPACE             NAME                                                                  READY   STATUS      RESTARTS      AGE
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">cattle-fleet-system   fleet-agent-7cf5c7b6cb-cbr4c                                          1/1     Running     <span class="m">0</span>             35m
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">cattle-system         cattle-cluster-agent-686798b687-jq9kp                                 1/1     Running     <span class="m">0</span>             36m
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">cattle-system         cattle-cluster-agent-686798b687-q97mx                                 1/1     Running     <span class="m">0</span>             34m
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">cattle-system         dashboard-shell-6tldq                                                 2/2     Running     <span class="m">0</span>             7s
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">cattle-system         helm-operation-95wr6                                                  0/2     Completed   <span class="m">0</span>             35m
+</span></span><span class="line"><span class="ln">10</span><span class="cl">cattle-system         helm-operation-jtgzs                                                  0/2     Completed   <span class="m">0</span>             29m
+</span></span><span class="line"><span class="ln">11</span><span class="cl">cattle-system         helm-operation-qz9bc                                                  0/2     Completed   <span class="m">0</span>             34m
+</span></span><span class="line"><span class="ln">12</span><span class="cl">cattle-system         rancher-webhook-7d57cd6cb8-4thw7                                      1/1     Running     <span class="m">0</span>             29m
+</span></span><span class="line"><span class="ln">13</span><span class="cl">cattle-system         system-upgrade-controller-6f86d6d4df-x46gp                            1/1     Running     <span class="m">0</span>             35m
+</span></span><span class="line"><span class="ln">14</span><span class="cl">kube-system           antrea-agent-9qm2d                                                    2/2     Running     <span class="m">0</span>             37m
+</span></span><span class="line"><span class="ln">15</span><span class="cl">kube-system           antrea-agent-dr2hz                                                    2/2     Running     <span class="m">1</span> <span class="o">(</span>33m ago<span class="o">)</span>   34m
+</span></span><span class="line"><span class="ln">16</span><span class="cl">kube-system           antrea-controller-768b4dbcb5-7srnw                                    1/1     Running     <span class="m">0</span>             37m
+</span></span><span class="line"><span class="ln">17</span><span class="cl">kube-system           cloud-controller-manager-rke2-cluster-5-antrea-pool1-fea898fd-t7fhv   1/1     Running     <span class="m">0</span>             38m
+</span></span><span class="line"><span class="ln">18</span><span class="cl">kube-system           etcd-rke2-cluster-5-antrea-pool1-fea898fd-t7fhv                       1/1     Running     <span class="m">0</span>             38m
+</span></span><span class="line"><span class="ln">19</span><span class="cl">kube-system           helm-install-antrea-vtskp                                             0/1     Completed   <span class="m">0</span>             34m
+</span></span><span class="line"><span class="ln">20</span><span class="cl">kube-system           helm-install-rke2-coredns-8lrrq                                       0/1     Completed   <span class="m">0</span>             37m
+</span></span><span class="line"><span class="ln">21</span><span class="cl">kube-system           helm-install-rke2-ingress-nginx-4bbr4                                 0/1     Completed   <span class="m">0</span>             37m
+</span></span><span class="line"><span class="ln">22</span><span class="cl">kube-system           helm-install-rke2-metrics-server-8xrbh                                0/1     Completed   <span class="m">0</span>             37m
+</span></span><span class="line"><span class="ln">23</span><span class="cl">kube-system           helm-install-rke2-snapshot-controller-crd-rt5hb                       0/1     Completed   <span class="m">0</span>             37m
+</span></span><span class="line"><span class="ln">24</span><span class="cl">kube-system           helm-install-rke2-snapshot-controller-pncxt                           0/1     Completed   <span class="m">0</span>             37m
+</span></span><span class="line"><span class="ln">25</span><span class="cl">kube-system           helm-install-rke2-snapshot-validation-webhook-zv9kl                   0/1     Completed   <span class="m">0</span>             37m
+</span></span><span class="line"><span class="ln">26</span><span class="cl">kube-system           kube-apiserver-rke2-cluster-5-antrea-pool1-fea898fd-t7fhv             1/1     Running     <span class="m">0</span>             38m
+</span></span><span class="line"><span class="ln">27</span><span class="cl">kube-system           kube-controller-manager-rke2-cluster-5-antrea-pool1-fea898fd-t7fhv    1/1     Running     <span class="m">0</span>             38m
+</span></span><span class="line"><span class="ln">28</span><span class="cl">kube-system           kube-proxy-rke2-cluster-5-antrea-pool1-fea898fd-t7fhv                 1/1     Running     <span class="m">0</span>             38m
+</span></span><span class="line"><span class="ln">29</span><span class="cl">kube-system           kube-proxy-rke2-cluster-5-antrea-pool2-209a1e89-9sjt7                 1/1     Running     <span class="m">0</span>             34m
+</span></span><span class="line"><span class="ln">30</span><span class="cl">kube-system           kube-scheduler-rke2-cluster-5-antrea-pool1-fea898fd-t7fhv             1/1     Running     <span class="m">0</span>             38m
+</span></span><span class="line"><span class="ln">31</span><span class="cl">kube-system           rke2-coredns-rke2-coredns-84b9cb946c-6hrfv                            1/1     Running     <span class="m">0</span>             37m
+</span></span><span class="line"><span class="ln">32</span><span class="cl">kube-system           rke2-coredns-rke2-coredns-84b9cb946c-z2bb5                            1/1     Running     <span class="m">0</span>             34m
+</span></span><span class="line"><span class="ln">33</span><span class="cl">kube-system           rke2-coredns-rke2-coredns-autoscaler-b49765765-spj7d                  1/1     Running     <span class="m">0</span>             37m
+</span></span><span class="line"><span class="ln">34</span><span class="cl">kube-system           rke2-ingress-nginx-controller-8p7rz                                   1/1     Running     <span class="m">0</span>             34m
+</span></span><span class="line"><span class="ln">35</span><span class="cl">kube-system           rke2-ingress-nginx-controller-zdbvm                                   0/1     Pending     <span class="m">0</span>             37m
+</span></span><span class="line"><span class="ln">36</span><span class="cl">kube-system           rke2-metrics-server-655477f655-5n7sp                                  1/1     Running     <span class="m">0</span>             37m
+</span></span><span class="line"><span class="ln">37</span><span class="cl">kube-system           rke2-snapshot-controller-59cc9cd8f4-6mtbs                             1/1     Running     <span class="m">0</span>             37m
+</span></span><span class="line"><span class="ln">38</span><span class="cl">kube-system           rke2-snapshot-validation-webhook-54c5989b65-jprqr                     1/1     Running     <span class="m">0</span>             37m
+</span></span></code></pre></div><p>Now with Antrea installed as the CNI I can go ahead and use the rich set of feature gates Antrea brings to table.</p>
+<p>To enable and disable the Antrea FeatureGates either edit the configMap using <em>kubectl edit configmap -n kube-system antrea-config</em> or use the Rancher UI:</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="ConfigMaps"
+      
+        class="image_figure image_internal image_processed"
+        width="2482"
+        height="634"
+        src="/2024/05/05/taking-rancher-by-suse-for-a-spin/images/image-20240514194348844.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="edit-config"
+      
+        class="image_figure image_internal image_processed"
+        width="2487"
+        height="1326"
+        src="/2024/05/05/taking-rancher-by-suse-for-a-spin/images/image-20240514194425307.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="edit-yaml"
+      
+        class="image_figure image_internal image_processed"
+        width="2488"
+        height="763"
+        src="/2024/05/05/taking-rancher-by-suse-for-a-spin/images/image-20240514194506279.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<h3 id="upgrading-or-changing-version-of-the-antrea-cni-using-rancher">Upgrading or changing version of the Antrea CNI using Rancher</h3>
+<p>When I deploy Antrea using the Helm Chart Add-On Config, upgrading or changing the version of Antrea is a walk in the park.</p>
+<p>In the cluster I want to upgrade/downgrade Antrea I first need to add the Antrea Helm Repo under App -&gt; Repositories:</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="add-antrea-repo"
+      
+        class="image_figure image_internal image_processed"
+        width="1541"
+        height="347"
+        src="/2024/05/05/taking-rancher-by-suse-for-a-spin/images/image-20240514204700410.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>Then head back to Installed Apps under <strong>Apps</strong> and click on <em>antrea</em></p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="antrea-app"
+      
+        class="image_figure image_internal image_processed"
+        width="2478"
+        height="440"
+        src="/2024/05/05/taking-rancher-by-suse-for-a-spin/images/image-20240514204819652.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>Click top right corner:</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="upgrade"
+      
+        class="image_figure image_internal image_processed"
+        width="2240"
+        height="223"
+        src="/2024/05/05/taking-rancher-by-suse-for-a-spin/images/image-20240514204934418.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>Follow the wizard and select the version you want, then click next.</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="antrea-version"
+      
+        class="image_figure image_internal image_processed"
+        width="2487"
+        height="788"
+        src="/2024/05/05/taking-rancher-by-suse-for-a-spin/images/image-20240514205037494.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>Change values or dont, and click Upgrade:</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="upgrade"
+      
+        class="image_figure image_internal image_processed"
+        width="2485"
+        height="1328"
+        src="/2024/05/05/taking-rancher-by-suse-for-a-spin/images/image-20240514205229183.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>Sit back and enjoy:</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="upgraded"
+      
+        class="image_figure image_internal image_processed"
+        width="2100"
+        height="1273"
+        src="/2024/05/05/taking-rancher-by-suse-for-a-spin/images/image-20240514205343991.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>Now I just downgraded from version 2.0.0 to 1.15.1, the same approach is true for upgrading to a newer version ofcourse. But why upgrade when one can downgrade, one need to have some fun in life...</p>
+<p>In the list of <strong>Installed Apps</strong> view Rancher will notify me if there is a new release available. This is a nice indicator whenever there is a new release:</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="new-version-available"
+      
+        class="image_figure image_internal image_processed"
+        width="2480"
+        height="749"
+        src="/2024/05/05/taking-rancher-by-suse-for-a-spin/images/image-20240514211110983.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
 <h2 id="neuvector">NeuVector</h2>
 <p>NeuVector is new for me, by having a quick look at what it does it did spark my interest. From the official <a href="https://open-docs.neuvector.com/basics/overview">docs page</a>:</p>
 <blockquote>
@@ -4588,6 +5432,35 @@ I will now select the latest version available and then save:</p>
 </figure>
 </p>
 <p>Notice the Active Alerts.</p>
+<p>From the Cluster Dashboard:</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="dashboard"
+      
+        class="image_figure image_internal image_processed"
+        width="2229"
+        height="776"
+        src="/2024/05/05/taking-rancher-by-suse-for-a-spin/images/image-20240513143749611.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
 <p>Lets see whats going on in and with my cluster:</p>
 <p><strong>AlertManager</strong></p>
 <p>
