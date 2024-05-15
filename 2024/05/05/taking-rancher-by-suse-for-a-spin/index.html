@@ -270,8 +270,8 @@
 </figure>
 </p>
 <h3 id="where-rancher-sits">Where Rancher sits</h3>
-<p>As I will proceed through this post by adding and deploying Kubernetes clusters and using Rancher accessing these clusters, I think it will make sense to illustrate how this looks like. It may be beneficial to the overall understanding to have as much context as possible of whats going on and how things work when reading through the post.</p>
-<p>Running Rancher on Kubernetes makes Rancher Highly Available, it will be distributed across multiple Kubernetes worker nodes and also benefit from Kubernetes lifecycle management, self-healing etc. Rancher will become a critical endpoint so managing and ensuring availability to this endpoint is critical. Exposing the Rancher using a HA capable loadbalancer is something to consider. Loosing a singelton instance loadbalancer means loosing access to Rancher. To expose Rancher one can use VMware <a href="https://docs.vmware.com/en/VMware-NSX-Advanced-Load-Balancer/index.html">Avi Loadbalancer</a> with its distributed architecture (several Service Engines in Active/Active) or one can use Traefik loadbalancer, HAProxy Nginx, just to name a few. Then of course the underlaying physical compute hosts should consist of more than one host ofcourse.</p>
+<p>As I will proceed through this post by adding and deploying Kubernetes clusters and using Rancher accessing these clusters, it will make sense to illustrate how this looks like. It may be beneficial to the overall understanding to have as much context as possible of whats going on and how things work when reading through the post.</p>
+<p>Running Rancher on Kubernetes makes Rancher Highly Available, it will be distributed across multiple Kubernetes worker nodes and also benefit from Kubernetes lifecycle management, self-healing etc. Rancher will become a critical endpoint so managing and ensuring availability to this endpoint is critical. Exposing the Rancher using a HA capable loadbalancer is something to consider. Loosing a singleton instance loadbalancer means loosing access to Rancher. To expose Rancher one can use VMware <a href="https://docs.vmware.com/en/VMware-NSX-Advanced-Load-Balancer/index.html">Avi Loadbalancer</a> with its distributed architecture (several Service Engines in Active/Active) or one can use Traefik loadbalancer, HAProxy Nginx, just to name a few. Then the underlaying physical compute hosts should consist of more than one host of course.</p>
 <p>One should thrive to make the Rancher API endpoint as robust as possible as this will be THE endpoint to use to access and manage the Rancher managed Kubernetes Clusters.</p>
 <img src=images/image-20240509114316030.png style="width:500px" />
 <p>As one can imagine, managing multiple clusters using Rancher there will be some requests to this endpoint. So performance and resilience is key.</p>
@@ -306,7 +306,7 @@
 <p>As soon as I have authenticated through Rancher I can access my Kubernetes clusters. Rancher will then work as a proxy and forward my requests to my respective Kubernetes clusters.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl"><span class="o">{</span><span class="s2">&#34;kind&#34;</span>:<span class="s2">&#34;Event&#34;</span>,<span class="s2">&#34;authorization.k8s.io/decision&#34;</span>:<span class="s2">&#34;allow&#34;</span>,<span class="s2">&#34;authorization.k8s.io/reason&#34;</span>:<span class="s2">&#34;RBAC: allowed by ClusterRoleBinding \&#34;globaladmin-user-64t5q\&#34; of ClusterRole \&#34;cluster-admin\&#34; to User \&#34;user-64t5q\&#34;&#34;</span><span class="o">}}</span>
 </span></span></code></pre></div><h2 id="installing-rancher-on-an-existing-kubernetes-cluster-using-helm">Installing Rancher on an existing Kubernetes Cluster using Helm</h2>
-<p>Before I can start using Rancher I need to install it. Rancher can be deployed using Docker for poc/testing purposes and on (more or less any) Kubernetes platform for production use. <em>If one started out testing Rancher on Docker one can actually <a href="https://ranchermanager.docs.rancher.com/getting-started/installation-and-upgrade/other-installation-methods">migrate</a> from Docker to Kubernetes at a later stage also.</em> In this post I will deploy Rancher on Kubernetes. I have already deployed a Kubernetes cluster I intend to deploy Rancher on. The Kubernetes cluster that will be used is provisioned by vSphere with Tanzu, running in my vSphere cluster using the method I describe in this <a href="https://blog.andreasm.io/2024/02/04/argo-cd-vsphere-with-tanzu/">post</a>. vSphere with Tanzu is also its own Kubernetes management platform ofcourse. I have deployed 3 control plane nodes and 3 worker nodes. All persistent storage will be handled by the the vSphere Cluster VSAN storage. Ingress will be taken care of by VMware Avi loadbalancer.</p>
+<p>Before I can start using Rancher I need to install it. Rancher can be deployed using Docker for poc/testing purposes and on (more or less any) Kubernetes platform for production use. <em>If one started out testing Rancher on Docker one can actually <a href="https://ranchermanager.docs.rancher.com/getting-started/installation-and-upgrade/other-installation-methods">migrate</a> from Docker to Kubernetes at a later stage also.</em> In this post I will deploy Rancher on Kubernetes. I have already deployed a Kubernetes cluster I intend to deploy Rancher on. The Kubernetes cluster that will be used is provisioned by vSphere with Tanzu, running in my vSphere cluster using the method I describe in this <a href="https://blog.andreasm.io/2024/02/04/argo-cd-vsphere-with-tanzu/">post</a>. vSphere with Tanzu is also its own Kubernetes management platform of course. I have deployed 3 control plane nodes and 3 worker nodes. All persistent storage will be handled by the the vSphere Cluster VSAN storage. Ingress will be taken care of by VMware Avi loadbalancer.</p>
 <p>Here is my TKC cluster I will install rancher on:</p>
 <p>
   <figure>
@@ -674,7 +674,7 @@
 </span></span><span class="line"><span class="ln">40</span><span class="cl">rancher   avi-lb   rancher-01.my-domain.net   192.168.121.10   80, <span class="m">443</span>   9m47s
 </span></span></code></pre></div><p>Rancher is ready to be used.</p>
 <h2 id="create-and-manage-kubernetes-clusters">Create and manage Kubernetes clusters</h2>
-<p>As soon as I have logged in the first thing I would like to do is to create a Kubernetes cluster. Rancher supports many methods of creating a Kubernetes cluster. Rancher can create clusters in a hosted Kubernetes provider such as Amazon EKS, Azure AKS, Google GKE and more. Rancher can create clusters and provision the nodes on Amazon EC2, Azure, DigitalOcean, Harvester, Linode, VMware vSphere and more. If you dont use any of them, it can create clusters on exisiting nodes like VMs deployed with a Linux (or even Windows..) OS waiting to be confgured to do something (I will go through that later) or using <a href="https://elemental.docs.rancher.com/">Elemental</a> (more on that later also).</p>
+<p>As soon as I have logged in the first thing I would like to do is to create a Kubernetes cluster. Rancher supports many methods of creating a Kubernetes cluster. Rancher can create clusters in a hosted Kubernetes provider such as Amazon EKS, Azure AKS, Google GKE and more. Rancher can create clusters and provision the nodes on Amazon EC2, Azure, DigitalOcean, Harvester, Linode, VMware vSphere and more. If you dont use any of them, it can create clusters on exisiting nodes like VMs deployed with a Linux (or even Windows..) OS waiting to be configured to do something (I will go through that later) or using <a href="https://elemental.docs.rancher.com/">Elemental</a> (more on that later also).</p>
 <p>
   <figure>
   <picture>
@@ -763,7 +763,7 @@
 <p>I happen to have vSphere as my virtualization platform which is natively supported by Rancher and will start by provisioning a Kubernetes cluster using the vSphere cloud. I also have another hypervisor platform running in my lab (Proxmox) which does not have a native driver for Rancher, instead I will make Rancher deploy Kubernetes on existing VM nodes. I will go through how I deploy Kubernetes clusters on vSphere and on Proxmox using the <em>Custom</em> &quot;cloud&quot; on existing nodes.</p>
 <h3 id="rancher-kubernetes-distributions">Rancher Kubernetes distributions</h3>
 <p>Rancher is fully capable of doing automated provisining of Kubernetes clusters, as I will go through in this post, as much as it can manage already exisiting Kubernetes clusters by importing them.</p>
-<p>When Rancher is doing automated provisions of Kubernetes on supported clouds or onto existing nodes it uses its own Kubernetes distribution. In Rancher one can choose between three distributions called RKE, RKE2 and K3s. In this post I will only use RKE2 which stands for Rancher Kubernetes Engine. RKE2 is Rancher's <em>next-generation</em> Kubernetes distribution. I may touch upon the K3s distribution also, as this is very much focued on edge use cases due to its lightweight.</p>
+<p>When Rancher is doing automated provisions of Kubernetes on supported clouds or onto existing nodes it uses its own Kubernetes distribution. In Rancher one can choose between three distributions called RKE, RKE2 and K3s. In this post I will only use RKE2 which stands for Rancher Kubernetes Engine. RKE2 is Rancher's <em>next-generation</em> Kubernetes distribution. I may touch upon the K3s distribution also, as this is very much focused on edge use cases due to its lightweight.</p>
 <p>For more information on RKE2 head over <a href="https://docs.rke2.io/">here</a></p>
 <p>For more information on K3s head over <a href="https://www.rancher.com/products/k3s">here</a></p>
 <p>At the current time of writing this post I am using Rancher 2.8.3 and the latest RKE2/Kubernetes release is 1.28.8 which is not so far away from Kubernetes upstream which is currently at v1.30.</p>
@@ -1210,7 +1210,7 @@
     </picture>
 </figure>
 </p>
-<p>The template should be download now:</p>
+<p>The template should be downloading now:</p>
 <p>
   <figure>
   <picture>
@@ -1271,7 +1271,7 @@
 </figure>
 </p>
 <p>The cluster I want to create is one control-plane node and one worker node.</p>
-<p>Give the cluster a name and description if you want. Then select the roles, at a minium one have to deploy one node with all roles <em>etcd</em>, <em>Control Plane</em> and <em>Worker</em>. Give the pool a name, I will go with default values here. Machine count I will go with default 1 here also. I can scale it later 😄. Then make sure to select the correct datacenter in your vCenter, select the Resource Pool. If you have resource pools, if not just select the correct cluster (sfo-m01-cl01)/Resources which will be the cluster resource pool (root). Then select the correct Datastore. Then I will left the other fields default except the Creation method and Network. Under creation method I have selected <strong>Deploy from template: Content Library</strong> the correct Content Library and the <strong>jammy-server-cloudimg</strong> template I have uploaded/downloaded to the Content Library. Click Add Network and select the correct vCenter Network Portgroup you want the node to be placed in.</p>
+<p>Give the cluster a name and description if you want. Then select the roles, at a minimum one have to deploy one node with all roles <em>etcd</em>, <em>Control Plane</em> and <em>Worker</em>. Give the pool a name, I will go with default values here. Machine count I will go with default 1 here also. I can scale it later 😄. Then make sure to select the correct datacenter in your vCenter, select the Resource Pool. If you have resource pools, if not just select the correct cluster (sfo-m01-cl01)/Resources which will be the cluster resource pool (root). Then select the correct Datastore. Then I will left the other fields default except the Creation method and Network. Under creation method I have selected <strong>Deploy from template: Content Library</strong> the correct Content Library and the <strong>jammy-server-cloudimg</strong> template I have uploaded/downloaded to the Content Library. Click Add Network and select the correct vCenter Network Portgroup you want the node to be placed in.</p>
 <p>
   <figure>
   <picture>
@@ -1301,7 +1301,7 @@
 </figure>
 </p>
 <p>Thats it for pool-1. I will scroll a bit down, click on the + sign and add a second pool for the nodes to have only the role worker.</p>
-<p>I will repeat the steps above for pool-2. They will be identical execpt for the pool name and only role <strong>Worker</strong> selected.</p>
+<p>I will repeat the steps above for pool-2. They will be identical except for the pool name and only role <strong>Worker</strong> selected.</p>
 <p>
   <figure>
   <picture>
@@ -1811,7 +1811,7 @@
 </p>
 <p>Add a second pool by clicking on the + sign here:</p>
 <img src=images/image-20240506223316563.png style="width:500px" /> 
-<p>Then confgure the amount of Machine count, roles (worker only) and vSphere placement as above (unless one have several clusters and want to spread the workers.. That is another discussion).</p>
+<p>Then confgure the amount of Machine count, roles (worker only) and vSphere placement as above (unless one have several clusters and want to distribute the workers.. That is another discussion).</p>
 <p>
   <figure>
   <picture>
@@ -3295,7 +3295,7 @@
 </span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w"></span><span class="nt">current-context</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;tanzuz-cluster-1&#34;</span><span class="w">
 </span></span></span></code></pre></div><p>I accessing my TKC cluster through Rancher API endpoint.</p>
 <h2 id="managing-kubernetes-clusters-from-rancher">Managing Kubernetes clusters from Rancher</h2>
-<p>Though making Kubernetes cluster deployments an easy task is important, handling day two operations is even more important. Lets explore some typical administrative tasks that needs to be done on a Kubernetes cluster during its lifetime using Rancher.</p>
+<p>Though making Kubernetes cluster deployments an easy task is important, handling day two operations is even more important. Let's explore some typical administrative tasks that needs to be done on a Kubernetes cluster during its lifetime using Rancher.</p>
 <h3 id="scaling-nodes-horizontally---up-and-down">Scaling nodes horizontally - up and down</h3>
 <p>There will come a time when there is a need to scale the amount of worker nodes in a cluster. Lets see how we can do that in Rancher.</p>
 <p>If I manually want to scale the amount of worker nodes up, I will go to Cluster Management and Clusters, then click on the name of my cluster to be scaled:</p>
@@ -3623,7 +3623,7 @@
 </p>
 <p>Thats it</p>
 <h3 id="upgrading-kubernetes-clusters">Upgrading Kubernetes clusters</h3>
-<p>This is probably one of the most important task maintaining a Kubernetes cluster, keeping pace with Kubernets updates and performing Kubernetes upgrades. New Kubernetes release is coming approximately every 3 months.</p>
+<p>This is probably one of the most important task maintaining a Kubernetes cluster, keeping pace with Kubernetes updates and performing Kubernetes upgrades. New Kubernetes release is coming approximately every 3 months.</p>
 <p>So how can I upgrade my Kubernetes cluster using Rancher?</p>
 <p>Almost same approach as above, but instead of changing any of the CPU and Memory resources I will scroll down and select the new Kubernetes version I want to upgrade to:</p>
 <p>
@@ -4847,7 +4847,7 @@ I will now select the latest version available and then save:</p>
     </picture>
 </figure>
 </p>
-<p>Now I just downgraded from version 2.0.0 to 1.15.1, the same approach is true for upgrading to a newer version ofcourse. But why upgrade when one can downgrade, one need to have some fun in life...</p>
+<p>Now I just downgraded from version 2.0.0 to 1.15.1, the same approach is true for upgrading to a newer version of course. But why upgrade when one can downgrade, one need to have some fun in life...</p>
 <p>In the list of <strong>Installed Apps</strong> view Rancher will notify me if there is a new release available. This is a nice indicator whenever there is a new release:</p>
 <p>
   <figure>
@@ -5768,7 +5768,7 @@ I will now select the latest version available and then save:</p>
 </span></span></code></pre></div><p>More information on the CLI reference page <a href="https://ranchermanager.docs.rancher.com/reference-guides/cli-with-rancher/rancher-cli">here</a></p>
 <p>More information on the API <a href="https://ranchermanager.docs.rancher.com/reference-guides/about-the-api">here</a></p>
 <p><strong>kubectl</strong></p>
-<p>Using kubectl without the Rancher CLI is ofcourse possible, just grab the contexts from your different cluster you have access to from the Rancher UI, copy or download them and put into the .kube/config or point to them as below and interact with Rancher managed Kubernetes clusters as they were any other Kubernets cluster:</p>
+<p>Using kubectl without the Rancher CLI is of course possible, just grab the contexts from your different cluster you have access to from the Rancher UI, copy or download them and put into the .kube/config or point to them as below and interact with Rancher managed Kubernetes clusters as they were any other Kubernetes cluster:</p>
 <p>
   <figure>
   <picture>
@@ -5877,9 +5877,9 @@ I will now select the latest version available and then save:</p>
 <li>Google OAuth</li>
 <li>Shibboleth</li>
 </ul>
-<p>RBAC is an important part in managing a Kubernets estate. I will cover RBAC in Rancher in more depth in another blog post.</p>
+<p>RBAC is an important part in managing a Kubernetes estate. I will cover RBAC in Rancher in more depth in another blog post.</p>
 <h2 id="outro">Outro</h2>
-<p>My experiences with Rancher has been very positive, I would say way over the expectations I had before I started writing this post. It (Rancher) just feels like a well thought through product, solid and complete. It brings a lot of built-in features and tested applications, but its not limiting me to do things differently nor add my own &quot;custom&quot; things to it. Delivering a product with so many features out-of-the-box, without putting to many limitations on what I can do &quot;outside-the-box&quot; is not an easy achievement, but Rancher gives me the feeling they have acheived it. I feel like whatever feature I wanted, Rancher had it, at the same time many features I even haven't thought of, Rancher had it.</p>
+<p>My experience with Rancher has been very positive, I would say way over the expectations I had before I started writing this post. It (Rancher) just feels like a well thought through product, solid and complete. It brings a lot of built-in features and tested applications, but its not limiting me to do things differently nor add my own &quot;custom&quot; things to it. Delivering a product with so many features out-of-the-box, without setting to many limitations on what I can do &quot;outside-the-box&quot; is not an easy achievement, but Rancher gives me the feeling they have acheived it. I feel like whatever feature I wanted, Rancher had it, at the same time many features I even haven't thought of, Rancher had it.</p>
 <p>A very powerful Kubernetes management platform. Its open-source and available.</p>
 <p>Stay tuned for some follow-up posts where I deepdive into specific topics of Rancher. This will be fun.</p>
 
