@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Compliance on From 0.985mhz... to several Ghz</title>
+    <link>https://blog.andreasm.io/categories/compliance/</link>
+    <description>Recent content in Compliance on From 0.985mhz... to several Ghz</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>Myself</copyright>
+    <lastBuildDate>Mon, 13 May 2024 12:42:04 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/compliance/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>NeuVector by SUSE - security where it is needed - part 1</title>
+      <link>https://blog.andreasm.io/2024/05/13/neuvector-by-suse-security-where-it-is-needed-part-1/</link>
+      <pubDate>Mon, 13 May 2024 12:42:04 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2024/05/13/neuvector-by-suse-security-where-it-is-needed-part-1/</guid>
+      <description>
+        
+          
+            In this two post series I will explore and deep dive into NeuVector security features
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>
