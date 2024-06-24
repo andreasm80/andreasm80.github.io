@@ -1,13 +1,29 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>networking on From 0.985mhz... to several Ghz</title>
+    <title>Networking on From 0.985mhz... to several Ghz</title>
     <link>https://blog.andreasm.io/tags/networking/</link>
-    <description>Recent content in networking on From 0.985mhz... to several Ghz</description>
+    <description>Recent content in Networking on From 0.985mhz... to several Ghz</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Myself</copyright>
-    <lastBuildDate>Mon, 08 Apr 2024 14:56:56 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/networking/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 10 Jun 2024 07:51:41 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/networking/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Arista Automated Configuration using Ansible</title>
+      <link>https://blog.andreasm.io/2024/06/10/arista-automated-configuration-using-ansible/</link>
+      <pubDate>Mon, 10 Jun 2024 07:51:41 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2024/06/10/arista-automated-configuration-using-ansible/</guid>
+      <description>
+        
+          
+            In this post I will deploy Arista vEOS from zero to a full Spine-Leaf topology using Arista ZeroTouch Provisining and Ansible
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>vSphere with Tanzu - Avi and Multiple Supervisors</title>
       <link>https://blog.andreasm.io/2024/04/08/vsphere-with-tanzu-avi-and-multiple-supervisors/</link>

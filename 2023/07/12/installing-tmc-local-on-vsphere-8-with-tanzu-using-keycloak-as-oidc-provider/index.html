@@ -254,7 +254,7 @@ As a final note, remember that the certificate I  going to use needs to be trust
 
 <div class="notices warning">
     <div class="label">Note</div>
-    <p>Deploying TMC Self-Managed 1.0 on a Tanzu Kubernetes Grid (TKG) 2.0 workload cluster running in vSphere with Tanzu on vSphere version 8.x is for tech preview only. Initiate deployments only in pre-production environments or production environments where support for the integration is not required. <a href="https://docs.vmware.com/en/VMware-vSphere/8.0/rn/vmware-vsphere-with-tanzu-80-release-notes/index.html#What's%20New-What's%2[%E2%80%A6%5D%20April%2018,%202023">vSphere 8u1</a> or later is required in order to test the tech preview integration.</p>
+    <p>Deploying TMC Self-Managed 1.0 on a Tanzu Kubernetes Grid (TKG) 2.0 workload cluster running in vSphere with Tanzu on vSphere version 8.x is for tech preview only. Initiate deployments only in pre-production environments or production environments where support for the integration is not required. <a href="https://docs.vmware.com/en/VMware-vSphere/8.0/rn/vmware-vsphere-with-tanzu-80-release-notes/index.html">vSphere 8u1</a> or later is required in order to test the tech preview integration.</p>
 
   </div>
 
@@ -365,7 +365,7 @@ As a final note, remember that the certificate I  going to use needs to be trust
 <p>To support dynamically creating/issuing certificates I will deploy and install Cert-Manager. The approach I am using to deploy Cert-Manager is to use the provided Cert-Manager Packages available in Tanzu.</p>
 <h3 id="tanzu-cert-manager-package">Tanzu Cert-Manager Package</h3>
 <p>I will have to add the package repository where I can download and install Cert-Manager from and a namespace for the packages themselves. Before I can approach with this I need the Tanzu CLI. The official approach can be found <a href="https://docs.vmware.com/en/VMware-vSphere/8.0/vsphere-with-tanzu-tkg/GUID-CE91CB2F-0ADA-429C-B99A-5429C4719F6E.html?hWord=N4IghgNiBcIC5gHYC8CuACAxhAliAvkA">here</a>
-Download the Tanzu CLI from <a href="https://customerconnect.vmware.com/downloads/details?downloadGroup=TKG-220&amp;productId=1400&amp;rPId=105436">here</a></p>
+Download the Tanzu CLI from <a href="https://customerconnect.vmware.com/downloads/details?downloadGroup=TKG-220&productId=1400&rPId=105436">here</a></p>
 <p>Extract it:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">tar -zxvf tanzu-cli-bundle-linux-amd64.tar.gz
 </span></span></code></pre></div><p>Enter into the cli folder and copy or move to a folder in your paht:</p>
@@ -886,7 +886,7 @@ Let me try again now.</p>
     </picture>
 </figure>
 </p>
-<p>Now it is looking much better 😄</p>
+<p>Now it is looking much better &#x1f604;</p>
 <p>Lets try to log in:
 
   <figure>
@@ -2333,7 +2333,7 @@ Check the progress on the package reconciliation:</p>
 </span></span><span class="line"><span class="ln">6</span><span class="cl">PING pinniped-supervisor.tmc.pretty-awesome-domain.net <span class="o">(</span>10.101.210.12<span class="o">)</span> 56<span class="o">(</span>84<span class="o">)</span> bytes of data.
 </span></span><span class="line"><span class="ln">7</span><span class="cl"><span class="m">64</span> bytes from 10.101.210.12 <span class="o">(</span>10.101.210.12<span class="o">)</span>: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">1</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">61</span> <span class="nv">time</span><span class="o">=</span>3.81 ms
 </span></span><span class="line"><span class="ln">8</span><span class="cl"><span class="m">64</span> bytes from 10.101.210.12 <span class="o">(</span>10.101.210.12<span class="o">)</span>: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">2</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">61</span> <span class="nv">time</span><span class="o">=</span>9.28 ms
-</span></span></code></pre></div><p>I am good 😄</p>
+</span></span></code></pre></div><p>I am good &#x1f604;</p>
 <p>After waiting a while, the package installation process finished, either 100% successfully or with errors. In my environment it fails on step 25/26 on the tmc-local-monitoring. This turns out to be the alertmanager. I have a section below that explains how this can be solved.</p>
 <p>Here is the pod that is failing:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl">andreasm@linuxvm01:~$ k get pods -n tmc-local
@@ -2708,7 +2708,7 @@ Check the progress on the package reconciliation:</p>
 </span></span><span class="line"><span class="ln">5</span><span class="cl">minio                                                      tmc-local   console.s3.tmc.pretty-awesome-domain.net     10.101.210.12   <span class="m">80</span>        20m
 </span></span><span class="line"><span class="ln">6</span><span class="cl">minio-api                                                  tmc-local   s3.tmc.pretty-awesome-domain.net             10.101.210.12   80, <span class="m">443</span>   20m
 </span></span><span class="line"><span class="ln">7</span><span class="cl">prometheus-server-tmc-local-monitoring-tmc-local-ingress   tmc-local   prometheus.tmc.pretty-awesome-domain.net     10.101.210.12   <span class="m">80</span>        16m
-</span></span></code></pre></div><p>Ah, there is my dns records 😄</p>
+</span></span></code></pre></div><p>Ah, there is my dns records &#x1f604;</p>
 <p>Get the HTTPProxies</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl">andreasm@linuxvm01:~$ k get httpproxies -n tmc-local
 </span></span><span class="line"><span class="ln"> 2</span><span class="cl">NAME                              FQDN                                                TLS SECRET   STATUS   STATUS DESCRIPTION
@@ -2736,7 +2736,7 @@ Check the progress on the package reconciliation:</p>
 
 <div class="notices warning">
     <div class="label">Note</div>
-    <p>Deploying TMC Self-Managed 1.0 on a Tanzu Kubernetes Grid (TKG) 2.0 workload cluster running in vSphere with Tanzu on vSphere version 8.x is for tech preview only. Initiate deployments only in pre-production environments or production environments where support for the integration is not required. <a href="https://docs.vmware.com/en/VMware-vSphere/8.0/rn/vmware-vsphere-with-tanzu-80-release-notes/index.html#What's%20New-What's%2[%E2%80%A6%5D%20April%2018,%202023">vSphere 8u1</a> or later is required in order to test the tech preview integration.</p>
+    <p>Deploying TMC Self-Managed 1.0 on a Tanzu Kubernetes Grid (TKG) 2.0 workload cluster running in vSphere with Tanzu on vSphere version 8.x is for tech preview only. Initiate deployments only in pre-production environments or production environments where support for the integration is not required. <a href="https://docs.vmware.com/en/VMware-vSphere/8.0/rn/vmware-vsphere-with-tanzu-80-release-notes/index.html">vSphere 8u1</a> or later is required in order to test the tech preview integration.</p>
 
   </div>
 
@@ -3004,7 +3004,7 @@ From the official documentation:</p>
     </picture>
 </figure>
 </p>
-<p>And 🥁 I am logged into TMC-SM.</p>
+<p>And &#x1f941; I am logged into TMC-SM.</p>
 <p>I will end this post here. Will create a second post on working with TMC-SM. Thanks for reading.</p>
 <h2 id="credits-where-credits-due">Credits where credit's due</h2>
 <p>In this post its necessary to give credits again for making this post. This time it goes to my manager Antonio and colleague Jose that helped out with the initial configs, then my colleague Alex that helped out with the Keycloak authentication related settings.</p>
@@ -3043,6 +3043,9 @@ From the official documentation:</p>
     <h2 class="mt-4">Recent Posts</h2>
     <ul class="flex-column">
       <li>
+        <a href="https://blog.andreasm.io/2024/06/10/arista-automated-configuration-using-ansible/" class="nav-link" title="Arista Automated Configuration using Ansible">Arista Automated Configuration using Ansible</a>
+      </li>
+      <li>
         <a href="https://blog.andreasm.io/2024/05/13/neuvector-by-suse-security-where-it-is-needed-part-1/" class="nav-link" title="NeuVector by SUSE - security where it is needed - part 1">NeuVector by SUSE - security where it is needed - part 1</a>
       </li>
       <li>
@@ -3063,9 +3066,6 @@ From the official documentation:</p>
       <li>
         <a href="https://blog.andreasm.io/2023/12/26/traefik-proxy-in-kubernetes/" class="nav-link" title="Traefik Proxy in Kubernetes">Traefik Proxy in Kubernetes</a>
       </li>
-      <li>
-        <a href="https://blog.andreasm.io/2023/12/18/a-quick-glance-at-cilium-cni/" class="nav-link" title="A Quick Glance at Cilium CNI">A Quick Glance at Cilium CNI</a>
-      </li>
     </ul>
     <div>
       <h2 class="mt-4 taxonomy" id="categories-section">Categories</h2>
@@ -3077,7 +3077,7 @@ From the official documentation:</p>
         
         <a href='https://blog.andreasm.io/categories/networking/' class="post_tag button button_translucent" title="networking">
           NETWORKING
-          <span class="button_tally">20</span>
+          <span class="button_tally">21</span>
         </a>
         
         <a href='https://blog.andreasm.io/categories/tanzu/' class="post_tag button button_translucent" title="tanzu">
@@ -3117,7 +3117,7 @@ From the official documentation:</p>
         
         <a href='https://blog.andreasm.io/categories/automation/' class="post_tag button button_translucent" title="automation">
           AUTOMATION
-          <span class="button_tally">2</span>
+          <span class="button_tally">3</span>
         </a>
         
         <a href='https://blog.andreasm.io/categories/blog/' class="post_tag button button_translucent" title="blog">
@@ -3130,8 +3130,8 @@ From the official documentation:</p>
           <span class="button_tally">2</span>
         </a>
         
-        <a href='https://blog.andreasm.io/categories/vmware-nsx/' class="post_tag button button_translucent" title="vmware-nsx">
-          VMWARE-NSX
+        <a href='https://blog.andreasm.io/categories/vmware-nsx/' class="post_tag button button_translucent" title="vmware nsx">
+          VMWARE NSX
           <span class="button_tally">2</span>
         </a>
         
@@ -3154,7 +3154,7 @@ From the official documentation:</p>
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/automation/' class=" post_tag button button_translucent" data-position=2 title="automation">AUTOMATION<span class="button_tally">2</span>
+            <a href='https://blog.andreasm.io/categories/automation/' class=" post_tag button button_translucent" data-position=3 title="automation">AUTOMATION<span class="button_tally">3</span>
             </a>
             
             
@@ -3254,7 +3254,7 @@ From the official documentation:</p>
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/networking/' class=" post_tag button button_translucent" data-position=20 title="networking">NETWORKING<span class="button_tally">20</span>
+            <a href='https://blog.andreasm.io/categories/networking/' class=" post_tag button button_translucent" data-position=21 title="networking">NETWORKING<span class="button_tally">21</span>
             </a>
             
             
@@ -3275,6 +3275,10 @@ From the official documentation:</p>
             
             
             <a href='https://blog.andreasm.io/categories/pinniped/' class=" post_tag button button_translucent" data-position=1 title="pinniped">PINNIPED<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/provisioning/' class=" post_tag button button_translucent" data-position=1 title="provisioning">PROVISIONING<span class="button_tally">1</span>
             </a>
             
             
@@ -3306,7 +3310,7 @@ From the official documentation:</p>
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/tanzu-mission-control/' class=" post_tag button button_translucent" data-position=1 title="tanzu-mission-control">TANZU-MISSION-CONTROL<span class="button_tally">1</span>
+            <a href='https://blog.andreasm.io/categories/tanzu-mission-control/' class=" post_tag button button_translucent" data-position=1 title="tanzu mission control">TANZU MISSION CONTROL<span class="button_tally">1</span>
             </a>
             
             
@@ -3330,15 +3334,15 @@ From the official documentation:</p>
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/vmare-nsx-intelligence/' class=" post_tag button button_translucent" data-position=1 title="vmare-nsx-intelligence">VMARE-NSX-INTELLIGENCE<span class="button_tally">1</span>
+            <a href='https://blog.andreasm.io/categories/vmare-nsx-intelligence/' class=" post_tag button button_translucent" data-position=1 title="vmare nsx intelligence">VMARE NSX INTELLIGENCE<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/vmware-nsx/' class=" post_tag button button_translucent" data-position=2 title="vmware nsx">VMWARE NSX<span class="button_tally">2</span>
             </a>
             
             
             <a href='https://blog.andreasm.io/categories/vmware-cloud/' class=" post_tag button button_translucent" data-position=1 title="vmware-cloud">VMWARE-CLOUD<span class="button_tally">1</span>
-            </a>
-            
-            
-            <a href='https://blog.andreasm.io/categories/vmware-nsx/' class=" post_tag button button_translucent" data-position=2 title="vmware-nsx">VMWARE-NSX<span class="button_tally">2</span>
             </a>
             
             
@@ -3407,6 +3411,11 @@ From the official documentation:</p>
           <span class="button_tally">4</span>
         </a>
         
+        <a href='https://blog.andreasm.io/tags/networking/' class="post_tag button button_translucent" title="networking">
+          NETWORKING
+          <span class="button_tally">4</span>
+        </a>
+        
         <a href='https://blog.andreasm.io/tags/availability/' class="post_tag button button_translucent" title="availability">
           AVAILABILITY
           <span class="button_tally">3</span>
@@ -3419,11 +3428,6 @@ From the official documentation:</p>
         
         <a href='https://blog.andreasm.io/tags/network/' class="post_tag button button_translucent" title="network">
           NETWORK
-          <span class="button_tally">3</span>
-        </a>
-        
-        <a href='https://blog.andreasm.io/tags/networking/' class="post_tag button button_translucent" title="networking">
-          NETWORKING
           <span class="button_tally">3</span>
         </a>
         
@@ -3457,7 +3461,7 @@ From the official documentation:</p>
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/automation/' class=" post_tag button button_translucent" data-position=1 title="automation">AUTOMATION<span class="button_tally">1</span>
+            <a href='https://blog.andreasm.io/tags/automation/' class=" post_tag button button_translucent" data-position=2 title="automation">AUTOMATION<span class="button_tally">2</span>
             </a>
             
             
@@ -3617,7 +3621,7 @@ From the official documentation:</p>
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/networking/' class=" post_tag button button_translucent" data-position=3 title="networking">NETWORKING<span class="button_tally">3</span>
+            <a href='https://blog.andreasm.io/tags/networking/' class=" post_tag button button_translucent" data-position=4 title="networking">NETWORKING<span class="button_tally">4</span>
             </a>
             
             
@@ -3633,7 +3637,7 @@ From the official documentation:</p>
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/nsx-advanced-loadbalancer/' class=" post_tag button button_translucent" data-position=1 title="nsx-advanced-loadbalancer">NSX-ADVANCED-LOADBALANCER<span class="button_tally">1</span>
+            <a href='https://blog.andreasm.io/tags/nsx-advanced-loadbalancer/' class=" post_tag button button_translucent" data-position=1 title="nsx advanced loadbalancer">NSX ADVANCED LOADBALANCER<span class="button_tally">1</span>
             </a>
             
             
@@ -3658,6 +3662,10 @@ From the official documentation:</p>
             
             
             <a href='https://blog.andreasm.io/tags/pinniped/' class=" post_tag button button_translucent" data-position=1 title="pinniped">PINNIPED<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/provisioning/' class=" post_tag button button_translucent" data-position=1 title="provisioning">PROVISIONING<span class="button_tally">1</span>
             </a>
             
             
@@ -3721,7 +3729,7 @@ From the official documentation:</p>
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/tkg-2.1/' class=" post_tag button button_translucent" data-position=1 title="tkg-2.1">TKG-2.1<span class="button_tally">1</span>
+            <a href='https://blog.andreasm.io/tags/tkg-2.1/' class=" post_tag button button_translucent" data-position=1 title="tkg 2.1">TKG 2.1<span class="button_tally">1</span>
             </a>
             
             
@@ -3875,7 +3883,7 @@ From the official documentation:</p>
 
 <script type="text/javascript" src="https://blog.andreasm.io/en/js/bundle.5548d358738600c857a1f05f0459418da7143d4426c66a08bf3f15ded1b39dd2136bf104a559247a909fc4dcc45b8e06bad0870ece4c71ee5303d30550def8bd.js" integrity="sha512-VUjTWHOGAMhXofBfBFlBjacUPUQmxmoIvz8V3tGzndITa/EEpVkkepCfxNzEW44GutCHDs5Mce5TA9MFUN74vQ==" crossorigin="anonymous"></script>
 
-  <script src="https://blog.andreasm.io/js/search.min.df4d84e4983f0c71dd495e07a09815d920553c3ddf3d0767801c73373573aa17e1b489e4453272dbf4ce2a38a3d01a10b170744e50dd6bec85a598221867ba9a.js"></script>
+  <script src="https://blog.andreasm.io/js/search.min.95a6a82b7db565e9830200f15d8809e9663868dd57209f6f86afd54bb19568b9fbdfb9b479ebcc5d37e3b2e2136e396c05135d268cd68b21728a0bc176a8a809.js"></script>
 
   </body>
 </html>

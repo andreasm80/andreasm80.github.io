@@ -7,7 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Myself</copyright>
-    <lastBuildDate>Mon, 13 May 2024 12:42:04 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 10 Jun 2024 07:51:41 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Arista Automated Configuration using Ansible</title>
+      <link>https://blog.andreasm.io/2024/06/10/arista-automated-configuration-using-ansible/</link>
+      <pubDate>Mon, 10 Jun 2024 07:51:41 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2024/06/10/arista-automated-configuration-using-ansible/</guid>
+      <description>
+        
+          
+            In this post I will deploy Arista vEOS from zero to a full Spine-Leaf topology using Arista ZeroTouch Provisining and Ansible
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>NeuVector by SUSE - security where it is needed - part 1</title>
       <link>https://blog.andreasm.io/2024/05/13/neuvector-by-suse-security-where-it-is-needed-part-1/</link>

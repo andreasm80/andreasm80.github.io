@@ -2,16 +2,43 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://blog.andreasm.io/2024/06/10/arista-automated-configuration-using-ansible/</loc>
+    <lastmod>2024-06-10T07:51:41+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/automation/</loc>
+    <lastmod>2024-06-10T07:51:41+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/categories/automation/</loc>
+    <lastmod>2024-06-10T07:51:41+02:00</lastmod>
+  </url><url>
     <loc>https://blog.andreasm.io/categories/</loc>
-    <lastmod>2024-05-13T12:42:04+02:00</lastmod>
+    <lastmod>2024-06-10T07:51:41+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/</loc>
+    <lastmod>2024-06-10T07:51:41+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/networking/</loc>
+    <lastmod>2024-06-10T07:51:41+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/categories/networking/</loc>
+    <lastmod>2024-06-10T07:51:41+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/post/</loc>
+    <lastmod>2024-06-10T07:51:41+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/provisioning/</loc>
+    <lastmod>2024-06-10T07:51:41+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/categories/provisioning/</loc>
+    <lastmod>2024-06-10T07:51:41+02:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/</loc>
+    <lastmod>2024-06-10T07:51:41+02:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/tags/compliance/</loc>
     <lastmod>2024-05-13T12:42:04+02:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/categories/compliance/</loc>
-    <lastmod>2024-05-13T12:42:04+02:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/</loc>
     <lastmod>2024-05-13T12:42:04+02:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/tags/kubernetes/</loc>
@@ -29,9 +56,6 @@
     <loc>https://blog.andreasm.io/2024/05/13/neuvector-by-suse-security-where-it-is-needed-part-1/</loc>
     <lastmod>2024-05-13T12:42:04+02:00</lastmod>
   </url><url>
-    <loc>https://blog.andreasm.io/post/</loc>
-    <lastmod>2024-05-13T12:42:04+02:00</lastmod>
-  </url><url>
     <loc>https://blog.andreasm.io/tags/security/</loc>
     <lastmod>2024-05-13T12:42:04+02:00</lastmod>
   </url><url>
@@ -42,9 +66,6 @@
     <lastmod>2024-05-13T12:42:04+02:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/categories/suse/</loc>
-    <lastmod>2024-05-13T12:42:04+02:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/tags/</loc>
     <lastmod>2024-05-13T12:42:04+02:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/tags/kubernetes-management/</loc>
@@ -95,9 +116,6 @@
     <loc>https://blog.andreasm.io/tags/multi-tenancy/</loc>
     <lastmod>2024-04-08T14:56:56+02:00</lastmod>
   </url><url>
-    <loc>https://blog.andreasm.io/tags/networking/</loc>
-    <lastmod>2024-04-08T14:56:56+02:00</lastmod>
-  </url><url>
     <loc>https://blog.andreasm.io/tags/nsx/</loc>
     <lastmod>2024-04-08T14:56:56+02:00</lastmod>
   </url><url>
@@ -120,9 +138,6 @@
     <lastmod>2024-02-04T11:28:21+01:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/categories/argocd/</loc>
-    <lastmod>2024-02-04T11:28:21+01:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/categories/automation/</loc>
     <lastmod>2024-02-04T11:28:21+01:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/tags/gitops/</loc>
@@ -195,9 +210,6 @@
     <lastmod>2023-12-18T11:49:56+01:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/categories/monitoring/</loc>
-    <lastmod>2023-12-18T11:49:56+01:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/categories/networking/</loc>
     <lastmod>2023-12-18T11:49:56+01:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/tags/nsx-alb/</loc>
@@ -487,9 +499,6 @@
   </url><url>
     <loc>https://blog.andreasm.io/2021/10/19/vmware-nsx-ids-ips/</loc>
     <lastmod>2021-10-19T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/tags/automation/</loc>
-    <lastmod>2021-07-14T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/tags/home-assistant/</loc>
     <lastmod>2021-07-14T00:00:00+00:00</lastmod>

@@ -2390,7 +2390,7 @@ In the link above one of the concerns is that SEs needs to traverse the Tier-0 t
 </figure>
 </p>
 <p>These are the major objects being created in manager mode in NSX by NCP.</p>
-<p>Speaking of loadbalancing, lets get some loadbalancing done from the Kubernetes cluster I just created. Isnt this post about TKGi and NSX Advanced Loadbalancer? ... 😄</p>
+<p>Speaking of loadbalancing, lets get some loadbalancing done from the Kubernetes cluster I just created. Isnt this post about TKGi and NSX Advanced Loadbalancer? ... &#x1f604;</p>
 <h3 id="configure-nsx-advanced-loadbalancer-as-layer-4-and-layer-7-provider-inside-workload-clusters">Configure NSX Advanced Loadbalancer as Layer 4 and Layer 7 provider inside workload clusters.</h3>
 <p>I have already configured my NSX Advanced Loadbalancer using a NSX cloud, configured a Tier1 for both generic SE data and my DNS SEs using the policy API. But again according to the official documentation <a href="https://docs.vmware.com/en/VMware-NSX-Advanced-Load-Balancer/1.11/Avi-Kubernetes-Operator-Guide/GUID-2778C485-E48F-4C5E-8EC7-CB96F6CA5CBB.html#cloud-configuration-5">here</a> this is not supported. But as I will not be putting any of my SEs on the segments created by TKGi, and I am doing a BYOT installation where I have created some NSX objects myself) I dont feel this should be an issue. What this approach will do though is forcing SE traffic to reach the backend (Kubernetes nodes on the NCP created segments using manager API) via the T0. This could potentially reduce performance, as the T1s may be centralized. If the T1 for the SEs are distributed they will just use the DR T0, not via the Edges. Another statement from the official documentation around this scenario where the SE datanics needs to traverse the T0 to reach the backends <a href="https://avinetworks.com/docs/22.1/nsx-t-design-guide/#pool-configuration">here</a>:</p>
 <blockquote>
@@ -2547,7 +2547,7 @@ In the link above one of the concerns is that SEs needs to traverse the Tier-0 t
 </span></span></span><span class="line"><span class="ln"> 63</span><span class="cl"><span class="w">  </span><span class="nt">vipNetworkList</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="ln"> 64</span><span class="cl"><span class="w">   </span>- <span class="nt">networkName</span><span class="p">:</span><span class="w"> </span><span class="l">vip-l4-incluster-tkgi</span><span class="w">
 </span></span></span><span class="line"><span class="ln"> 65</span><span class="cl"><span class="w">     </span><span class="nt">cidr</span><span class="p">:</span><span class="w"> </span><span class="m">10.146.102.0</span><span class="l">/24</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 66</span><span class="cl"><span class="w">  </span><span class="c">#    v6cidr: 2002:🔢abcd:ffff:c0a8:101/64 # Setting this will enable the VS networks to use ipv6</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 66</span><span class="cl"><span class="w">  </span><span class="c">#    v6cidr: 2002::1234:abcd:ffff:c0a8:101/64 # Setting this will enable the VS networks to use ipv6</span><span class="w">
 </span></span></span><span class="line"><span class="ln"> 67</span><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="ln"> 68</span><span class="cl"><span class="w"></span><span class="c">### This section outlines all the knobs  used to control Layer 7 loadbalancing settings in AKO.</span><span class="w">
 </span></span></span><span class="line"><span class="ln"> 69</span><span class="cl"><span class="w"></span><span class="nt">L7Settings</span><span class="p">:</span><span class="w">
@@ -2642,7 +2642,7 @@ In the link above one of the concerns is that SEs needs to traverse the Tier-0 t
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">andreasm@ubuntu02:~/tkgi/examples$ k get ingressclasses.networking.k8s.io
 </span></span><span class="line"><span class="ln">2</span><span class="cl">NAME     CONTROLLER              PARAMETERS   AGE
 </span></span><span class="line"><span class="ln">3</span><span class="cl">avi-lb   ako.vmware.com/avi-lb   &lt;none&gt;       13m
-</span></span></code></pre></div><p>Yes I do 😄</p>
+</span></span></code></pre></div><p>Yes I do &#x1f604;</p>
 <p>Time to deploy some test applications, first out my favourite demo app, <em>Yelb</em>.</p>
 <p>This just need a servicetype loadbalancer.</p>
 <p>Backend</p>
@@ -3519,7 +3519,7 @@ This means I have enabled the DNS service in NSX ALB to auto create DNS records 
 </span></span></span><span class="line"><span class="ln"> 63</span><span class="cl"><span class="w">  </span><span class="nt">vipNetworkList</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="ln"> 64</span><span class="cl"><span class="w">   </span>- <span class="nt">networkName</span><span class="p">:</span><span class="w"> </span><span class="l">vip-l4-incluster-tkgi</span><span class="w">
 </span></span></span><span class="line"><span class="ln"> 65</span><span class="cl"><span class="w">     </span><span class="nt">cidr</span><span class="p">:</span><span class="w"> </span><span class="m">10.146.102.0</span><span class="l">/24</span><span class="w">
-</span></span></span><span class="line"><span class="ln"> 66</span><span class="cl"><span class="w">  </span><span class="c">#    v6cidr: 2002:🔢abcd:ffff:c0a8:101/64 # Setting this will enable the VS networks to use ipv6</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 66</span><span class="cl"><span class="w">  </span><span class="c">#    v6cidr: 2002::1234:abcd:ffff:c0a8:101/64 # Setting this will enable the VS networks to use ipv6</span><span class="w">
 </span></span></span><span class="line"><span class="ln"> 67</span><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="ln"> 68</span><span class="cl"><span class="w"></span><span class="c">### This section outlines all the knobs  used to control Layer 7 loadbalancing settings in AKO.</span><span class="w">
 </span></span></span><span class="line"><span class="ln"> 69</span><span class="cl"><span class="w"></span><span class="nt">L7Settings</span><span class="p">:</span><span class="w">
@@ -3860,6 +3860,9 @@ The simplest method (if not having the benefit of using NSX) is advertising the 
     <h2 class="mt-4">Recent Posts</h2>
     <ul class="flex-column">
       <li>
+        <a href="https://blog.andreasm.io/2024/06/10/arista-automated-configuration-using-ansible/" class="nav-link" title="Arista Automated Configuration using Ansible">Arista Automated Configuration using Ansible</a>
+      </li>
+      <li>
         <a href="https://blog.andreasm.io/2024/05/13/neuvector-by-suse-security-where-it-is-needed-part-1/" class="nav-link" title="NeuVector by SUSE - security where it is needed - part 1">NeuVector by SUSE - security where it is needed - part 1</a>
       </li>
       <li>
@@ -3880,9 +3883,6 @@ The simplest method (if not having the benefit of using NSX) is advertising the 
       <li>
         <a href="https://blog.andreasm.io/2023/12/26/traefik-proxy-in-kubernetes/" class="nav-link" title="Traefik Proxy in Kubernetes">Traefik Proxy in Kubernetes</a>
       </li>
-      <li>
-        <a href="https://blog.andreasm.io/2023/12/18/a-quick-glance-at-cilium-cni/" class="nav-link" title="A Quick Glance at Cilium CNI">A Quick Glance at Cilium CNI</a>
-      </li>
     </ul>
     <div>
       <h2 class="mt-4 taxonomy" id="categories-section">Categories</h2>
@@ -3894,7 +3894,7 @@ The simplest method (if not having the benefit of using NSX) is advertising the 
         
         <a href='https://blog.andreasm.io/categories/networking/' class="post_tag button button_translucent" title="networking">
           NETWORKING
-          <span class="button_tally">20</span>
+          <span class="button_tally">21</span>
         </a>
         
         <a href='https://blog.andreasm.io/categories/tanzu/' class="post_tag button button_translucent" title="tanzu">
@@ -3934,7 +3934,7 @@ The simplest method (if not having the benefit of using NSX) is advertising the 
         
         <a href='https://blog.andreasm.io/categories/automation/' class="post_tag button button_translucent" title="automation">
           AUTOMATION
-          <span class="button_tally">2</span>
+          <span class="button_tally">3</span>
         </a>
         
         <a href='https://blog.andreasm.io/categories/blog/' class="post_tag button button_translucent" title="blog">
@@ -3947,8 +3947,8 @@ The simplest method (if not having the benefit of using NSX) is advertising the 
           <span class="button_tally">2</span>
         </a>
         
-        <a href='https://blog.andreasm.io/categories/vmware-nsx/' class="post_tag button button_translucent" title="vmware-nsx">
-          VMWARE-NSX
+        <a href='https://blog.andreasm.io/categories/vmware-nsx/' class="post_tag button button_translucent" title="vmware nsx">
+          VMWARE NSX
           <span class="button_tally">2</span>
         </a>
         
@@ -3971,7 +3971,7 @@ The simplest method (if not having the benefit of using NSX) is advertising the 
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/automation/' class=" post_tag button button_translucent" data-position=2 title="automation">AUTOMATION<span class="button_tally">2</span>
+            <a href='https://blog.andreasm.io/categories/automation/' class=" post_tag button button_translucent" data-position=3 title="automation">AUTOMATION<span class="button_tally">3</span>
             </a>
             
             
@@ -4071,7 +4071,7 @@ The simplest method (if not having the benefit of using NSX) is advertising the 
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/networking/' class=" post_tag button button_translucent" data-position=20 title="networking">NETWORKING<span class="button_tally">20</span>
+            <a href='https://blog.andreasm.io/categories/networking/' class=" post_tag button button_translucent" data-position=21 title="networking">NETWORKING<span class="button_tally">21</span>
             </a>
             
             
@@ -4092,6 +4092,10 @@ The simplest method (if not having the benefit of using NSX) is advertising the 
             
             
             <a href='https://blog.andreasm.io/categories/pinniped/' class=" post_tag button button_translucent" data-position=1 title="pinniped">PINNIPED<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/provisioning/' class=" post_tag button button_translucent" data-position=1 title="provisioning">PROVISIONING<span class="button_tally">1</span>
             </a>
             
             
@@ -4123,7 +4127,7 @@ The simplest method (if not having the benefit of using NSX) is advertising the 
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/tanzu-mission-control/' class=" post_tag button button_translucent" data-position=1 title="tanzu-mission-control">TANZU-MISSION-CONTROL<span class="button_tally">1</span>
+            <a href='https://blog.andreasm.io/categories/tanzu-mission-control/' class=" post_tag button button_translucent" data-position=1 title="tanzu mission control">TANZU MISSION CONTROL<span class="button_tally">1</span>
             </a>
             
             
@@ -4147,15 +4151,15 @@ The simplest method (if not having the benefit of using NSX) is advertising the 
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/vmare-nsx-intelligence/' class=" post_tag button button_translucent" data-position=1 title="vmare-nsx-intelligence">VMARE-NSX-INTELLIGENCE<span class="button_tally">1</span>
+            <a href='https://blog.andreasm.io/categories/vmare-nsx-intelligence/' class=" post_tag button button_translucent" data-position=1 title="vmare nsx intelligence">VMARE NSX INTELLIGENCE<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/vmware-nsx/' class=" post_tag button button_translucent" data-position=2 title="vmware nsx">VMWARE NSX<span class="button_tally">2</span>
             </a>
             
             
             <a href='https://blog.andreasm.io/categories/vmware-cloud/' class=" post_tag button button_translucent" data-position=1 title="vmware-cloud">VMWARE-CLOUD<span class="button_tally">1</span>
-            </a>
-            
-            
-            <a href='https://blog.andreasm.io/categories/vmware-nsx/' class=" post_tag button button_translucent" data-position=2 title="vmware-nsx">VMWARE-NSX<span class="button_tally">2</span>
             </a>
             
             
@@ -4224,6 +4228,11 @@ The simplest method (if not having the benefit of using NSX) is advertising the 
           <span class="button_tally">4</span>
         </a>
         
+        <a href='https://blog.andreasm.io/tags/networking/' class="post_tag button button_translucent" title="networking">
+          NETWORKING
+          <span class="button_tally">4</span>
+        </a>
+        
         <a href='https://blog.andreasm.io/tags/availability/' class="post_tag button button_translucent" title="availability">
           AVAILABILITY
           <span class="button_tally">3</span>
@@ -4236,11 +4245,6 @@ The simplest method (if not having the benefit of using NSX) is advertising the 
         
         <a href='https://blog.andreasm.io/tags/network/' class="post_tag button button_translucent" title="network">
           NETWORK
-          <span class="button_tally">3</span>
-        </a>
-        
-        <a href='https://blog.andreasm.io/tags/networking/' class="post_tag button button_translucent" title="networking">
-          NETWORKING
           <span class="button_tally">3</span>
         </a>
         
@@ -4274,7 +4278,7 @@ The simplest method (if not having the benefit of using NSX) is advertising the 
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/automation/' class=" post_tag button button_translucent" data-position=1 title="automation">AUTOMATION<span class="button_tally">1</span>
+            <a href='https://blog.andreasm.io/tags/automation/' class=" post_tag button button_translucent" data-position=2 title="automation">AUTOMATION<span class="button_tally">2</span>
             </a>
             
             
@@ -4434,7 +4438,7 @@ The simplest method (if not having the benefit of using NSX) is advertising the 
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/networking/' class=" post_tag button button_translucent" data-position=3 title="networking">NETWORKING<span class="button_tally">3</span>
+            <a href='https://blog.andreasm.io/tags/networking/' class=" post_tag button button_translucent" data-position=4 title="networking">NETWORKING<span class="button_tally">4</span>
             </a>
             
             
@@ -4450,7 +4454,7 @@ The simplest method (if not having the benefit of using NSX) is advertising the 
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/nsx-advanced-loadbalancer/' class=" post_tag button button_translucent" data-position=1 title="nsx-advanced-loadbalancer">NSX-ADVANCED-LOADBALANCER<span class="button_tally">1</span>
+            <a href='https://blog.andreasm.io/tags/nsx-advanced-loadbalancer/' class=" post_tag button button_translucent" data-position=1 title="nsx advanced loadbalancer">NSX ADVANCED LOADBALANCER<span class="button_tally">1</span>
             </a>
             
             
@@ -4475,6 +4479,10 @@ The simplest method (if not having the benefit of using NSX) is advertising the 
             
             
             <a href='https://blog.andreasm.io/tags/pinniped/' class=" post_tag button button_translucent" data-position=1 title="pinniped">PINNIPED<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/provisioning/' class=" post_tag button button_translucent" data-position=1 title="provisioning">PROVISIONING<span class="button_tally">1</span>
             </a>
             
             
@@ -4538,7 +4546,7 @@ The simplest method (if not having the benefit of using NSX) is advertising the 
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/tkg-2.1/' class=" post_tag button button_translucent" data-position=1 title="tkg-2.1">TKG-2.1<span class="button_tally">1</span>
+            <a href='https://blog.andreasm.io/tags/tkg-2.1/' class=" post_tag button button_translucent" data-position=1 title="tkg 2.1">TKG 2.1<span class="button_tally">1</span>
             </a>
             
             
@@ -4692,7 +4700,7 @@ The simplest method (if not having the benefit of using NSX) is advertising the 
 
 <script type="text/javascript" src="https://blog.andreasm.io/en/js/bundle.5548d358738600c857a1f05f0459418da7143d4426c66a08bf3f15ded1b39dd2136bf104a559247a909fc4dcc45b8e06bad0870ece4c71ee5303d30550def8bd.js" integrity="sha512-VUjTWHOGAMhXofBfBFlBjacUPUQmxmoIvz8V3tGzndITa/EEpVkkepCfxNzEW44GutCHDs5Mce5TA9MFUN74vQ==" crossorigin="anonymous"></script>
 
-  <script src="https://blog.andreasm.io/js/search.min.df4d84e4983f0c71dd495e07a09815d920553c3ddf3d0767801c73373573aa17e1b489e4453272dbf4ce2a38a3d01a10b170744e50dd6bec85a598221867ba9a.js"></script>
+  <script src="https://blog.andreasm.io/js/search.min.95a6a82b7db565e9830200f15d8809e9663868dd57209f6f86afd54bb19568b9fbdfb9b479ebcc5d37e3b2e2136e396c05135d268cd68b21728a0bc176a8a809.js"></script>
 
   </body>
 </html>

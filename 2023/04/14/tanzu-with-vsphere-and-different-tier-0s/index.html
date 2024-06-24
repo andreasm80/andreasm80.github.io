@@ -323,7 +323,7 @@ When we deploy or enable the Workload Control Plane/Supervisor cluster on a fres
     </picture>
 </figure>
 </p>
-<p>But, there is always a but 😄. With a NAT enabled vSphere Namespace, the workload network is not allowed to use its own IP address when going out of the Tier-0, it will be using an IP address from the egress subnet defined, or will it?
+<p>But, there is always a but &#x1f604;. With a NAT enabled vSphere Namespace, the workload network is not allowed to use its own IP address when going out of the Tier-0, it will be using an IP address from the egress subnet defined, or will it?
 First, when NAT is enabled on a vSphere Namespace, NCP will create a rule in NSX saying that if you want to talk to your other workload cluster network buddies, you dont have to hide your true identity, you are allowed to use your real name when you want to talk to your buddies. See below for how these rules looks like:</p>
 <p>
   <figure>
@@ -613,7 +613,7 @@ This means we dont need to interfere with these static routes in the physical ro
 </figure>
 </p>
 <p>How will this go then, if we cant by any reason use a linknet between the Tier-0s for these static routes and need to define them in the physical routers? Well that is an interesting question. Let us try to dive into that topic also.
-Did I mention that we can also decide to disable NAT completely? Well that is also a perfectly fine option. This could also give other benefits for the environments where it is is needed to have these routes in the physical network due to policies, requirements etc. We can create much more granular firewall policies in the perimeter firewalls when we know each node will egress with their actual IP instead of being masked by a NAT ip address. If being masked by a NAT ip address we cant for sure really know which node it is, we can only know that it potentially comes from any node in a vSphere Namespace where this egress subnet is defined (and that can potentially be a couple). Remember how the SNAT rules look like (maybe not as I haven't shown a screenshot of it yet 😄)?</p>
+Did I mention that we can also decide to disable NAT completely? Well that is also a perfectly fine option. This could also give other benefits for the environments where it is is needed to have these routes in the physical network due to policies, requirements etc. We can create much more granular firewall policies in the perimeter firewalls when we know each node will egress with their actual IP instead of being masked by a NAT ip address. If being masked by a NAT ip address we cant for sure really know which node it is, we can only know that it potentially comes from any node in a vSphere Namespace where this egress subnet is defined (and that can potentially be a couple). Remember how the SNAT rules look like (maybe not as I haven't shown a screenshot of it yet &#x1f604;)?</p>
 <p>
   <figure>
   <picture>
@@ -749,7 +749,7 @@ So in my physical router I would need to create these rules:</p>
   </div>
 
 <p>This part can be a bit confusing if not fully understanding how network traffic works in Tanzu with vSphere and NSX. Hopefully I managed to explain it so its more understandable.</p>
-<p>As long as we are only using just one Tier-0 router for all our vSphere Namespaces, regardless of how many different subnets we decide to create pr vSphere Namespace they will be known by the same Tier-0 as the Tier-1 will be default configured to advertise to the Tier-0 its connected networks, yes it also advertise NAT IPs and LoadBalancer IPs but these are also configured on the Tier-0 to be further advertised to the outside world. Its only the Tier-0 that can be configured with BGP, as it is only the Tier-0 that can be configured to talk to the outside world (external network) by a SR T0 using interfaces on the NSX edges (VM or Bare-Metal). This means there is no need for us to create any routes either on the Tier-1 or Tier-0 when creating different vSphere Namespaces with different subnets. But I would not have anything to write about if we just decided to use only one Tier-0 router, would I? 😁</p>
+<p>As long as we are only using just one Tier-0 router for all our vSphere Namespaces, regardless of how many different subnets we decide to create pr vSphere Namespace they will be known by the same Tier-0 as the Tier-1 will be default configured to advertise to the Tier-0 its connected networks, yes it also advertise NAT IPs and LoadBalancer IPs but these are also configured on the Tier-0 to be further advertised to the outside world. Its only the Tier-0 that can be configured with BGP, as it is only the Tier-0 that can be configured to talk to the outside world (external network) by a SR T0 using interfaces on the NSX edges (VM or Bare-Metal). This means there is no need for us to create any routes either on the Tier-1 or Tier-0 when creating different vSphere Namespaces with different subnets. But I would not have anything to write about if we just decided to use only one Tier-0 router, would I? &#x1f601;</p>
 <p>Now when all this is clear as day, let us head over to the actual installation and configuration of this.</p>
 <h2 id="nsx-and-tanzu-configurations-with-different-individual-tier-0s">NSX and Tanzu configurations with different individual Tier-0s</h2>
 <p>I assume a fully functional  Tanzu environment is running with the default Workload network configured with NAT and NSX is the networking component. For this exercise I have prepared my lab to look like this &quot;networking wise&quot;:</p>
@@ -1847,7 +1847,7 @@ So the first action is to POST this API to get the API Key, making sure you set 
 <img src=images/image-20230419131143625.png style="width:800px" />
 <p>Now lets try a GET and see if it works:</p>
 <img src=images/image-20230419131357915.png style="width:800px" />
-<p>That worked out fine 😄</p>
+<p>That worked out fine &#x1f604;</p>
 <p>What about creating a vSphere Namespace from Postman?</p>
 <p>Thats very easy, below is an example to create a new vSphere Namespace, and pointing it to my VRF Tier-0 router:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="p">{</span>
@@ -1923,6 +1923,9 @@ So the first action is to POST this API to get the API Key, making sure you set 
     <h2 class="mt-4">Recent Posts</h2>
     <ul class="flex-column">
       <li>
+        <a href="https://blog.andreasm.io/2024/06/10/arista-automated-configuration-using-ansible/" class="nav-link" title="Arista Automated Configuration using Ansible">Arista Automated Configuration using Ansible</a>
+      </li>
+      <li>
         <a href="https://blog.andreasm.io/2024/05/13/neuvector-by-suse-security-where-it-is-needed-part-1/" class="nav-link" title="NeuVector by SUSE - security where it is needed - part 1">NeuVector by SUSE - security where it is needed - part 1</a>
       </li>
       <li>
@@ -1943,9 +1946,6 @@ So the first action is to POST this API to get the API Key, making sure you set 
       <li>
         <a href="https://blog.andreasm.io/2023/12/26/traefik-proxy-in-kubernetes/" class="nav-link" title="Traefik Proxy in Kubernetes">Traefik Proxy in Kubernetes</a>
       </li>
-      <li>
-        <a href="https://blog.andreasm.io/2023/12/18/a-quick-glance-at-cilium-cni/" class="nav-link" title="A Quick Glance at Cilium CNI">A Quick Glance at Cilium CNI</a>
-      </li>
     </ul>
     <div>
       <h2 class="mt-4 taxonomy" id="categories-section">Categories</h2>
@@ -1957,7 +1957,7 @@ So the first action is to POST this API to get the API Key, making sure you set 
         
         <a href='https://blog.andreasm.io/categories/networking/' class="post_tag button button_translucent" title="networking">
           NETWORKING
-          <span class="button_tally">20</span>
+          <span class="button_tally">21</span>
         </a>
         
         <a href='https://blog.andreasm.io/categories/tanzu/' class="post_tag button button_translucent" title="tanzu">
@@ -1997,7 +1997,7 @@ So the first action is to POST this API to get the API Key, making sure you set 
         
         <a href='https://blog.andreasm.io/categories/automation/' class="post_tag button button_translucent" title="automation">
           AUTOMATION
-          <span class="button_tally">2</span>
+          <span class="button_tally">3</span>
         </a>
         
         <a href='https://blog.andreasm.io/categories/blog/' class="post_tag button button_translucent" title="blog">
@@ -2010,8 +2010,8 @@ So the first action is to POST this API to get the API Key, making sure you set 
           <span class="button_tally">2</span>
         </a>
         
-        <a href='https://blog.andreasm.io/categories/vmware-nsx/' class="post_tag button button_translucent" title="vmware-nsx">
-          VMWARE-NSX
+        <a href='https://blog.andreasm.io/categories/vmware-nsx/' class="post_tag button button_translucent" title="vmware nsx">
+          VMWARE NSX
           <span class="button_tally">2</span>
         </a>
         
@@ -2034,7 +2034,7 @@ So the first action is to POST this API to get the API Key, making sure you set 
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/automation/' class=" post_tag button button_translucent" data-position=2 title="automation">AUTOMATION<span class="button_tally">2</span>
+            <a href='https://blog.andreasm.io/categories/automation/' class=" post_tag button button_translucent" data-position=3 title="automation">AUTOMATION<span class="button_tally">3</span>
             </a>
             
             
@@ -2134,7 +2134,7 @@ So the first action is to POST this API to get the API Key, making sure you set 
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/networking/' class=" post_tag button button_translucent" data-position=20 title="networking">NETWORKING<span class="button_tally">20</span>
+            <a href='https://blog.andreasm.io/categories/networking/' class=" post_tag button button_translucent" data-position=21 title="networking">NETWORKING<span class="button_tally">21</span>
             </a>
             
             
@@ -2155,6 +2155,10 @@ So the first action is to POST this API to get the API Key, making sure you set 
             
             
             <a href='https://blog.andreasm.io/categories/pinniped/' class=" post_tag button button_translucent" data-position=1 title="pinniped">PINNIPED<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/provisioning/' class=" post_tag button button_translucent" data-position=1 title="provisioning">PROVISIONING<span class="button_tally">1</span>
             </a>
             
             
@@ -2186,7 +2190,7 @@ So the first action is to POST this API to get the API Key, making sure you set 
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/tanzu-mission-control/' class=" post_tag button button_translucent" data-position=1 title="tanzu-mission-control">TANZU-MISSION-CONTROL<span class="button_tally">1</span>
+            <a href='https://blog.andreasm.io/categories/tanzu-mission-control/' class=" post_tag button button_translucent" data-position=1 title="tanzu mission control">TANZU MISSION CONTROL<span class="button_tally">1</span>
             </a>
             
             
@@ -2210,15 +2214,15 @@ So the first action is to POST this API to get the API Key, making sure you set 
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/vmare-nsx-intelligence/' class=" post_tag button button_translucent" data-position=1 title="vmare-nsx-intelligence">VMARE-NSX-INTELLIGENCE<span class="button_tally">1</span>
+            <a href='https://blog.andreasm.io/categories/vmare-nsx-intelligence/' class=" post_tag button button_translucent" data-position=1 title="vmare nsx intelligence">VMARE NSX INTELLIGENCE<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/vmware-nsx/' class=" post_tag button button_translucent" data-position=2 title="vmware nsx">VMWARE NSX<span class="button_tally">2</span>
             </a>
             
             
             <a href='https://blog.andreasm.io/categories/vmware-cloud/' class=" post_tag button button_translucent" data-position=1 title="vmware-cloud">VMWARE-CLOUD<span class="button_tally">1</span>
-            </a>
-            
-            
-            <a href='https://blog.andreasm.io/categories/vmware-nsx/' class=" post_tag button button_translucent" data-position=2 title="vmware-nsx">VMWARE-NSX<span class="button_tally">2</span>
             </a>
             
             
@@ -2287,6 +2291,11 @@ So the first action is to POST this API to get the API Key, making sure you set 
           <span class="button_tally">4</span>
         </a>
         
+        <a href='https://blog.andreasm.io/tags/networking/' class="post_tag button button_translucent" title="networking">
+          NETWORKING
+          <span class="button_tally">4</span>
+        </a>
+        
         <a href='https://blog.andreasm.io/tags/availability/' class="post_tag button button_translucent" title="availability">
           AVAILABILITY
           <span class="button_tally">3</span>
@@ -2299,11 +2308,6 @@ So the first action is to POST this API to get the API Key, making sure you set 
         
         <a href='https://blog.andreasm.io/tags/network/' class="post_tag button button_translucent" title="network">
           NETWORK
-          <span class="button_tally">3</span>
-        </a>
-        
-        <a href='https://blog.andreasm.io/tags/networking/' class="post_tag button button_translucent" title="networking">
-          NETWORKING
           <span class="button_tally">3</span>
         </a>
         
@@ -2337,7 +2341,7 @@ So the first action is to POST this API to get the API Key, making sure you set 
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/automation/' class=" post_tag button button_translucent" data-position=1 title="automation">AUTOMATION<span class="button_tally">1</span>
+            <a href='https://blog.andreasm.io/tags/automation/' class=" post_tag button button_translucent" data-position=2 title="automation">AUTOMATION<span class="button_tally">2</span>
             </a>
             
             
@@ -2497,7 +2501,7 @@ So the first action is to POST this API to get the API Key, making sure you set 
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/networking/' class=" post_tag button button_translucent" data-position=3 title="networking">NETWORKING<span class="button_tally">3</span>
+            <a href='https://blog.andreasm.io/tags/networking/' class=" post_tag button button_translucent" data-position=4 title="networking">NETWORKING<span class="button_tally">4</span>
             </a>
             
             
@@ -2513,7 +2517,7 @@ So the first action is to POST this API to get the API Key, making sure you set 
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/nsx-advanced-loadbalancer/' class=" post_tag button button_translucent" data-position=1 title="nsx-advanced-loadbalancer">NSX-ADVANCED-LOADBALANCER<span class="button_tally">1</span>
+            <a href='https://blog.andreasm.io/tags/nsx-advanced-loadbalancer/' class=" post_tag button button_translucent" data-position=1 title="nsx advanced loadbalancer">NSX ADVANCED LOADBALANCER<span class="button_tally">1</span>
             </a>
             
             
@@ -2538,6 +2542,10 @@ So the first action is to POST this API to get the API Key, making sure you set 
             
             
             <a href='https://blog.andreasm.io/tags/pinniped/' class=" post_tag button button_translucent" data-position=1 title="pinniped">PINNIPED<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/provisioning/' class=" post_tag button button_translucent" data-position=1 title="provisioning">PROVISIONING<span class="button_tally">1</span>
             </a>
             
             
@@ -2601,7 +2609,7 @@ So the first action is to POST this API to get the API Key, making sure you set 
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/tkg-2.1/' class=" post_tag button button_translucent" data-position=1 title="tkg-2.1">TKG-2.1<span class="button_tally">1</span>
+            <a href='https://blog.andreasm.io/tags/tkg-2.1/' class=" post_tag button button_translucent" data-position=1 title="tkg 2.1">TKG 2.1<span class="button_tally">1</span>
             </a>
             
             
@@ -2755,7 +2763,7 @@ So the first action is to POST this API to get the API Key, making sure you set 
 
 <script type="text/javascript" src="https://blog.andreasm.io/en/js/bundle.5548d358738600c857a1f05f0459418da7143d4426c66a08bf3f15ded1b39dd2136bf104a559247a909fc4dcc45b8e06bad0870ece4c71ee5303d30550def8bd.js" integrity="sha512-VUjTWHOGAMhXofBfBFlBjacUPUQmxmoIvz8V3tGzndITa/EEpVkkepCfxNzEW44GutCHDs5Mce5TA9MFUN74vQ==" crossorigin="anonymous"></script>
 
-  <script src="https://blog.andreasm.io/js/search.min.df4d84e4983f0c71dd495e07a09815d920553c3ddf3d0767801c73373573aa17e1b489e4453272dbf4ce2a38a3d01a10b170744e50dd6bec85a598221867ba9a.js"></script>
+  <script src="https://blog.andreasm.io/js/search.min.95a6a82b7db565e9830200f15d8809e9663868dd57209f6f86afd54bb19568b9fbdfb9b479ebcc5d37e3b2e2136e396c05135d268cd68b21728a0bc176a8a809.js"></script>
 
   </body>
 </html>

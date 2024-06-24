@@ -209,7 +209,7 @@
       </div>
     
     <div class="post_body"><h1 id="antrea-multi-cluster">Antrea Multi-cluster</h1>
-<p>From the official <a href="">Antrea.io</a> documentation:</p>
+<p>From the official <a href="/">Antrea.io</a> documentation:</p>
 <blockquote>
 <p>Antrea Multi-cluster implements <a href="https://github.com/kubernetes/enhancements/tree/master/keps/sig-multicluster/1645-multi-cluster-services-api">Multi-cluster Service API</a>, which allows users to create multi-cluster Services that can be accessed cross clusters in a ClusterSet. Antrea Multi-cluster also supports Antrea ClusterNetworkPolicy replication. Multi-cluster admins can define ClusterNetworkPolicies to be replicated across the entire ClusterSet, and enforced in all member clusters.</p>
 <p>An Antrea Multi-cluster ClusterSet includes a leader cluster and multiple member clusters. Antrea Multi-cluster Controller needs to be deployed in the leader and all member clusters. A cluster can serve as the leader, and meanwhile also be a member cluster of the ClusterSet.</p>
@@ -1356,7 +1356,7 @@ The yelb-ui pod is running in member cluster blue:</p>
 <li>Then I exported the <strong>yelb-appserver</strong> using Antrea Multi-cluster Services</li>
 </ul>
 <img src=images/image-20230929102744189.png style="width:600px" />
-<p>And the Yelb application lived happily ever after 🆒</p>
+<p>And the Yelb application lived happily ever after &#x1f192;</p>
 <h3 id="quick-troubleshooting">Quick troubleshooting</h3>
 <p>Just to add an easy way to verify the exported services work. I deployed a simple nginx pod in member cluster red. Exported the nginx ClusterIP service, from my member cluster blue I have deployed a Ubuntu pod. From this pod I will do a curl to the exported nginx service to see if I can reach it and if it works.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1">## nginx pod running in member cluster red</span>
@@ -1716,7 +1716,7 @@ The yelb-ui pod is running in member cluster blue:</p>
 </span></span><span class="line"><span class="ln">16</span><span class="cl">    componentInfo: EgressMetric
 </span></span><span class="line"><span class="ln">17</span><span class="cl">    action: Dropped
 </span></span><span class="line"><span class="ln">18</span><span class="cl">    networkPolicy: AntreaClusterNetworkPolicy:acnp-drop-ubuntu-pod-to-nginx-mc-service
-</span></span></code></pre></div><p>No need to troubleshoot connectivity issues, is being dropped by the above policy. 🚷</p>
+</span></span></code></pre></div><p>No need to troubleshoot connectivity issues, is being dropped by the above policy. &#x1f6b7;</p>
 <img src=images/image-20230930112931789.png style="width:600px" />
 <p>This policy will drop all outgoing (egress) from any pods with label <strong>role=no-nginx</strong> to the exported/imported service using Multi-cluster. Pod selection is done regardless of namespace as my selection is done using pod labels and I am using a Antrea ClusterNetworkPolicy.</p>
 <p>Such a policy is applied on the &quot;source&quot; cluster where you want to define strict egress policies. Another way is to define ingress policies on the destination cluster (source cluster of the exported service).</p>
@@ -2082,7 +2082,7 @@ The first policy example will apply to namespaces with the label <em>environment
 </span></span><span class="line"><span class="ln">2</span><span class="cl">k get acnp
 </span></span><span class="line"><span class="ln">3</span><span class="cl">No resources found
 </span></span></code></pre></div><p>Nothing.</p>
-<p>The only bad thing now is that this policy broke my Yelb application as my Yelb-ui can no longer reach the backends in the other cluster 😄 so will have to add some additional policies to support this application also. Which is perfectly normal, and I have covered a bunch of Antrea policies in this <a href="https://blog.andreasm.io/2023/06/21/securing-kubernetes-clusters-with-antrea-network-policies/">post</a> and this <a href="https://blog.andreasm.io/2023/06/01/managing-antrea-in-vsphere-with-tanzu/">post</a> that can be re-used for this purpose.</p>
+<p>The only bad thing now is that this policy broke my Yelb application as my Yelb-ui can no longer reach the backends in the other cluster &#x1f604; so will have to add some additional policies to support this application also. Which is perfectly normal, and I have covered a bunch of Antrea policies in this <a href="https://blog.andreasm.io/2023/06/21/securing-kubernetes-clusters-with-antrea-network-policies/">post</a> and this <a href="https://blog.andreasm.io/2023/06/01/managing-antrea-in-vsphere-with-tanzu/">post</a> that can be re-used for this purpose.</p>
 <p>Now I will just do a last thing an check the status of my replicated policy from the leader-cluster if there are any alert on any of the member cluster, why they have not applied the policy etc..</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">k get resourceexports.multicluster.crd.antrea.io -A
 </span></span><span class="line"><span class="ln">2</span><span class="cl">NAMESPACE             NAME                                               CLUSTER ID            KIND                         NAMESPACE     NAME                         AGE
@@ -2769,6 +2769,9 @@ The first policy example will apply to namespaces with the label <em>environment
     <h2 class="mt-4">Recent Posts</h2>
     <ul class="flex-column">
       <li>
+        <a href="https://blog.andreasm.io/2024/06/10/arista-automated-configuration-using-ansible/" class="nav-link" title="Arista Automated Configuration using Ansible">Arista Automated Configuration using Ansible</a>
+      </li>
+      <li>
         <a href="https://blog.andreasm.io/2024/05/13/neuvector-by-suse-security-where-it-is-needed-part-1/" class="nav-link" title="NeuVector by SUSE - security where it is needed - part 1">NeuVector by SUSE - security where it is needed - part 1</a>
       </li>
       <li>
@@ -2789,9 +2792,6 @@ The first policy example will apply to namespaces with the label <em>environment
       <li>
         <a href="https://blog.andreasm.io/2023/12/26/traefik-proxy-in-kubernetes/" class="nav-link" title="Traefik Proxy in Kubernetes">Traefik Proxy in Kubernetes</a>
       </li>
-      <li>
-        <a href="https://blog.andreasm.io/2023/12/18/a-quick-glance-at-cilium-cni/" class="nav-link" title="A Quick Glance at Cilium CNI">A Quick Glance at Cilium CNI</a>
-      </li>
     </ul>
     <div>
       <h2 class="mt-4 taxonomy" id="categories-section">Categories</h2>
@@ -2803,7 +2803,7 @@ The first policy example will apply to namespaces with the label <em>environment
         
         <a href='https://blog.andreasm.io/categories/networking/' class="post_tag button button_translucent" title="networking">
           NETWORKING
-          <span class="button_tally">20</span>
+          <span class="button_tally">21</span>
         </a>
         
         <a href='https://blog.andreasm.io/categories/tanzu/' class="post_tag button button_translucent" title="tanzu">
@@ -2843,7 +2843,7 @@ The first policy example will apply to namespaces with the label <em>environment
         
         <a href='https://blog.andreasm.io/categories/automation/' class="post_tag button button_translucent" title="automation">
           AUTOMATION
-          <span class="button_tally">2</span>
+          <span class="button_tally">3</span>
         </a>
         
         <a href='https://blog.andreasm.io/categories/blog/' class="post_tag button button_translucent" title="blog">
@@ -2856,8 +2856,8 @@ The first policy example will apply to namespaces with the label <em>environment
           <span class="button_tally">2</span>
         </a>
         
-        <a href='https://blog.andreasm.io/categories/vmware-nsx/' class="post_tag button button_translucent" title="vmware-nsx">
-          VMWARE-NSX
+        <a href='https://blog.andreasm.io/categories/vmware-nsx/' class="post_tag button button_translucent" title="vmware nsx">
+          VMWARE NSX
           <span class="button_tally">2</span>
         </a>
         
@@ -2880,7 +2880,7 @@ The first policy example will apply to namespaces with the label <em>environment
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/automation/' class=" post_tag button button_translucent" data-position=2 title="automation">AUTOMATION<span class="button_tally">2</span>
+            <a href='https://blog.andreasm.io/categories/automation/' class=" post_tag button button_translucent" data-position=3 title="automation">AUTOMATION<span class="button_tally">3</span>
             </a>
             
             
@@ -2980,7 +2980,7 @@ The first policy example will apply to namespaces with the label <em>environment
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/networking/' class=" post_tag button button_translucent" data-position=20 title="networking">NETWORKING<span class="button_tally">20</span>
+            <a href='https://blog.andreasm.io/categories/networking/' class=" post_tag button button_translucent" data-position=21 title="networking">NETWORKING<span class="button_tally">21</span>
             </a>
             
             
@@ -3001,6 +3001,10 @@ The first policy example will apply to namespaces with the label <em>environment
             
             
             <a href='https://blog.andreasm.io/categories/pinniped/' class=" post_tag button button_translucent" data-position=1 title="pinniped">PINNIPED<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/provisioning/' class=" post_tag button button_translucent" data-position=1 title="provisioning">PROVISIONING<span class="button_tally">1</span>
             </a>
             
             
@@ -3032,7 +3036,7 @@ The first policy example will apply to namespaces with the label <em>environment
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/tanzu-mission-control/' class=" post_tag button button_translucent" data-position=1 title="tanzu-mission-control">TANZU-MISSION-CONTROL<span class="button_tally">1</span>
+            <a href='https://blog.andreasm.io/categories/tanzu-mission-control/' class=" post_tag button button_translucent" data-position=1 title="tanzu mission control">TANZU MISSION CONTROL<span class="button_tally">1</span>
             </a>
             
             
@@ -3056,15 +3060,15 @@ The first policy example will apply to namespaces with the label <em>environment
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/vmare-nsx-intelligence/' class=" post_tag button button_translucent" data-position=1 title="vmare-nsx-intelligence">VMARE-NSX-INTELLIGENCE<span class="button_tally">1</span>
+            <a href='https://blog.andreasm.io/categories/vmare-nsx-intelligence/' class=" post_tag button button_translucent" data-position=1 title="vmare nsx intelligence">VMARE NSX INTELLIGENCE<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/vmware-nsx/' class=" post_tag button button_translucent" data-position=2 title="vmware nsx">VMWARE NSX<span class="button_tally">2</span>
             </a>
             
             
             <a href='https://blog.andreasm.io/categories/vmware-cloud/' class=" post_tag button button_translucent" data-position=1 title="vmware-cloud">VMWARE-CLOUD<span class="button_tally">1</span>
-            </a>
-            
-            
-            <a href='https://blog.andreasm.io/categories/vmware-nsx/' class=" post_tag button button_translucent" data-position=2 title="vmware-nsx">VMWARE-NSX<span class="button_tally">2</span>
             </a>
             
             
@@ -3133,6 +3137,11 @@ The first policy example will apply to namespaces with the label <em>environment
           <span class="button_tally">4</span>
         </a>
         
+        <a href='https://blog.andreasm.io/tags/networking/' class="post_tag button button_translucent" title="networking">
+          NETWORKING
+          <span class="button_tally">4</span>
+        </a>
+        
         <a href='https://blog.andreasm.io/tags/availability/' class="post_tag button button_translucent" title="availability">
           AVAILABILITY
           <span class="button_tally">3</span>
@@ -3145,11 +3154,6 @@ The first policy example will apply to namespaces with the label <em>environment
         
         <a href='https://blog.andreasm.io/tags/network/' class="post_tag button button_translucent" title="network">
           NETWORK
-          <span class="button_tally">3</span>
-        </a>
-        
-        <a href='https://blog.andreasm.io/tags/networking/' class="post_tag button button_translucent" title="networking">
-          NETWORKING
           <span class="button_tally">3</span>
         </a>
         
@@ -3183,7 +3187,7 @@ The first policy example will apply to namespaces with the label <em>environment
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/automation/' class=" post_tag button button_translucent" data-position=1 title="automation">AUTOMATION<span class="button_tally">1</span>
+            <a href='https://blog.andreasm.io/tags/automation/' class=" post_tag button button_translucent" data-position=2 title="automation">AUTOMATION<span class="button_tally">2</span>
             </a>
             
             
@@ -3343,7 +3347,7 @@ The first policy example will apply to namespaces with the label <em>environment
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/networking/' class=" post_tag button button_translucent" data-position=3 title="networking">NETWORKING<span class="button_tally">3</span>
+            <a href='https://blog.andreasm.io/tags/networking/' class=" post_tag button button_translucent" data-position=4 title="networking">NETWORKING<span class="button_tally">4</span>
             </a>
             
             
@@ -3359,7 +3363,7 @@ The first policy example will apply to namespaces with the label <em>environment
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/nsx-advanced-loadbalancer/' class=" post_tag button button_translucent" data-position=1 title="nsx-advanced-loadbalancer">NSX-ADVANCED-LOADBALANCER<span class="button_tally">1</span>
+            <a href='https://blog.andreasm.io/tags/nsx-advanced-loadbalancer/' class=" post_tag button button_translucent" data-position=1 title="nsx advanced loadbalancer">NSX ADVANCED LOADBALANCER<span class="button_tally">1</span>
             </a>
             
             
@@ -3384,6 +3388,10 @@ The first policy example will apply to namespaces with the label <em>environment
             
             
             <a href='https://blog.andreasm.io/tags/pinniped/' class=" post_tag button button_translucent" data-position=1 title="pinniped">PINNIPED<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/provisioning/' class=" post_tag button button_translucent" data-position=1 title="provisioning">PROVISIONING<span class="button_tally">1</span>
             </a>
             
             
@@ -3447,7 +3455,7 @@ The first policy example will apply to namespaces with the label <em>environment
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/tkg-2.1/' class=" post_tag button button_translucent" data-position=1 title="tkg-2.1">TKG-2.1<span class="button_tally">1</span>
+            <a href='https://blog.andreasm.io/tags/tkg-2.1/' class=" post_tag button button_translucent" data-position=1 title="tkg 2.1">TKG 2.1<span class="button_tally">1</span>
             </a>
             
             
@@ -3601,7 +3609,7 @@ The first policy example will apply to namespaces with the label <em>environment
 
 <script type="text/javascript" src="https://blog.andreasm.io/en/js/bundle.5548d358738600c857a1f05f0459418da7143d4426c66a08bf3f15ded1b39dd2136bf104a559247a909fc4dcc45b8e06bad0870ece4c71ee5303d30550def8bd.js" integrity="sha512-VUjTWHOGAMhXofBfBFlBjacUPUQmxmoIvz8V3tGzndITa/EEpVkkepCfxNzEW44GutCHDs5Mce5TA9MFUN74vQ==" crossorigin="anonymous"></script>
 
-  <script src="https://blog.andreasm.io/js/search.min.df4d84e4983f0c71dd495e07a09815d920553c3ddf3d0767801c73373573aa17e1b489e4453272dbf4ce2a38a3d01a10b170744e50dd6bec85a598221867ba9a.js"></script>
+  <script src="https://blog.andreasm.io/js/search.min.95a6a82b7db565e9830200f15d8809e9663868dd57209f6f86afd54bb19568b9fbdfb9b479ebcc5d37e3b2e2136e396c05135d268cd68b21728a0bc176a8a809.js"></script>
 
   </body>
 </html>

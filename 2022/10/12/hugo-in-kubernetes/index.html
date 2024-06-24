@@ -278,7 +278,7 @@ I could also use Docker <a href="https://hub.docker.com/">hub</a>. Create an acc
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">docker login registry.example.com <span class="c1">#FQDN to my selfhosted Harbor registry, and the credentials for an account I have created there. </span>
 </span></span><span class="line"><span class="ln">2</span><span class="cl">docker tag hugo-image:v1 https://registry.example.com/hugo/hugo-image:v1 <span class="c1">#&#34;/hugo/&#34; name of project in Harbor</span>
 </span></span><span class="line"><span class="ln">3</span><span class="cl">docker push registry.example.com/hugo/hugo-image:v1 <span class="c1">#upload it</span>
-</span></span></code></pre></div><p>Thats it. Now I can go ahead and create my deployment.yaml definition file in my Kubernetes cluster, point it to my image hosted at my local Harbor registry (e.g registry.example.com/hugo/hugo-image:v1). But let me go through how I created my Hugo deployment in Kubernetes, as I am so close to see my newly image in action 😄 (Will it even work).</p>
+</span></span></code></pre></div><p>Thats it. Now I can go ahead and create my deployment.yaml definition file in my Kubernetes cluster, point it to my image hosted at my local Harbor registry (e.g registry.example.com/hugo/hugo-image:v1). But let me go through how I created my Hugo deployment in Kubernetes, as I am so close to see my newly image in action &#x1f604; (Will it even work).</p>
 <h2 id="deploy-hugo-in-kubernetes">Deploy Hugo in Kubernetes</h2>
 <p>To run my Hugo image in Kubernetes the way I wanted I need to define a <a href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/">Deployment</a> (remember I wanted a highly available Hugo deployment, meaning more than one pod and the ability to scale up/down). The first section of my hugo-deployment.yaml definition file looks like this:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">apps/v1</span><span class="w">
@@ -447,7 +447,7 @@ But instead of pointing to my workers IP addresses to read the content each time
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">NAME            STATUS   VOLUME                                     CAPACITY   ACCESS MODES   STORAGECLASS   AGE
 </span></span><span class="line"><span class="ln">2</span><span class="cl">hugo-pv-claim   Bound    pvc-b2395264-4500-4d74-8a5c-8d79f9df8d63   10Gi       RWO            nfs-client     59s
 </span></span></code></pre></div><p>Well that looks promising.
-Will I be able to access my hugo page on yikes.guzware.net ... well yes, otherwise you wouldnt read this.. 🤣</p>
+Will I be able to access my hugo page on yikes.guzware.net ... well yes, otherwise you wouldnt read this.. &#x1f923;</p>
 <h2 id="creating-and-updating-content">Creating and updating content</h2>
 <p>A blog page without content is not so interesting. So just some quick comments on how I create content, and update them.</p>
 <p>I use <a href="https://typora.io/">Typora</a> creating and editing my *.md files. While working with the post (such as now) I run hugo in &quot;server-mode&quot; whith this command: <code>hugo server</code>. If I run this command on of my linux virtual machines through SSH I want to reach the server from my laptop so I add the parameter <code>--bind=ip-of-linux-vm</code> and I can access the page from my laptop on the ip of the linux VM and port 1313. When I am done with the article/post for the day I generated the web-page with the command <code>hugo -D -v</code>.
@@ -488,6 +488,9 @@ Thats how I do, it works and I find it easy to maintain and operate. And, if one
     <h2 class="mt-4">Recent Posts</h2>
     <ul class="flex-column">
       <li>
+        <a href="https://blog.andreasm.io/2024/06/10/arista-automated-configuration-using-ansible/" class="nav-link" title="Arista Automated Configuration using Ansible">Arista Automated Configuration using Ansible</a>
+      </li>
+      <li>
         <a href="https://blog.andreasm.io/2024/05/13/neuvector-by-suse-security-where-it-is-needed-part-1/" class="nav-link" title="NeuVector by SUSE - security where it is needed - part 1">NeuVector by SUSE - security where it is needed - part 1</a>
       </li>
       <li>
@@ -508,9 +511,6 @@ Thats how I do, it works and I find it easy to maintain and operate. And, if one
       <li>
         <a href="https://blog.andreasm.io/2023/12/26/traefik-proxy-in-kubernetes/" class="nav-link" title="Traefik Proxy in Kubernetes">Traefik Proxy in Kubernetes</a>
       </li>
-      <li>
-        <a href="https://blog.andreasm.io/2023/12/18/a-quick-glance-at-cilium-cni/" class="nav-link" title="A Quick Glance at Cilium CNI">A Quick Glance at Cilium CNI</a>
-      </li>
     </ul>
     <div>
       <h2 class="mt-4 taxonomy" id="categories-section">Categories</h2>
@@ -522,7 +522,7 @@ Thats how I do, it works and I find it easy to maintain and operate. And, if one
         
         <a href='https://blog.andreasm.io/categories/networking/' class="post_tag button button_translucent" title="networking">
           NETWORKING
-          <span class="button_tally">20</span>
+          <span class="button_tally">21</span>
         </a>
         
         <a href='https://blog.andreasm.io/categories/tanzu/' class="post_tag button button_translucent" title="tanzu">
@@ -562,7 +562,7 @@ Thats how I do, it works and I find it easy to maintain and operate. And, if one
         
         <a href='https://blog.andreasm.io/categories/automation/' class="post_tag button button_translucent" title="automation">
           AUTOMATION
-          <span class="button_tally">2</span>
+          <span class="button_tally">3</span>
         </a>
         
         <a href='https://blog.andreasm.io/categories/blog/' class="post_tag button button_translucent" title="blog">
@@ -575,8 +575,8 @@ Thats how I do, it works and I find it easy to maintain and operate. And, if one
           <span class="button_tally">2</span>
         </a>
         
-        <a href='https://blog.andreasm.io/categories/vmware-nsx/' class="post_tag button button_translucent" title="vmware-nsx">
-          VMWARE-NSX
+        <a href='https://blog.andreasm.io/categories/vmware-nsx/' class="post_tag button button_translucent" title="vmware nsx">
+          VMWARE NSX
           <span class="button_tally">2</span>
         </a>
         
@@ -599,7 +599,7 @@ Thats how I do, it works and I find it easy to maintain and operate. And, if one
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/automation/' class=" post_tag button button_translucent" data-position=2 title="automation">AUTOMATION<span class="button_tally">2</span>
+            <a href='https://blog.andreasm.io/categories/automation/' class=" post_tag button button_translucent" data-position=3 title="automation">AUTOMATION<span class="button_tally">3</span>
             </a>
             
             
@@ -699,7 +699,7 @@ Thats how I do, it works and I find it easy to maintain and operate. And, if one
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/networking/' class=" post_tag button button_translucent" data-position=20 title="networking">NETWORKING<span class="button_tally">20</span>
+            <a href='https://blog.andreasm.io/categories/networking/' class=" post_tag button button_translucent" data-position=21 title="networking">NETWORKING<span class="button_tally">21</span>
             </a>
             
             
@@ -720,6 +720,10 @@ Thats how I do, it works and I find it easy to maintain and operate. And, if one
             
             
             <a href='https://blog.andreasm.io/categories/pinniped/' class=" post_tag button button_translucent" data-position=1 title="pinniped">PINNIPED<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/provisioning/' class=" post_tag button button_translucent" data-position=1 title="provisioning">PROVISIONING<span class="button_tally">1</span>
             </a>
             
             
@@ -751,7 +755,7 @@ Thats how I do, it works and I find it easy to maintain and operate. And, if one
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/tanzu-mission-control/' class=" post_tag button button_translucent" data-position=1 title="tanzu-mission-control">TANZU-MISSION-CONTROL<span class="button_tally">1</span>
+            <a href='https://blog.andreasm.io/categories/tanzu-mission-control/' class=" post_tag button button_translucent" data-position=1 title="tanzu mission control">TANZU MISSION CONTROL<span class="button_tally">1</span>
             </a>
             
             
@@ -775,15 +779,15 @@ Thats how I do, it works and I find it easy to maintain and operate. And, if one
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/vmare-nsx-intelligence/' class=" post_tag button button_translucent" data-position=1 title="vmare-nsx-intelligence">VMARE-NSX-INTELLIGENCE<span class="button_tally">1</span>
+            <a href='https://blog.andreasm.io/categories/vmare-nsx-intelligence/' class=" post_tag button button_translucent" data-position=1 title="vmare nsx intelligence">VMARE NSX INTELLIGENCE<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/vmware-nsx/' class=" post_tag button button_translucent" data-position=2 title="vmware nsx">VMWARE NSX<span class="button_tally">2</span>
             </a>
             
             
             <a href='https://blog.andreasm.io/categories/vmware-cloud/' class=" post_tag button button_translucent" data-position=1 title="vmware-cloud">VMWARE-CLOUD<span class="button_tally">1</span>
-            </a>
-            
-            
-            <a href='https://blog.andreasm.io/categories/vmware-nsx/' class=" post_tag button button_translucent" data-position=2 title="vmware-nsx">VMWARE-NSX<span class="button_tally">2</span>
             </a>
             
             
@@ -852,6 +856,11 @@ Thats how I do, it works and I find it easy to maintain and operate. And, if one
           <span class="button_tally">4</span>
         </a>
         
+        <a href='https://blog.andreasm.io/tags/networking/' class="post_tag button button_translucent" title="networking">
+          NETWORKING
+          <span class="button_tally">4</span>
+        </a>
+        
         <a href='https://blog.andreasm.io/tags/availability/' class="post_tag button button_translucent" title="availability">
           AVAILABILITY
           <span class="button_tally">3</span>
@@ -864,11 +873,6 @@ Thats how I do, it works and I find it easy to maintain and operate. And, if one
         
         <a href='https://blog.andreasm.io/tags/network/' class="post_tag button button_translucent" title="network">
           NETWORK
-          <span class="button_tally">3</span>
-        </a>
-        
-        <a href='https://blog.andreasm.io/tags/networking/' class="post_tag button button_translucent" title="networking">
-          NETWORKING
           <span class="button_tally">3</span>
         </a>
         
@@ -902,7 +906,7 @@ Thats how I do, it works and I find it easy to maintain and operate. And, if one
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/automation/' class=" post_tag button button_translucent" data-position=1 title="automation">AUTOMATION<span class="button_tally">1</span>
+            <a href='https://blog.andreasm.io/tags/automation/' class=" post_tag button button_translucent" data-position=2 title="automation">AUTOMATION<span class="button_tally">2</span>
             </a>
             
             
@@ -1062,7 +1066,7 @@ Thats how I do, it works and I find it easy to maintain and operate. And, if one
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/networking/' class=" post_tag button button_translucent" data-position=3 title="networking">NETWORKING<span class="button_tally">3</span>
+            <a href='https://blog.andreasm.io/tags/networking/' class=" post_tag button button_translucent" data-position=4 title="networking">NETWORKING<span class="button_tally">4</span>
             </a>
             
             
@@ -1078,7 +1082,7 @@ Thats how I do, it works and I find it easy to maintain and operate. And, if one
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/nsx-advanced-loadbalancer/' class=" post_tag button button_translucent" data-position=1 title="nsx-advanced-loadbalancer">NSX-ADVANCED-LOADBALANCER<span class="button_tally">1</span>
+            <a href='https://blog.andreasm.io/tags/nsx-advanced-loadbalancer/' class=" post_tag button button_translucent" data-position=1 title="nsx advanced loadbalancer">NSX ADVANCED LOADBALANCER<span class="button_tally">1</span>
             </a>
             
             
@@ -1103,6 +1107,10 @@ Thats how I do, it works and I find it easy to maintain and operate. And, if one
             
             
             <a href='https://blog.andreasm.io/tags/pinniped/' class=" post_tag button button_translucent" data-position=1 title="pinniped">PINNIPED<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/provisioning/' class=" post_tag button button_translucent" data-position=1 title="provisioning">PROVISIONING<span class="button_tally">1</span>
             </a>
             
             
@@ -1166,7 +1174,7 @@ Thats how I do, it works and I find it easy to maintain and operate. And, if one
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/tkg-2.1/' class=" post_tag button button_translucent" data-position=1 title="tkg-2.1">TKG-2.1<span class="button_tally">1</span>
+            <a href='https://blog.andreasm.io/tags/tkg-2.1/' class=" post_tag button button_translucent" data-position=1 title="tkg 2.1">TKG 2.1<span class="button_tally">1</span>
             </a>
             
             
@@ -1320,7 +1328,7 @@ Thats how I do, it works and I find it easy to maintain and operate. And, if one
 
 <script type="text/javascript" src="https://blog.andreasm.io/en/js/bundle.5548d358738600c857a1f05f0459418da7143d4426c66a08bf3f15ded1b39dd2136bf104a559247a909fc4dcc45b8e06bad0870ece4c71ee5303d30550def8bd.js" integrity="sha512-VUjTWHOGAMhXofBfBFlBjacUPUQmxmoIvz8V3tGzndITa/EEpVkkepCfxNzEW44GutCHDs5Mce5TA9MFUN74vQ==" crossorigin="anonymous"></script>
 
-  <script src="https://blog.andreasm.io/js/search.min.df4d84e4983f0c71dd495e07a09815d920553c3ddf3d0767801c73373573aa17e1b489e4453272dbf4ce2a38a3d01a10b170744e50dd6bec85a598221867ba9a.js"></script>
+  <script src="https://blog.andreasm.io/js/search.min.95a6a82b7db565e9830200f15d8809e9663868dd57209f6f86afd54bb19568b9fbdfb9b479ebcc5d37e3b2e2136e396c05135d268cd68b21728a0bc176a8a809.js"></script>
 
   </body>
 </html>

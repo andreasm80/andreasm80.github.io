@@ -528,88 +528,88 @@ Or whatever preferred way to install packages in Ubuntu.</p>
 <p>I will publish my value.yaml file here and comment what I edited.<br>
 I will remove the default comments and replace them with my own, just refer to de default comments by looking at the original yaml file here:<br>
 <a href="https://raw.githubusercontent.com/avinetworks/avi-helm-charts/master/charts/stable/ako/values.yaml">https://raw.githubusercontent.com/avinetworks/avi-helm-charts/master/charts/stable/ako/values.yaml</a></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="ln"> 1</span><span class="cl"># Default values for ako.
-</span></span><span class="line"><span class="ln"> 2</span><span class="cl"># This is a YAML-formatted file.
-</span></span><span class="line"><span class="ln"> 3</span><span class="cl"># Declare variables to be passed into your templates.
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1"># Default values for ako.</span>
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="c1"># This is a YAML-formatted file.</span>
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="c1"># Declare variables to be passed into your templates.</span>
 </span></span><span class="line"><span class="ln"> 4</span><span class="cl">
-</span></span><span class="line"><span class="ln"> 5</span><span class="cl">replicaCount: 1
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="n">replicaCount</span><span class="p">:</span> <span class="mi">1</span>
 </span></span><span class="line"><span class="ln"> 6</span><span class="cl">
-</span></span><span class="line"><span class="ln"> 7</span><span class="cl">image:
-</span></span><span class="line"><span class="ln"> 8</span><span class="cl">  repository: avinetworks/ako
-</span></span><span class="line"><span class="ln"> 9</span><span class="cl">  pullPolicy: IfNotPresent
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="n">image</span><span class="p">:</span>
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">  <span class="n">repository</span><span class="p">:</span> <span class="n">avinetworks</span><span class="o">/</span><span class="n">ako</span>
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">  <span class="n">pullPolicy</span><span class="p">:</span> <span class="n">IfNotPresent</span>
 </span></span><span class="line"><span class="ln">10</span><span class="cl">
 </span></span><span class="line"><span class="ln">11</span><span class="cl">
-</span></span><span class="line"><span class="ln">12</span><span class="cl">### This section outlines the generic AKO settings
-</span></span><span class="line"><span class="ln">13</span><span class="cl">AKOSettings:
-</span></span><span class="line"><span class="ln">14</span><span class="cl">  logLevel: &#34;INFO&#34; #enum: INFO|DEBUG|WARN|ERROR
-</span></span><span class="line"><span class="ln">15</span><span class="cl">  fullSyncFrequency: &#34;1800&#34; # This frequency controls how often AKO polls the Avi controller to update itself with cloud configurations.
-</span></span><span class="line"><span class="ln">16</span><span class="cl">  apiServerPort: 8080 # Specify the port for the API server, default is set as 8080 // EmptyAllowed: false
-</span></span><span class="line"><span class="ln">17</span><span class="cl">  deleteConfig: &#34;false&#34; # Has to be set to true in configmap if user wants to delete AKO created objects from AVI 
-</span></span><span class="line"><span class="ln">18</span><span class="cl">  disableStaticRouteSync: &#34;false&#34; # If the POD networks are reachable from the Avi SE, set this knob to true.
-</span></span><span class="line"><span class="ln">19</span><span class="cl">  clusterName: &#34;GuzK8s&#34; # A unique identifier for the kubernetes cluster, that helps distinguish the objects for this cluster in the avi controller. // MUST-EDIT
-</span></span><span class="line"><span class="ln">20</span><span class="cl">  cniPlugin: &#34;&#34; # Set the string if your CNI is calico or openshift. enum: calico|canal|flannel|openshift 
+</span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="c1">### This section outlines the generic AKO settings</span>
+</span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="n">AKOSettings</span><span class="p">:</span>
+</span></span><span class="line"><span class="ln">14</span><span class="cl">  <span class="n">logLevel</span><span class="p">:</span> <span class="s2">&#34;INFO&#34;</span> <span class="c1">#enum: INFO|DEBUG|WARN|ERROR</span>
+</span></span><span class="line"><span class="ln">15</span><span class="cl">  <span class="n">fullSyncFrequency</span><span class="p">:</span> <span class="s2">&#34;1800&#34;</span> <span class="c1"># This frequency controls how often AKO polls the Avi controller to update itself with cloud configurations.</span>
+</span></span><span class="line"><span class="ln">16</span><span class="cl">  <span class="n">apiServerPort</span><span class="p">:</span> <span class="mi">8080</span> <span class="c1"># Specify the port for the API server, default is set as 8080 // EmptyAllowed: false</span>
+</span></span><span class="line"><span class="ln">17</span><span class="cl">  <span class="n">deleteConfig</span><span class="p">:</span> <span class="s2">&#34;false&#34;</span> <span class="c1"># Has to be set to true in configmap if user wants to delete AKO created objects from AVI </span>
+</span></span><span class="line"><span class="ln">18</span><span class="cl">  <span class="n">disableStaticRouteSync</span><span class="p">:</span> <span class="s2">&#34;false&#34;</span> <span class="c1"># If the POD networks are reachable from the Avi SE, set this knob to true.</span>
+</span></span><span class="line"><span class="ln">19</span><span class="cl">  <span class="n">clusterName</span><span class="p">:</span> <span class="s2">&#34;GuzK8s&#34;</span> <span class="c1"># A unique identifier for the kubernetes cluster, that helps distinguish the objects for this cluster in the avi controller. // MUST-EDIT</span>
+</span></span><span class="line"><span class="ln">20</span><span class="cl">  <span class="n">cniPlugin</span><span class="p">:</span> <span class="s2">&#34;&#34;</span> <span class="c1"># Set the string if your CNI is calico or openshift. enum: calico|canal|flannel|openshift </span>
 </span></span><span class="line"><span class="ln">21</span><span class="cl">
-</span></span><span class="line"><span class="ln">22</span><span class="cl">### This section outlines the network settings for virtualservices. 
-</span></span><span class="line"><span class="ln">23</span><span class="cl">NetworkSettings:
-</span></span><span class="line"><span class="ln">24</span><span class="cl">  ## This list of network and cidrs are used in pool placement network for vcenter cloud.
-</span></span><span class="line"><span class="ln">25</span><span class="cl">  ## Node Network details are not needed when in nodeport mode / static routes are disabled / non vcenter clouds.
-</span></span><span class="line"><span class="ln">26</span><span class="cl">  # nodeNetworkList: [] 
-</span></span><span class="line"><span class="ln">27</span><span class="cl">  nodeNetworkList:
-</span></span><span class="line"><span class="ln">28</span><span class="cl">   - networkName: &#34;Native-K8s-cluster&#34;
-</span></span><span class="line"><span class="ln">29</span><span class="cl">     cidrs:
-</span></span><span class="line"><span class="ln">30</span><span class="cl">         - 192.168.0.0/24   # NODE network
-</span></span><span class="line"><span class="ln">31</span><span class="cl">  subnetIP: &#34;10.150.4.0&#34; # Subnet IP of the vip network
-</span></span><span class="line"><span class="ln">32</span><span class="cl">  subnetPrefix: &#34;255.255.255.0&#34; # Subnet Prefix of the vip network
-</span></span><span class="line"><span class="ln">33</span><span class="cl">  networkName: &#34;NativeK8sVIP&#34; # Network Name of the vip network
+</span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="c1">### This section outlines the network settings for virtualservices. </span>
+</span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="n">NetworkSettings</span><span class="p">:</span>
+</span></span><span class="line"><span class="ln">24</span><span class="cl">  <span class="c1">## This list of network and cidrs are used in pool placement network for vcenter cloud.</span>
+</span></span><span class="line"><span class="ln">25</span><span class="cl">  <span class="c1">## Node Network details are not needed when in nodeport mode / static routes are disabled / non vcenter clouds.</span>
+</span></span><span class="line"><span class="ln">26</span><span class="cl">  <span class="c1"># nodeNetworkList: [] </span>
+</span></span><span class="line"><span class="ln">27</span><span class="cl">  <span class="n">nodeNetworkList</span><span class="p">:</span>
+</span></span><span class="line"><span class="ln">28</span><span class="cl">   <span class="o">-</span> <span class="n">networkName</span><span class="p">:</span> <span class="s2">&#34;Native-K8s-cluster&#34;</span>
+</span></span><span class="line"><span class="ln">29</span><span class="cl">     <span class="n">cidrs</span><span class="p">:</span>
+</span></span><span class="line"><span class="ln">30</span><span class="cl">         <span class="o">-</span> <span class="mf">192.168</span><span class="o">.</span><span class="mf">0.0</span><span class="o">/</span><span class="mi">24</span>   <span class="c1"># NODE network</span>
+</span></span><span class="line"><span class="ln">31</span><span class="cl">  <span class="n">subnetIP</span><span class="p">:</span> <span class="s2">&#34;10.150.4.0&#34;</span> <span class="c1"># Subnet IP of the vip network</span>
+</span></span><span class="line"><span class="ln">32</span><span class="cl">  <span class="n">subnetPrefix</span><span class="p">:</span> <span class="s2">&#34;255.255.255.0&#34;</span> <span class="c1"># Subnet Prefix of the vip network</span>
+</span></span><span class="line"><span class="ln">33</span><span class="cl">  <span class="n">networkName</span><span class="p">:</span> <span class="s2">&#34;NativeK8sVIP&#34;</span> <span class="c1"># Network Name of the vip network</span>
 </span></span><span class="line"><span class="ln">34</span><span class="cl">
-</span></span><span class="line"><span class="ln">35</span><span class="cl">### This section outlines all the knobs  used to control Layer 7 loadbalancing settings in AKO.
-</span></span><span class="line"><span class="ln">36</span><span class="cl">L7Settings:
-</span></span><span class="line"><span class="ln">37</span><span class="cl">  defaultIngController: &#34;true&#34;
-</span></span><span class="line"><span class="ln">38</span><span class="cl">  l7ShardingScheme: &#34;hostname&#34;
-</span></span><span class="line"><span class="ln">39</span><span class="cl">  serviceType: &#34;ClusterIP&#34; #enum NodePort|ClusterIP
-</span></span><span class="line"><span class="ln">40</span><span class="cl">  shardVSSize: &#34;SMALL&#34; # Use this to control the layer 7 VS numbers. This applies to both secure/insecure VSes but does not apply for passthrough. ENUMs: LARGE, MEDIUM, SMALL
-</span></span><span class="line"><span class="ln">41</span><span class="cl">  passthroughShardSize: &#34;SMALL&#34; # Control the passthrough virtualservice numbers using this ENUM. ENUMs: LARGE, MEDIUM, SMALL
+</span></span><span class="line"><span class="ln">35</span><span class="cl"><span class="c1">### This section outlines all the knobs  used to control Layer 7 loadbalancing settings in AKO.</span>
+</span></span><span class="line"><span class="ln">36</span><span class="cl"><span class="n">L7Settings</span><span class="p">:</span>
+</span></span><span class="line"><span class="ln">37</span><span class="cl">  <span class="n">defaultIngController</span><span class="p">:</span> <span class="s2">&#34;true&#34;</span>
+</span></span><span class="line"><span class="ln">38</span><span class="cl">  <span class="n">l7ShardingScheme</span><span class="p">:</span> <span class="s2">&#34;hostname&#34;</span>
+</span></span><span class="line"><span class="ln">39</span><span class="cl">  <span class="n">serviceType</span><span class="p">:</span> <span class="s2">&#34;ClusterIP&#34;</span> <span class="c1">#enum NodePort|ClusterIP</span>
+</span></span><span class="line"><span class="ln">40</span><span class="cl">  <span class="n">shardVSSize</span><span class="p">:</span> <span class="s2">&#34;SMALL&#34;</span> <span class="c1"># Use this to control the layer 7 VS numbers. This applies to both secure/insecure VSes but does not apply for passthrough. ENUMs: LARGE, MEDIUM, SMALL</span>
+</span></span><span class="line"><span class="ln">41</span><span class="cl">  <span class="n">passthroughShardSize</span><span class="p">:</span> <span class="s2">&#34;SMALL&#34;</span> <span class="c1"># Control the passthrough virtualservice numbers using this ENUM. ENUMs: LARGE, MEDIUM, SMALL</span>
 </span></span><span class="line"><span class="ln">42</span><span class="cl">
-</span></span><span class="line"><span class="ln">43</span><span class="cl">### This section outlines all the knobs  used to control Layer 4 loadbalancing settings in AKO.
-</span></span><span class="line"><span class="ln">44</span><span class="cl">L4Settings:
-</span></span><span class="line"><span class="ln">45</span><span class="cl">  defaultDomain: &#34;&#34; # If multiple sub-domains are configured in the cloud, use this knob to set the default sub-domain to use for L4 VSes.
+</span></span><span class="line"><span class="ln">43</span><span class="cl"><span class="c1">### This section outlines all the knobs  used to control Layer 4 loadbalancing settings in AKO.</span>
+</span></span><span class="line"><span class="ln">44</span><span class="cl"><span class="n">L4Settings</span><span class="p">:</span>
+</span></span><span class="line"><span class="ln">45</span><span class="cl">  <span class="n">defaultDomain</span><span class="p">:</span> <span class="s2">&#34;&#34;</span> <span class="c1"># If multiple sub-domains are configured in the cloud, use this knob to set the default sub-domain to use for L4 VSes.</span>
 </span></span><span class="line"><span class="ln">46</span><span class="cl">
-</span></span><span class="line"><span class="ln">47</span><span class="cl">### This section outlines settings on the Avi controller that affects AKO&#39;s functionality.
-</span></span><span class="line"><span class="ln">48</span><span class="cl">ControllerSettings:
-</span></span><span class="line"><span class="ln">49</span><span class="cl">  serviceEngineGroupName: &#34;k8s2se&#34; # Name of the ServiceEngine Group.
-</span></span><span class="line"><span class="ln">50</span><span class="cl">  controllerVersion: &#34;20.1.1&#34; # The controller API version
-</span></span><span class="line"><span class="ln">51</span><span class="cl">  cloudName: &#34;Default-Cloud&#34; # The configured cloud name on the Avi controller.
-</span></span><span class="line"><span class="ln">52</span><span class="cl">  controllerIP: &#34;172.18.5.50&#34;
+</span></span><span class="line"><span class="ln">47</span><span class="cl"><span class="c1">### This section outlines settings on the Avi controller that affects AKO&#39;s functionality.</span>
+</span></span><span class="line"><span class="ln">48</span><span class="cl"><span class="n">ControllerSettings</span><span class="p">:</span>
+</span></span><span class="line"><span class="ln">49</span><span class="cl">  <span class="n">serviceEngineGroupName</span><span class="p">:</span> <span class="s2">&#34;k8s2se&#34;</span> <span class="c1"># Name of the ServiceEngine Group.</span>
+</span></span><span class="line"><span class="ln">50</span><span class="cl">  <span class="n">controllerVersion</span><span class="p">:</span> <span class="s2">&#34;20.1.1&#34;</span> <span class="c1"># The controller API version</span>
+</span></span><span class="line"><span class="ln">51</span><span class="cl">  <span class="n">cloudName</span><span class="p">:</span> <span class="s2">&#34;Default-Cloud&#34;</span> <span class="c1"># The configured cloud name on the Avi controller.</span>
+</span></span><span class="line"><span class="ln">52</span><span class="cl">  <span class="n">controllerIP</span><span class="p">:</span> <span class="s2">&#34;172.18.5.50&#34;</span>
 </span></span><span class="line"><span class="ln">53</span><span class="cl">
-</span></span><span class="line"><span class="ln">54</span><span class="cl">nodePortSelector: # Only applicable if serviceType is NodePort
-</span></span><span class="line"><span class="ln">55</span><span class="cl">  key: &#34;&#34;
-</span></span><span class="line"><span class="ln">56</span><span class="cl">  value: &#34;&#34;
+</span></span><span class="line"><span class="ln">54</span><span class="cl"><span class="n">nodePortSelector</span><span class="p">:</span> <span class="c1"># Only applicable if serviceType is NodePort</span>
+</span></span><span class="line"><span class="ln">55</span><span class="cl">  <span class="n">key</span><span class="p">:</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="ln">56</span><span class="cl">  <span class="n">value</span><span class="p">:</span> <span class="s2">&#34;&#34;</span>
 </span></span><span class="line"><span class="ln">57</span><span class="cl">
-</span></span><span class="line"><span class="ln">58</span><span class="cl">resources:
-</span></span><span class="line"><span class="ln">59</span><span class="cl">  limits:
-</span></span><span class="line"><span class="ln">60</span><span class="cl">    cpu: 250m
-</span></span><span class="line"><span class="ln">61</span><span class="cl">    memory: 300Mi
-</span></span><span class="line"><span class="ln">62</span><span class="cl">  requests:
-</span></span><span class="line"><span class="ln">63</span><span class="cl">    cpu: 100m
-</span></span><span class="line"><span class="ln">64</span><span class="cl">    memory: 75Mi
+</span></span><span class="line"><span class="ln">58</span><span class="cl"><span class="n">resources</span><span class="p">:</span>
+</span></span><span class="line"><span class="ln">59</span><span class="cl">  <span class="n">limits</span><span class="p">:</span>
+</span></span><span class="line"><span class="ln">60</span><span class="cl">    <span class="n">cpu</span><span class="p">:</span> <span class="mi">250</span><span class="n">m</span>
+</span></span><span class="line"><span class="ln">61</span><span class="cl">    <span class="n">memory</span><span class="p">:</span> <span class="mi">300</span><span class="n">Mi</span>
+</span></span><span class="line"><span class="ln">62</span><span class="cl">  <span class="n">requests</span><span class="p">:</span>
+</span></span><span class="line"><span class="ln">63</span><span class="cl">    <span class="n">cpu</span><span class="p">:</span> <span class="mi">100</span><span class="n">m</span>
+</span></span><span class="line"><span class="ln">64</span><span class="cl">    <span class="n">memory</span><span class="p">:</span> <span class="mi">75</span><span class="n">Mi</span>
 </span></span><span class="line"><span class="ln">65</span><span class="cl">
-</span></span><span class="line"><span class="ln">66</span><span class="cl">podSecurityContext: {}
-</span></span><span class="line"><span class="ln">67</span><span class="cl">  # fsGroup: 2000
+</span></span><span class="line"><span class="ln">66</span><span class="cl"><span class="n">podSecurityContext</span><span class="p">:</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="ln">67</span><span class="cl">  <span class="c1"># fsGroup: 2000</span>
 </span></span><span class="line"><span class="ln">68</span><span class="cl">
 </span></span><span class="line"><span class="ln">69</span><span class="cl">
-</span></span><span class="line"><span class="ln">70</span><span class="cl">avicredentials:
-</span></span><span class="line"><span class="ln">71</span><span class="cl">  username: &#34;admin&#34;
-</span></span><span class="line"><span class="ln">72</span><span class="cl">  password: &#34;PASSWORD&#34;
+</span></span><span class="line"><span class="ln">70</span><span class="cl"><span class="n">avicredentials</span><span class="p">:</span>
+</span></span><span class="line"><span class="ln">71</span><span class="cl">  <span class="n">username</span><span class="p">:</span> <span class="s2">&#34;admin&#34;</span>
+</span></span><span class="line"><span class="ln">72</span><span class="cl">  <span class="n">password</span><span class="p">:</span> <span class="s2">&#34;PASSWORD&#34;</span>
 </span></span><span class="line"><span class="ln">73</span><span class="cl">
 </span></span><span class="line"><span class="ln">74</span><span class="cl">
-</span></span><span class="line"><span class="ln">75</span><span class="cl">service:
-</span></span><span class="line"><span class="ln">76</span><span class="cl">  type: ClusterIP
-</span></span><span class="line"><span class="ln">77</span><span class="cl">  port: 80
+</span></span><span class="line"><span class="ln">75</span><span class="cl"><span class="n">service</span><span class="p">:</span>
+</span></span><span class="line"><span class="ln">76</span><span class="cl">  <span class="n">type</span><span class="p">:</span> <span class="n">ClusterIP</span>
+</span></span><span class="line"><span class="ln">77</span><span class="cl">  <span class="n">port</span><span class="p">:</span> <span class="mi">80</span>
 </span></span><span class="line"><span class="ln">78</span><span class="cl">
 </span></span><span class="line"><span class="ln">79</span><span class="cl">
-</span></span><span class="line"><span class="ln">80</span><span class="cl">persistentVolumeClaim: &#34;&#34;
-</span></span><span class="line"><span class="ln">81</span><span class="cl">mountPath: &#34;/log&#34;
-</span></span><span class="line"><span class="ln">82</span><span class="cl">logFile: &#34;avi.log&#34;
+</span></span><span class="line"><span class="ln">80</span><span class="cl"><span class="n">persistentVolumeClaim</span><span class="p">:</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="ln">81</span><span class="cl"><span class="n">mountPath</span><span class="p">:</span> <span class="s2">&#34;/log&#34;</span>
+</span></span><span class="line"><span class="ln">82</span><span class="cl"><span class="n">logFile</span><span class="p">:</span> <span class="s2">&#34;avi.log&#34;</span>
 </span></span></code></pre></div><p>Remember that YAML’s are indentation sensitive.. so watch your spaces 😉</p>
 <p>**Deploy the AKO controller:<br>
 **<em><code>helm install ako/ako --generate-name --version 1.4.2 -f avi-values.yaml --namespace=avi-system</code></em></p>
@@ -794,6 +794,9 @@ NSX-ALB deploys the SE OVAs, as soon as they are up and running they will be aut
     <h2 class="mt-4">Recent Posts</h2>
     <ul class="flex-column">
       <li>
+        <a href="https://blog.andreasm.io/2024/06/10/arista-automated-configuration-using-ansible/" class="nav-link" title="Arista Automated Configuration using Ansible">Arista Automated Configuration using Ansible</a>
+      </li>
+      <li>
         <a href="https://blog.andreasm.io/2024/05/13/neuvector-by-suse-security-where-it-is-needed-part-1/" class="nav-link" title="NeuVector by SUSE - security where it is needed - part 1">NeuVector by SUSE - security where it is needed - part 1</a>
       </li>
       <li>
@@ -814,9 +817,6 @@ NSX-ALB deploys the SE OVAs, as soon as they are up and running they will be aut
       <li>
         <a href="https://blog.andreasm.io/2023/12/26/traefik-proxy-in-kubernetes/" class="nav-link" title="Traefik Proxy in Kubernetes">Traefik Proxy in Kubernetes</a>
       </li>
-      <li>
-        <a href="https://blog.andreasm.io/2023/12/18/a-quick-glance-at-cilium-cni/" class="nav-link" title="A Quick Glance at Cilium CNI">A Quick Glance at Cilium CNI</a>
-      </li>
     </ul>
     <div>
       <h2 class="mt-4 taxonomy" id="categories-section">Categories</h2>
@@ -828,7 +828,7 @@ NSX-ALB deploys the SE OVAs, as soon as they are up and running they will be aut
         
         <a href='https://blog.andreasm.io/categories/networking/' class="post_tag button button_translucent" title="networking">
           NETWORKING
-          <span class="button_tally">20</span>
+          <span class="button_tally">21</span>
         </a>
         
         <a href='https://blog.andreasm.io/categories/tanzu/' class="post_tag button button_translucent" title="tanzu">
@@ -868,7 +868,7 @@ NSX-ALB deploys the SE OVAs, as soon as they are up and running they will be aut
         
         <a href='https://blog.andreasm.io/categories/automation/' class="post_tag button button_translucent" title="automation">
           AUTOMATION
-          <span class="button_tally">2</span>
+          <span class="button_tally">3</span>
         </a>
         
         <a href='https://blog.andreasm.io/categories/blog/' class="post_tag button button_translucent" title="blog">
@@ -881,8 +881,8 @@ NSX-ALB deploys the SE OVAs, as soon as they are up and running they will be aut
           <span class="button_tally">2</span>
         </a>
         
-        <a href='https://blog.andreasm.io/categories/vmware-nsx/' class="post_tag button button_translucent" title="vmware-nsx">
-          VMWARE-NSX
+        <a href='https://blog.andreasm.io/categories/vmware-nsx/' class="post_tag button button_translucent" title="vmware nsx">
+          VMWARE NSX
           <span class="button_tally">2</span>
         </a>
         
@@ -905,7 +905,7 @@ NSX-ALB deploys the SE OVAs, as soon as they are up and running they will be aut
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/automation/' class=" post_tag button button_translucent" data-position=2 title="automation">AUTOMATION<span class="button_tally">2</span>
+            <a href='https://blog.andreasm.io/categories/automation/' class=" post_tag button button_translucent" data-position=3 title="automation">AUTOMATION<span class="button_tally">3</span>
             </a>
             
             
@@ -1005,7 +1005,7 @@ NSX-ALB deploys the SE OVAs, as soon as they are up and running they will be aut
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/networking/' class=" post_tag button button_translucent" data-position=20 title="networking">NETWORKING<span class="button_tally">20</span>
+            <a href='https://blog.andreasm.io/categories/networking/' class=" post_tag button button_translucent" data-position=21 title="networking">NETWORKING<span class="button_tally">21</span>
             </a>
             
             
@@ -1026,6 +1026,10 @@ NSX-ALB deploys the SE OVAs, as soon as they are up and running they will be aut
             
             
             <a href='https://blog.andreasm.io/categories/pinniped/' class=" post_tag button button_translucent" data-position=1 title="pinniped">PINNIPED<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/provisioning/' class=" post_tag button button_translucent" data-position=1 title="provisioning">PROVISIONING<span class="button_tally">1</span>
             </a>
             
             
@@ -1057,7 +1061,7 @@ NSX-ALB deploys the SE OVAs, as soon as they are up and running they will be aut
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/tanzu-mission-control/' class=" post_tag button button_translucent" data-position=1 title="tanzu-mission-control">TANZU-MISSION-CONTROL<span class="button_tally">1</span>
+            <a href='https://blog.andreasm.io/categories/tanzu-mission-control/' class=" post_tag button button_translucent" data-position=1 title="tanzu mission control">TANZU MISSION CONTROL<span class="button_tally">1</span>
             </a>
             
             
@@ -1081,15 +1085,15 @@ NSX-ALB deploys the SE OVAs, as soon as they are up and running they will be aut
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/vmare-nsx-intelligence/' class=" post_tag button button_translucent" data-position=1 title="vmare-nsx-intelligence">VMARE-NSX-INTELLIGENCE<span class="button_tally">1</span>
+            <a href='https://blog.andreasm.io/categories/vmare-nsx-intelligence/' class=" post_tag button button_translucent" data-position=1 title="vmare nsx intelligence">VMARE NSX INTELLIGENCE<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/vmware-nsx/' class=" post_tag button button_translucent" data-position=2 title="vmware nsx">VMWARE NSX<span class="button_tally">2</span>
             </a>
             
             
             <a href='https://blog.andreasm.io/categories/vmware-cloud/' class=" post_tag button button_translucent" data-position=1 title="vmware-cloud">VMWARE-CLOUD<span class="button_tally">1</span>
-            </a>
-            
-            
-            <a href='https://blog.andreasm.io/categories/vmware-nsx/' class=" post_tag button button_translucent" data-position=2 title="vmware-nsx">VMWARE-NSX<span class="button_tally">2</span>
             </a>
             
             
@@ -1158,6 +1162,11 @@ NSX-ALB deploys the SE OVAs, as soon as they are up and running they will be aut
           <span class="button_tally">4</span>
         </a>
         
+        <a href='https://blog.andreasm.io/tags/networking/' class="post_tag button button_translucent" title="networking">
+          NETWORKING
+          <span class="button_tally">4</span>
+        </a>
+        
         <a href='https://blog.andreasm.io/tags/availability/' class="post_tag button button_translucent" title="availability">
           AVAILABILITY
           <span class="button_tally">3</span>
@@ -1170,11 +1179,6 @@ NSX-ALB deploys the SE OVAs, as soon as they are up and running they will be aut
         
         <a href='https://blog.andreasm.io/tags/network/' class="post_tag button button_translucent" title="network">
           NETWORK
-          <span class="button_tally">3</span>
-        </a>
-        
-        <a href='https://blog.andreasm.io/tags/networking/' class="post_tag button button_translucent" title="networking">
-          NETWORKING
           <span class="button_tally">3</span>
         </a>
         
@@ -1208,7 +1212,7 @@ NSX-ALB deploys the SE OVAs, as soon as they are up and running they will be aut
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/automation/' class=" post_tag button button_translucent" data-position=1 title="automation">AUTOMATION<span class="button_tally">1</span>
+            <a href='https://blog.andreasm.io/tags/automation/' class=" post_tag button button_translucent" data-position=2 title="automation">AUTOMATION<span class="button_tally">2</span>
             </a>
             
             
@@ -1368,7 +1372,7 @@ NSX-ALB deploys the SE OVAs, as soon as they are up and running they will be aut
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/networking/' class=" post_tag button button_translucent" data-position=3 title="networking">NETWORKING<span class="button_tally">3</span>
+            <a href='https://blog.andreasm.io/tags/networking/' class=" post_tag button button_translucent" data-position=4 title="networking">NETWORKING<span class="button_tally">4</span>
             </a>
             
             
@@ -1384,7 +1388,7 @@ NSX-ALB deploys the SE OVAs, as soon as they are up and running they will be aut
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/nsx-advanced-loadbalancer/' class=" post_tag button button_translucent" data-position=1 title="nsx-advanced-loadbalancer">NSX-ADVANCED-LOADBALANCER<span class="button_tally">1</span>
+            <a href='https://blog.andreasm.io/tags/nsx-advanced-loadbalancer/' class=" post_tag button button_translucent" data-position=1 title="nsx advanced loadbalancer">NSX ADVANCED LOADBALANCER<span class="button_tally">1</span>
             </a>
             
             
@@ -1409,6 +1413,10 @@ NSX-ALB deploys the SE OVAs, as soon as they are up and running they will be aut
             
             
             <a href='https://blog.andreasm.io/tags/pinniped/' class=" post_tag button button_translucent" data-position=1 title="pinniped">PINNIPED<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/provisioning/' class=" post_tag button button_translucent" data-position=1 title="provisioning">PROVISIONING<span class="button_tally">1</span>
             </a>
             
             
@@ -1472,7 +1480,7 @@ NSX-ALB deploys the SE OVAs, as soon as they are up and running they will be aut
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/tkg-2.1/' class=" post_tag button button_translucent" data-position=1 title="tkg-2.1">TKG-2.1<span class="button_tally">1</span>
+            <a href='https://blog.andreasm.io/tags/tkg-2.1/' class=" post_tag button button_translucent" data-position=1 title="tkg 2.1">TKG 2.1<span class="button_tally">1</span>
             </a>
             
             
@@ -1626,7 +1634,7 @@ NSX-ALB deploys the SE OVAs, as soon as they are up and running they will be aut
 
 <script type="text/javascript" src="https://blog.andreasm.io/en/js/bundle.5548d358738600c857a1f05f0459418da7143d4426c66a08bf3f15ded1b39dd2136bf104a559247a909fc4dcc45b8e06bad0870ece4c71ee5303d30550def8bd.js" integrity="sha512-VUjTWHOGAMhXofBfBFlBjacUPUQmxmoIvz8V3tGzndITa/EEpVkkepCfxNzEW44GutCHDs5Mce5TA9MFUN74vQ==" crossorigin="anonymous"></script>
 
-  <script src="https://blog.andreasm.io/js/search.min.df4d84e4983f0c71dd495e07a09815d920553c3ddf3d0767801c73373573aa17e1b489e4453272dbf4ce2a38a3d01a10b170744e50dd6bec85a598221867ba9a.js"></script>
+  <script src="https://blog.andreasm.io/js/search.min.95a6a82b7db565e9830200f15d8809e9663868dd57209f6f86afd54bb19568b9fbdfb9b479ebcc5d37e3b2e2136e396c05135d268cd68b21728a0bc176a8a809.js"></script>
 
   </body>
 </html>

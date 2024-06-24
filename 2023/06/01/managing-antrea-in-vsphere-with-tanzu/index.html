@@ -1599,7 +1599,7 @@ I can get all kinds of information like namespaces, pods, labels, ip addresses, 
     </picture>
 </figure>
 </p>
-<p>Yes 😃</p>
+<p>Yes &#x1f603;</p>
 <p>Now go ahead and create similar groups and rules (except the ports) for the other pods using their respective label.</p>
 <p>End result:</p>
 <p>
@@ -1630,7 +1630,7 @@ I can get all kinds of information like namespaces, pods, labels, ip addresses, 
     </picture>
 </figure>
 </p>
-<p>Do they work? Let us find that out a bit later as I need something to put in my TraceFlow chapter 😄</p>
+<p>Do they work? Let us find that out a bit later as I need something to put in my TraceFlow chapter &#x1f604;</p>
 <p>The rules I have added above was just for the application in the namespace Yelb. If I wanted to extend this ruleset to also include the same application from other clusters its just adding the Kubernetes cluster in the Applied field like this:
 
   <figure>
@@ -2361,7 +2361,7 @@ First the user want to access the VIP of the Yelb UI service. This is allowed by
     </picture>
 </figure>
 </p>
-<p>Oops, dropped by a NetworkPolicy... Where does that come from 🤔 ... More on this later.</p>
+<p>Oops, dropped by a NetworkPolicy... Where does that come from &#x1f914; ... More on this later.</p>
 <h2 id="antrea-network-monitoring">Antrea Network Monitoring</h2>
 <p>Being able to know what's going on is crucial when planning security policies, but also to know if the policies are working and being enforced. With that information available we can know if we are compliant with the policies apllied. Without any network flow information we are kind of in the blind. Luckily Antrea is fully capable of report full flow information, and export it.
 To be able to export the flow information we need to enable the FeatureGate FlowExporter:</p>
@@ -2578,7 +2578,7 @@ To be able to export the flow information we need to enable the FeatureGate Flow
 </span></span></span><span class="line"><span class="ln">48</span><span class="cl"><span class="w">    </span><span class="nt">timestamp</span><span class="p">:</span><span class="w"> </span><span class="m">1686142441</span><span class="w">
 </span></span></span><span class="line"><span class="ln">49</span><span class="cl"><span class="w">  </span><span class="nt">startTime</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;2023-06-07T12:53:59Z&#34;</span><span class="w">
 </span></span></span></code></pre></div><p>That was also a success, as it was dropped by design: <em>- action: Dropped</em></p>
-<p>Its great being able to do this from kubectl, if one quickly need to check this before starting to look somewhere else and create a support ticket 😃 or one dont have access to other tools like the Antrea UI or even the NSX manager, speaking of NSX manager. Let us do the exact same trace from the NSX manager gui:</p>
+<p>Its great being able to do this from kubectl, if one quickly need to check this before starting to look somewhere else and create a support ticket &#x1f603; or one dont have access to other tools like the Antrea UI or even the NSX manager, speaking of NSX manager. Let us do the exact same trace from the NSX manager gui:</p>
 <p>Head over Plan&amp;Troubleshoot -&gt; Traffic Analysis:</p>
 <p>
   <figure>
@@ -3396,7 +3396,7 @@ I will need to generate some more activity for the recommendation engine to get 
 </span></span><span class="line"><span class="ln">18</span><span class="cl">2ecb054a-8c0d-4ae1-8444-c3493e7bb6d9    20.20.3.12      <span class="m">59448</span>                   20.20.0.12      <span class="m">2181</span>                            2023-06-06T22:04:43Z    2023-06-08T04:07:57Z    <span class="m">53612</span>           49714.00885995446       <span class="nb">true</span>
 </span></span><span class="line"><span class="ln">19</span><span class="cl">2ecb054a-8c0d-4ae1-8444-c3493e7bb6d9    20.20.3.12      <span class="m">59448</span>                   20.20.0.12      <span class="m">2181</span>                            2023-06-06T22:04:43Z    2023-06-08T01:54:58Z    <span class="m">59089</span>           51972.42465384903       <span class="nb">true</span>
 </span></span></code></pre></div><h2 id="antrea-egress">Antrea Egress</h2>
-<p>This chapter is also covered in another post I have done <a href="https://blog.andreasm.io/2023/02/20/antrea-egress/">here</a> with some tweaks 😃</p>
+<p>This chapter is also covered in another post I have done <a href="https://blog.andreasm.io/2023/02/20/antrea-egress/">here</a> with some tweaks &#x1f603;</p>
 <p>From the offical <a href="https://antrea.io/docs/v1.12.0/docs/egress/">docs</a></p>
 <blockquote>
 <p><code>Egress</code> is a CRD API that manages external access from the Pods in a cluster. It supports specifying which egress (SNAT) IP the traffic from the selected Pods to the external network should use. When a selected Pod accesses the external network, the egress traffic will be tunneled to the Node that hosts the egress IP if it’s different from the Node that the Pod runs on and will be SNATed to the egress IP when leaving that Node.</p>
@@ -3441,6 +3441,9 @@ I will need to generate some more activity for the recommendation engine to get 
     <h2 class="mt-4">Recent Posts</h2>
     <ul class="flex-column">
       <li>
+        <a href="https://blog.andreasm.io/2024/06/10/arista-automated-configuration-using-ansible/" class="nav-link" title="Arista Automated Configuration using Ansible">Arista Automated Configuration using Ansible</a>
+      </li>
+      <li>
         <a href="https://blog.andreasm.io/2024/05/13/neuvector-by-suse-security-where-it-is-needed-part-1/" class="nav-link" title="NeuVector by SUSE - security where it is needed - part 1">NeuVector by SUSE - security where it is needed - part 1</a>
       </li>
       <li>
@@ -3461,9 +3464,6 @@ I will need to generate some more activity for the recommendation engine to get 
       <li>
         <a href="https://blog.andreasm.io/2023/12/26/traefik-proxy-in-kubernetes/" class="nav-link" title="Traefik Proxy in Kubernetes">Traefik Proxy in Kubernetes</a>
       </li>
-      <li>
-        <a href="https://blog.andreasm.io/2023/12/18/a-quick-glance-at-cilium-cni/" class="nav-link" title="A Quick Glance at Cilium CNI">A Quick Glance at Cilium CNI</a>
-      </li>
     </ul>
     <div>
       <h2 class="mt-4 taxonomy" id="categories-section">Categories</h2>
@@ -3475,7 +3475,7 @@ I will need to generate some more activity for the recommendation engine to get 
         
         <a href='https://blog.andreasm.io/categories/networking/' class="post_tag button button_translucent" title="networking">
           NETWORKING
-          <span class="button_tally">20</span>
+          <span class="button_tally">21</span>
         </a>
         
         <a href='https://blog.andreasm.io/categories/tanzu/' class="post_tag button button_translucent" title="tanzu">
@@ -3515,7 +3515,7 @@ I will need to generate some more activity for the recommendation engine to get 
         
         <a href='https://blog.andreasm.io/categories/automation/' class="post_tag button button_translucent" title="automation">
           AUTOMATION
-          <span class="button_tally">2</span>
+          <span class="button_tally">3</span>
         </a>
         
         <a href='https://blog.andreasm.io/categories/blog/' class="post_tag button button_translucent" title="blog">
@@ -3528,8 +3528,8 @@ I will need to generate some more activity for the recommendation engine to get 
           <span class="button_tally">2</span>
         </a>
         
-        <a href='https://blog.andreasm.io/categories/vmware-nsx/' class="post_tag button button_translucent" title="vmware-nsx">
-          VMWARE-NSX
+        <a href='https://blog.andreasm.io/categories/vmware-nsx/' class="post_tag button button_translucent" title="vmware nsx">
+          VMWARE NSX
           <span class="button_tally">2</span>
         </a>
         
@@ -3552,7 +3552,7 @@ I will need to generate some more activity for the recommendation engine to get 
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/automation/' class=" post_tag button button_translucent" data-position=2 title="automation">AUTOMATION<span class="button_tally">2</span>
+            <a href='https://blog.andreasm.io/categories/automation/' class=" post_tag button button_translucent" data-position=3 title="automation">AUTOMATION<span class="button_tally">3</span>
             </a>
             
             
@@ -3652,7 +3652,7 @@ I will need to generate some more activity for the recommendation engine to get 
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/networking/' class=" post_tag button button_translucent" data-position=20 title="networking">NETWORKING<span class="button_tally">20</span>
+            <a href='https://blog.andreasm.io/categories/networking/' class=" post_tag button button_translucent" data-position=21 title="networking">NETWORKING<span class="button_tally">21</span>
             </a>
             
             
@@ -3673,6 +3673,10 @@ I will need to generate some more activity for the recommendation engine to get 
             
             
             <a href='https://blog.andreasm.io/categories/pinniped/' class=" post_tag button button_translucent" data-position=1 title="pinniped">PINNIPED<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/provisioning/' class=" post_tag button button_translucent" data-position=1 title="provisioning">PROVISIONING<span class="button_tally">1</span>
             </a>
             
             
@@ -3704,7 +3708,7 @@ I will need to generate some more activity for the recommendation engine to get 
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/tanzu-mission-control/' class=" post_tag button button_translucent" data-position=1 title="tanzu-mission-control">TANZU-MISSION-CONTROL<span class="button_tally">1</span>
+            <a href='https://blog.andreasm.io/categories/tanzu-mission-control/' class=" post_tag button button_translucent" data-position=1 title="tanzu mission control">TANZU MISSION CONTROL<span class="button_tally">1</span>
             </a>
             
             
@@ -3728,15 +3732,15 @@ I will need to generate some more activity for the recommendation engine to get 
             </a>
             
             
-            <a href='https://blog.andreasm.io/categories/vmare-nsx-intelligence/' class=" post_tag button button_translucent" data-position=1 title="vmare-nsx-intelligence">VMARE-NSX-INTELLIGENCE<span class="button_tally">1</span>
+            <a href='https://blog.andreasm.io/categories/vmare-nsx-intelligence/' class=" post_tag button button_translucent" data-position=1 title="vmare nsx intelligence">VMARE NSX INTELLIGENCE<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/categories/vmware-nsx/' class=" post_tag button button_translucent" data-position=2 title="vmware nsx">VMWARE NSX<span class="button_tally">2</span>
             </a>
             
             
             <a href='https://blog.andreasm.io/categories/vmware-cloud/' class=" post_tag button button_translucent" data-position=1 title="vmware-cloud">VMWARE-CLOUD<span class="button_tally">1</span>
-            </a>
-            
-            
-            <a href='https://blog.andreasm.io/categories/vmware-nsx/' class=" post_tag button button_translucent" data-position=2 title="vmware-nsx">VMWARE-NSX<span class="button_tally">2</span>
             </a>
             
             
@@ -3805,6 +3809,11 @@ I will need to generate some more activity for the recommendation engine to get 
           <span class="button_tally">4</span>
         </a>
         
+        <a href='https://blog.andreasm.io/tags/networking/' class="post_tag button button_translucent" title="networking">
+          NETWORKING
+          <span class="button_tally">4</span>
+        </a>
+        
         <a href='https://blog.andreasm.io/tags/availability/' class="post_tag button button_translucent" title="availability">
           AVAILABILITY
           <span class="button_tally">3</span>
@@ -3817,11 +3826,6 @@ I will need to generate some more activity for the recommendation engine to get 
         
         <a href='https://blog.andreasm.io/tags/network/' class="post_tag button button_translucent" title="network">
           NETWORK
-          <span class="button_tally">3</span>
-        </a>
-        
-        <a href='https://blog.andreasm.io/tags/networking/' class="post_tag button button_translucent" title="networking">
-          NETWORKING
           <span class="button_tally">3</span>
         </a>
         
@@ -3855,7 +3859,7 @@ I will need to generate some more activity for the recommendation engine to get 
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/automation/' class=" post_tag button button_translucent" data-position=1 title="automation">AUTOMATION<span class="button_tally">1</span>
+            <a href='https://blog.andreasm.io/tags/automation/' class=" post_tag button button_translucent" data-position=2 title="automation">AUTOMATION<span class="button_tally">2</span>
             </a>
             
             
@@ -4015,7 +4019,7 @@ I will need to generate some more activity for the recommendation engine to get 
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/networking/' class=" post_tag button button_translucent" data-position=3 title="networking">NETWORKING<span class="button_tally">3</span>
+            <a href='https://blog.andreasm.io/tags/networking/' class=" post_tag button button_translucent" data-position=4 title="networking">NETWORKING<span class="button_tally">4</span>
             </a>
             
             
@@ -4031,7 +4035,7 @@ I will need to generate some more activity for the recommendation engine to get 
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/nsx-advanced-loadbalancer/' class=" post_tag button button_translucent" data-position=1 title="nsx-advanced-loadbalancer">NSX-ADVANCED-LOADBALANCER<span class="button_tally">1</span>
+            <a href='https://blog.andreasm.io/tags/nsx-advanced-loadbalancer/' class=" post_tag button button_translucent" data-position=1 title="nsx advanced loadbalancer">NSX ADVANCED LOADBALANCER<span class="button_tally">1</span>
             </a>
             
             
@@ -4056,6 +4060,10 @@ I will need to generate some more activity for the recommendation engine to get 
             
             
             <a href='https://blog.andreasm.io/tags/pinniped/' class=" post_tag button button_translucent" data-position=1 title="pinniped">PINNIPED<span class="button_tally">1</span>
+            </a>
+            
+            
+            <a href='https://blog.andreasm.io/tags/provisioning/' class=" post_tag button button_translucent" data-position=1 title="provisioning">PROVISIONING<span class="button_tally">1</span>
             </a>
             
             
@@ -4119,7 +4127,7 @@ I will need to generate some more activity for the recommendation engine to get 
             </a>
             
             
-            <a href='https://blog.andreasm.io/tags/tkg-2.1/' class=" post_tag button button_translucent" data-position=1 title="tkg-2.1">TKG-2.1<span class="button_tally">1</span>
+            <a href='https://blog.andreasm.io/tags/tkg-2.1/' class=" post_tag button button_translucent" data-position=1 title="tkg 2.1">TKG 2.1<span class="button_tally">1</span>
             </a>
             
             
@@ -4273,7 +4281,7 @@ I will need to generate some more activity for the recommendation engine to get 
 
 <script type="text/javascript" src="https://blog.andreasm.io/en/js/bundle.5548d358738600c857a1f05f0459418da7143d4426c66a08bf3f15ded1b39dd2136bf104a559247a909fc4dcc45b8e06bad0870ece4c71ee5303d30550def8bd.js" integrity="sha512-VUjTWHOGAMhXofBfBFlBjacUPUQmxmoIvz8V3tGzndITa/EEpVkkepCfxNzEW44GutCHDs5Mce5TA9MFUN74vQ==" crossorigin="anonymous"></script>
 
-  <script src="https://blog.andreasm.io/js/search.min.df4d84e4983f0c71dd495e07a09815d920553c3ddf3d0767801c73373573aa17e1b489e4453272dbf4ce2a38a3d01a10b170744e50dd6bec85a598221867ba9a.js"></script>
+  <script src="https://blog.andreasm.io/js/search.min.95a6a82b7db565e9830200f15d8809e9663868dd57209f6f86afd54bb19568b9fbdfb9b479ebcc5d37e3b2e2136e396c05135d268cd68b21728a0bc176a8a809.js"></script>
 
   </body>
 </html>
