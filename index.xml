@@ -7,7 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Myself</copyright>
-    <lastBuildDate>Mon, 10 Jun 2024 07:51:41 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 22 Aug 2024 21:26:33 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Arista Cloudvision and AVD using Containerlab</title>
+      <link>https://blog.andreasm.io/2024/08/22/arista-cloudvision-and-avd-using-containerlab/</link>
+      <pubDate>Thu, 22 Aug 2024 21:26:33 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2024/08/22/arista-cloudvision-and-avd-using-containerlab/</guid>
+      <description>
+        
+          
+            Using Containerlab to provision cEOS containers for AVD and CloudVision
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>Arista Automated Configuration using Ansible</title>
       <link>https://blog.andreasm.io/2024/06/10/arista-automated-configuration-using-ansible/</link>
@@ -18,38 +34,6 @@
         
           
             In this post I will deploy Arista vEOS from zero to a full Spine-Leaf topology using Arista ZeroTouch Provisining and Ansible
-          
-          
-        
-      </description>
-    </item>
-    
-    <item>
-      <title>NeuVector by SUSE - security where it is needed - part 1</title>
-      <link>https://blog.andreasm.io/2024/05/13/neuvector-by-suse-security-where-it-is-needed-part-1/</link>
-      <pubDate>Mon, 13 May 2024 12:42:04 +0200</pubDate>
-      
-      <guid>https://blog.andreasm.io/2024/05/13/neuvector-by-suse-security-where-it-is-needed-part-1/</guid>
-      <description>
-        
-          
-            In this two post series I will explore and deep dive into NeuVector security features
-          
-          
-        
-      </description>
-    </item>
-    
-    <item>
-      <title>Taking Rancher by SUSE for a Spin</title>
-      <link>https://blog.andreasm.io/2024/05/05/taking-rancher-by-suse-for-a-spin/</link>
-      <pubDate>Sun, 05 May 2024 21:18:48 +0200</pubDate>
-      
-      <guid>https://blog.andreasm.io/2024/05/05/taking-rancher-by-suse-for-a-spin/</guid>
-      <description>
-        
-          
-            In this post I wil go through Rancher and test out some of the possibilties and capabilties managing Kubernetes using Rancher.
           
           
         
@@ -420,6 +404,38 @@ Preparations before deployment This post will assume the following:
           
             Antrea Egress: What is Egress when we talk about Kubernetes? Well if a pod wants to communicate to the outside world, outside the Kubernetes cluster it runs in, out of the worker node the pod resides on, this is egress traffic (definition &amp;quot;the action of going out of or leaving a place&amp;quot; and in network terminology means the direction is outward from itself).
 Why does egress matter? Well, usually when the pods communicate out, they will use the IP address of the worker node they currently is deployed on.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Taking Rancher by SUSE for a Spin</title>
+      <link>https://blog.andreasm.io/2023/02/05/taking-rancher-by-suse-for-a-spin/</link>
+      <pubDate>Sun, 05 Feb 2023 21:18:48 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2023/02/05/taking-rancher-by-suse-for-a-spin/</guid>
+      <description>
+        
+          
+            In this post I wil go through Rancher and test out some of the possibilties and capabilties managing Kubernetes using Rancher.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>NeuVector by SUSE - security where it is needed - part 1</title>
+      <link>https://blog.andreasm.io/2023/02/02/neuvector-by-suse-security-where-it-is-needed-part-1/</link>
+      <pubDate>Thu, 02 Feb 2023 12:42:04 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2023/02/02/neuvector-by-suse-security-where-it-is-needed-part-1/</guid>
+      <description>
+        
+          
+            In this two post series I will explore and deep dive into NeuVector security features
           
           
         

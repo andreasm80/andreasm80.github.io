@@ -7,39 +7,7 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Myself</copyright>
-    <lastBuildDate>Mon, 13 May 2024 12:42:04 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/kubernetes/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>NeuVector by SUSE - security where it is needed - part 1</title>
-      <link>https://blog.andreasm.io/2024/05/13/neuvector-by-suse-security-where-it-is-needed-part-1/</link>
-      <pubDate>Mon, 13 May 2024 12:42:04 +0200</pubDate>
-      
-      <guid>https://blog.andreasm.io/2024/05/13/neuvector-by-suse-security-where-it-is-needed-part-1/</guid>
-      <description>
-        
-          
-            In this two post series I will explore and deep dive into NeuVector security features
-          
-          
-        
-      </description>
-    </item>
-    
-    <item>
-      <title>Taking Rancher by SUSE for a Spin</title>
-      <link>https://blog.andreasm.io/2024/05/05/taking-rancher-by-suse-for-a-spin/</link>
-      <pubDate>Sun, 05 May 2024 21:18:48 +0200</pubDate>
-      
-      <guid>https://blog.andreasm.io/2024/05/05/taking-rancher-by-suse-for-a-spin/</guid>
-      <description>
-        
-          
-            In this post I wil go through Rancher and test out some of the possibilties and capabilties managing Kubernetes using Rancher.
-          
-          
-        
-      </description>
-    </item>
-    
+    <lastBuildDate>Tue, 16 Apr 2024 09:25:28 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/kubernetes/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Exploring some Antrea Features</title>
       <link>https://blog.andreasm.io/2024/04/16/exploring-some-antrea-features/</link>
@@ -388,6 +356,38 @@ Preparations before deployment This post will assume the following:
           
             Antrea Egress: What is Egress when we talk about Kubernetes? Well if a pod wants to communicate to the outside world, outside the Kubernetes cluster it runs in, out of the worker node the pod resides on, this is egress traffic (definition &amp;quot;the action of going out of or leaving a place&amp;quot; and in network terminology means the direction is outward from itself).
 Why does egress matter? Well, usually when the pods communicate out, they will use the IP address of the worker node they currently is deployed on.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>Taking Rancher by SUSE for a Spin</title>
+      <link>https://blog.andreasm.io/2023/02/05/taking-rancher-by-suse-for-a-spin/</link>
+      <pubDate>Sun, 05 Feb 2023 21:18:48 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2023/02/05/taking-rancher-by-suse-for-a-spin/</guid>
+      <description>
+        
+          
+            In this post I wil go through Rancher and test out some of the possibilties and capabilties managing Kubernetes using Rancher.
+          
+          
+        
+      </description>
+    </item>
+    
+    <item>
+      <title>NeuVector by SUSE - security where it is needed - part 1</title>
+      <link>https://blog.andreasm.io/2023/02/02/neuvector-by-suse-security-where-it-is-needed-part-1/</link>
+      <pubDate>Thu, 02 Feb 2023 12:42:04 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2023/02/02/neuvector-by-suse-security-where-it-is-needed-part-1/</guid>
+      <description>
+        
+          
+            In this two post series I will explore and deep dive into NeuVector security features
           
           
         

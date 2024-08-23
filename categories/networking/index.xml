@@ -7,7 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Myself</copyright>
-    <lastBuildDate>Mon, 10 Jun 2024 07:51:41 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/networking/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 22 Aug 2024 21:26:33 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/networking/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Arista Cloudvision and AVD using Containerlab</title>
+      <link>https://blog.andreasm.io/2024/08/22/arista-cloudvision-and-avd-using-containerlab/</link>
+      <pubDate>Thu, 22 Aug 2024 21:26:33 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2024/08/22/arista-cloudvision-and-avd-using-containerlab/</guid>
+      <description>
+        
+          
+            Using Containerlab to provision cEOS containers for AVD and CloudVision
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>Arista Automated Configuration using Ansible</title>
       <link>https://blog.andreasm.io/2024/06/10/arista-automated-configuration-using-ansible/</link>
