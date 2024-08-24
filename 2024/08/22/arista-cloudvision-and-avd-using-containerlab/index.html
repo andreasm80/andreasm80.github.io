@@ -128,7 +128,7 @@
 </span>
     <span class="post_date">
       22-08-2024</span>
-    <span class="post_time"> · 31 min read</span><span>&nbsp;· <a href='https://blog.andreasm.io/tags/networking/' title="networking" class="post_tag button button_translucent">networking
+    <span class="post_time"> · 35 min read</span><span>&nbsp;· <a href='https://blog.andreasm.io/tags/networking/' title="networking" class="post_tag button button_translucent">networking
         </a><a href='https://blog.andreasm.io/tags/provisioning/' title="provisioning" class="post_tag button button_translucent">provisioning
         </a><a href='https://blog.andreasm.io/tags/automation/' title="automation" class="post_tag button button_translucent">automation
         </a><a href='https://blog.andreasm.io/tags/arista/' title="arista" class="post_tag button button_translucent">arista
@@ -189,7 +189,12 @@
         <li><a href="#whats-happening-in-cvp">Whats happening in CVP</a></li>
       </ul>
     </li>
-    <li><a href="#connecting-generic-containers-to-the-ceos-switches">Connecting generic containers to the cEOS switches</a></li>
+    <li><a href="#connecting-generic-containers-to-the-ceos-switches">Connecting generic containers to the cEOS switches</a>
+      <ul>
+        <li><a href="#create-new-topology-and-connect-to-existing-bridges">Create new topology and connect to existing bridges</a></li>
+        <li><a href="#adding-generic-containers-to-existing-topology">Adding generic containers to existing topology</a></li>
+      </ul>
+    </li>
     <li><a href="#outro">Outro</a></li>
   </ul>
 </nav>
@@ -1727,8 +1732,39 @@ A note on the virtual network adapters for the cEOS appliances.The Management in
 <p>Job well done. When it comes to post-updates to the config they can continue to be performed (even should/must) as the changes will then come in to CVP, someone needs to review and approve before they are applied. And by using a declarative approach like AVD there is minimal risk of someone overwriting or overriding the config manually taking the human error out of the picture.</p>
 <p>Again, a note on CVP. There will be another post coming only focusing on CVP. So stay tuned for that one.</p>
 <h2 id="connecting-generic-containers-to-the-ceos-switches">Connecting generic containers to the cEOS switches</h2>
-<p>Now that I have my full fabric up and running, I would like to test connectivity between two generic containers running Ubuntu connected to each of their Leaf L3 switch, each on their different VLAN. Containerlabs supports several ways to interact with the network nodes. I decided to go with an easy approach, spin a couple of generic docker containers.</p>
-<p>To deploy a generic Docker container, like Ubuntu, using Containerlab there were two ways I considered to do this. I could go ahead and just create a new Containerlab topology yaml (or several) where I add and define the amunt of nodes I need. Or just add additional nodes to my existing topology yaml with the <em>kind: linux</em>. As I already have my spine-leaf lab already running I just created a new topology yaml where I defined my &quot;clients&quot; and where they should be linked. Here is my &quot;client&quot; yaml:</p>
+<p>Now that I have my full fabric up and running, I would like to test connectivity between two generic containers running Ubuntu connected to each of their Leaf L3 switch, each on their different VLAN. Containerlabs supports several ways to interact with the network nodes. I decided to go with an easy approach, spin a couple of generic docker containers.  When I deployed my cEOS lab earlier I created a couple of Linux bridges that my Leaf switches connect their Ethernet/3 interfaces to. Each leaf have their own dedicated bridge for their Ethernet/3 interfaces. That means I just need to deploy my container <em>clients</em> and connecting their interface to these bridges as well.</p>
+<p>To make it a bit more interesting test I want to attach Client-1 to <em>br-node-3</em> where <em>dc1-leaf1 Ethernet/3</em> is attached and <em>Client-2</em> to <em>br-node4</em> where <em>dc1-leaf2 Ethernet/3</em> is attached.</p>
+<p>
+  <figure>
+  <picture>
+
+    
+      
+        
+        
+        
+        
+        
+        
+    <img
+      loading="lazy"
+      decoding="async"
+      alt="client-1-2-attached"
+      
+        class="image_figure image_internal image_processed"
+        width="2833"
+        height="2022"
+        src="/2024/08/22/arista-cloudvision-and-avd-using-containerlab/images/index/image-20240824091617368.png"
+      
+      
+    />
+
+    </picture>
+</figure>
+</p>
+<p>To deploy a generic Docker container, like a Ubuntu container, using Containerlab I need to either add additional nodes using the <em>kind: linux</em> to my existing lab topology yaml, or create a separate topology yaml. Both ways are explained below.</p>
+<h3 id="create-new-topology-and-connect-to-existing-bridges">Create new topology and connect to existing bridges</h3>
+<p>If I quickly want to add generic container nodes and add them to my already running cEOS topology I need to define an additional topology yaml where I define my &quot;clients&quot; and where they should be linked. Its not possible to update or apply updates to an existing running topology in Containerlab using Docker. Here is my &quot;client&quot; yaml:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">clients-attached</span><span class="w">
 </span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w"></span><span class="nt">topology</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w">  </span><span class="nt">nodes</span><span class="p">:</span><span class="w">
@@ -1745,12 +1781,115 @@ A note on the virtual network adapters for the cEOS appliances.The Management in
 </span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">  </span><span class="nt">links</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">    </span>- <span class="nt">endpoints</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;client-1:eth1&#34;</span><span class="p">,</span><span class="s2">&#34;br-node-3:eth4&#34;</span><span class="p">]</span><span class="w">
 </span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w">    </span>- <span class="nt">endpoints</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;client-2:eth1&#34;</span><span class="p">,</span><span class="s2">&#34;br-node-4:eth12&#34;</span><span class="p">]</span><span class="w">
-</span></span></span></code></pre></div><p>If I had added these to my existing topology, I would also gain the benefit of viewing the connection diagram using <em>containerlab graph</em>.</p>
-<p>Client 1 <em>eth1</em> is attached to <em>br-node-3</em> bridge eth4, that is the same bridge my *Leaf-1 Ethernet/3 is connected to. Client 2 <em>eth1</em> is attached to <em>br-node-4</em> bridge eth12, that is the same bridge my *Leaf-1 Ethernet/3 is connected to. The ethx in the bridge is just another free number.</p>
-<p>Then I deployed my new topology containing the two above linux nodes.</p>
-<p>As soon as they were up and running I exec into each and one of them and configured static IP addresses on both their <em>eth1</em> interfaces, adding a route on client-1 pointing to client-2s subnet using the eth1 as gateway (the reason is because they will come up with their managment interface eth0, I know it possible to disable that network.).</p>
-<p>Then I could ping from client-1 to client-2 and vice versa. Connectivity wise here is how they are now connected:</p>
-<p>
+</span></span></span></code></pre></div><p>Client 1 <em>eth1</em> is attached to <em>br-node-3</em> bridge eth4, that is the same bridge my *Leaf-1 Ethernet/3 is connected to. Client 2 <em>eth1</em> is attached to <em>br-node-4</em> bridge eth12, that is the same bridge my *Leaf-1 Ethernet/3 is connected to. The ethx in the bridge is just another free number.</p>
+<h3 id="adding-generic-containers-to-existing-topology">Adding generic containers to existing topology</h3>
+<p>As it is very easy to just bring down my lab and re-provision everything back up again using Containerlab, AVD and CVP I can also modify my existing topology to include my test clients (generic linux containers).</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">spine-leaf-borderleaf</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 2</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 3</span><span class="cl"><span class="w"></span><span class="nt">mgmt</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 4</span><span class="cl"><span class="w">  </span><span class="nt">network</span><span class="p">:</span><span class="w"> </span><span class="l">custom_mgmt               </span><span class="w"> </span><span class="c"># management network name</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="w">  </span><span class="nt">ipv4-subnet</span><span class="p">:</span><span class="w"> </span><span class="m">192.168.20.0</span><span class="l">/24      </span><span class="w"> </span><span class="c"># ipv4 range</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln"> 7</span><span class="cl"><span class="w"></span><span class="nt">topology</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 8</span><span class="cl"><span class="w">  </span><span class="nt">nodes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="w">    </span><span class="nt">node-1</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">10</span><span class="cl"><span class="w">      </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">arista_ceos</span><span class="w">
+</span></span></span><span class="line"><span class="ln">11</span><span class="cl"><span class="w">      </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">ceos:4.32.2F</span><span class="w">
+</span></span></span><span class="line"><span class="ln">12</span><span class="cl"><span class="w">      </span><span class="nt">startup-config</span><span class="p">:</span><span class="w"> </span><span class="l">node1-startup-config.cfg</span><span class="w">
+</span></span></span><span class="line"><span class="ln">13</span><span class="cl"><span class="w">      </span><span class="nt">mgmt-ipv4</span><span class="p">:</span><span class="w"> </span><span class="m">192.168.20.2</span><span class="w">
+</span></span></span><span class="line"><span class="ln">14</span><span class="cl"><span class="w">    </span><span class="nt">node-2</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">15</span><span class="cl"><span class="w">      </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">arista_ceos</span><span class="w">
+</span></span></span><span class="line"><span class="ln">16</span><span class="cl"><span class="w">      </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">ceos:4.32.2F</span><span class="w">
+</span></span></span><span class="line"><span class="ln">17</span><span class="cl"><span class="w">      </span><span class="nt">startup-config</span><span class="p">:</span><span class="w"> </span><span class="l">node2-startup-config.cfg</span><span class="w">
+</span></span></span><span class="line"><span class="ln">18</span><span class="cl"><span class="w">      </span><span class="nt">mgmt-ipv4</span><span class="p">:</span><span class="w"> </span><span class="m">192.168.20.3</span><span class="w">
+</span></span></span><span class="line"><span class="ln">19</span><span class="cl"><span class="w">    </span><span class="nt">node-3</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">20</span><span class="cl"><span class="w">      </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">arista_ceos</span><span class="w">
+</span></span></span><span class="line"><span class="ln">21</span><span class="cl"><span class="w">      </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">ceos:4.32.2F</span><span class="w">
+</span></span></span><span class="line"><span class="ln">22</span><span class="cl"><span class="w">      </span><span class="nt">startup-config</span><span class="p">:</span><span class="w"> </span><span class="l">node3-startup-config.cfg</span><span class="w">
+</span></span></span><span class="line"><span class="ln">23</span><span class="cl"><span class="w">      </span><span class="nt">mgmt-ipv4</span><span class="p">:</span><span class="w"> </span><span class="m">192.168.20.4</span><span class="w">
+</span></span></span><span class="line"><span class="ln">24</span><span class="cl"><span class="w">    </span><span class="nt">node-4</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">25</span><span class="cl"><span class="w">      </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">arista_ceos</span><span class="w">
+</span></span></span><span class="line"><span class="ln">26</span><span class="cl"><span class="w">      </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">ceos:4.32.2F</span><span class="w">
+</span></span></span><span class="line"><span class="ln">27</span><span class="cl"><span class="w">      </span><span class="nt">startup-config</span><span class="p">:</span><span class="w"> </span><span class="l">node4-startup-config.cfg</span><span class="w">
+</span></span></span><span class="line"><span class="ln">28</span><span class="cl"><span class="w">      </span><span class="nt">mgmt-ipv4</span><span class="p">:</span><span class="w"> </span><span class="m">192.168.20.5</span><span class="w">
+</span></span></span><span class="line"><span class="ln">29</span><span class="cl"><span class="w">    </span><span class="nt">node-5</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">30</span><span class="cl"><span class="w">      </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">arista_ceos</span><span class="w">
+</span></span></span><span class="line"><span class="ln">31</span><span class="cl"><span class="w">      </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">ceos:4.32.2F</span><span class="w">
+</span></span></span><span class="line"><span class="ln">32</span><span class="cl"><span class="w">      </span><span class="nt">startup-config</span><span class="p">:</span><span class="w"> </span><span class="l">node5-startup-config.cfg</span><span class="w">
+</span></span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="w">      </span><span class="nt">mgmt-ipv4</span><span class="p">:</span><span class="w"> </span><span class="m">192.168.20.6</span><span class="w">
+</span></span></span><span class="line"><span class="ln">34</span><span class="cl"><span class="w"></span><span class="c"># Clients attached to specific EOS Interfaces</span><span class="w">
+</span></span></span><span class="line"><span class="ln">35</span><span class="cl"><span class="w">    </span><span class="nt">client-1</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">36</span><span class="cl"><span class="w">      </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">linux</span><span class="w">
+</span></span></span><span class="line"><span class="ln">37</span><span class="cl"><span class="w">      </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu:latest</span><span class="w">
+</span></span></span><span class="line"><span class="ln">38</span><span class="cl"><span class="w">    </span><span class="nt">client-2</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">39</span><span class="cl"><span class="w">      </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">linux</span><span class="w">
+</span></span></span><span class="line"><span class="ln">40</span><span class="cl"><span class="w">      </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu:latest</span><span class="w">
+</span></span></span><span class="line"><span class="ln">41</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">42</span><span class="cl"><span class="w"></span><span class="c"># Bridges for specific downlinks </span><span class="w">
+</span></span></span><span class="line"><span class="ln">43</span><span class="cl"><span class="w">    </span><span class="nt">br-node-3</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">44</span><span class="cl"><span class="w">      </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">bridge</span><span class="w">
+</span></span></span><span class="line"><span class="ln">45</span><span class="cl"><span class="w">    </span><span class="nt">br-node-4</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">46</span><span class="cl"><span class="w">      </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">bridge</span><span class="w">
+</span></span></span><span class="line"><span class="ln">47</span><span class="cl"><span class="w">    </span><span class="nt">br-node-5</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">48</span><span class="cl"><span class="w">      </span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">bridge</span><span class="w">
+</span></span></span><span class="line"><span class="ln">49</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">50</span><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="ln">51</span><span class="cl"><span class="w">  </span><span class="nt">links</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="ln">52</span><span class="cl"><span class="w">    </span>- <span class="nt">endpoints</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;node-3:eth1&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;node-1:eth1&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="ln">53</span><span class="cl"><span class="w">    </span>- <span class="nt">endpoints</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;node-3:eth2&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;node-2:eth1&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="ln">54</span><span class="cl"><span class="w">    </span>- <span class="nt">endpoints</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;node-4:eth1&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;node-1:eth2&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="ln">55</span><span class="cl"><span class="w">    </span>- <span class="nt">endpoints</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;node-4:eth2&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;node-2:eth2&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="ln">56</span><span class="cl"><span class="w">    </span>- <span class="nt">endpoints</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;node-5:eth1&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;node-1:eth3&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="ln">57</span><span class="cl"><span class="w">    </span>- <span class="nt">endpoints</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;node-5:eth2&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;node-2:eth3&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="ln">58</span><span class="cl"><span class="w">    </span>- <span class="nt">endpoints</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;node-3:eth3&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;br-node-3:n3-eth3&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="ln">59</span><span class="cl"><span class="w">    </span>- <span class="nt">endpoints</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;node-4:eth3&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;br-node-4:n4-eth3&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="ln">60</span><span class="cl"><span class="w">    </span>- <span class="nt">endpoints</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;node-5:eth3&#34;</span><span class="p">,</span><span class="w"> </span><span class="s2">&#34;br-node-5:n5-eth3&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="ln">61</span><span class="cl"><span class="w">    </span>- <span class="nt">endpoints</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;client-1:eth1&#34;</span><span class="p">,</span><span class="s2">&#34;br-node-3:eth4&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="ln">62</span><span class="cl"><span class="w">    </span>- <span class="nt">endpoints</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;client-2:eth1&#34;</span><span class="p">,</span><span class="s2">&#34;br-node-4:eth12&#34;</span><span class="p">]</span><span class="w">
+</span></span></span></code></pre></div><p>Then I re-deployed my topology containing the additional two above linux nodes.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl">INFO<span class="o">[</span>0000<span class="o">]</span> Containerlab v0.56.0 started                 
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">INFO<span class="o">[</span>0000<span class="o">]</span> Parsing <span class="p">&amp;</span> checking topology file: spine-leaf-border.yaml 
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">INFO<span class="o">[</span>0000<span class="o">]</span> Creating docker network: <span class="nv">Name</span><span class="o">=</span><span class="s2">&#34;custom_mgmt&#34;</span>, <span class="nv">IPv4Subnet</span><span class="o">=</span><span class="s2">&#34;192.168.20.0/24&#34;</span>, <span class="nv">IPv6Subnet</span><span class="o">=</span><span class="s2">&#34;&#34;</span>, <span class="nv">MTU</span><span class="o">=</span><span class="m">0</span> 
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">INFO<span class="o">[</span>0000<span class="o">]</span> Creating lab directory: /home/andreasm/containerlab/lab-spine-leaf-cvp/clab-spine-leaf-borderleaf 
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl">INFO<span class="o">[</span>0000<span class="o">]</span> Creating container: <span class="s2">&#34;node-1&#34;</span>                 
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl">INFO<span class="o">[</span>0000<span class="o">]</span> Creating container: <span class="s2">&#34;node-4&#34;</span>                 
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">INFO<span class="o">[</span>0000<span class="o">]</span> Creating container: <span class="s2">&#34;node-3&#34;</span>                 
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">INFO<span class="o">[</span>0000<span class="o">]</span> Creating container: <span class="s2">&#34;node-5&#34;</span>                 
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl">INFO<span class="o">[</span>0000<span class="o">]</span> Creating container: <span class="s2">&#34;node-2&#34;</span>                 
+</span></span><span class="line"><span class="ln">10</span><span class="cl">INFO<span class="o">[</span>0000<span class="o">]</span> Creating container: <span class="s2">&#34;client-2&#34;</span>               
+</span></span><span class="line"><span class="ln">11</span><span class="cl">INFO<span class="o">[</span>0000<span class="o">]</span> Created link: node-5:eth1 &lt;--&gt; node-1:eth3   
+</span></span><span class="line"><span class="ln">12</span><span class="cl">INFO<span class="o">[</span>0000<span class="o">]</span> Running postdeploy actions <span class="k">for</span> Arista cEOS <span class="s1">&#39;node-1&#39;</span> node 
+</span></span><span class="line"><span class="ln">13</span><span class="cl">INFO<span class="o">[</span>0001<span class="o">]</span> Created link: node-3:eth1 &lt;--&gt; node-1:eth1   
+</span></span><span class="line"><span class="ln">14</span><span class="cl">INFO<span class="o">[</span>0001<span class="o">]</span> Running postdeploy actions <span class="k">for</span> Arista cEOS <span class="s1">&#39;node-5&#39;</span> node 
+</span></span><span class="line"><span class="ln">15</span><span class="cl">INFO<span class="o">[</span>0001<span class="o">]</span> Created link: node-4:eth1 &lt;--&gt; node-1:eth2   
+</span></span><span class="line"><span class="ln">16</span><span class="cl">INFO<span class="o">[</span>0001<span class="o">]</span> Creating container: <span class="s2">&#34;client-1&#34;</span>               
+</span></span><span class="line"><span class="ln">17</span><span class="cl">INFO<span class="o">[</span>0001<span class="o">]</span> Created link: node-5:eth3 &lt;--&gt; br-node-5:n5-eth3 
+</span></span><span class="line"><span class="ln">18</span><span class="cl">INFO<span class="o">[</span>0001<span class="o">]</span> Created link: node-4:eth3 &lt;--&gt; br-node-4:n4-eth3 
+</span></span><span class="line"><span class="ln">19</span><span class="cl">INFO<span class="o">[</span>0001<span class="o">]</span> Running postdeploy actions <span class="k">for</span> Arista cEOS <span class="s1">&#39;node-4&#39;</span> node 
+</span></span><span class="line"><span class="ln">20</span><span class="cl">INFO<span class="o">[</span>0001<span class="o">]</span> Created link: node-3:eth2 &lt;--&gt; node-2:eth1   
+</span></span><span class="line"><span class="ln">21</span><span class="cl">INFO<span class="o">[</span>0001<span class="o">]</span> Created link: node-4:eth2 &lt;--&gt; node-2:eth2   
+</span></span><span class="line"><span class="ln">22</span><span class="cl">INFO<span class="o">[</span>0001<span class="o">]</span> Created link: node-3:eth3 &lt;--&gt; br-node-3:n3-eth3 
+</span></span><span class="line"><span class="ln">23</span><span class="cl">INFO<span class="o">[</span>0001<span class="o">]</span> Running postdeploy actions <span class="k">for</span> Arista cEOS <span class="s1">&#39;node-3&#39;</span> node 
+</span></span><span class="line"><span class="ln">24</span><span class="cl">INFO<span class="o">[</span>0001<span class="o">]</span> Created link: node-5:eth2 &lt;--&gt; node-2:eth3   
+</span></span><span class="line"><span class="ln">25</span><span class="cl">INFO<span class="o">[</span>0001<span class="o">]</span> Running postdeploy actions <span class="k">for</span> Arista cEOS <span class="s1">&#39;node-2&#39;</span> node 
+</span></span><span class="line"><span class="ln">26</span><span class="cl">INFO<span class="o">[</span>0001<span class="o">]</span> Created link: client-2:eth1 &lt;--&gt; br-node-4:eth12 
+</span></span><span class="line"><span class="ln">27</span><span class="cl">INFO<span class="o">[</span>0001<span class="o">]</span> Created link: client-1:eth1 &lt;--&gt; br-node-3:eth4 
+</span></span><span class="line"><span class="ln">28</span><span class="cl">INFO<span class="o">[</span>0046<span class="o">]</span> Adding containerlab host entries to /etc/hosts file 
+</span></span><span class="line"><span class="ln">29</span><span class="cl">INFO<span class="o">[</span>0046<span class="o">]</span> Adding ssh config <span class="k">for</span> containerlab nodes     
+</span></span><span class="line"><span class="ln">30</span><span class="cl">INFO<span class="o">[</span>0046<span class="o">]</span> 🎉 New containerlab version 0.57.0 is available! Release notes: https://containerlab.dev/rn/0.57/
+</span></span><span class="line"><span class="ln">31</span><span class="cl">Run <span class="s1">&#39;containerlab version upgrade&#39;</span> to upgrade or go check other installation options at https://containerlab.dev/install/ 
+</span></span><span class="line"><span class="ln">32</span><span class="cl">+---+-------------------------------------+--------------+---------------+-------------+---------+-----------------+--------------+
+</span></span><span class="line"><span class="ln">33</span><span class="cl"><span class="p">|</span> <span class="c1"># |                Name                 | Container ID |     Image     |    Kind     |  State  |  IPv4 Address   | IPv6 Address |</span>
+</span></span><span class="line"><span class="ln">34</span><span class="cl">+---+-------------------------------------+--------------+---------------+-------------+---------+-----------------+--------------+
+</span></span><span class="line"><span class="ln">35</span><span class="cl"><span class="p">|</span> <span class="m">1</span> <span class="p">|</span> clab-spine-leaf-borderleaf-client-1 <span class="p">|</span> b88f71f8461f <span class="p">|</span> ubuntu:latest <span class="p">|</span> linux       <span class="p">|</span> running <span class="p">|</span> 192.168.20.8/24 <span class="p">|</span> N/A          <span class="p">|</span>
+</span></span><span class="line"><span class="ln">36</span><span class="cl"><span class="p">|</span> <span class="m">2</span> <span class="p">|</span> clab-spine-leaf-borderleaf-client-2 <span class="p">|</span> 030de9ac2c1a <span class="p">|</span> ubuntu:latest <span class="p">|</span> linux       <span class="p">|</span> running <span class="p">|</span> 192.168.20.7/24 <span class="p">|</span> N/A          <span class="p">|</span>
+</span></span><span class="line"><span class="ln">37</span><span class="cl"><span class="p">|</span> <span class="m">3</span> <span class="p">|</span> clab-spine-leaf-borderleaf-node-1   <span class="p">|</span> 5aaa12968276 <span class="p">|</span> ceos:4.32.2F  <span class="p">|</span> arista_ceos <span class="p">|</span> running <span class="p">|</span> 192.168.20.2/24 <span class="p">|</span> N/A          <span class="p">|</span>
+</span></span><span class="line"><span class="ln">38</span><span class="cl"><span class="p">|</span> <span class="m">4</span> <span class="p">|</span> clab-spine-leaf-borderleaf-node-2   <span class="p">|</span> 0ef9bfc0c093 <span class="p">|</span> ceos:4.32.2F  <span class="p">|</span> arista_ceos <span class="p">|</span> running <span class="p">|</span> 192.168.20.3/24 <span class="p">|</span> N/A          <span class="p">|</span>
+</span></span><span class="line"><span class="ln">39</span><span class="cl"><span class="p">|</span> <span class="m">5</span> <span class="p">|</span> clab-spine-leaf-borderleaf-node-3   <span class="p">|</span> 85d18564c3fc <span class="p">|</span> ceos:4.32.2F  <span class="p">|</span> arista_ceos <span class="p">|</span> running <span class="p">|</span> 192.168.20.4/24 <span class="p">|</span> N/A          <span class="p">|</span>
+</span></span><span class="line"><span class="ln">40</span><span class="cl"><span class="p">|</span> <span class="m">6</span> <span class="p">|</span> clab-spine-leaf-borderleaf-node-4   <span class="p">|</span> 11a1ecccb2aa <span class="p">|</span> ceos:4.32.2F  <span class="p">|</span> arista_ceos <span class="p">|</span> running <span class="p">|</span> 192.168.20.5/24 <span class="p">|</span> N/A          <span class="p">|</span>
+</span></span><span class="line"><span class="ln">41</span><span class="cl"><span class="p">|</span> <span class="m">7</span> <span class="p">|</span> clab-spine-leaf-borderleaf-node-5   <span class="p">|</span> 34ecdecd10db <span class="p">|</span> ceos:4.32.2F  <span class="p">|</span> arista_ceos <span class="p">|</span> running <span class="p">|</span> 192.168.20.6/24 <span class="p">|</span> N/A          <span class="p">|</span>
+</span></span><span class="line"><span class="ln">42</span><span class="cl">+---+-------------------------------------+--------------+---------------+-------------+---------+-----------------+--------------+
+</span></span></code></pre></div><p>
   <figure>
   <picture>
 
@@ -1765,12 +1904,12 @@ A note on the virtual network adapters for the cEOS appliances.The Management in
     <img
       loading="lazy"
       decoding="async"
-      alt="client-client"
+      alt="containerlab-graph-w-clients"
       
         class="image_figure image_internal image_processed"
-        width="2820"
-        height="2080"
-        src="/2024/08/22/arista-cloudvision-and-avd-using-containerlab/images/index/image-20240823195453173.png"
+        width="2285"
+        height="1659"
+        src="/2024/08/22/arista-cloudvision-and-avd-using-containerlab/images/index/image-20240824085541745.png"
       
       
     />
@@ -1778,6 +1917,26 @@ A note on the virtual network adapters for the cEOS appliances.The Management in
     </picture>
 </figure>
 </p>
+<p>The benefit of adding the generic containers to my existing topology, I can view the connection diagram using <em>containerlab graph</em>.</p>
+<p>As soon as they were up and running I exec into each and one of them and configured static IP addresses on both their <em>eth1</em> interfaces, adding a route on client-1 pointing to client-2s subnet using the eth1 as gateway. And vice versa on client-2.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl">root@client-1:/# ip addr add 10.71.0.11/24 dev eth1
+</span></span><span class="line"><span class="ln"> 2</span><span class="cl">root@client-1:/# ip route add 10.70.0.0/24 via 10.71.0.1
+</span></span><span class="line"><span class="ln"> 3</span><span class="cl">root@client-1:/# ping 10.70.0.12
+</span></span><span class="line"><span class="ln"> 4</span><span class="cl">PING 10.70.0.12 <span class="o">(</span>10.70.0.12<span class="o">)</span> 56<span class="o">(</span>84<span class="o">)</span> bytes of data.
+</span></span><span class="line"><span class="ln"> 5</span><span class="cl"><span class="m">64</span> bytes from 10.70.0.12: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">1</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">63</span> <span class="nv">time</span><span class="o">=</span>16.3 ms
+</span></span><span class="line"><span class="ln"> 6</span><span class="cl"><span class="m">64</span> bytes from 10.70.0.12: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">2</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">62</span> <span class="nv">time</span><span class="o">=</span>3.65 ms
+</span></span><span class="line"><span class="ln"> 7</span><span class="cl">^C
+</span></span><span class="line"><span class="ln"> 8</span><span class="cl">--- 10.70.0.12 ping statistics ---
+</span></span><span class="line"><span class="ln"> 9</span><span class="cl"><span class="m">2</span> packets transmitted, <span class="m">2</span> received, 0% packet loss, <span class="nb">time</span> 1001ms
+</span></span><span class="line"><span class="ln">10</span><span class="cl">rtt min/avg/max/mdev <span class="o">=</span> 3.653/9.955/16.257/6.302 ms
+</span></span><span class="line"><span class="ln">11</span><span class="cl">root@client-1:/# 
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln">1</span><span class="cl">root@client-2:/# ip addr add 10.70.0.12/24 dev eth1
+</span></span><span class="line"><span class="ln">2</span><span class="cl">root@client-2:/# ip route add 10.71.0.0/24 via 10.70.0.1
+</span></span><span class="line"><span class="ln">3</span><span class="cl">root@client-2:/# ping 10.71.0.1
+</span></span><span class="line"><span class="ln">4</span><span class="cl">PING 10.71.0.1 <span class="o">(</span>10.71.0.1<span class="o">)</span> 56<span class="o">(</span>84<span class="o">)</span> bytes of data.
+</span></span><span class="line"><span class="ln">5</span><span class="cl"><span class="m">64</span> bytes from 10.71.0.1: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">1</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">64</span> <span class="nv">time</span><span class="o">=</span>3.67 ms
+</span></span><span class="line"><span class="ln">6</span><span class="cl"><span class="m">64</span> bytes from 10.71.0.1: <span class="nv">icmp_seq</span><span class="o">=</span><span class="m">2</span> <span class="nv">ttl</span><span class="o">=</span><span class="m">64</span> <span class="nv">time</span><span class="o">=</span>0.965 ms
+</span></span></code></pre></div><p>Then I could ping from client-1 to client-2 and vice versa.</p>
 <p>Client-1 is connected directly to Leaf-1 Ethernet/3 via Bridge br-node-3 and client-2 is connected directly to Leaf-2 Ethernet/3 via Bridge br-node-4. Client-1 is configured with a static ip of 10.71.0.11/24 and client-2 is configured with a static of 10.70.0.12/24. For these two clients to reach each other it has to go over VXLAN where both VLANs is encapsulated. A quick ping test from each client shows that this works:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="ln"> 1</span><span class="cl"><span class="c1">## client 1 pinging client 2</span>
 </span></span><span class="line"><span class="ln"> 2</span><span class="cl">root@client-1:/# ip addr
