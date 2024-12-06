@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Topologies on From 0.985mhz... to several Ghz</title>
+    <link>https://blog.andreasm.io/tags/topologies/</link>
+    <description>Recent content in Topologies on From 0.985mhz... to several Ghz</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>Myself</copyright>
+    <lastBuildDate>Fri, 08 Nov 2024 08:56:51 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/topologies/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Overlay on overlay - Arista in the underlay</title>
+      <link>https://blog.andreasm.io/2024/11/08/overlay-on-overlay-arista-in-the-underlay/</link>
+      <pubDate>Fri, 08 Nov 2024 08:56:51 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/2024/11/08/overlay-on-overlay-arista-in-the-underlay/</guid>
+      <description>
+        
+          
+            Describing typical deployments where we end up with double encapsulation, how to monitor, troubleshoot
+          
+          
+        
+      </description>
+    </item>
+    
+  </channel>
+</rss>

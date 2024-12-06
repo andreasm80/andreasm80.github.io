@@ -7,7 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>Myself</copyright>
-    <lastBuildDate>Thu, 22 Aug 2024 21:26:33 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 08 Nov 2024 08:56:51 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Overlay on overlay - Arista in the underlay</title>
+      <link>https://blog.andreasm.io/2024/11/08/overlay-on-overlay-arista-in-the-underlay/</link>
+      <pubDate>Fri, 08 Nov 2024 08:56:51 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/2024/11/08/overlay-on-overlay-arista-in-the-underlay/</guid>
+      <description>
+        
+          
+            Describing typical deployments where we end up with double encapsulation, how to monitor, troubleshoot
+          
+          
+        
+      </description>
+    </item>
+    
     <item>
       <title>Arista Cloudvision and AVD using Containerlab</title>
       <link>https://blog.andreasm.io/2024/08/22/arista-cloudvision-and-avd-using-containerlab/</link>

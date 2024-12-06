@@ -3,10 +3,55 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://blog.andreasm.io/tags/arista/</loc>
-    <lastmod>2024-08-22T21:26:33+02:00</lastmod>
+    <lastmod>2024-11-08T08:56:51+01:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/categories/arista/</loc>
-    <lastmod>2024-08-22T21:26:33+02:00</lastmod>
+    <lastmod>2024-11-08T08:56:51+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/categories/</loc>
+    <lastmod>2024-11-08T08:56:51+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/encapsulation/</loc>
+    <lastmod>2024-11-08T08:56:51+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/categories/encapsulation/</loc>
+    <lastmod>2024-11-08T08:56:51+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/eos/</loc>
+    <lastmod>2024-11-08T08:56:51+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/categories/eos/</loc>
+    <lastmod>2024-11-08T08:56:51+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/</loc>
+    <lastmod>2024-11-08T08:56:51+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/networking/</loc>
+    <lastmod>2024-11-08T08:56:51+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/categories/networking/</loc>
+    <lastmod>2024-11-08T08:56:51+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/overlay/</loc>
+    <lastmod>2024-11-08T08:56:51+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/categories/overlay/</loc>
+    <lastmod>2024-11-08T08:56:51+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/2024/11/08/overlay-on-overlay-arista-in-the-underlay/</loc>
+    <lastmod>2024-11-08T08:56:51+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/post/</loc>
+    <lastmod>2024-11-08T08:56:51+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/</loc>
+    <lastmod>2024-11-08T08:56:51+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/tags/topologies/</loc>
+    <lastmod>2024-11-08T08:56:51+01:00</lastmod>
+  </url><url>
+    <loc>https://blog.andreasm.io/categories/topologies/</loc>
+    <lastmod>2024-11-08T08:56:51+01:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/2024/08/22/arista-cloudvision-and-avd-using-containerlab/</loc>
     <lastmod>2024-08-22T21:26:33+02:00</lastmod>
@@ -15,9 +60,6 @@
     <lastmod>2024-08-22T21:26:33+02:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/categories/automation/</loc>
-    <lastmod>2024-08-22T21:26:33+02:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/categories/</loc>
     <lastmod>2024-08-22T21:26:33+02:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/tags/ceos/</loc>
@@ -29,25 +71,10 @@
     <loc>https://blog.andreasm.io/tags/containerlab/</loc>
     <lastmod>2024-08-22T21:26:33+02:00</lastmod>
   </url><url>
-    <loc>https://blog.andreasm.io/</loc>
-    <lastmod>2024-08-22T21:26:33+02:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/tags/networking/</loc>
-    <lastmod>2024-08-22T21:26:33+02:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/categories/networking/</loc>
-    <lastmod>2024-08-22T21:26:33+02:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/post/</loc>
-    <lastmod>2024-08-22T21:26:33+02:00</lastmod>
-  </url><url>
     <loc>https://blog.andreasm.io/tags/provisioning/</loc>
     <lastmod>2024-08-22T21:26:33+02:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/categories/provisioning/</loc>
-    <lastmod>2024-08-22T21:26:33+02:00</lastmod>
-  </url><url>
-    <loc>https://blog.andreasm.io/tags/</loc>
     <lastmod>2024-08-22T21:26:33+02:00</lastmod>
   </url><url>
     <loc>https://blog.andreasm.io/tags/veos/</loc>
