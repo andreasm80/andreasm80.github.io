@@ -1,27 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Loadbalancer on From 0.985mhz... to several Ghz</title>
+    <title>Loadbalancer on blog.andreasm.io</title>
     <link>https://blog.andreasm.io/tags/loadbalancer/</link>
-    <description>Recent content in Loadbalancer on From 0.985mhz... to several Ghz</description>
+    <description>Recent content in Loadbalancer on blog.andreasm.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>Myself</copyright>
+    <copyright>© 2024 Andreas Marqvardsen</copyright>
     <lastBuildDate>Sun, 23 Oct 2022 08:11:37 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/loadbalancer/index.xml" rel="self" type="application/rss+xml" />
+    
     <item>
       <title>Running the Unifi Controller in Kubernetes</title>
       <link>https://blog.andreasm.io/2022/10/23/running-the-unifi-controller-in-kubernetes/</link>
       <pubDate>Sun, 23 Oct 2022 08:11:37 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2022/10/23/running-the-unifi-controller-in-kubernetes/</guid>
-      <description>
-        
-          
-            TOPICS: 
-          
-          
-        
-      </description>
+      <description> TOPICS: # </description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2022/10/23/running-the-unifi-controller-in-kubernetes/feature-unifi_small.png" />
     </item>
     
   </channel>

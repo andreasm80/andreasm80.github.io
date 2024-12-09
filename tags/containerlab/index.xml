@@ -1,27 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Containerlab on From 0.985mhz... to several Ghz</title>
+    <title>Containerlab on blog.andreasm.io</title>
     <link>https://blog.andreasm.io/tags/containerlab/</link>
-    <description>Recent content in Containerlab on From 0.985mhz... to several Ghz</description>
+    <description>Recent content in Containerlab on blog.andreasm.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>Myself</copyright>
+    <copyright>© 2024 Andreas Marqvardsen</copyright>
     <lastBuildDate>Thu, 22 Aug 2024 21:26:33 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/containerlab/index.xml" rel="self" type="application/rss+xml" />
+    
     <item>
       <title>Arista Cloudvision and AVD using Containerlab</title>
       <link>https://blog.andreasm.io/2024/08/22/arista-cloudvision-and-avd-using-containerlab/</link>
       <pubDate>Thu, 22 Aug 2024 21:26:33 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2024/08/22/arista-cloudvision-and-avd-using-containerlab/</guid>
-      <description>
-        
-          
-            Using Containerlab to provision cEOS containers for AVD and CloudVision
-          
-          
-        
-      </description>
+      <description>Using Containerlab to provision cEOS containers for AVD and CloudVision</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2024/08/22/arista-cloudvision-and-avd-using-containerlab/feature-arista-networks.jpg" />
     </item>
     
   </channel>

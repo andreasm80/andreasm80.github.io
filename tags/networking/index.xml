@@ -1,27 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Networking on From 0.985mhz... to several Ghz</title>
+    <title>Networking on blog.andreasm.io</title>
     <link>https://blog.andreasm.io/tags/networking/</link>
-    <description>Recent content in Networking on From 0.985mhz... to several Ghz</description>
+    <description>Recent content in Networking on blog.andreasm.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>Myself</copyright>
+    <copyright>© 2024 Andreas Marqvardsen</copyright>
     <lastBuildDate>Fri, 08 Nov 2024 08:56:51 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/networking/index.xml" rel="self" type="application/rss+xml" />
+    
     <item>
       <title>Overlay on overlay - Arista in the underlay</title>
       <link>https://blog.andreasm.io/2024/11/08/overlay-on-overlay-arista-in-the-underlay/</link>
       <pubDate>Fri, 08 Nov 2024 08:56:51 +0100</pubDate>
       
       <guid>https://blog.andreasm.io/2024/11/08/overlay-on-overlay-arista-in-the-underlay/</guid>
-      <description>
-        
-          
-            Describing typical deployments where we end up with double encapsulation, how to monitor, troubleshoot
-          
-          
-        
-      </description>
+      <description>Describing typical deployments where we end up with double encapsulation, how to monitor, troubleshoot</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2024/11/08/overlay-on-overlay-arista-in-the-underlay/feature-arista-networks.jpg" />
     </item>
     
     <item>
@@ -30,14 +25,8 @@
       <pubDate>Thu, 22 Aug 2024 21:26:33 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2024/08/22/arista-cloudvision-and-avd-using-containerlab/</guid>
-      <description>
-        
-          
-            Using Containerlab to provision cEOS containers for AVD and CloudVision
-          
-          
-        
-      </description>
+      <description>Using Containerlab to provision cEOS containers for AVD and CloudVision</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2024/08/22/arista-cloudvision-and-avd-using-containerlab/feature-arista-networks.jpg" />
     </item>
     
     <item>
@@ -46,14 +35,8 @@
       <pubDate>Mon, 10 Jun 2024 07:51:41 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2024/06/10/arista-automated-configuration-using-ansible/</guid>
-      <description>
-        
-          
-            In this post I will deploy Arista vEOS from zero to a full Spine-Leaf topology using Arista ZeroTouch Provisining and Ansible
-          
-          
-        
-      </description>
+      <description>In this post I will deploy Arista vEOS from zero to a full Spine-Leaf topology using Arista ZeroTouch Provisining and Ansible</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2024/06/10/arista-automated-configuration-using-ansible/feature-arista-networks.jpg" />
     </item>
     
     <item>
@@ -62,14 +45,8 @@
       <pubDate>Mon, 08 Apr 2024 14:56:56 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2024/04/08/vsphere-with-tanzu-avi-and-multiple-supervisors/</guid>
-      <description>
-        
-          
-            In this post I will try to describe how to use the new NSX and Avi together integration in vSphere with Tanzu in combination with several Supervisor clusters using only 1 NSX manager cluster and 1 Avi controller cluster
-          
-          
-        
-      </description>
+      <description>In this post I will try to describe how to use the new NSX and Avi together integration in vSphere with Tanzu in combination with several Supervisor clusters using only 1 NSX manager cluster and 1 Avi controller cluster</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2024/04/08/vsphere-with-tanzu-avi-and-multiple-supervisors/feature-vmware_by_broadcom.png" />
     </item>
     
     <item>
@@ -78,14 +55,8 @@
       <pubDate>Mon, 18 Dec 2023 11:49:56 +0100</pubDate>
       
       <guid>https://blog.andreasm.io/2023/12/18/a-quick-glance-at-cilium-cni/</guid>
-      <description>
-        
-          
-            In this post I will deploy Cilium in my k8s cluster and test some features and how it is to manage
-          
-          
-        
-      </description>
+      <description>In this post I will deploy Cilium in my k8s cluster and test some features and how it is to manage</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/12/18/a-quick-glance-at-cilium-cni/feature-cilium.jpg" />
     </item>
     
     <item>
@@ -94,14 +65,8 @@
       <pubDate>Thu, 23 Nov 2023 08:17:49 +0100</pubDate>
       
       <guid>https://blog.andreasm.io/2023/11/23/tkgi-with-nsx-and-nsx-advanced-loadbalancer/</guid>
-      <description>
-        
-          
-            In this post I will go through installation of TKGi, using the EPMC installer, then how to configure TKGi to use NSX Advanced LoadBalancer
-          
-          
-        
-      </description>
+      <description>In this post I will go through installation of TKGi, using the EPMC installer, then how to configure TKGi to use NSX Advanced LoadBalancer</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/11/23/tkgi-with-nsx-and-nsx-advanced-loadbalancer/feature-vmware_by_broadcom.png" />
     </item>
     
   </channel>

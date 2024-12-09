@@ -1,28 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Distributed-Firewall on From 0.985mhz... to several Ghz</title>
+    <title>Distributed-Firewall on blog.andreasm.io</title>
     <link>https://blog.andreasm.io/tags/distributed-firewall/</link>
-    <description>Recent content in Distributed-Firewall on From 0.985mhz... to several Ghz</description>
+    <description>Recent content in Distributed-Firewall on blog.andreasm.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>Myself</copyright>
+    <copyright>© 2024 Andreas Marqvardsen</copyright>
     <lastBuildDate>Wed, 05 Sep 2018 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/distributed-firewall/index.xml" rel="self" type="application/rss+xml" />
+    
     <item>
       <title>&#34;General Error&#34; NSX-T Manager Firewall Section</title>
       <link>https://blog.andreasm.io/2018/09/05/general-error-nsx-t-manager-firewall-section/</link>
       <pubDate>Wed, 05 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>https://blog.andreasm.io/2018/09/05/general-error-nsx-t-manager-firewall-section/</guid>
-      <description>
-        
-          
-            If you have missing objects in the firewall section before upgrading from NSX-T 2.1 to 2.2 you will experience a General Error in the GUI, on the Dashboard, and in the Firewall section of the GUI. You will even get general error when doing API calls to list the DFW sections https://NSXMGRIP/api/v1/firewall/sections: { &amp;quot;module\_name&amp;quot; : &amp;quot;common-services&amp;quot;, &amp;quot;error\_message&amp;quot; : &amp;quot;General error has occurred.&amp;quot;, &amp;quot;details&amp;quot; : &amp;quot;java.lang.NullPointerException&amp;quot;, &amp;quot;error\_code&amp;quot; : &amp;quot;100&amp;quot; }
-If you have upgraded the fix is straight forward.
-          
-          
-        
-      </description>
+      <description>If you have missing objects in the firewall section before upgrading from NSX-T 2.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2018/09/05/general-error-nsx-t-manager-firewall-section/feature-VMW-NSX-Logo1.jpg" />
     </item>
     
   </channel>

@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on blog.andreasm.io</title>
+    <link>https://blog.andreasm.io/posts/</link>
+    <description>Recent content in Posts on blog.andreasm.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>© 2024 Andreas Marqvardsen</copyright>
+    <lastBuildDate>Fri, 08 Nov 2024 08:56:51 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Overlay on overlay - Arista in the underlay</title>
+      <link>https://blog.andreasm.io/2024/11/08/overlay-on-overlay-arista-in-the-underlay/</link>
+      <pubDate>Fri, 08 Nov 2024 08:56:51 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/2024/11/08/overlay-on-overlay-arista-in-the-underlay/</guid>
+      <description>Describing typical deployments where we end up with double encapsulation, how to monitor, troubleshoot</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2024/11/08/overlay-on-overlay-arista-in-the-underlay/feature-arista-networks.jpg" />
+    </item>
+    
+    <item>
+      <title>Arista Cloudvision and AVD using Containerlab</title>
+      <link>https://blog.andreasm.io/2024/08/22/arista-cloudvision-and-avd-using-containerlab/</link>
+      <pubDate>Thu, 22 Aug 2024 21:26:33 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2024/08/22/arista-cloudvision-and-avd-using-containerlab/</guid>
+      <description>Using Containerlab to provision cEOS containers for AVD and CloudVision</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2024/08/22/arista-cloudvision-and-avd-using-containerlab/feature-arista-networks.jpg" />
+    </item>
+    
+    <item>
+      <title>Arista Automated Configuration using Ansible</title>
+      <link>https://blog.andreasm.io/2024/06/10/arista-automated-configuration-using-ansible/</link>
+      <pubDate>Mon, 10 Jun 2024 07:51:41 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2024/06/10/arista-automated-configuration-using-ansible/</guid>
+      <description>In this post I will deploy Arista vEOS from zero to a full Spine-Leaf topology using Arista ZeroTouch Provisining and Ansible</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2024/06/10/arista-automated-configuration-using-ansible/feature-arista-networks.jpg" />
+    </item>
+    
+    <item>
+      <title>Exploring some Antrea Features</title>
+      <link>https://blog.andreasm.io/2024/04/16/exploring-some-antrea-features/</link>
+      <pubDate>Tue, 16 Apr 2024 09:25:28 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2024/04/16/exploring-some-antrea-features/</guid>
+      <description>In this post I will go through a couple of Antrea features I find interesting, some new features and some older features</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2024/04/16/exploring-some-antrea-features/feature-antrea-1.png" />
+    </item>
+    
+    <item>
+      <title>vSphere with Tanzu - Avi and Multiple Supervisors</title>
+      <link>https://blog.andreasm.io/2024/04/08/vsphere-with-tanzu-avi-and-multiple-supervisors/</link>
+      <pubDate>Mon, 08 Apr 2024 14:56:56 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2024/04/08/vsphere-with-tanzu-avi-and-multiple-supervisors/</guid>
+      <description>In this post I will try to describe how to use the new NSX and Avi together integration in vSphere with Tanzu in combination with several Supervisor clusters using only 1 NSX manager cluster and 1 Avi controller cluster</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2024/04/08/vsphere-with-tanzu-avi-and-multiple-supervisors/feature-vmware_by_broadcom.png" />
+    </item>
+    
+    <item>
+      <title>Argo CD &amp; vSphere with Tanzu</title>
+      <link>https://blog.andreasm.io/2024/02/04/argo-cd-vsphere-with-tanzu/</link>
+      <pubDate>Sun, 04 Feb 2024 11:28:21 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/2024/02/04/argo-cd-vsphere-with-tanzu/</guid>
+      <description>In this post I am using ArgoCD bootstrapping Tanzu Kubernetes Clusters with AKO and Antrea configs</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2024/02/04/argo-cd-vsphere-with-tanzu/feature-argocd.png" />
+    </item>
+    
+    <item>
+      <title>Proxmox with OpenTofu Kubespray and Kubernetes</title>
+      <link>https://blog.andreasm.io/2024/01/15/proxmox-with-opentofu-kubespray-and-kubernetes/</link>
+      <pubDate>Mon, 15 Jan 2024 14:15:19 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/2024/01/15/proxmox-with-opentofu-kubespray-and-kubernetes/</guid>
+      <description>In this post I will quickly go through how I made use of OpenTofu to provision VMs on my Proxmox cluster and Ansible using Kubespray to deploy my Kubernetes clusters on demand.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2024/01/15/proxmox-with-opentofu-kubespray-and-kubernetes/feature-proxmox-logo-stacked-inverted-color.jpg" />
+    </item>
+    
+    <item>
+      <title>Traefik Proxy in Kubernetes</title>
+      <link>https://blog.andreasm.io/2023/12/26/traefik-proxy-in-kubernetes/</link>
+      <pubDate>Tue, 26 Dec 2023 20:31:45 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/2023/12/26/traefik-proxy-in-kubernetes/</guid>
+      <description>In this post I will go through how I have configured and run Traefik in my Kubernetes lab.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/12/26/traefik-proxy-in-kubernetes/feature-logo.webp" />
+    </item>
+    
+    <item>
+      <title>A Quick Glance at Cilium CNI</title>
+      <link>https://blog.andreasm.io/2023/12/18/a-quick-glance-at-cilium-cni/</link>
+      <pubDate>Mon, 18 Dec 2023 11:49:56 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/2023/12/18/a-quick-glance-at-cilium-cni/</guid>
+      <description>In this post I will deploy Cilium in my k8s cluster and test some features and how it is to manage</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/12/18/a-quick-glance-at-cilium-cni/feature-cilium.jpg" />
+    </item>
+    
+    <item>
+      <title>TKGi with NSX and NSX Advanced LoadBalancer</title>
+      <link>https://blog.andreasm.io/2023/11/23/tkgi-with-nsx-and-nsx-advanced-loadbalancer/</link>
+      <pubDate>Thu, 23 Nov 2023 08:17:49 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/2023/11/23/tkgi-with-nsx-and-nsx-advanced-loadbalancer/</guid>
+      <description>In this post I will go through installation of TKGi, using the EPMC installer, then how to configure TKGi to use NSX Advanced LoadBalancer</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/11/23/tkgi-with-nsx-and-nsx-advanced-loadbalancer/feature-vmware_by_broadcom.png" />
+    </item>
+    
+    <item>
+      <title>Antrea Multi-cluster - in TKG and vSphere with Tanzu</title>
+      <link>https://blog.andreasm.io/2023/09/25/antrea-multi-cluster-in-tkg-and-vsphere-with-tanzu/</link>
+      <pubDate>Mon, 25 Sep 2023 10:59:30 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2023/09/25/antrea-multi-cluster-in-tkg-and-vsphere-with-tanzu/</guid>
+      <description>In this post I will go through how to configure and use the Antrea feature gate Multi-cluster in both TKGs and TKG</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/09/25/antrea-multi-cluster-in-tkg-and-vsphere-with-tanzu/feature-antrea-1.png" />
+    </item>
+    
+    <item>
+      <title>vSphere with Tanzu 8 U2 using NSX AND NSX Advanced Loadbalancer</title>
+      <link>https://blog.andreasm.io/2023/09/23/vsphere-with-tanzu-8-u2-using-nsx-and-nsx-advanced-loadbalancer/</link>
+      <pubDate>Sat, 23 Sep 2023 21:35:17 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2023/09/23/vsphere-with-tanzu-8-u2-using-nsx-and-nsx-advanced-loadbalancer/</guid>
+      <description>A quick test on the new feature in vSphere 8 U2 with Tanzu using NSX and NSX Advanced Loadbalancer for Kubernetes API endpoint</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/09/23/vsphere-with-tanzu-8-u2-using-nsx-and-nsx-advanced-loadbalancer/feature-vmware_by_broadcom.png" />
+    </item>
+    
+    <item>
+      <title>vSphere with Tanzu and HAproxy</title>
+      <link>https://blog.andreasm.io/2023/09/19/vsphere-with-tanzu-and-haproxy/</link>
+      <pubDate>Tue, 19 Sep 2023 09:38:19 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2023/09/19/vsphere-with-tanzu-and-haproxy/</guid>
+      <description>In this post I will quickly go through how to use vSphere with Tanzu and HAProxy exposing the Kubernetes API</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/09/19/vsphere-with-tanzu-and-haproxy/feature-vmware_by_broadcom.png" />
+    </item>
+    
+    <item>
+      <title>TKG Autoscaler</title>
+      <link>https://blog.andreasm.io/2023/09/07/tkg-autoscaler/</link>
+      <pubDate>Thu, 07 Sep 2023 07:46:13 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2023/09/07/tkg-autoscaler/</guid>
+      <description>In this post I will go through the TKG Autoscaler, how to configure it and how it works.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/09/07/tkg-autoscaler/feature-vmware_by_broadcom.png" />
+    </item>
+    
+    <item>
+      <title>TMC Self-Managed Upgrade to 1.0.1</title>
+      <link>https://blog.andreasm.io/2023/09/06/tmc-self-managed-upgrade-to-1.0.1/</link>
+      <pubDate>Wed, 06 Sep 2023 09:34:04 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2023/09/06/tmc-self-managed-upgrade-to-1.0.1/</guid>
+      <description>In this post I will go through how to upgrade TMC Self-Managed from version 1.0.0 to version 1.0.1</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/09/06/tmc-self-managed-upgrade-to-1.0.1/feature-VMware-Tanzu.png" />
+    </item>
+    
+    <item>
+      <title>TKG 2.3 deployment in multiple availability zones</title>
+      <link>https://blog.andreasm.io/2023/08/29/tkg-2.3-deployment-in-multiple-availability-zones/</link>
+      <pubDate>Tue, 29 Aug 2023 13:27:52 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2023/08/29/tkg-2.3-deployment-in-multiple-availability-zones/</guid>
+      <description>In this post I will go through how to configure and deploy TKG 2.3 in mutliple availability zones using vSphere clusters and how to reconfigure already deployed TKG cluster to new availability zones.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/08/29/tkg-2.3-deployment-in-multiple-availability-zones/feature-vmware_by_broadcom.png" />
+    </item>
+    
+    <item>
+      <title>Installing TMC local on vSphere 8 with Tanzu using Keycloak as OIDC provider</title>
+      <link>https://blog.andreasm.io/2023/07/12/installing-tmc-local-on-vsphere-8-with-tanzu-using-keycloak-as-oidc-provider/</link>
+      <pubDate>Wed, 12 Jul 2023 15:22:46 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2023/07/12/installing-tmc-local-on-vsphere-8-with-tanzu-using-keycloak-as-oidc-provider/</guid>
+      <description>In this post I will be going through how to deploy the newly released TMC local in a lab environment to start playing around with it. I will also cover how I have deployed Keycloak to serve my needs for TMC-SM.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/07/12/installing-tmc-local-on-vsphere-8-with-tanzu-using-keycloak-as-oidc-provider/feature-VMware-Tanzu.png" />
+    </item>
+    
+    <item>
+      <title>Securing Kubernetes clusters with Antrea Network Policies</title>
+      <link>https://blog.andreasm.io/2023/06/21/securing-kubernetes-clusters-with-antrea-network-policies/</link>
+      <pubDate>Wed, 21 Jun 2023 10:01:46 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2023/06/21/securing-kubernetes-clusters-with-antrea-network-policies/</guid>
+      <description>In this post I will go through how to utilize Antrea Network policies with Tanzu Mission Control and a little bit NSX. So jump in and hopefully get some ideas how what we can do with Antrea Network Policies and how to use them.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/06/21/securing-kubernetes-clusters-with-antrea-network-policies/feature-antrea-1.png" />
+    </item>
+    
+    <item>
+      <title>Managing Antrea in vSphere with Tanzu</title>
+      <link>https://blog.andreasm.io/2023/06/01/managing-antrea-in-vsphere-with-tanzu/</link>
+      <pubDate>Thu, 01 Jun 2023 11:14:32 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2023/06/01/managing-antrea-in-vsphere-with-tanzu/</guid>
+      <description>In this post I will go through how to manage Antrea in a vSphere with Tanzu cluster using the Antrea CRD, and then explore some features and possibilites with Antrea</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/06/01/managing-antrea-in-vsphere-with-tanzu/feature-antrea-1.png" />
+    </item>
+    
+    <item>
+      <title>Tanzu Kubernetes Grid 2.2 &amp; Remote Workload Clusters</title>
+      <link>https://blog.andreasm.io/2023/05/30/tanzu-kubernetes-grid-2.2-remote-workload-clusters/</link>
+      <pubDate>Tue, 30 May 2023 14:54:29 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2023/05/30/tanzu-kubernetes-grid-2.2-remote-workload-clusters/</guid>
+      <description>In this post I will quickly go through how to use a Tanzu Kubernetes Grid management cluster to deploy and manage workload clusters in edge/remote locations.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/05/30/tanzu-kubernetes-grid-2.2-remote-workload-clusters/feature-vmware_by_broadcom.png" />
+    </item>
+    
+    <item>
+      <title>vSphere with Tanzu and Multi Zones part2</title>
+      <link>https://blog.andreasm.io/2023/05/03/vsphere-with-tanzu-and-multi-zones-part2/</link>
+      <pubDate>Wed, 03 May 2023 07:34:47 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2023/05/03/vsphere-with-tanzu-and-multi-zones-part2/</guid>
+      <description>In this post I will quickly go through how we can use vSphere with Tanzu on three different vSphere clusters - Multi Zones for app placement.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/05/03/vsphere-with-tanzu-and-multi-zones-part2/feature-logo-vmware-tanzu.png" />
+    </item>
+    
+    <item>
+      <title>vSphere with Tanzu, Multi (three) Zones and NSX</title>
+      <link>https://blog.andreasm.io/2023/05/03/vsphere-with-tanzu-multi-three-zones-and-nsx/</link>
+      <pubDate>Wed, 03 May 2023 07:34:47 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2023/05/03/vsphere-with-tanzu-multi-three-zones-and-nsx/</guid>
+      <description>In this post I will quickly go through how to deploy vSphere with Tanzu on three different vSphere clusters - Multi Zones</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/05/03/vsphere-with-tanzu-multi-three-zones-and-nsx/feature-logo-vmware-tanzu.png" />
+    </item>
+    
+    <item>
+      <title>Tanzu with vSphere and different Tier-0s</title>
+      <link>https://blog.andreasm.io/2023/04/14/tanzu-with-vsphere-and-different-tier-0s/</link>
+      <pubDate>Fri, 14 Apr 2023 13:24:41 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2023/04/14/tanzu-with-vsphere-and-different-tier-0s/</guid>
+      <description>This post will take you trough how to configre Tanzu with vSphere using NSX with multiple Tier-0 and VRF Tier-0 gateways. It will also show you how to do this using DCLI and API</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/04/14/tanzu-with-vsphere-and-different-tier-0s/feature-vmware_by_broadcom.png" />
+    </item>
+    
+    <item>
+      <title>Tanzu Kubernetes Grid 2.1</title>
+      <link>https://blog.andreasm.io/2023/03/22/tanzu-kubernetes-grid-2.1/</link>
+      <pubDate>Wed, 22 Mar 2023 09:24:01 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/2023/03/22/tanzu-kubernetes-grid-2.1/</guid>
+      <description>Tanzu Kubernetes Grid # This post will go through how to deploy TKG 2.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/03/22/tanzu-kubernetes-grid-2.1/feature-logo-vmware-tanzu.png" />
+    </item>
+    
+    <item>
+      <title>Hosting my blog on Github</title>
+      <link>https://blog.andreasm.io/2023/03/04/hosting-my-blog-on-github/</link>
+      <pubDate>Sat, 04 Mar 2023 21:31:03 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/2023/03/04/hosting-my-blog-on-github/</guid>
+      <description>Hugo on Github: # I have been running my blog page locally on Kubernetes for a long time now.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/03/04/hosting-my-blog-on-github/feature-GitHub-Logo300px.png" />
+    </item>
+    
+    <item>
+      <title>Antrea Egress</title>
+      <link>https://blog.andreasm.io/2023/02/20/antrea-egress/</link>
+      <pubDate>Mon, 20 Feb 2023 15:42:54 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/2023/02/20/antrea-egress/</guid>
+      <description>Antrea Egress: # What is Egress when we talk about Kubernetes?</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/02/20/antrea-egress/feature-antrea-stacked-color3.webp" />
+    </item>
+    
+    <item>
+      <title>Taking Rancher by SUSE for a Spin</title>
+      <link>https://blog.andreasm.io/2023/02/05/taking-rancher-by-suse-for-a-spin/</link>
+      <pubDate>Sun, 05 Feb 2023 21:18:48 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2023/02/05/taking-rancher-by-suse-for-a-spin/</guid>
+      <description>In this post I wil go through Rancher and test out some of the possibilties and capabilties managing Kubernetes using Rancher.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/02/05/taking-rancher-by-suse-for-a-spin/feature-rancher-suse-logo-horizontal-color.svg" />
+    </item>
+    
+    <item>
+      <title>NeuVector by SUSE - security where it is needed - part 1</title>
+      <link>https://blog.andreasm.io/2023/02/02/neuvector-by-suse-security-where-it-is-needed-part-1/</link>
+      <pubDate>Thu, 02 Feb 2023 12:42:04 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2023/02/02/neuvector-by-suse-security-where-it-is-needed-part-1/</guid>
+      <description>In this two post series I will explore and deep dive into NeuVector security features</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/02/02/neuvector-by-suse-security-where-it-is-needed-part-1/feature-NeuVector_logo.svg" />
+    </item>
+    
+    <item>
+      <title>vSphere 8 with Tanzu using VDS and Avi Loadbalancer</title>
+      <link>https://blog.andreasm.io/2022/10/26/vsphere-8-with-tanzu-using-vds-and-avi-loadbalancer/</link>
+      <pubDate>Wed, 26 Oct 2022 12:06:08 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2022/10/26/vsphere-8-with-tanzu-using-vds-and-avi-loadbalancer/</guid>
+      <description>Deploy Tanzu in vSphere 8 with VDS and Avi Loadbalancer: # This post will go through how to install Tanzu in vSphere 8 using vSphere VDS networking and Avi as loadbalancer.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2022/10/26/vsphere-8-with-tanzu-using-vds-and-avi-loadbalancer/feature-logo-vmware-tanzu.png" />
+    </item>
+    
+    <item>
+      <title>vSphere 8 with Tanzu using NSX-T &amp; Avi LoadBalancer</title>
+      <link>https://blog.andreasm.io/2022/10/26/vsphere-8-with-tanzu-using-nsx-t-avi-loadbalancer/</link>
+      <pubDate>Wed, 26 Oct 2022 12:03:35 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2022/10/26/vsphere-8-with-tanzu-using-nsx-t-avi-loadbalancer/</guid>
+      <description>Deploy Tanzu in vSphere 8 with NSX and Avi Loadbalancer: # This post will go through how to install Tanzu in vSphere 8 using NSX networking (including built in L4 loadbalancer) and Avi as L7 loadbalancer.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2022/10/26/vsphere-8-with-tanzu-using-nsx-t-avi-loadbalancer/feature-logo-vmware-tanzu.png" />
+    </item>
+    
+    <item>
+      <title>AKO Explained</title>
+      <link>https://blog.andreasm.io/2022/10/26/ako-explained/</link>
+      <pubDate>Wed, 26 Oct 2022 12:02:39 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2022/10/26/ako-explained/</guid>
+      <description>What is AKO?</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2022/10/26/ako-explained/feature-avi_networks.png" />
+    </item>
+    
+    <item>
+      <title>GSLB With AKO &amp; AMKO - NSX Advanced LoadBalancer</title>
+      <link>https://blog.andreasm.io/2022/10/23/gslb-with-ako-amko-nsx-advanced-loadbalancer/</link>
+      <pubDate>Sun, 23 Oct 2022 08:22:35 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2022/10/23/gslb-with-ako-amko-nsx-advanced-loadbalancer/</guid>
+      <description>Global Server LoadBalancing in VMware Tanzu with AMKO # This post will go through how to configure AVI (NSX ALB) with GSLB in vSphere with Tanzu (TKGs) and an upstream k8s cluster in two different physical locations.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2022/10/23/gslb-with-ako-amko-nsx-advanced-loadbalancer/feature-avi_networks.png" />
+    </item>
+    
+    <item>
+      <title>We Take a Look at the AKO Crds</title>
+      <link>https://blog.andreasm.io/2022/10/23/we-take-a-look-at-the-ako-crds/</link>
+      <pubDate>Sun, 23 Oct 2022 08:21:52 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2022/10/23/we-take-a-look-at-the-ako-crds/</guid>
+      <description>AKO settings: # What happens if we need to to this</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2022/10/23/we-take-a-look-at-the-ako-crds/feature-avi_networks.png" />
+    </item>
+    
+    <item>
+      <title>Running the Unifi Controller in Kubernetes</title>
+      <link>https://blog.andreasm.io/2022/10/23/running-the-unifi-controller-in-kubernetes/</link>
+      <pubDate>Sun, 23 Oct 2022 08:11:37 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2022/10/23/running-the-unifi-controller-in-kubernetes/</guid>
+      <description> TOPICS: # </description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2022/10/23/running-the-unifi-controller-in-kubernetes/feature-unifi_small.png" />
+    </item>
+    
+    <item>
+      <title>VMware Harbor Registry</title>
+      <link>https://blog.andreasm.io/2022/10/13/vmware-harbor-registry/</link>
+      <pubDate>Thu, 13 Oct 2022 21:56:15 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2022/10/13/vmware-harbor-registry/</guid>
+      <description>This post will briefly go through how to deploy (using Helm), configure and use VMware Harbor registry in Kubernetes.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2022/10/13/vmware-harbor-registry/feature-harbor-icon-color.png" />
+    </item>
+    
+    <item>
+      <title>Hugo in Kubernetes</title>
+      <link>https://blog.andreasm.io/2022/10/12/hugo-in-kubernetes/</link>
+      <pubDate>Wed, 12 Oct 2022 08:28:23 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2022/10/12/hugo-in-kubernetes/</guid>
+      <description>This blog post will cover how I wanted to deploy Hugo to host my blog-page.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2022/10/12/hugo-in-kubernetes/feature-hugo1.png" />
+    </item>
+    
+    <item>
+      <title>Pinniped Authentication Service</title>
+      <link>https://blog.andreasm.io/2022/10/11/pinniped-authentication-service/</link>
+      <pubDate>Tue, 11 Oct 2022 22:39:07 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2022/10/11/pinniped-authentication-service/</guid>
+      <description>How to use Pinniped as the authentication service in Kubernets with OpenLDAP</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2022/10/11/pinniped-authentication-service/feature-Pinniped-logo-2.png" />
+    </item>
+    
+    <item>
+      <title>Cert Manager and Letsencrypt</title>
+      <link>https://blog.andreasm.io/2022/10/11/cert-manager-and-letsencrypt/</link>
+      <pubDate>Tue, 11 Oct 2022 22:33:41 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2022/10/11/cert-manager-and-letsencrypt/</guid>
+      <description>This article will quickly go through how to create wildcard certificates and automatically renew them with Lets Encrypt and Cert-Manager</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2022/10/11/cert-manager-and-letsencrypt/feature-cert.crypt3.png" />
+    </item>
+    
+    <item>
+      <title>NSX Antrea Integration</title>
+      <link>https://blog.andreasm.io/2022/10/11/nsx-antrea-integration/</link>
+      <pubDate>Tue, 11 Oct 2022 21:38:27 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/2022/10/11/nsx-antrea-integration/</guid>
+      <description>What is the NSX Antrea integration # Assumptions: I assume that the reader is aware of what Antrea is, and what a CNI is and also what NSX is.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2022/10/11/nsx-antrea-integration/feature-ant.nsx_transp1.png" />
+    </item>
+    
+    <item>
+      <title>Managing your Antrea K8s clusters running in VMC from your on-prem NSX Manager</title>
+      <link>https://blog.andreasm.io/2022/03/13/managing-your-antrea-k8s-clusters-running-in-vmc-from-your-on-prem-nsx-manager/</link>
+      <pubDate>Sun, 13 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.andreasm.io/2022/03/13/managing-your-antrea-k8s-clusters-running-in-vmc-from-your-on-prem-nsx-manager/</guid>
+      <description>This week I was fortunate to get hold of a VMC on AWS environment and wanted to test out the possibility of managing my K8s security policies from my on-prem NSX manager by utilizing the integration of Antrea in NSX.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2022/03/13/managing-your-antrea-k8s-clusters-running-in-vmc-from-your-on-prem-nsx-manager/feature-VMware-on-AWS-3-2_transp.png" />
+    </item>
+    
+    <item>
+      <title>VMware NSX Application Platform</title>
+      <link>https://blog.andreasm.io/2022/01/18/vmware-nsx-application-platform/</link>
+      <pubDate>Tue, 18 Jan 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.andreasm.io/2022/01/18/vmware-nsx-application-platform/</guid>
+      <description>VMware NSX 3.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2022/01/18/vmware-nsx-application-platform/feature-icon-prod-nsx-service-defined-firewall-rgb-400px.svg" />
+    </item>
+    
+    <item>
+      <title>My LAB</title>
+      <link>https://blog.andreasm.io/2021/10/19/my-lab/</link>
+      <pubDate>Tue, 19 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.andreasm.io/2021/10/19/my-lab/</guid>
+      <description>This page will explain my lab environment, which is used in all the examples, tutorials in this blog.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2021/10/19/my-lab/feature-science-lab-drawing-theme_23-2148484579.webp" />
+    </item>
+    
+    <item>
+      <title>VMware NSX IDS &amp; IPS</title>
+      <link>https://blog.andreasm.io/2021/10/19/vmware-nsx-ids-ips/</link>
+      <pubDate>Tue, 19 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.andreasm.io/2021/10/19/vmware-nsx-ids-ips/</guid>
+      <description>This post will go through the IDS/IPS built-in feature of the NSX distributed firewall.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2021/10/19/vmware-nsx-ids-ips/feature-icon-prod-nsx-ids-ips-rgb-400px.svg" />
+    </item>
+    
+    <item>
+      <title>The Home Automation category</title>
+      <link>https://blog.andreasm.io/2021/07/14/the-home-automation-category/</link>
+      <pubDate>Wed, 14 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.andreasm.io/2021/07/14/the-home-automation-category/</guid>
+      <description>When I finish up the other posts I have started on there will be content coming here also</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2021/07/14/the-home-automation-category/feature-home-assistant.png" />
+    </item>
+    
+    <item>
+      <title>Configure NSX Advanced Load Balancer (NSX-ALB) as DNS provider</title>
+      <link>https://blog.andreasm.io/2021/07/12/configure-nsx-advanced-load-balancer-nsx-alb-as-dns-provider/</link>
+      <pubDate>Mon, 12 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.andreasm.io/2021/07/12/configure-nsx-advanced-load-balancer-nsx-alb-as-dns-provider/</guid>
+      <description>NSX ALB has a very useful feature built-in, to function as DNS server for your domains defined in your NSX-ALB environment.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2021/07/12/configure-nsx-advanced-load-balancer-nsx-alb-as-dns-provider/feature-avi-networks-now-part-of-vmware.png" />
+    </item>
+    
+    <item>
+      <title>Kubernetes Persistent Volumes with NFS</title>
+      <link>https://blog.andreasm.io/2021/07/12/kubernetes-persistent-volumes-with-nfs/</link>
+      <pubDate>Mon, 12 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.andreasm.io/2021/07/12/kubernetes-persistent-volumes-with-nfs/</guid>
+      <description>Use NFS for your PVC needs # If you are running vShere with Tanzu, TKG on vSphere or are using vSphere as your hypervisor for your worker-nodes you have the option to use the vSphere CSI plugin here.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2021/07/12/kubernetes-persistent-volumes-with-nfs/feature-k8sfavicon.png" />
+    </item>
+    
+    <item>
+      <title>K8s Ingress with NSX Advanced Load Balancer</title>
+      <link>https://blog.andreasm.io/2021/07/11/k8s-ingress-with-nsx-advanced-load-balancer/</link>
+      <pubDate>Sun, 11 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.andreasm.io/2021/07/11/k8s-ingress-with-nsx-advanced-load-balancer/</guid>
+      <description>Abbreviations used in this article:</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2021/07/11/k8s-ingress-with-nsx-advanced-load-balancer/feature-avi-networks-now-part-of-vmware.png" />
+    </item>
+    
+    <item>
+      <title>Antrea - Kubernetes CNI</title>
+      <link>https://blog.andreasm.io/2021/07/10/antrea-kubernetes-cni/</link>
+      <pubDate>Sat, 10 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.andreasm.io/2021/07/10/antrea-kubernetes-cni/</guid>
+      <description>This is an introduction post to Antrea, what it is and which features it has.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2021/07/10/antrea-kubernetes-cni/feature-antrea-stacked-color.webp" />
+    </item>
+    
+    <item>
+      <title>Antrea Network Policies</title>
+      <link>https://blog.andreasm.io/2021/07/10/antrea-network-policies/</link>
+      <pubDate>Sat, 10 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.andreasm.io/2021/07/10/antrea-network-policies/</guid>
+      <description>This post will go through the Antrea-native policy resources and how to use them to secure your Kubernetes environment combined with K8s network policies.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2021/07/10/antrea-network-policies/feature-antrea-stacked-color3.webp" />
+    </item>
+    
+    <item>
+      <title>Microsegmentation with VMware NSX</title>
+      <link>https://blog.andreasm.io/2021/07/10/microsegmentation-with-vmware-nsx/</link>
+      <pubDate>Sat, 10 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.andreasm.io/2021/07/10/microsegmentation-with-vmware-nsx/</guid>
+      <description>This post will go through one way of securing your workloads with VMware NSX.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2021/07/10/microsegmentation-with-vmware-nsx/feature-icon-prod-nsx-service-defined-firewall-rgb-400px.svg" />
+    </item>
+    
+    <item>
+      <title>NSX Intelligence - quick overview</title>
+      <link>https://blog.andreasm.io/2021/07/10/nsx-intelligence-quick-overview/</link>
+      <pubDate>Sat, 10 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.andreasm.io/2021/07/10/nsx-intelligence-quick-overview/</guid>
+      <description>When starting out a microsegmentation journey with VMware NSX it will be very important to have a tool that gives you all the visibility and insight you need.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2021/07/10/nsx-intelligence-quick-overview/feature-icon-prod-nsx-intelligence-rgb-400px.svg" />
+    </item>
+    
+    <item>
+      <title>NSX Advanced LoadBalancer with Antrea on Native K8s</title>
+      <link>https://blog.andreasm.io/2020/10/08/nsx-advanced-loadbalancer-with-antrea-on-native-k8s/</link>
+      <pubDate>Thu, 08 Oct 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.andreasm.io/2020/10/08/nsx-advanced-loadbalancer-with-antrea-on-native-k8s/</guid>
+      <description>This post will cover the steps to bring up a Kubernetes cluster in Ubuntu, then how to install and configure Antrea as CNI and how to install and configure NSX Advanced Load Balancer to use as a servicetype Load Balancer in the k8s environment with the use of Avi Kubernetes Operator.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2020/10/08/nsx-advanced-loadbalancer-with-antrea-on-native-k8s/feature-avi-networks-now-part-of-vmware.png" />
+    </item>
+    
+    <item>
+      <title>Deploy NSX-T 2.4 Edge Nodes on a N-VDS Logical Switch</title>
+      <link>https://blog.andreasm.io/2019/03/09/deploy-nsx-t-2.4-edge-nodes-on-a-n-vds-logical-switch/</link>
+      <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.andreasm.io/2019/03/09/deploy-nsx-t-2.4-edge-nodes-on-a-n-vds-logical-switch/</guid>
+      <description>To be able to deploy an Edge node or nodes in your lab or other environment where you only have 2 physical nic you must be able to deploy it on a N-VDS switch as you have already migrated all your kernels etc to this one N-VDS switch.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2019/03/09/deploy-nsx-t-2.4-edge-nodes-on-a-n-vds-logical-switch/feature-VMW-NSX-Logo1.jpg" />
+    </item>
+    
+    <item>
+      <title>&#34;General Error&#34; NSX-T Manager Firewall Section</title>
+      <link>https://blog.andreasm.io/2018/09/05/general-error-nsx-t-manager-firewall-section/</link>
+      <pubDate>Wed, 05 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.andreasm.io/2018/09/05/general-error-nsx-t-manager-firewall-section/</guid>
+      <description>If you have missing objects in the firewall section before upgrading from NSX-T 2.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2018/09/05/general-error-nsx-t-manager-firewall-section/feature-VMW-NSX-Logo1.jpg" />
+    </item>
+    
+    <item>
+      <title>vSphere Replication 6.1.2 vCenter plugin fails after upgrade (vCenter 6.0 U3)</title>
+      <link>https://blog.andreasm.io/2017/04/10/vsphere-replication-6.1.2-vcenter-plugin-fails-after-upgrade-vcenter-6.0-u3/</link>
+      <pubDate>Mon, 10 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.andreasm.io/2017/04/10/vsphere-replication-6.1.2-vcenter-plugin-fails-after-upgrade-vcenter-6.0-u3/</guid>
+      <description>After upgrading vCenter (VCSA) to 6.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2017/04/10/vsphere-replication-6.1.2-vcenter-plugin-fails-after-upgrade-vcenter-6.0-u3/feature-vmware-vsphere-6.png" />
+    </item>
+    
+  </channel>
+</rss>

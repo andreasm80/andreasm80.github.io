@@ -1,27 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Nsx on From 0.985mhz... to several Ghz</title>
+    <title>Nsx on blog.andreasm.io</title>
     <link>https://blog.andreasm.io/tags/nsx/</link>
-    <description>Recent content in Nsx on From 0.985mhz... to several Ghz</description>
+    <description>Recent content in Nsx on blog.andreasm.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>Myself</copyright>
+    <copyright>© 2024 Andreas Marqvardsen</copyright>
     <lastBuildDate>Mon, 08 Apr 2024 14:56:56 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/nsx/index.xml" rel="self" type="application/rss+xml" />
+    
     <item>
       <title>vSphere with Tanzu - Avi and Multiple Supervisors</title>
       <link>https://blog.andreasm.io/2024/04/08/vsphere-with-tanzu-avi-and-multiple-supervisors/</link>
       <pubDate>Mon, 08 Apr 2024 14:56:56 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2024/04/08/vsphere-with-tanzu-avi-and-multiple-supervisors/</guid>
-      <description>
-        
-          
-            In this post I will try to describe how to use the new NSX and Avi together integration in vSphere with Tanzu in combination with several Supervisor clusters using only 1 NSX manager cluster and 1 Avi controller cluster
-          
-          
-        
-      </description>
+      <description>In this post I will try to describe how to use the new NSX and Avi together integration in vSphere with Tanzu in combination with several Supervisor clusters using only 1 NSX manager cluster and 1 Avi controller cluster</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2024/04/08/vsphere-with-tanzu-avi-and-multiple-supervisors/feature-vmware_by_broadcom.png" />
     </item>
     
     <item>
@@ -30,14 +25,8 @@
       <pubDate>Thu, 23 Nov 2023 08:17:49 +0100</pubDate>
       
       <guid>https://blog.andreasm.io/2023/11/23/tkgi-with-nsx-and-nsx-advanced-loadbalancer/</guid>
-      <description>
-        
-          
-            In this post I will go through installation of TKGi, using the EPMC installer, then how to configure TKGi to use NSX Advanced LoadBalancer
-          
-          
-        
-      </description>
+      <description>In this post I will go through installation of TKGi, using the EPMC installer, then how to configure TKGi to use NSX Advanced LoadBalancer</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/11/23/tkgi-with-nsx-and-nsx-advanced-loadbalancer/feature-vmware_by_broadcom.png" />
     </item>
     
     <item>
@@ -46,14 +35,8 @@
       <pubDate>Sat, 23 Sep 2023 21:35:17 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2023/09/23/vsphere-with-tanzu-8-u2-using-nsx-and-nsx-advanced-loadbalancer/</guid>
-      <description>
-        
-          
-            A quick test on the new feature in vSphere 8 U2 with Tanzu using NSX and NSX Advanced Loadbalancer for Kubernetes API endpoint
-          
-          
-        
-      </description>
+      <description>A quick test on the new feature in vSphere 8 U2 with Tanzu using NSX and NSX Advanced Loadbalancer for Kubernetes API endpoint</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/09/23/vsphere-with-tanzu-8-u2-using-nsx-and-nsx-advanced-loadbalancer/feature-vmware_by_broadcom.png" />
     </item>
     
     <item>
@@ -62,14 +45,8 @@
       <pubDate>Wed, 03 May 2023 07:34:47 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2023/05/03/vsphere-with-tanzu-and-multi-zones-part2/</guid>
-      <description>
-        
-          
-            In this post I will quickly go through how we can use vSphere with Tanzu on three different vSphere clusters - Multi Zones for app placement.
-          
-          
-        
-      </description>
+      <description>In this post I will quickly go through how we can use vSphere with Tanzu on three different vSphere clusters - Multi Zones for app placement.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/05/03/vsphere-with-tanzu-and-multi-zones-part2/feature-logo-vmware-tanzu.png" />
     </item>
     
     <item>
@@ -78,14 +55,8 @@
       <pubDate>Wed, 03 May 2023 07:34:47 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2023/05/03/vsphere-with-tanzu-multi-three-zones-and-nsx/</guid>
-      <description>
-        
-          
-            In this post I will quickly go through how to deploy vSphere with Tanzu on three different vSphere clusters - Multi Zones
-          
-          
-        
-      </description>
+      <description>In this post I will quickly go through how to deploy vSphere with Tanzu on three different vSphere clusters - Multi Zones</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/05/03/vsphere-with-tanzu-multi-three-zones-and-nsx/feature-logo-vmware-tanzu.png" />
     </item>
     
     <item>
@@ -94,14 +65,8 @@
       <pubDate>Fri, 14 Apr 2023 13:24:41 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2023/04/14/tanzu-with-vsphere-and-different-tier-0s/</guid>
-      <description>
-        
-          
-            This post will take you trough how to configre Tanzu with vSphere using NSX with multiple Tier-0 and VRF Tier-0 gateways. It will also show you how to do this using DCLI and API
-          
-          
-        
-      </description>
+      <description>This post will take you trough how to configre Tanzu with vSphere using NSX with multiple Tier-0 and VRF Tier-0 gateways. It will also show you how to do this using DCLI and API</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/04/14/tanzu-with-vsphere-and-different-tier-0s/feature-vmware_by_broadcom.png" />
     </item>
     
     <item>
@@ -110,15 +75,8 @@
       <pubDate>Wed, 22 Mar 2023 09:24:01 +0100</pubDate>
       
       <guid>https://blog.andreasm.io/2023/03/22/tanzu-kubernetes-grid-2.1/</guid>
-      <description>
-        
-          
-            Tanzu Kubernetes Grid This post will go through how to deploy TKG 2.1, the management cluster, a workload cluster (or two), and the necessary preparations to be done on the underlaying infrastructure to support TKG 2.1. In this post I will use vSphere 8 with vSAN, Avi LoadBalancer, and NSX. So what we want to end up with it something like this:
-Preparations before deployment This post will assume the following:
-          
-          
-        
-      </description>
+      <description>Tanzu Kubernetes Grid # This post will go through how to deploy TKG 2.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/03/22/tanzu-kubernetes-grid-2.1/feature-logo-vmware-tanzu.png" />
     </item>
     
     <item>
@@ -127,15 +85,8 @@ Preparations before deployment This post will assume the following:
       <pubDate>Tue, 11 Oct 2022 21:38:27 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2022/10/11/nsx-antrea-integration/</guid>
-      <description>
-        
-          
-            What is the NSX Antrea integration Assumptions: I assume that the reader is aware of what Antrea is, and what a CNI is and also what NSX is. If not head over here to read more on Antrea and here to read more on NSX.
-For many years VMware NSX has help many customer secure their workload by using the NSX Distributed Firewall. As NSX has evolved over the years the different platform it supports has also broadened, from virtual machines, bare metal server, cloud workload and kubernetes pods.
-          
-          
-        
-      </description>
+      <description>What is the NSX Antrea integration # Assumptions: I assume that the reader is aware of what Antrea is, and what a CNI is and also what NSX is.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2022/10/11/nsx-antrea-integration/feature-ant.nsx_transp1.png" />
     </item>
     
     <item>
@@ -144,14 +95,8 @@ For many years VMware NSX has help many customer secure their workload by using 
       <pubDate>Sun, 13 Mar 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.andreasm.io/2022/03/13/managing-your-antrea-k8s-clusters-running-in-vmc-from-your-on-prem-nsx-manager/</guid>
-      <description>
-        
-          
-            This week I was fortunate to get hold of a VMC on AWS environment and wanted to test out the possibility of managing my K8s security policies from my on-prem NSX manager by utilizing the integration of Antrea in NSX. I haven&#39;t covered that specific integration part in a blog yet, but in short: by using Antrea as your CNI and you are running NSX-T 3.2 you can manage all your K8s policies from the NSX manager GUI.
-          
-          
-        
-      </description>
+      <description>This week I was fortunate to get hold of a VMC on AWS environment and wanted to test out the possibility of managing my K8s security policies from my on-prem NSX manager by utilizing the integration of Antrea in NSX.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2022/03/13/managing-your-antrea-k8s-clusters-running-in-vmc-from-your-on-prem-nsx-manager/feature-VMware-on-AWS-3-2_transp.png" />
     </item>
     
     <item>
@@ -160,14 +105,8 @@ For many years VMware NSX has help many customer secure their workload by using 
       <pubDate>Tue, 18 Jan 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.andreasm.io/2022/01/18/vmware-nsx-application-platform/</guid>
-      <description>
-        
-          
-            VMware NSX 3.2 is out and packed with new features. One of them is the NSX Application Platform which runs on Kubernetes to provide the NSX ATP (Advanced Threat Protection) functionality such as NSX Intelligence (covered in a previous post), NSX Network Detection and Response (NDR) and NSX Malware. This post will go through how to spin up a K8s cluster for this specific scenario covering the pre-reqs from start to finish.
-          
-          
-        
-      </description>
+      <description>VMware NSX 3.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2022/01/18/vmware-nsx-application-platform/feature-icon-prod-nsx-service-defined-firewall-rgb-400px.svg" />
     </item>
     
     <item>
@@ -176,16 +115,8 @@ For many years VMware NSX has help many customer secure their workload by using 
       <pubDate>Tue, 19 Oct 2021 00:00:00 +0000</pubDate>
       
       <guid>https://blog.andreasm.io/2021/10/19/vmware-nsx-ids-ips/</guid>
-      <description>
-        
-          
-            This post will go through the IDS/IPS built-in feature of the NSX distributed firewall.
-Abbreviations used in this article:
-IDS = Intrusion Detection System IPS = Intrusion Prevention System Introduction to VMware NSX distributed IDS &amp;amp; IPS Before we dive into how to configure and use the distributed IDS and IPS feature in NSX let me just go through the basics where I compare the traditional approach with IDS/IPS and the NSX distributed IDS/IPS.
-          
-          
-        
-      </description>
+      <description>This post will go through the IDS/IPS built-in feature of the NSX distributed firewall.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2021/10/19/vmware-nsx-ids-ips/feature-icon-prod-nsx-ids-ips-rgb-400px.svg" />
     </item>
     
     <item>
@@ -194,15 +125,8 @@ IDS = Intrusion Detection System IPS = Intrusion Prevention System Introduction 
       <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.andreasm.io/2019/03/09/deploy-nsx-t-2.4-edge-nodes-on-a-n-vds-logical-switch/</guid>
-      <description>
-        
-          
-            To be able to deploy an Edge node or nodes in your lab or other environment where you only have 2 physical nic you must be able to deploy it on a N-VDS switch as you have already migrated all your kernels etc to this one N-VDS switch.
-But trying to do this from the NSX-T 2.4 manager GUI you will only have the option to deploy it to VSS or VDS portgroups, the N-VDS portgroups are not visible at all.
-          
-          
-        
-      </description>
+      <description>To be able to deploy an Edge node or nodes in your lab or other environment where you only have 2 physical nic you must be able to deploy it on a N-VDS switch as you have already migrated all your kernels etc to this one N-VDS switch.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2019/03/09/deploy-nsx-t-2.4-edge-nodes-on-a-n-vds-logical-switch/feature-VMW-NSX-Logo1.jpg" />
     </item>
     
     <item>
@@ -211,15 +135,8 @@ But trying to do this from the NSX-T 2.4 manager GUI you will only have the opti
       <pubDate>Wed, 05 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>https://blog.andreasm.io/2018/09/05/general-error-nsx-t-manager-firewall-section/</guid>
-      <description>
-        
-          
-            If you have missing objects in the firewall section before upgrading from NSX-T 2.1 to 2.2 you will experience a General Error in the GUI, on the Dashboard, and in the Firewall section of the GUI. You will even get general error when doing API calls to list the DFW sections https://NSXMGRIP/api/v1/firewall/sections: { &amp;quot;module\_name&amp;quot; : &amp;quot;common-services&amp;quot;, &amp;quot;error\_message&amp;quot; : &amp;quot;General error has occurred.&amp;quot;, &amp;quot;details&amp;quot; : &amp;quot;java.lang.NullPointerException&amp;quot;, &amp;quot;error\_code&amp;quot; : &amp;quot;100&amp;quot; }
-If you have upgraded the fix is straight forward.
-          
-          
-        
-      </description>
+      <description>If you have missing objects in the firewall section before upgrading from NSX-T 2.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2018/09/05/general-error-nsx-t-manager-firewall-section/feature-VMW-NSX-Logo1.jpg" />
     </item>
     
   </channel>

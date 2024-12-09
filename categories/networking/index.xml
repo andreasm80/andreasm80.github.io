@@ -1,27 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Networking on From 0.985mhz... to several Ghz</title>
+    <title>Networking on blog.andreasm.io</title>
     <link>https://blog.andreasm.io/categories/networking/</link>
-    <description>Recent content in Networking on From 0.985mhz... to several Ghz</description>
+    <description>Recent content in Networking on blog.andreasm.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>Myself</copyright>
+    <copyright>© 2024 Andreas Marqvardsen</copyright>
     <lastBuildDate>Fri, 08 Nov 2024 08:56:51 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/networking/index.xml" rel="self" type="application/rss+xml" />
+    
     <item>
       <title>Overlay on overlay - Arista in the underlay</title>
       <link>https://blog.andreasm.io/2024/11/08/overlay-on-overlay-arista-in-the-underlay/</link>
       <pubDate>Fri, 08 Nov 2024 08:56:51 +0100</pubDate>
       
       <guid>https://blog.andreasm.io/2024/11/08/overlay-on-overlay-arista-in-the-underlay/</guid>
-      <description>
-        
-          
-            Describing typical deployments where we end up with double encapsulation, how to monitor, troubleshoot
-          
-          
-        
-      </description>
+      <description>Describing typical deployments where we end up with double encapsulation, how to monitor, troubleshoot</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2024/11/08/overlay-on-overlay-arista-in-the-underlay/feature-arista-networks.jpg" />
     </item>
     
     <item>
@@ -30,14 +25,8 @@
       <pubDate>Thu, 22 Aug 2024 21:26:33 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2024/08/22/arista-cloudvision-and-avd-using-containerlab/</guid>
-      <description>
-        
-          
-            Using Containerlab to provision cEOS containers for AVD and CloudVision
-          
-          
-        
-      </description>
+      <description>Using Containerlab to provision cEOS containers for AVD and CloudVision</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2024/08/22/arista-cloudvision-and-avd-using-containerlab/feature-arista-networks.jpg" />
     </item>
     
     <item>
@@ -46,14 +35,8 @@
       <pubDate>Mon, 10 Jun 2024 07:51:41 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2024/06/10/arista-automated-configuration-using-ansible/</guid>
-      <description>
-        
-          
-            In this post I will deploy Arista vEOS from zero to a full Spine-Leaf topology using Arista ZeroTouch Provisining and Ansible
-          
-          
-        
-      </description>
+      <description>In this post I will deploy Arista vEOS from zero to a full Spine-Leaf topology using Arista ZeroTouch Provisining and Ansible</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2024/06/10/arista-automated-configuration-using-ansible/feature-arista-networks.jpg" />
     </item>
     
     <item>
@@ -62,14 +45,8 @@
       <pubDate>Mon, 18 Dec 2023 11:49:56 +0100</pubDate>
       
       <guid>https://blog.andreasm.io/2023/12/18/a-quick-glance-at-cilium-cni/</guid>
-      <description>
-        
-          
-            In this post I will deploy Cilium in my k8s cluster and test some features and how it is to manage
-          
-          
-        
-      </description>
+      <description>In this post I will deploy Cilium in my k8s cluster and test some features and how it is to manage</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/12/18/a-quick-glance-at-cilium-cni/feature-cilium.jpg" />
     </item>
     
     <item>
@@ -78,14 +55,8 @@
       <pubDate>Thu, 23 Nov 2023 08:17:49 +0100</pubDate>
       
       <guid>https://blog.andreasm.io/2023/11/23/tkgi-with-nsx-and-nsx-advanced-loadbalancer/</guid>
-      <description>
-        
-          
-            In this post I will go through installation of TKGi, using the EPMC installer, then how to configure TKGi to use NSX Advanced LoadBalancer
-          
-          
-        
-      </description>
+      <description>In this post I will go through installation of TKGi, using the EPMC installer, then how to configure TKGi to use NSX Advanced LoadBalancer</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/11/23/tkgi-with-nsx-and-nsx-advanced-loadbalancer/feature-vmware_by_broadcom.png" />
     </item>
     
     <item>
@@ -94,14 +65,8 @@
       <pubDate>Tue, 30 May 2023 14:54:29 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2023/05/30/tanzu-kubernetes-grid-2.2-remote-workload-clusters/</guid>
-      <description>
-        
-          
-            In this post I will quickly go through how to use a Tanzu Kubernetes Grid management cluster to deploy and manage workload clusters in edge/remote locations.
-          
-          
-        
-      </description>
+      <description>In this post I will quickly go through how to use a Tanzu Kubernetes Grid management cluster to deploy and manage workload clusters in edge/remote locations.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/05/30/tanzu-kubernetes-grid-2.2-remote-workload-clusters/feature-vmware_by_broadcom.png" />
     </item>
     
     <item>
@@ -110,14 +75,8 @@
       <pubDate>Wed, 03 May 2023 07:34:47 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2023/05/03/vsphere-with-tanzu-and-multi-zones-part2/</guid>
-      <description>
-        
-          
-            In this post I will quickly go through how we can use vSphere with Tanzu on three different vSphere clusters - Multi Zones for app placement.
-          
-          
-        
-      </description>
+      <description>In this post I will quickly go through how we can use vSphere with Tanzu on three different vSphere clusters - Multi Zones for app placement.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/05/03/vsphere-with-tanzu-and-multi-zones-part2/feature-logo-vmware-tanzu.png" />
     </item>
     
     <item>
@@ -126,14 +85,8 @@
       <pubDate>Wed, 03 May 2023 07:34:47 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2023/05/03/vsphere-with-tanzu-multi-three-zones-and-nsx/</guid>
-      <description>
-        
-          
-            In this post I will quickly go through how to deploy vSphere with Tanzu on three different vSphere clusters - Multi Zones
-          
-          
-        
-      </description>
+      <description>In this post I will quickly go through how to deploy vSphere with Tanzu on three different vSphere clusters - Multi Zones</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/05/03/vsphere-with-tanzu-multi-three-zones-and-nsx/feature-logo-vmware-tanzu.png" />
     </item>
     
     <item>
@@ -142,14 +95,8 @@
       <pubDate>Fri, 14 Apr 2023 13:24:41 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2023/04/14/tanzu-with-vsphere-and-different-tier-0s/</guid>
-      <description>
-        
-          
-            This post will take you trough how to configre Tanzu with vSphere using NSX with multiple Tier-0 and VRF Tier-0 gateways. It will also show you how to do this using DCLI and API
-          
-          
-        
-      </description>
+      <description>This post will take you trough how to configre Tanzu with vSphere using NSX with multiple Tier-0 and VRF Tier-0 gateways. It will also show you how to do this using DCLI and API</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/04/14/tanzu-with-vsphere-and-different-tier-0s/feature-vmware_by_broadcom.png" />
     </item>
     
     <item>
@@ -158,15 +105,8 @@
       <pubDate>Mon, 20 Feb 2023 15:42:54 +0100</pubDate>
       
       <guid>https://blog.andreasm.io/2023/02/20/antrea-egress/</guid>
-      <description>
-        
-          
-            Antrea Egress: What is Egress when we talk about Kubernetes? Well if a pod wants to communicate to the outside world, outside the Kubernetes cluster it runs in, out of the worker node the pod resides on, this is egress traffic (definition &amp;quot;the action of going out of or leaving a place&amp;quot; and in network terminology means the direction is outward from itself).
-Why does egress matter? Well, usually when the pods communicate out, they will use the IP address of the worker node they currently is deployed on.
-          
-          
-        
-      </description>
+      <description>Antrea Egress: # What is Egress when we talk about Kubernetes?</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/02/20/antrea-egress/feature-antrea-stacked-color3.webp" />
     </item>
     
     <item>
@@ -175,14 +115,8 @@ Why does egress matter? Well, usually when the pods communicate out, they will u
       <pubDate>Wed, 26 Oct 2022 12:03:35 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2022/10/26/vsphere-8-with-tanzu-using-nsx-t-avi-loadbalancer/</guid>
-      <description>
-        
-          
-            Deploy Tanzu in vSphere 8 with NSX and Avi Loadbalancer: This post will go through how to install Tanzu in vSphere 8 using NSX networking (including built in L4 loadbalancer) and Avi as L7 loadbalancer. The goal is to deploy Tanzu by using NSX for all networking needs, including the Kubernetes Api endpoint (L4) and utilize Avi as loadbalancer for all L7 (Ingress). The deployment of Tanzu with NSX is an automated process, but it does not include L7 loadbalancing.
-          
-          
-        
-      </description>
+      <description>Deploy Tanzu in vSphere 8 with NSX and Avi Loadbalancer: # This post will go through how to install Tanzu in vSphere 8 using NSX networking (including built in L4 loadbalancer) and Avi as L7 loadbalancer.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2022/10/26/vsphere-8-with-tanzu-using-nsx-t-avi-loadbalancer/feature-logo-vmware-tanzu.png" />
     </item>
     
     <item>
@@ -191,14 +125,8 @@ Why does egress matter? Well, usually when the pods communicate out, they will u
       <pubDate>Sun, 23 Oct 2022 08:22:35 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2022/10/23/gslb-with-ako-amko-nsx-advanced-loadbalancer/</guid>
-      <description>
-        
-          
-            Global Server LoadBalancing in VMware Tanzu with AMKO This post will go through how to configure AVI (NSX ALB) with GSLB in vSphere with Tanzu (TKGs) and an upstream k8s cluster in two different physical locations. I have already covered AKO in my previous posts, this post will assume knowledge of AKO (Avi Kubernetes Operator) and extend upon that with the use of AMKO (Avi Multi-Cluster Kubernetes Operator). The goal is to have the ability to scale my k8s applications between my &amp;quot;sites&amp;quot; and make them geo-redundant.
-          
-          
-        
-      </description>
+      <description>Global Server LoadBalancing in VMware Tanzu with AMKO # This post will go through how to configure AVI (NSX ALB) with GSLB in vSphere with Tanzu (TKGs) and an upstream k8s cluster in two different physical locations.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2022/10/23/gslb-with-ako-amko-nsx-advanced-loadbalancer/feature-avi_networks.png" />
     </item>
     
     <item>
@@ -207,14 +135,8 @@ Why does egress matter? Well, usually when the pods communicate out, they will u
       <pubDate>Sun, 23 Oct 2022 08:11:37 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2022/10/23/running-the-unifi-controller-in-kubernetes/</guid>
-      <description>
-        
-          
-            TOPICS: 
-          
-          
-        
-      </description>
+      <description> TOPICS: # </description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2022/10/23/running-the-unifi-controller-in-kubernetes/feature-unifi_small.png" />
     </item>
     
     <item>
@@ -223,15 +145,8 @@ Why does egress matter? Well, usually when the pods communicate out, they will u
       <pubDate>Tue, 11 Oct 2022 21:38:27 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2022/10/11/nsx-antrea-integration/</guid>
-      <description>
-        
-          
-            What is the NSX Antrea integration Assumptions: I assume that the reader is aware of what Antrea is, and what a CNI is and also what NSX is. If not head over here to read more on Antrea and here to read more on NSX.
-For many years VMware NSX has help many customer secure their workload by using the NSX Distributed Firewall. As NSX has evolved over the years the different platform it supports has also broadened, from virtual machines, bare metal server, cloud workload and kubernetes pods.
-          
-          
-        
-      </description>
+      <description>What is the NSX Antrea integration # Assumptions: I assume that the reader is aware of what Antrea is, and what a CNI is and also what NSX is.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2022/10/11/nsx-antrea-integration/feature-ant.nsx_transp1.png" />
     </item>
     
     <item>
@@ -240,14 +155,8 @@ For many years VMware NSX has help many customer secure their workload by using 
       <pubDate>Sun, 13 Mar 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.andreasm.io/2022/03/13/managing-your-antrea-k8s-clusters-running-in-vmc-from-your-on-prem-nsx-manager/</guid>
-      <description>
-        
-          
-            This week I was fortunate to get hold of a VMC on AWS environment and wanted to test out the possibility of managing my K8s security policies from my on-prem NSX manager by utilizing the integration of Antrea in NSX. I haven&#39;t covered that specific integration part in a blog yet, but in short: by using Antrea as your CNI and you are running NSX-T 3.2 you can manage all your K8s policies from the NSX manager GUI.
-          
-          
-        
-      </description>
+      <description>This week I was fortunate to get hold of a VMC on AWS environment and wanted to test out the possibility of managing my K8s security policies from my on-prem NSX manager by utilizing the integration of Antrea in NSX.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2022/03/13/managing-your-antrea-k8s-clusters-running-in-vmc-from-your-on-prem-nsx-manager/feature-VMware-on-AWS-3-2_transp.png" />
     </item>
     
     <item>
@@ -256,14 +165,8 @@ For many years VMware NSX has help many customer secure their workload by using 
       <pubDate>Tue, 18 Jan 2022 00:00:00 +0000</pubDate>
       
       <guid>https://blog.andreasm.io/2022/01/18/vmware-nsx-application-platform/</guid>
-      <description>
-        
-          
-            VMware NSX 3.2 is out and packed with new features. One of them is the NSX Application Platform which runs on Kubernetes to provide the NSX ATP (Advanced Threat Protection) functionality such as NSX Intelligence (covered in a previous post), NSX Network Detection and Response (NDR) and NSX Malware. This post will go through how to spin up a K8s cluster for this specific scenario covering the pre-reqs from start to finish.
-          
-          
-        
-      </description>
+      <description>VMware NSX 3.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2022/01/18/vmware-nsx-application-platform/feature-icon-prod-nsx-service-defined-firewall-rgb-400px.svg" />
     </item>
     
     <item>
@@ -272,15 +175,8 @@ For many years VMware NSX has help many customer secure their workload by using 
       <pubDate>Mon, 12 Jul 2021 00:00:00 +0000</pubDate>
       
       <guid>https://blog.andreasm.io/2021/07/12/configure-nsx-advanced-load-balancer-nsx-alb-as-dns-provider/</guid>
-      <description>
-        
-          
-            NSX ALB has a very useful feature built-in, to function as DNS server for your domains defined in your NSX-ALB environment. Meaning that all host-records will be automatically resolved by fqdn as soon as the service is created.
-If you have followed my other post about how to configure the AKO (Avi Kubernetes Operator) here you are familiar with creating DNS profiles in NSX-ALB. The first step in configuring NSX-ALB as DNS provider is to configure one or more domain names in NSX-ALB.
-          
-          
-        
-      </description>
+      <description>NSX ALB has a very useful feature built-in, to function as DNS server for your domains defined in your NSX-ALB environment.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2021/07/12/configure-nsx-advanced-load-balancer-nsx-alb-as-dns-provider/feature-avi-networks-now-part-of-vmware.png" />
     </item>
     
     <item>
@@ -289,16 +185,8 @@ If you have followed my other post about how to configure the AKO (Avi Kubernete
       <pubDate>Sun, 11 Jul 2021 00:00:00 +0000</pubDate>
       
       <guid>https://blog.andreasm.io/2021/07/11/k8s-ingress-with-nsx-advanced-load-balancer/</guid>
-      <description>
-        
-          
-            Abbreviations used in this article:
-NSX Advanced Load Balancer = NSX-ALB K8s = Kubernetes (8 letters between the K and s in Kubernetes) SSL = Secure Sockets Layer AKO = Avi Kubernetes Operator (AVI now a VMware product called NSX Advanced Load Balancer) In one of my previous posts I wrote about how to install and configure AKO (Avi Kubernetes Operator) to use as Service type LoadBalancer.
-This post will try to cover the basics of how to use NSX Advanced LoadBalancer by using AKO to handle our Ingress requests (ingress-controller).
-          
-          
-        
-      </description>
+      <description>Abbreviations used in this article:</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2021/07/11/k8s-ingress-with-nsx-advanced-load-balancer/feature-avi-networks-now-part-of-vmware.png" />
     </item>
     
     <item>
@@ -307,18 +195,8 @@ This post will try to cover the basics of how to use NSX Advanced LoadBalancer b
       <pubDate>Sat, 10 Jul 2021 00:00:00 +0000</pubDate>
       
       <guid>https://blog.andreasm.io/2021/07/10/antrea-kubernetes-cni/</guid>
-      <description>
-        
-          
-            This is an introduction post to Antrea, what it is and which features it has.
-For more details head over to:
-https://antrea.io/ and https://github.com/antrea-io/antrea
-First of, Antrea is a CNI. CNI stands for Container Network Interface. As the world moves into Kubernetes more and more, we need a good CNI to support everything from network to security within Kubernetes. Thats where Antrea comes into play.
-Antrea has a rich set of features such as:
-          
-          
-        
-      </description>
+      <description>This is an introduction post to Antrea, what it is and which features it has.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2021/07/10/antrea-kubernetes-cni/feature-antrea-stacked-color.webp" />
     </item>
     
     <item>
@@ -327,16 +205,8 @@ Antrea has a rich set of features such as:
       <pubDate>Sat, 10 Jul 2021 00:00:00 +0000</pubDate>
       
       <guid>https://blog.andreasm.io/2021/07/10/antrea-network-policies/</guid>
-      <description>
-        
-          
-            This post will go through the Antrea-native policy resources and how to use them to secure your Kubernetes environment combined with K8s network policies.
-Abbreviations used in this article:
-Container Network Interface = CNI Antrea Cluster Network Policies = ACNP Antrea Network Policies = ANP Kubernetes Network Policies = K8s policies or KNP When it comes to securing your K8s infrastructure it can be done in several layers in the infrastructure as a whole.
-          
-          
-        
-      </description>
+      <description>This post will go through the Antrea-native policy resources and how to use them to secure your Kubernetes environment combined with K8s network policies.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2021/07/10/antrea-network-policies/feature-antrea-stacked-color3.webp" />
     </item>
     
     <item>
@@ -345,16 +215,8 @@ Container Network Interface = CNI Antrea Cluster Network Policies = ACNP Antrea 
       <pubDate>Thu, 08 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.andreasm.io/2020/10/08/nsx-advanced-loadbalancer-with-antrea-on-native-k8s/</guid>
-      <description>
-        
-          
-            This post will cover the steps to bring up a Kubernetes cluster in Ubuntu, then how to install and configure Antrea as CNI and how to install and configure NSX Advanced Load Balancer to use as a servicetype Load Balancer in the k8s environment with the use of Avi Kubernetes Operator.
-Abbreviations used in this post:
-NSX Advanced Load Balancer = NSX ALB Avi Kubernetes Operator = AKO Kubernetes = k8s Container Network Interface = CNI Load Balancer = lb Introduction to this post When working with pods in a k8s cluster there is often the use of nodePort, clusterIP and LoadBalancer.
-          
-          
-        
-      </description>
+      <description>This post will cover the steps to bring up a Kubernetes cluster in Ubuntu, then how to install and configure Antrea as CNI and how to install and configure NSX Advanced Load Balancer to use as a servicetype Load Balancer in the k8s environment with the use of Avi Kubernetes Operator.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2020/10/08/nsx-advanced-loadbalancer-with-antrea-on-native-k8s/feature-avi-networks-now-part-of-vmware.png" />
     </item>
     
     <item>
@@ -363,15 +225,8 @@ NSX Advanced Load Balancer = NSX ALB Avi Kubernetes Operator = AKO Kubernetes = 
       <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
       
       <guid>https://blog.andreasm.io/2019/03/09/deploy-nsx-t-2.4-edge-nodes-on-a-n-vds-logical-switch/</guid>
-      <description>
-        
-          
-            To be able to deploy an Edge node or nodes in your lab or other environment where you only have 2 physical nic you must be able to deploy it on a N-VDS switch as you have already migrated all your kernels etc to this one N-VDS switch.
-But trying to do this from the NSX-T 2.4 manager GUI you will only have the option to deploy it to VSS or VDS portgroups, the N-VDS portgroups are not visible at all.
-          
-          
-        
-      </description>
+      <description>To be able to deploy an Edge node or nodes in your lab or other environment where you only have 2 physical nic you must be able to deploy it on a N-VDS switch as you have already migrated all your kernels etc to this one N-VDS switch.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2019/03/09/deploy-nsx-t-2.4-edge-nodes-on-a-n-vds-logical-switch/feature-VMW-NSX-Logo1.jpg" />
     </item>
     
     <item>
@@ -380,15 +235,8 @@ But trying to do this from the NSX-T 2.4 manager GUI you will only have the opti
       <pubDate>Wed, 05 Sep 2018 00:00:00 +0000</pubDate>
       
       <guid>https://blog.andreasm.io/2018/09/05/general-error-nsx-t-manager-firewall-section/</guid>
-      <description>
-        
-          
-            If you have missing objects in the firewall section before upgrading from NSX-T 2.1 to 2.2 you will experience a General Error in the GUI, on the Dashboard, and in the Firewall section of the GUI. You will even get general error when doing API calls to list the DFW sections https://NSXMGRIP/api/v1/firewall/sections: { &amp;quot;module\_name&amp;quot; : &amp;quot;common-services&amp;quot;, &amp;quot;error\_message&amp;quot; : &amp;quot;General error has occurred.&amp;quot;, &amp;quot;details&amp;quot; : &amp;quot;java.lang.NullPointerException&amp;quot;, &amp;quot;error\_code&amp;quot; : &amp;quot;100&amp;quot; }
-If you have upgraded the fix is straight forward.
-          
-          
-        
-      </description>
+      <description>If you have missing objects in the firewall section before upgrading from NSX-T 2.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2018/09/05/general-error-nsx-t-manager-firewall-section/feature-VMW-NSX-Logo1.jpg" />
     </item>
     
   </channel>

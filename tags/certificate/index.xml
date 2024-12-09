@@ -1,30 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Certificate on From 0.985mhz... to several Ghz</title>
+    <title>Certificate on blog.andreasm.io</title>
     <link>https://blog.andreasm.io/tags/certificate/</link>
-    <description>Recent content in Certificate on From 0.985mhz... to several Ghz</description>
+    <description>Recent content in Certificate on blog.andreasm.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>Myself</copyright>
+    <copyright>© 2024 Andreas Marqvardsen</copyright>
     <lastBuildDate>Tue, 11 Oct 2022 22:33:41 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/certificate/index.xml" rel="self" type="application/rss+xml" />
+    
     <item>
       <title>Cert Manager and Letsencrypt</title>
       <link>https://blog.andreasm.io/2022/10/11/cert-manager-and-letsencrypt/</link>
       <pubDate>Tue, 11 Oct 2022 22:33:41 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2022/10/11/cert-manager-and-letsencrypt/</guid>
-      <description>
-        
-          
-            This article will quickly go through how to create wildcard certificates and automatically renew them with Lets Encrypt and Cert-Manager
-Cert-Manager cert-manager adds certificates and certificate issuers as resource types in Kubernetes clusters, and simplifies the process of obtaining, renewing and using those certificates.
-It can issue certificates from a variety of supported sources, including Let&#39;s Encrypt, HashiCorp Vault, and Venafi as well as private PKI.
-It will ensure certificates are valid and up to date, and attempt to renew certificates at a configured time before expiry.
-          
-          
-        
-      </description>
+      <description>This article will quickly go through how to create wildcard certificates and automatically renew them with Lets Encrypt and Cert-Manager</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2022/10/11/cert-manager-and-letsencrypt/feature-cert.crypt3.png" />
     </item>
     
   </channel>

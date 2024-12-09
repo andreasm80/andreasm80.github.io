@@ -1,29 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Custom-Resource-Definitions on From 0.985mhz... to several Ghz</title>
+    <title>Custom-Resource-Definitions on blog.andreasm.io</title>
     <link>https://blog.andreasm.io/tags/custom-resource-definitions/</link>
-    <description>Recent content in Custom-Resource-Definitions on From 0.985mhz... to several Ghz</description>
+    <description>Recent content in Custom-Resource-Definitions on blog.andreasm.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>Myself</copyright>
+    <copyright>© 2024 Andreas Marqvardsen</copyright>
     <lastBuildDate>Sun, 23 Oct 2022 08:21:52 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/custom-resource-definitions/index.xml" rel="self" type="application/rss+xml" />
+    
     <item>
       <title>We Take a Look at the AKO Crds</title>
       <link>https://blog.andreasm.io/2022/10/23/we-take-a-look-at-the-ako-crds/</link>
       <pubDate>Sun, 23 Oct 2022 08:21:52 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2022/10/23/we-take-a-look-at-the-ako-crds/</guid>
-      <description>
-        
-          
-            AKO settings: What happens if we need to to this
-What happens if I need passthrough
-How does AKO work
-          
-          
-        
-      </description>
+      <description>AKO settings: # What happens if we need to to this</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2022/10/23/we-take-a-look-at-the-ako-crds/feature-avi_networks.png" />
     </item>
     
   </channel>

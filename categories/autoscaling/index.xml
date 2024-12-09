@@ -1,27 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Autoscaling on From 0.985mhz... to several Ghz</title>
+    <title>Autoscaling on blog.andreasm.io</title>
     <link>https://blog.andreasm.io/categories/autoscaling/</link>
-    <description>Recent content in Autoscaling on From 0.985mhz... to several Ghz</description>
+    <description>Recent content in Autoscaling on blog.andreasm.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>Myself</copyright>
+    <copyright>© 2024 Andreas Marqvardsen</copyright>
     <lastBuildDate>Thu, 07 Sep 2023 07:46:13 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/autoscaling/index.xml" rel="self" type="application/rss+xml" />
+    
     <item>
       <title>TKG Autoscaler</title>
       <link>https://blog.andreasm.io/2023/09/07/tkg-autoscaler/</link>
       <pubDate>Thu, 07 Sep 2023 07:46:13 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2023/09/07/tkg-autoscaler/</guid>
-      <description>
-        
-          
-            In this post I will go through the TKG Autoscaler, how to configure it and how it works.
-          
-          
-        
-      </description>
+      <description>In this post I will go through the TKG Autoscaler, how to configure it and how it works.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/09/07/tkg-autoscaler/feature-vmware_by_broadcom.png" />
     </item>
     
   </channel>

@@ -1,27 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>CNI on From 0.985mhz... to several Ghz</title>
+    <title>CNI on blog.andreasm.io</title>
     <link>https://blog.andreasm.io/categories/cni/</link>
-    <description>Recent content in CNI on From 0.985mhz... to several Ghz</description>
+    <description>Recent content in CNI on blog.andreasm.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>Myself</copyright>
+    <copyright>© 2024 Andreas Marqvardsen</copyright>
     <lastBuildDate>Tue, 16 Apr 2024 09:25:28 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/cni/index.xml" rel="self" type="application/rss+xml" />
+    
     <item>
       <title>Exploring some Antrea Features</title>
       <link>https://blog.andreasm.io/2024/04/16/exploring-some-antrea-features/</link>
       <pubDate>Tue, 16 Apr 2024 09:25:28 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2024/04/16/exploring-some-antrea-features/</guid>
-      <description>
-        
-          
-            In this post I will go through a couple of Antrea features I find interesting, some new features and some older features
-          
-          
-        
-      </description>
+      <description>In this post I will go through a couple of Antrea features I find interesting, some new features and some older features</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2024/04/16/exploring-some-antrea-features/feature-antrea-1.png" />
     </item>
     
     <item>
@@ -30,14 +25,8 @@
       <pubDate>Mon, 18 Dec 2023 11:49:56 +0100</pubDate>
       
       <guid>https://blog.andreasm.io/2023/12/18/a-quick-glance-at-cilium-cni/</guid>
-      <description>
-        
-          
-            In this post I will deploy Cilium in my k8s cluster and test some features and how it is to manage
-          
-          
-        
-      </description>
+      <description>In this post I will deploy Cilium in my k8s cluster and test some features and how it is to manage</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/12/18/a-quick-glance-at-cilium-cni/feature-cilium.jpg" />
     </item>
     
     <item>
@@ -46,14 +35,8 @@
       <pubDate>Mon, 25 Sep 2023 10:59:30 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2023/09/25/antrea-multi-cluster-in-tkg-and-vsphere-with-tanzu/</guid>
-      <description>
-        
-          
-            In this post I will go through how to configure and use the Antrea feature gate Multi-cluster in both TKGs and TKG
-          
-          
-        
-      </description>
+      <description>In this post I will go through how to configure and use the Antrea feature gate Multi-cluster in both TKGs and TKG</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/09/25/antrea-multi-cluster-in-tkg-and-vsphere-with-tanzu/feature-antrea-1.png" />
     </item>
     
     <item>
@@ -62,14 +45,8 @@
       <pubDate>Wed, 21 Jun 2023 10:01:46 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2023/06/21/securing-kubernetes-clusters-with-antrea-network-policies/</guid>
-      <description>
-        
-          
-            In this post I will go through how to utilize Antrea Network policies with Tanzu Mission Control and a little bit NSX. So jump in and hopefully get some ideas how what we can do with Antrea Network Policies and how to use them.
-          
-          
-        
-      </description>
+      <description>In this post I will go through how to utilize Antrea Network policies with Tanzu Mission Control and a little bit NSX. So jump in and hopefully get some ideas how what we can do with Antrea Network Policies and how to use them.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/06/21/securing-kubernetes-clusters-with-antrea-network-policies/feature-antrea-1.png" />
     </item>
     
     <item>
@@ -78,14 +55,8 @@
       <pubDate>Thu, 01 Jun 2023 11:14:32 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2023/06/01/managing-antrea-in-vsphere-with-tanzu/</guid>
-      <description>
-        
-          
-            In this post I will go through how to manage Antrea in a vSphere with Tanzu cluster using the Antrea CRD, and then explore some features and possibilites with Antrea
-          
-          
-        
-      </description>
+      <description>In this post I will go through how to manage Antrea in a vSphere with Tanzu cluster using the Antrea CRD, and then explore some features and possibilites with Antrea</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/06/01/managing-antrea-in-vsphere-with-tanzu/feature-antrea-1.png" />
     </item>
     
     <item>
@@ -94,15 +65,8 @@
       <pubDate>Mon, 20 Feb 2023 15:42:54 +0100</pubDate>
       
       <guid>https://blog.andreasm.io/2023/02/20/antrea-egress/</guid>
-      <description>
-        
-          
-            Antrea Egress: What is Egress when we talk about Kubernetes? Well if a pod wants to communicate to the outside world, outside the Kubernetes cluster it runs in, out of the worker node the pod resides on, this is egress traffic (definition &amp;quot;the action of going out of or leaving a place&amp;quot; and in network terminology means the direction is outward from itself).
-Why does egress matter? Well, usually when the pods communicate out, they will use the IP address of the worker node they currently is deployed on.
-          
-          
-        
-      </description>
+      <description>Antrea Egress: # What is Egress when we talk about Kubernetes?</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/02/20/antrea-egress/feature-antrea-stacked-color3.webp" />
     </item>
     
     <item>
@@ -111,15 +75,8 @@ Why does egress matter? Well, usually when the pods communicate out, they will u
       <pubDate>Tue, 11 Oct 2022 21:38:27 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2022/10/11/nsx-antrea-integration/</guid>
-      <description>
-        
-          
-            What is the NSX Antrea integration Assumptions: I assume that the reader is aware of what Antrea is, and what a CNI is and also what NSX is. If not head over here to read more on Antrea and here to read more on NSX.
-For many years VMware NSX has help many customer secure their workload by using the NSX Distributed Firewall. As NSX has evolved over the years the different platform it supports has also broadened, from virtual machines, bare metal server, cloud workload and kubernetes pods.
-          
-          
-        
-      </description>
+      <description>What is the NSX Antrea integration # Assumptions: I assume that the reader is aware of what Antrea is, and what a CNI is and also what NSX is.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2022/10/11/nsx-antrea-integration/feature-ant.nsx_transp1.png" />
     </item>
     
     <item>
@@ -128,18 +85,8 @@ For many years VMware NSX has help many customer secure their workload by using 
       <pubDate>Sat, 10 Jul 2021 00:00:00 +0000</pubDate>
       
       <guid>https://blog.andreasm.io/2021/07/10/antrea-kubernetes-cni/</guid>
-      <description>
-        
-          
-            This is an introduction post to Antrea, what it is and which features it has.
-For more details head over to:
-https://antrea.io/ and https://github.com/antrea-io/antrea
-First of, Antrea is a CNI. CNI stands for Container Network Interface. As the world moves into Kubernetes more and more, we need a good CNI to support everything from network to security within Kubernetes. Thats where Antrea comes into play.
-Antrea has a rich set of features such as:
-          
-          
-        
-      </description>
+      <description>This is an introduction post to Antrea, what it is and which features it has.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2021/07/10/antrea-kubernetes-cni/feature-antrea-stacked-color.webp" />
     </item>
     
     <item>
@@ -148,16 +95,8 @@ Antrea has a rich set of features such as:
       <pubDate>Thu, 08 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.andreasm.io/2020/10/08/nsx-advanced-loadbalancer-with-antrea-on-native-k8s/</guid>
-      <description>
-        
-          
-            This post will cover the steps to bring up a Kubernetes cluster in Ubuntu, then how to install and configure Antrea as CNI and how to install and configure NSX Advanced Load Balancer to use as a servicetype Load Balancer in the k8s environment with the use of Avi Kubernetes Operator.
-Abbreviations used in this post:
-NSX Advanced Load Balancer = NSX ALB Avi Kubernetes Operator = AKO Kubernetes = k8s Container Network Interface = CNI Load Balancer = lb Introduction to this post When working with pods in a k8s cluster there is often the use of nodePort, clusterIP and LoadBalancer.
-          
-          
-        
-      </description>
+      <description>This post will cover the steps to bring up a Kubernetes cluster in Ubuntu, then how to install and configure Antrea as CNI and how to install and configure NSX Advanced Load Balancer to use as a servicetype Load Balancer in the k8s environment with the use of Avi Kubernetes Operator.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2020/10/08/nsx-advanced-loadbalancer-with-antrea-on-native-k8s/feature-avi-networks-now-part-of-vmware.png" />
     </item>
     
   </channel>

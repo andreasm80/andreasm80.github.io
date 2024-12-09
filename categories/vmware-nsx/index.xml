@@ -1,27 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Vmware Nsx on From 0.985mhz... to several Ghz</title>
+    <title>Vmware Nsx on blog.andreasm.io</title>
     <link>https://blog.andreasm.io/categories/vmware-nsx/</link>
-    <description>Recent content in Vmware Nsx on From 0.985mhz... to several Ghz</description>
+    <description>Recent content in Vmware Nsx on blog.andreasm.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>Myself</copyright>
+    <copyright>© 2024 Andreas Marqvardsen</copyright>
     <lastBuildDate>Sat, 10 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/vmware-nsx/index.xml" rel="self" type="application/rss+xml" />
+    
     <item>
       <title>Microsegmentation with VMware NSX</title>
       <link>https://blog.andreasm.io/2021/07/10/microsegmentation-with-vmware-nsx/</link>
       <pubDate>Sat, 10 Jul 2021 00:00:00 +0000</pubDate>
       
       <guid>https://blog.andreasm.io/2021/07/10/microsegmentation-with-vmware-nsx/</guid>
-      <description>
-        
-          
-            This post will go through one way of securing your workloads with VMware NSX. It will cover the different tools and features built into NSX to achieve a robust and automated way of securing your workload. It will go through the use of Security Groups, how they can be utilized, and how to create security policies in the distributed firewall section of NSX-T with the use of the security groups.
-          
-          
-        
-      </description>
+      <description>This post will go through one way of securing your workloads with VMware NSX.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2021/07/10/microsegmentation-with-vmware-nsx/feature-icon-prod-nsx-service-defined-firewall-rgb-400px.svg" />
     </item>
     
     <item>
@@ -30,15 +25,8 @@
       <pubDate>Sat, 10 Jul 2021 00:00:00 +0000</pubDate>
       
       <guid>https://blog.andreasm.io/2021/07/10/nsx-intelligence-quick-overview/</guid>
-      <description>
-        
-          
-            When starting out a microsegmentation journey with VMware NSX it will be very important to have a tool that gives you all the visibility and insight you need. This is crucial if you dont know your applications requirements in detail and to make the right decisions in defining your NSX security policies.
-NSX Intelligence is your tool for that. This post is just to show a couple of screenshots of how it looks, and the next post will go more into detail how it works and how to use it.
-          
-          
-        
-      </description>
+      <description>When starting out a microsegmentation journey with VMware NSX it will be very important to have a tool that gives you all the visibility and insight you need.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2021/07/10/nsx-intelligence-quick-overview/feature-icon-prod-nsx-intelligence-rgb-400px.svg" />
     </item>
     
   </channel>

@@ -1,27 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Nfs on From 0.985mhz... to several Ghz</title>
+    <title>Nfs on blog.andreasm.io</title>
     <link>https://blog.andreasm.io/tags/nfs/</link>
-    <description>Recent content in Nfs on From 0.985mhz... to several Ghz</description>
+    <description>Recent content in Nfs on blog.andreasm.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>Myself</copyright>
+    <copyright>© 2024 Andreas Marqvardsen</copyright>
     <lastBuildDate>Mon, 12 Jul 2021 00:00:00 +0000</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/nfs/index.xml" rel="self" type="application/rss+xml" />
+    
     <item>
       <title>Kubernetes Persistent Volumes with NFS</title>
       <link>https://blog.andreasm.io/2021/07/12/kubernetes-persistent-volumes-with-nfs/</link>
       <pubDate>Mon, 12 Jul 2021 00:00:00 +0000</pubDate>
       
       <guid>https://blog.andreasm.io/2021/07/12/kubernetes-persistent-volumes-with-nfs/</guid>
-      <description>
-        
-          
-            Use NFS for your PVC needs If you are running vShere with Tanzu, TKG on vSphere or are using vSphere as your hypervisor for your worker-nodes you have the option to use the vSphere CSI plugin here. In Tanzu this is automatically configured and enabled. But if you are not so privileged to have vSphere as your foundation for your environment one have to look at other options. Thats where NFS comes in.
-          
-          
-        
-      </description>
+      <description>Use NFS for your PVC needs # If you are running vShere with Tanzu, TKG on vSphere or are using vSphere as your hypervisor for your worker-nodes you have the option to use the vSphere CSI plugin here.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2021/07/12/kubernetes-persistent-volumes-with-nfs/feature-k8sfavicon.png" />
     </item>
     
   </channel>

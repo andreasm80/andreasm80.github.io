@@ -1,27 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Availability on From 0.985mhz... to several Ghz</title>
+    <title>Availability on blog.andreasm.io</title>
     <link>https://blog.andreasm.io/tags/availability/</link>
-    <description>Recent content in Availability on From 0.985mhz... to several Ghz</description>
+    <description>Recent content in Availability on blog.andreasm.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>Myself</copyright>
+    <copyright>© 2024 Andreas Marqvardsen</copyright>
     <lastBuildDate>Tue, 29 Aug 2023 13:27:52 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/availability/index.xml" rel="self" type="application/rss+xml" />
+    
     <item>
       <title>TKG 2.3 deployment in multiple availability zones</title>
       <link>https://blog.andreasm.io/2023/08/29/tkg-2.3-deployment-in-multiple-availability-zones/</link>
       <pubDate>Tue, 29 Aug 2023 13:27:52 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2023/08/29/tkg-2.3-deployment-in-multiple-availability-zones/</guid>
-      <description>
-        
-          
-            In this post I will go through how to configure and deploy TKG 2.3 in mutliple availability zones using vSphere clusters and how to reconfigure already deployed TKG cluster to new availability zones.
-          
-          
-        
-      </description>
+      <description>In this post I will go through how to configure and deploy TKG 2.3 in mutliple availability zones using vSphere clusters and how to reconfigure already deployed TKG cluster to new availability zones.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/08/29/tkg-2.3-deployment-in-multiple-availability-zones/feature-vmware_by_broadcom.png" />
     </item>
     
     <item>
@@ -30,14 +25,8 @@
       <pubDate>Wed, 03 May 2023 07:34:47 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2023/05/03/vsphere-with-tanzu-and-multi-zones-part2/</guid>
-      <description>
-        
-          
-            In this post I will quickly go through how we can use vSphere with Tanzu on three different vSphere clusters - Multi Zones for app placement.
-          
-          
-        
-      </description>
+      <description>In this post I will quickly go through how we can use vSphere with Tanzu on three different vSphere clusters - Multi Zones for app placement.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/05/03/vsphere-with-tanzu-and-multi-zones-part2/feature-logo-vmware-tanzu.png" />
     </item>
     
     <item>
@@ -46,14 +35,8 @@
       <pubDate>Wed, 03 May 2023 07:34:47 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2023/05/03/vsphere-with-tanzu-multi-three-zones-and-nsx/</guid>
-      <description>
-        
-          
-            In this post I will quickly go through how to deploy vSphere with Tanzu on three different vSphere clusters - Multi Zones
-          
-          
-        
-      </description>
+      <description>In this post I will quickly go through how to deploy vSphere with Tanzu on three different vSphere clusters - Multi Zones</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/05/03/vsphere-with-tanzu-multi-three-zones-and-nsx/feature-logo-vmware-tanzu.png" />
     </item>
     
   </channel>

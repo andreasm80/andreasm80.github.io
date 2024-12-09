@@ -1,27 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Loadbalancing on From 0.985mhz... to several Ghz</title>
+    <title>Loadbalancing on blog.andreasm.io</title>
     <link>https://blog.andreasm.io/tags/loadbalancing/</link>
-    <description>Recent content in Loadbalancing on From 0.985mhz... to several Ghz</description>
+    <description>Recent content in Loadbalancing on blog.andreasm.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>Myself</copyright>
+    <copyright>© 2024 Andreas Marqvardsen</copyright>
     <lastBuildDate>Mon, 08 Apr 2024 14:56:56 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/loadbalancing/index.xml" rel="self" type="application/rss+xml" />
+    
     <item>
       <title>vSphere with Tanzu - Avi and Multiple Supervisors</title>
       <link>https://blog.andreasm.io/2024/04/08/vsphere-with-tanzu-avi-and-multiple-supervisors/</link>
       <pubDate>Mon, 08 Apr 2024 14:56:56 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2024/04/08/vsphere-with-tanzu-avi-and-multiple-supervisors/</guid>
-      <description>
-        
-          
-            In this post I will try to describe how to use the new NSX and Avi together integration in vSphere with Tanzu in combination with several Supervisor clusters using only 1 NSX manager cluster and 1 Avi controller cluster
-          
-          
-        
-      </description>
+      <description>In this post I will try to describe how to use the new NSX and Avi together integration in vSphere with Tanzu in combination with several Supervisor clusters using only 1 NSX manager cluster and 1 Avi controller cluster</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2024/04/08/vsphere-with-tanzu-avi-and-multiple-supervisors/feature-vmware_by_broadcom.png" />
     </item>
     
     <item>
@@ -30,14 +25,8 @@
       <pubDate>Tue, 26 Dec 2023 20:31:45 +0100</pubDate>
       
       <guid>https://blog.andreasm.io/2023/12/26/traefik-proxy-in-kubernetes/</guid>
-      <description>
-        
-          
-            In this post I will go through how I have configured and run Traefik in my Kubernetes lab.
-          
-          
-        
-      </description>
+      <description>In this post I will go through how I have configured and run Traefik in my Kubernetes lab.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/12/26/traefik-proxy-in-kubernetes/feature-logo.webp" />
     </item>
     
     <item>
@@ -46,14 +35,8 @@
       <pubDate>Thu, 23 Nov 2023 08:17:49 +0100</pubDate>
       
       <guid>https://blog.andreasm.io/2023/11/23/tkgi-with-nsx-and-nsx-advanced-loadbalancer/</guid>
-      <description>
-        
-          
-            In this post I will go through installation of TKGi, using the EPMC installer, then how to configure TKGi to use NSX Advanced LoadBalancer
-          
-          
-        
-      </description>
+      <description>In this post I will go through installation of TKGi, using the EPMC installer, then how to configure TKGi to use NSX Advanced LoadBalancer</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/11/23/tkgi-with-nsx-and-nsx-advanced-loadbalancer/feature-vmware_by_broadcom.png" />
     </item>
     
     <item>
@@ -62,14 +45,8 @@
       <pubDate>Sat, 23 Sep 2023 21:35:17 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2023/09/23/vsphere-with-tanzu-8-u2-using-nsx-and-nsx-advanced-loadbalancer/</guid>
-      <description>
-        
-          
-            A quick test on the new feature in vSphere 8 U2 with Tanzu using NSX and NSX Advanced Loadbalancer for Kubernetes API endpoint
-          
-          
-        
-      </description>
+      <description>A quick test on the new feature in vSphere 8 U2 with Tanzu using NSX and NSX Advanced Loadbalancer for Kubernetes API endpoint</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/09/23/vsphere-with-tanzu-8-u2-using-nsx-and-nsx-advanced-loadbalancer/feature-vmware_by_broadcom.png" />
     </item>
     
     <item>
@@ -78,14 +55,8 @@
       <pubDate>Wed, 26 Oct 2022 12:06:08 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2022/10/26/vsphere-8-with-tanzu-using-vds-and-avi-loadbalancer/</guid>
-      <description>
-        
-          
-            Deploy Tanzu in vSphere 8 with VDS and Avi Loadbalancer: This post will go through how to install Tanzu in vSphere 8 using vSphere VDS networking and Avi as loadbalancer. The goal is to deploy Tanzu by using vSphere Distributed Switch (no NSX this time) and utilize Avi as loadbalancer for Supervisor and workload cluster L4 endpoint (kubernetes API). When that is done I will go through how we also can extend this into L7 (Ingress) by using AKO in our workload clusters.
-          
-          
-        
-      </description>
+      <description>Deploy Tanzu in vSphere 8 with VDS and Avi Loadbalancer: # This post will go through how to install Tanzu in vSphere 8 using vSphere VDS networking and Avi as loadbalancer.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2022/10/26/vsphere-8-with-tanzu-using-vds-and-avi-loadbalancer/feature-logo-vmware-tanzu.png" />
     </item>
     
     <item>
@@ -94,15 +65,8 @@
       <pubDate>Wed, 26 Oct 2022 12:02:39 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2022/10/26/ako-explained/</guid>
-      <description>
-        
-          
-            What is AKO? AKO is an operator which works as an ingress controller and performs Avi-specific functions in an OpenShift/Kubernetes environment with the Avi Controller. It runs as a pod in the cluster and translates the required OpenShift/Kubernetes objects to Avi objects and automates the implementation of ingresses/routes/services on the Service Engines (SE) via the Avi Controller. ref: link
-How to install AKO AKO is very easy installed with Helm. Four basic steps needs to be done.
-          
-          
-        
-      </description>
+      <description>What is AKO?</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2022/10/26/ako-explained/feature-avi_networks.png" />
     </item>
     
     <item>
@@ -111,15 +75,8 @@ How to install AKO AKO is very easy installed with Helm. Four basic steps needs 
       <pubDate>Mon, 12 Jul 2021 00:00:00 +0000</pubDate>
       
       <guid>https://blog.andreasm.io/2021/07/12/configure-nsx-advanced-load-balancer-nsx-alb-as-dns-provider/</guid>
-      <description>
-        
-          
-            NSX ALB has a very useful feature built-in, to function as DNS server for your domains defined in your NSX-ALB environment. Meaning that all host-records will be automatically resolved by fqdn as soon as the service is created.
-If you have followed my other post about how to configure the AKO (Avi Kubernetes Operator) here you are familiar with creating DNS profiles in NSX-ALB. The first step in configuring NSX-ALB as DNS provider is to configure one or more domain names in NSX-ALB.
-          
-          
-        
-      </description>
+      <description>NSX ALB has a very useful feature built-in, to function as DNS server for your domains defined in your NSX-ALB environment.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2021/07/12/configure-nsx-advanced-load-balancer-nsx-alb-as-dns-provider/feature-avi-networks-now-part-of-vmware.png" />
     </item>
     
   </channel>

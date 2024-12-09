@@ -1,27 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Tanzu on From 0.985mhz... to several Ghz</title>
+    <title>Tanzu on blog.andreasm.io</title>
     <link>https://blog.andreasm.io/categories/tanzu/</link>
-    <description>Recent content in Tanzu on From 0.985mhz... to several Ghz</description>
+    <description>Recent content in Tanzu on blog.andreasm.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>Myself</copyright>
+    <copyright>© 2024 Andreas Marqvardsen</copyright>
     <lastBuildDate>Mon, 08 Apr 2024 14:56:56 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/tanzu/index.xml" rel="self" type="application/rss+xml" />
+    
     <item>
       <title>vSphere with Tanzu - Avi and Multiple Supervisors</title>
       <link>https://blog.andreasm.io/2024/04/08/vsphere-with-tanzu-avi-and-multiple-supervisors/</link>
       <pubDate>Mon, 08 Apr 2024 14:56:56 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2024/04/08/vsphere-with-tanzu-avi-and-multiple-supervisors/</guid>
-      <description>
-        
-          
-            In this post I will try to describe how to use the new NSX and Avi together integration in vSphere with Tanzu in combination with several Supervisor clusters using only 1 NSX manager cluster and 1 Avi controller cluster
-          
-          
-        
-      </description>
+      <description>In this post I will try to describe how to use the new NSX and Avi together integration in vSphere with Tanzu in combination with several Supervisor clusters using only 1 NSX manager cluster and 1 Avi controller cluster</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2024/04/08/vsphere-with-tanzu-avi-and-multiple-supervisors/feature-vmware_by_broadcom.png" />
     </item>
     
     <item>
@@ -30,14 +25,8 @@
       <pubDate>Sun, 04 Feb 2024 11:28:21 +0100</pubDate>
       
       <guid>https://blog.andreasm.io/2024/02/04/argo-cd-vsphere-with-tanzu/</guid>
-      <description>
-        
-          
-            In this post I am using ArgoCD bootstrapping Tanzu Kubernetes Clusters with AKO and Antrea configs
-          
-          
-        
-      </description>
+      <description>In this post I am using ArgoCD bootstrapping Tanzu Kubernetes Clusters with AKO and Antrea configs</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2024/02/04/argo-cd-vsphere-with-tanzu/feature-argocd.png" />
     </item>
     
     <item>
@@ -46,14 +35,8 @@
       <pubDate>Sat, 23 Sep 2023 21:35:17 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2023/09/23/vsphere-with-tanzu-8-u2-using-nsx-and-nsx-advanced-loadbalancer/</guid>
-      <description>
-        
-          
-            A quick test on the new feature in vSphere 8 U2 with Tanzu using NSX and NSX Advanced Loadbalancer for Kubernetes API endpoint
-          
-          
-        
-      </description>
+      <description>A quick test on the new feature in vSphere 8 U2 with Tanzu using NSX and NSX Advanced Loadbalancer for Kubernetes API endpoint</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/09/23/vsphere-with-tanzu-8-u2-using-nsx-and-nsx-advanced-loadbalancer/feature-vmware_by_broadcom.png" />
     </item>
     
     <item>
@@ -62,14 +45,8 @@
       <pubDate>Wed, 06 Sep 2023 09:34:04 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2023/09/06/tmc-self-managed-upgrade-to-1.0.1/</guid>
-      <description>
-        
-          
-            In this post I will go through how to upgrade TMC Self-Managed from version 1.0.0 to version 1.0.1
-          
-          
-        
-      </description>
+      <description>In this post I will go through how to upgrade TMC Self-Managed from version 1.0.0 to version 1.0.1</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/09/06/tmc-self-managed-upgrade-to-1.0.1/feature-VMware-Tanzu.png" />
     </item>
     
     <item>
@@ -78,14 +55,8 @@
       <pubDate>Thu, 01 Jun 2023 11:14:32 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2023/06/01/managing-antrea-in-vsphere-with-tanzu/</guid>
-      <description>
-        
-          
-            In this post I will go through how to manage Antrea in a vSphere with Tanzu cluster using the Antrea CRD, and then explore some features and possibilites with Antrea
-          
-          
-        
-      </description>
+      <description>In this post I will go through how to manage Antrea in a vSphere with Tanzu cluster using the Antrea CRD, and then explore some features and possibilites with Antrea</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/06/01/managing-antrea-in-vsphere-with-tanzu/feature-antrea-1.png" />
     </item>
     
     <item>
@@ -94,14 +65,8 @@
       <pubDate>Tue, 30 May 2023 14:54:29 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2023/05/30/tanzu-kubernetes-grid-2.2-remote-workload-clusters/</guid>
-      <description>
-        
-          
-            In this post I will quickly go through how to use a Tanzu Kubernetes Grid management cluster to deploy and manage workload clusters in edge/remote locations.
-          
-          
-        
-      </description>
+      <description>In this post I will quickly go through how to use a Tanzu Kubernetes Grid management cluster to deploy and manage workload clusters in edge/remote locations.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/05/30/tanzu-kubernetes-grid-2.2-remote-workload-clusters/feature-vmware_by_broadcom.png" />
     </item>
     
     <item>
@@ -110,14 +75,8 @@
       <pubDate>Wed, 03 May 2023 07:34:47 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2023/05/03/vsphere-with-tanzu-and-multi-zones-part2/</guid>
-      <description>
-        
-          
-            In this post I will quickly go through how we can use vSphere with Tanzu on three different vSphere clusters - Multi Zones for app placement.
-          
-          
-        
-      </description>
+      <description>In this post I will quickly go through how we can use vSphere with Tanzu on three different vSphere clusters - Multi Zones for app placement.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/05/03/vsphere-with-tanzu-and-multi-zones-part2/feature-logo-vmware-tanzu.png" />
     </item>
     
     <item>
@@ -126,14 +85,8 @@
       <pubDate>Wed, 03 May 2023 07:34:47 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2023/05/03/vsphere-with-tanzu-multi-three-zones-and-nsx/</guid>
-      <description>
-        
-          
-            In this post I will quickly go through how to deploy vSphere with Tanzu on three different vSphere clusters - Multi Zones
-          
-          
-        
-      </description>
+      <description>In this post I will quickly go through how to deploy vSphere with Tanzu on three different vSphere clusters - Multi Zones</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/05/03/vsphere-with-tanzu-multi-three-zones-and-nsx/feature-logo-vmware-tanzu.png" />
     </item>
     
     <item>
@@ -142,14 +95,8 @@
       <pubDate>Fri, 14 Apr 2023 13:24:41 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2023/04/14/tanzu-with-vsphere-and-different-tier-0s/</guid>
-      <description>
-        
-          
-            This post will take you trough how to configre Tanzu with vSphere using NSX with multiple Tier-0 and VRF Tier-0 gateways. It will also show you how to do this using DCLI and API
-          
-          
-        
-      </description>
+      <description>This post will take you trough how to configre Tanzu with vSphere using NSX with multiple Tier-0 and VRF Tier-0 gateways. It will also show you how to do this using DCLI and API</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/04/14/tanzu-with-vsphere-and-different-tier-0s/feature-vmware_by_broadcom.png" />
     </item>
     
     <item>
@@ -158,15 +105,8 @@
       <pubDate>Wed, 22 Mar 2023 09:24:01 +0100</pubDate>
       
       <guid>https://blog.andreasm.io/2023/03/22/tanzu-kubernetes-grid-2.1/</guid>
-      <description>
-        
-          
-            Tanzu Kubernetes Grid This post will go through how to deploy TKG 2.1, the management cluster, a workload cluster (or two), and the necessary preparations to be done on the underlaying infrastructure to support TKG 2.1. In this post I will use vSphere 8 with vSAN, Avi LoadBalancer, and NSX. So what we want to end up with it something like this:
-Preparations before deployment This post will assume the following:
-          
-          
-        
-      </description>
+      <description>Tanzu Kubernetes Grid # This post will go through how to deploy TKG 2.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/03/22/tanzu-kubernetes-grid-2.1/feature-logo-vmware-tanzu.png" />
     </item>
     
     <item>
@@ -175,14 +115,8 @@ Preparations before deployment This post will assume the following:
       <pubDate>Wed, 26 Oct 2022 12:06:08 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2022/10/26/vsphere-8-with-tanzu-using-vds-and-avi-loadbalancer/</guid>
-      <description>
-        
-          
-            Deploy Tanzu in vSphere 8 with VDS and Avi Loadbalancer: This post will go through how to install Tanzu in vSphere 8 using vSphere VDS networking and Avi as loadbalancer. The goal is to deploy Tanzu by using vSphere Distributed Switch (no NSX this time) and utilize Avi as loadbalancer for Supervisor and workload cluster L4 endpoint (kubernetes API). When that is done I will go through how we also can extend this into L7 (Ingress) by using AKO in our workload clusters.
-          
-          
-        
-      </description>
+      <description>Deploy Tanzu in vSphere 8 with VDS and Avi Loadbalancer: # This post will go through how to install Tanzu in vSphere 8 using vSphere VDS networking and Avi as loadbalancer.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2022/10/26/vsphere-8-with-tanzu-using-vds-and-avi-loadbalancer/feature-logo-vmware-tanzu.png" />
     </item>
     
     <item>
@@ -191,14 +125,8 @@ Preparations before deployment This post will assume the following:
       <pubDate>Wed, 26 Oct 2022 12:03:35 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2022/10/26/vsphere-8-with-tanzu-using-nsx-t-avi-loadbalancer/</guid>
-      <description>
-        
-          
-            Deploy Tanzu in vSphere 8 with NSX and Avi Loadbalancer: This post will go through how to install Tanzu in vSphere 8 using NSX networking (including built in L4 loadbalancer) and Avi as L7 loadbalancer. The goal is to deploy Tanzu by using NSX for all networking needs, including the Kubernetes Api endpoint (L4) and utilize Avi as loadbalancer for all L7 (Ingress). The deployment of Tanzu with NSX is an automated process, but it does not include L7 loadbalancing.
-          
-          
-        
-      </description>
+      <description>Deploy Tanzu in vSphere 8 with NSX and Avi Loadbalancer: # This post will go through how to install Tanzu in vSphere 8 using NSX networking (including built in L4 loadbalancer) and Avi as L7 loadbalancer.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2022/10/26/vsphere-8-with-tanzu-using-nsx-t-avi-loadbalancer/feature-logo-vmware-tanzu.png" />
     </item>
     
     <item>
@@ -207,14 +135,8 @@ Preparations before deployment This post will assume the following:
       <pubDate>Sun, 23 Oct 2022 08:22:35 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2022/10/23/gslb-with-ako-amko-nsx-advanced-loadbalancer/</guid>
-      <description>
-        
-          
-            Global Server LoadBalancing in VMware Tanzu with AMKO This post will go through how to configure AVI (NSX ALB) with GSLB in vSphere with Tanzu (TKGs) and an upstream k8s cluster in two different physical locations. I have already covered AKO in my previous posts, this post will assume knowledge of AKO (Avi Kubernetes Operator) and extend upon that with the use of AMKO (Avi Multi-Cluster Kubernetes Operator). The goal is to have the ability to scale my k8s applications between my &amp;quot;sites&amp;quot; and make them geo-redundant.
-          
-          
-        
-      </description>
+      <description>Global Server LoadBalancing in VMware Tanzu with AMKO # This post will go through how to configure AVI (NSX ALB) with GSLB in vSphere with Tanzu (TKGs) and an upstream k8s cluster in two different physical locations.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2022/10/23/gslb-with-ako-amko-nsx-advanced-loadbalancer/feature-avi_networks.png" />
     </item>
     
   </channel>

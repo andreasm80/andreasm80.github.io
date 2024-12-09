@@ -1,12 +1,593 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Categories on From 0.985mhz... to several Ghz</title>
+    <title>Categories on blog.andreasm.io</title>
     <link>https://blog.andreasm.io/categories/</link>
-    <description>Recent content in Categories on From 0.985mhz... to several Ghz</description>
+    <description>Recent content in Categories on blog.andreasm.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>Myself</copyright>
+    <copyright>© 2024 Andreas Marqvardsen</copyright>
     <lastBuildDate>Fri, 08 Nov 2024 08:56:51 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Arista</title>
+      <link>https://blog.andreasm.io/categories/arista/</link>
+      <pubDate>Fri, 08 Nov 2024 08:56:51 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/arista/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Encapsulation</title>
+      <link>https://blog.andreasm.io/categories/encapsulation/</link>
+      <pubDate>Fri, 08 Nov 2024 08:56:51 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/encapsulation/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>EOS</title>
+      <link>https://blog.andreasm.io/categories/eos/</link>
+      <pubDate>Fri, 08 Nov 2024 08:56:51 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/eos/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Networking</title>
+      <link>https://blog.andreasm.io/categories/networking/</link>
+      <pubDate>Fri, 08 Nov 2024 08:56:51 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/networking/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Overlay</title>
+      <link>https://blog.andreasm.io/categories/overlay/</link>
+      <pubDate>Fri, 08 Nov 2024 08:56:51 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/overlay/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Topologies</title>
+      <link>https://blog.andreasm.io/categories/topologies/</link>
+      <pubDate>Fri, 08 Nov 2024 08:56:51 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/topologies/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Automation</title>
+      <link>https://blog.andreasm.io/categories/automation/</link>
+      <pubDate>Thu, 22 Aug 2024 21:26:33 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/automation/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>CEOS</title>
+      <link>https://blog.andreasm.io/categories/ceos/</link>
+      <pubDate>Thu, 22 Aug 2024 21:26:33 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/ceos/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Provisioning</title>
+      <link>https://blog.andreasm.io/categories/provisioning/</link>
+      <pubDate>Thu, 22 Aug 2024 21:26:33 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/provisioning/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>VEOS</title>
+      <link>https://blog.andreasm.io/categories/veos/</link>
+      <pubDate>Thu, 22 Aug 2024 21:26:33 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/veos/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Antrea</title>
+      <link>https://blog.andreasm.io/categories/antrea/</link>
+      <pubDate>Tue, 16 Apr 2024 09:25:28 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/antrea/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>CNI</title>
+      <link>https://blog.andreasm.io/categories/cni/</link>
+      <pubDate>Tue, 16 Apr 2024 09:25:28 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/cni/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Kubernetes</title>
+      <link>https://blog.andreasm.io/categories/kubernetes/</link>
+      <pubDate>Tue, 16 Apr 2024 09:25:28 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/kubernetes/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>AVI</title>
+      <link>https://blog.andreasm.io/categories/avi/</link>
+      <pubDate>Mon, 08 Apr 2024 14:56:56 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/avi/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>NSX</title>
+      <link>https://blog.andreasm.io/categories/nsx/</link>
+      <pubDate>Mon, 08 Apr 2024 14:56:56 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/nsx/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Tanzu</title>
+      <link>https://blog.andreasm.io/categories/tanzu/</link>
+      <pubDate>Mon, 08 Apr 2024 14:56:56 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/tanzu/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>ArgoCD</title>
+      <link>https://blog.andreasm.io/categories/argocd/</link>
+      <pubDate>Sun, 04 Feb 2024 11:28:21 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/argocd/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>GitOps</title>
+      <link>https://blog.andreasm.io/categories/gitops/</link>
+      <pubDate>Sun, 04 Feb 2024 11:28:21 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/gitops/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>VSphere</title>
+      <link>https://blog.andreasm.io/categories/vsphere/</link>
+      <pubDate>Sun, 04 Feb 2024 11:28:21 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/vsphere/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Ingress</title>
+      <link>https://blog.andreasm.io/categories/ingress/</link>
+      <pubDate>Tue, 26 Dec 2023 20:31:45 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/ingress/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>LoadBalancing</title>
+      <link>https://blog.andreasm.io/categories/loadbalancing/</link>
+      <pubDate>Tue, 26 Dec 2023 20:31:45 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/loadbalancing/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Network</title>
+      <link>https://blog.andreasm.io/categories/network/</link>
+      <pubDate>Tue, 26 Dec 2023 20:31:45 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/network/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>EBPF</title>
+      <link>https://blog.andreasm.io/categories/ebpf/</link>
+      <pubDate>Mon, 18 Dec 2023 11:49:56 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/ebpf/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Monitoring</title>
+      <link>https://blog.andreasm.io/categories/monitoring/</link>
+      <pubDate>Mon, 18 Dec 2023 11:49:56 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/monitoring/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Security</title>
+      <link>https://blog.andreasm.io/categories/security/</link>
+      <pubDate>Mon, 18 Dec 2023 11:49:56 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/security/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>TKGi</title>
+      <link>https://blog.andreasm.io/categories/tkgi/</link>
+      <pubDate>Thu, 23 Nov 2023 08:17:49 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/tkgi/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>NSX-ALB</title>
+      <link>https://blog.andreasm.io/categories/nsx-alb/</link>
+      <pubDate>Sat, 23 Sep 2023 21:35:17 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/nsx-alb/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Autoscaling</title>
+      <link>https://blog.andreasm.io/categories/autoscaling/</link>
+      <pubDate>Thu, 07 Sep 2023 07:46:13 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/autoscaling/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Lifecycle-Management</title>
+      <link>https://blog.andreasm.io/categories/lifecycle-management/</link>
+      <pubDate>Wed, 06 Sep 2023 09:34:04 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/lifecycle-management/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Management</title>
+      <link>https://blog.andreasm.io/categories/management/</link>
+      <pubDate>Wed, 06 Sep 2023 09:34:04 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/management/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>TKG</title>
+      <link>https://blog.andreasm.io/categories/tkg/</link>
+      <pubDate>Tue, 29 Aug 2023 13:27:52 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/tkg/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>LCM</title>
+      <link>https://blog.andreasm.io/categories/lcm/</link>
+      <pubDate>Wed, 12 Jul 2023 15:22:46 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/lcm/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Tanzu Mission Control</title>
+      <link>https://blog.andreasm.io/categories/tanzu-mission-control/</link>
+      <pubDate>Wed, 21 Jun 2023 10:01:46 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/tanzu-mission-control/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>TMC</title>
+      <link>https://blog.andreasm.io/categories/tmc/</link>
+      <pubDate>Wed, 21 Jun 2023 10:01:46 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/tmc/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Blog</title>
+      <link>https://blog.andreasm.io/categories/blog/</link>
+      <pubDate>Sat, 04 Mar 2023 21:31:03 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/blog/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Github</title>
+      <link>https://blog.andreasm.io/categories/github/</link>
+      <pubDate>Sat, 04 Mar 2023 21:31:03 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/github/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Kubernetes-Management</title>
+      <link>https://blog.andreasm.io/categories/kubernetes-management/</link>
+      <pubDate>Sun, 05 Feb 2023 21:18:48 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/kubernetes-management/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Rancher</title>
+      <link>https://blog.andreasm.io/categories/rancher/</link>
+      <pubDate>Sun, 05 Feb 2023 21:18:48 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/rancher/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>RKE2</title>
+      <link>https://blog.andreasm.io/categories/rke2/</link>
+      <pubDate>Sun, 05 Feb 2023 21:18:48 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/rke2/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Compliance</title>
+      <link>https://blog.andreasm.io/categories/compliance/</link>
+      <pubDate>Thu, 02 Feb 2023 12:42:04 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/compliance/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>NeuVector</title>
+      <link>https://blog.andreasm.io/categories/neuvector/</link>
+      <pubDate>Thu, 02 Feb 2023 12:42:04 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/neuvector/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>SUSE</title>
+      <link>https://blog.andreasm.io/categories/suse/</link>
+      <pubDate>Thu, 02 Feb 2023 12:42:04 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/suse/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Docker</title>
+      <link>https://blog.andreasm.io/categories/docker/</link>
+      <pubDate>Thu, 13 Oct 2022 21:56:15 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/docker/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Harbor</title>
+      <link>https://blog.andreasm.io/categories/harbor/</link>
+      <pubDate>Thu, 13 Oct 2022 21:56:15 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/harbor/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Helm</title>
+      <link>https://blog.andreasm.io/categories/helm/</link>
+      <pubDate>Thu, 13 Oct 2022 21:56:15 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/helm/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Hugo</title>
+      <link>https://blog.andreasm.io/categories/hugo/</link>
+      <pubDate>Wed, 12 Oct 2022 08:28:23 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/hugo/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Pinniped</title>
+      <link>https://blog.andreasm.io/categories/pinniped/</link>
+      <pubDate>Tue, 11 Oct 2022 22:39:07 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/pinniped/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>RBAC</title>
+      <link>https://blog.andreasm.io/categories/rbac/</link>
+      <pubDate>Tue, 11 Oct 2022 22:39:07 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/rbac/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Certificate</title>
+      <link>https://blog.andreasm.io/categories/certificate/</link>
+      <pubDate>Tue, 11 Oct 2022 22:33:41 +0200</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/certificate/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>VMware-Cloud</title>
+      <link>https://blog.andreasm.io/categories/vmware-cloud/</link>
+      <pubDate>Sun, 13 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/vmware-cloud/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Netowkring</title>
+      <link>https://blog.andreasm.io/categories/netowkring/</link>
+      <pubDate>Tue, 19 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/netowkring/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Home-Automation</title>
+      <link>https://blog.andreasm.io/categories/home-automation/</link>
+      <pubDate>Wed, 14 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/home-automation/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Storage</title>
+      <link>https://blog.andreasm.io/categories/storage/</link>
+      <pubDate>Mon, 12 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/storage/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Nsx-T</title>
+      <link>https://blog.andreasm.io/categories/nsx-t/</link>
+      <pubDate>Sat, 10 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/nsx-t/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Vmare Nsx Intelligence</title>
+      <link>https://blog.andreasm.io/categories/vmare-nsx-intelligence/</link>
+      <pubDate>Sat, 10 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/vmare-nsx-intelligence/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Vmware Nsx</title>
+      <link>https://blog.andreasm.io/categories/vmware-nsx/</link>
+      <pubDate>Sat, 10 Jul 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/vmware-nsx/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Troubleshooting</title>
+      <link>https://blog.andreasm.io/categories/troubleshooting/</link>
+      <pubDate>Sat, 09 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/troubleshooting/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Virtualization</title>
+      <link>https://blog.andreasm.io/categories/virtualization/</link>
+      <pubDate>Mon, 10 Apr 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/virtualization/</guid>
+      <description></description>
+      
+    </item>
+    
   </channel>
 </rss>

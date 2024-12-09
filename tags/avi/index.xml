@@ -1,27 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Avi on From 0.985mhz... to several Ghz</title>
+    <title>Avi on blog.andreasm.io</title>
     <link>https://blog.andreasm.io/tags/avi/</link>
-    <description>Recent content in Avi on From 0.985mhz... to several Ghz</description>
+    <description>Recent content in Avi on blog.andreasm.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>Myself</copyright>
+    <copyright>© 2024 Andreas Marqvardsen</copyright>
     <lastBuildDate>Mon, 08 Apr 2024 14:56:56 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/avi/index.xml" rel="self" type="application/rss+xml" />
+    
     <item>
       <title>vSphere with Tanzu - Avi and Multiple Supervisors</title>
       <link>https://blog.andreasm.io/2024/04/08/vsphere-with-tanzu-avi-and-multiple-supervisors/</link>
       <pubDate>Mon, 08 Apr 2024 14:56:56 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2024/04/08/vsphere-with-tanzu-avi-and-multiple-supervisors/</guid>
-      <description>
-        
-          
-            In this post I will try to describe how to use the new NSX and Avi together integration in vSphere with Tanzu in combination with several Supervisor clusters using only 1 NSX manager cluster and 1 Avi controller cluster
-          
-          
-        
-      </description>
+      <description>In this post I will try to describe how to use the new NSX and Avi together integration in vSphere with Tanzu in combination with several Supervisor clusters using only 1 NSX manager cluster and 1 Avi controller cluster</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2024/04/08/vsphere-with-tanzu-avi-and-multiple-supervisors/feature-vmware_by_broadcom.png" />
     </item>
     
     <item>
@@ -30,14 +25,8 @@
       <pubDate>Sun, 04 Feb 2024 11:28:21 +0100</pubDate>
       
       <guid>https://blog.andreasm.io/2024/02/04/argo-cd-vsphere-with-tanzu/</guid>
-      <description>
-        
-          
-            In this post I am using ArgoCD bootstrapping Tanzu Kubernetes Clusters with AKO and Antrea configs
-          
-          
-        
-      </description>
+      <description>In this post I am using ArgoCD bootstrapping Tanzu Kubernetes Clusters with AKO and Antrea configs</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2024/02/04/argo-cd-vsphere-with-tanzu/feature-argocd.png" />
     </item>
     
     <item>
@@ -46,14 +35,8 @@
       <pubDate>Thu, 23 Nov 2023 08:17:49 +0100</pubDate>
       
       <guid>https://blog.andreasm.io/2023/11/23/tkgi-with-nsx-and-nsx-advanced-loadbalancer/</guid>
-      <description>
-        
-          
-            In this post I will go through installation of TKGi, using the EPMC installer, then how to configure TKGi to use NSX Advanced LoadBalancer
-          
-          
-        
-      </description>
+      <description>In this post I will go through installation of TKGi, using the EPMC installer, then how to configure TKGi to use NSX Advanced LoadBalancer</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/11/23/tkgi-with-nsx-and-nsx-advanced-loadbalancer/feature-vmware_by_broadcom.png" />
     </item>
     
     <item>
@@ -62,15 +45,8 @@
       <pubDate>Wed, 22 Mar 2023 09:24:01 +0100</pubDate>
       
       <guid>https://blog.andreasm.io/2023/03/22/tanzu-kubernetes-grid-2.1/</guid>
-      <description>
-        
-          
-            Tanzu Kubernetes Grid This post will go through how to deploy TKG 2.1, the management cluster, a workload cluster (or two), and the necessary preparations to be done on the underlaying infrastructure to support TKG 2.1. In this post I will use vSphere 8 with vSAN, Avi LoadBalancer, and NSX. So what we want to end up with it something like this:
-Preparations before deployment This post will assume the following:
-          
-          
-        
-      </description>
+      <description>Tanzu Kubernetes Grid # This post will go through how to deploy TKG 2.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/03/22/tanzu-kubernetes-grid-2.1/feature-logo-vmware-tanzu.png" />
     </item>
     
     <item>
@@ -79,15 +55,8 @@ Preparations before deployment This post will assume the following:
       <pubDate>Mon, 12 Jul 2021 00:00:00 +0000</pubDate>
       
       <guid>https://blog.andreasm.io/2021/07/12/configure-nsx-advanced-load-balancer-nsx-alb-as-dns-provider/</guid>
-      <description>
-        
-          
-            NSX ALB has a very useful feature built-in, to function as DNS server for your domains defined in your NSX-ALB environment. Meaning that all host-records will be automatically resolved by fqdn as soon as the service is created.
-If you have followed my other post about how to configure the AKO (Avi Kubernetes Operator) here you are familiar with creating DNS profiles in NSX-ALB. The first step in configuring NSX-ALB as DNS provider is to configure one or more domain names in NSX-ALB.
-          
-          
-        
-      </description>
+      <description>NSX ALB has a very useful feature built-in, to function as DNS server for your domains defined in your NSX-ALB environment.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2021/07/12/configure-nsx-advanced-load-balancer-nsx-alb-as-dns-provider/feature-avi-networks-now-part-of-vmware.png" />
     </item>
     
     <item>
@@ -96,16 +65,8 @@ If you have followed my other post about how to configure the AKO (Avi Kubernete
       <pubDate>Sun, 11 Jul 2021 00:00:00 +0000</pubDate>
       
       <guid>https://blog.andreasm.io/2021/07/11/k8s-ingress-with-nsx-advanced-load-balancer/</guid>
-      <description>
-        
-          
-            Abbreviations used in this article:
-NSX Advanced Load Balancer = NSX-ALB K8s = Kubernetes (8 letters between the K and s in Kubernetes) SSL = Secure Sockets Layer AKO = Avi Kubernetes Operator (AVI now a VMware product called NSX Advanced Load Balancer) In one of my previous posts I wrote about how to install and configure AKO (Avi Kubernetes Operator) to use as Service type LoadBalancer.
-This post will try to cover the basics of how to use NSX Advanced LoadBalancer by using AKO to handle our Ingress requests (ingress-controller).
-          
-          
-        
-      </description>
+      <description>Abbreviations used in this article:</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2021/07/11/k8s-ingress-with-nsx-advanced-load-balancer/feature-avi-networks-now-part-of-vmware.png" />
     </item>
     
     <item>
@@ -114,16 +75,8 @@ This post will try to cover the basics of how to use NSX Advanced LoadBalancer b
       <pubDate>Thu, 08 Oct 2020 00:00:00 +0000</pubDate>
       
       <guid>https://blog.andreasm.io/2020/10/08/nsx-advanced-loadbalancer-with-antrea-on-native-k8s/</guid>
-      <description>
-        
-          
-            This post will cover the steps to bring up a Kubernetes cluster in Ubuntu, then how to install and configure Antrea as CNI and how to install and configure NSX Advanced Load Balancer to use as a servicetype Load Balancer in the k8s environment with the use of Avi Kubernetes Operator.
-Abbreviations used in this post:
-NSX Advanced Load Balancer = NSX ALB Avi Kubernetes Operator = AKO Kubernetes = k8s Container Network Interface = CNI Load Balancer = lb Introduction to this post When working with pods in a k8s cluster there is often the use of nodePort, clusterIP and LoadBalancer.
-          
-          
-        
-      </description>
+      <description>This post will cover the steps to bring up a Kubernetes cluster in Ubuntu, then how to install and configure Antrea as CNI and how to install and configure NSX Advanced Load Balancer to use as a servicetype Load Balancer in the k8s environment with the use of Avi Kubernetes Operator.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2020/10/08/nsx-advanced-loadbalancer-with-antrea-on-native-k8s/feature-avi-networks-now-part-of-vmware.png" />
     </item>
     
   </channel>

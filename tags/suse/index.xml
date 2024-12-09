@@ -1,27 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Suse on From 0.985mhz... to several Ghz</title>
+    <title>Suse on blog.andreasm.io</title>
     <link>https://blog.andreasm.io/tags/suse/</link>
-    <description>Recent content in Suse on From 0.985mhz... to several Ghz</description>
+    <description>Recent content in Suse on blog.andreasm.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>Myself</copyright>
+    <copyright>© 2024 Andreas Marqvardsen</copyright>
     <lastBuildDate>Sun, 05 Feb 2023 21:18:48 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/suse/index.xml" rel="self" type="application/rss+xml" />
+    
     <item>
       <title>Taking Rancher by SUSE for a Spin</title>
       <link>https://blog.andreasm.io/2023/02/05/taking-rancher-by-suse-for-a-spin/</link>
       <pubDate>Sun, 05 Feb 2023 21:18:48 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2023/02/05/taking-rancher-by-suse-for-a-spin/</guid>
-      <description>
-        
-          
-            In this post I wil go through Rancher and test out some of the possibilties and capabilties managing Kubernetes using Rancher.
-          
-          
-        
-      </description>
+      <description>In this post I wil go through Rancher and test out some of the possibilties and capabilties managing Kubernetes using Rancher.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/02/05/taking-rancher-by-suse-for-a-spin/feature-rancher-suse-logo-horizontal-color.svg" />
     </item>
     
     <item>
@@ -30,14 +25,8 @@
       <pubDate>Thu, 02 Feb 2023 12:42:04 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2023/02/02/neuvector-by-suse-security-where-it-is-needed-part-1/</guid>
-      <description>
-        
-          
-            In this two post series I will explore and deep dive into NeuVector security features
-          
-          
-        
-      </description>
+      <description>In this two post series I will explore and deep dive into NeuVector security features</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/02/02/neuvector-by-suse-security-where-it-is-needed-part-1/feature-NeuVector_logo.svg" />
     </item>
     
   </channel>

@@ -1,27 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>TKG on From 0.985mhz... to several Ghz</title>
+    <title>TKG on blog.andreasm.io</title>
     <link>https://blog.andreasm.io/categories/tkg/</link>
-    <description>Recent content in TKG on From 0.985mhz... to several Ghz</description>
+    <description>Recent content in TKG on blog.andreasm.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>Myself</copyright>
+    <copyright>© 2024 Andreas Marqvardsen</copyright>
     <lastBuildDate>Tue, 29 Aug 2023 13:27:52 +0200</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/tkg/index.xml" rel="self" type="application/rss+xml" />
+    
     <item>
       <title>TKG 2.3 deployment in multiple availability zones</title>
       <link>https://blog.andreasm.io/2023/08/29/tkg-2.3-deployment-in-multiple-availability-zones/</link>
       <pubDate>Tue, 29 Aug 2023 13:27:52 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/2023/08/29/tkg-2.3-deployment-in-multiple-availability-zones/</guid>
-      <description>
-        
-          
-            In this post I will go through how to configure and deploy TKG 2.3 in mutliple availability zones using vSphere clusters and how to reconfigure already deployed TKG cluster to new availability zones.
-          
-          
-        
-      </description>
+      <description>In this post I will go through how to configure and deploy TKG 2.3 in mutliple availability zones using vSphere clusters and how to reconfigure already deployed TKG cluster to new availability zones.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/08/29/tkg-2.3-deployment-in-multiple-availability-zones/feature-vmware_by_broadcom.png" />
     </item>
     
   </channel>

@@ -1,27 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Ansible on From 0.985mhz... to several Ghz</title>
+    <title>Ansible on blog.andreasm.io</title>
     <link>https://blog.andreasm.io/tags/ansible/</link>
-    <description>Recent content in Ansible on From 0.985mhz... to several Ghz</description>
+    <description>Recent content in Ansible on blog.andreasm.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>Myself</copyright>
+    <copyright>© 2024 Andreas Marqvardsen</copyright>
     <lastBuildDate>Mon, 15 Jan 2024 14:15:19 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/ansible/index.xml" rel="self" type="application/rss+xml" />
+    
     <item>
       <title>Proxmox with OpenTofu Kubespray and Kubernetes</title>
       <link>https://blog.andreasm.io/2024/01/15/proxmox-with-opentofu-kubespray-and-kubernetes/</link>
       <pubDate>Mon, 15 Jan 2024 14:15:19 +0100</pubDate>
       
       <guid>https://blog.andreasm.io/2024/01/15/proxmox-with-opentofu-kubespray-and-kubernetes/</guid>
-      <description>
-        
-          
-            In this post I will quickly go through how I made use of OpenTofu to provision VMs on my Proxmox cluster and Ansible using Kubespray to deploy my Kubernetes clusters on demand.
-          
-          
-        
-      </description>
+      <description>In this post I will quickly go through how I made use of OpenTofu to provision VMs on my Proxmox cluster and Ansible using Kubespray to deploy my Kubernetes clusters on demand.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2024/01/15/proxmox-with-opentofu-kubespray-and-kubernetes/feature-proxmox-logo-stacked-inverted-color.jpg" />
     </item>
     
   </channel>

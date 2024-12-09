@@ -1,27 +1,22 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Argocd on From 0.985mhz... to several Ghz</title>
+    <title>Argocd on blog.andreasm.io</title>
     <link>https://blog.andreasm.io/tags/argocd/</link>
-    <description>Recent content in Argocd on From 0.985mhz... to several Ghz</description>
+    <description>Recent content in Argocd on blog.andreasm.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>Myself</copyright>
+    <copyright>© 2024 Andreas Marqvardsen</copyright>
     <lastBuildDate>Sun, 04 Feb 2024 11:28:21 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/argocd/index.xml" rel="self" type="application/rss+xml" />
+    
     <item>
       <title>Argo CD &amp; vSphere with Tanzu</title>
       <link>https://blog.andreasm.io/2024/02/04/argo-cd-vsphere-with-tanzu/</link>
       <pubDate>Sun, 04 Feb 2024 11:28:21 +0100</pubDate>
       
       <guid>https://blog.andreasm.io/2024/02/04/argo-cd-vsphere-with-tanzu/</guid>
-      <description>
-        
-          
-            In this post I am using ArgoCD bootstrapping Tanzu Kubernetes Clusters with AKO and Antrea configs
-          
-          
-        
-      </description>
+      <description>In this post I am using ArgoCD bootstrapping Tanzu Kubernetes Clusters with AKO and Antrea configs</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2024/02/04/argo-cd-vsphere-with-tanzu/feature-argocd.png" />
     </item>
     
   </channel>
