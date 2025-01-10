@@ -6,8 +6,48 @@
     <description>Recent content in Categories on blog.andreasm.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>© 2024 Andreas Marqvardsen</copyright>
-    <lastBuildDate>Fri, 08 Nov 2024 08:56:51 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>© 2025 Andreas Marqvardsen</copyright>
+    <lastBuildDate>Mon, 09 Dec 2024 14:55:58 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Encapsulation</title>
+      <link>https://blog.andreasm.io/categories/encapsulation/</link>
+      <pubDate>Mon, 09 Dec 2024 14:55:58 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/encapsulation/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>EVPN</title>
+      <link>https://blog.andreasm.io/categories/evpn/</link>
+      <pubDate>Mon, 09 Dec 2024 14:55:58 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/evpn/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Networking</title>
+      <link>https://blog.andreasm.io/categories/networking/</link>
+      <pubDate>Mon, 09 Dec 2024 14:55:58 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/networking/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Overlay</title>
+      <link>https://blog.andreasm.io/categories/overlay/</link>
+      <pubDate>Mon, 09 Dec 2024 14:55:58 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/overlay/</guid>
+      <description></description>
+      
+    </item>
     
     <item>
       <title>Arista</title>
@@ -20,41 +60,11 @@
     </item>
     
     <item>
-      <title>Encapsulation</title>
-      <link>https://blog.andreasm.io/categories/encapsulation/</link>
-      <pubDate>Fri, 08 Nov 2024 08:56:51 +0100</pubDate>
-      
-      <guid>https://blog.andreasm.io/categories/encapsulation/</guid>
-      <description></description>
-      
-    </item>
-    
-    <item>
       <title>EOS</title>
       <link>https://blog.andreasm.io/categories/eos/</link>
       <pubDate>Fri, 08 Nov 2024 08:56:51 +0100</pubDate>
       
       <guid>https://blog.andreasm.io/categories/eos/</guid>
-      <description></description>
-      
-    </item>
-    
-    <item>
-      <title>Networking</title>
-      <link>https://blog.andreasm.io/categories/networking/</link>
-      <pubDate>Fri, 08 Nov 2024 08:56:51 +0100</pubDate>
-      
-      <guid>https://blog.andreasm.io/categories/networking/</guid>
-      <description></description>
-      
-    </item>
-    
-    <item>
-      <title>Overlay</title>
-      <link>https://blog.andreasm.io/categories/overlay/</link>
-      <pubDate>Fri, 08 Nov 2024 08:56:51 +0100</pubDate>
-      
-      <guid>https://blog.andreasm.io/categories/overlay/</guid>
       <description></description>
       
     </item>

@@ -6,8 +6,18 @@
     <description>Recent content in Networking on blog.andreasm.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>© 2024 Andreas Marqvardsen</copyright>
-    <lastBuildDate>Fri, 08 Nov 2024 08:56:51 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/networking/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>© 2025 Andreas Marqvardsen</copyright>
+    <lastBuildDate>Mon, 09 Dec 2024 14:55:58 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/networking/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>EVPN introduction</title>
+      <link>https://blog.andreasm.io/2024/12/09/evpn-introduction/</link>
+      <pubDate>Mon, 09 Dec 2024 14:55:58 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/2024/12/09/evpn-introduction/</guid>
+      <description>First post in a series of posts covering EVPN and getting to know EVPN with Arista EOS</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2024/12/09/evpn-introduction/feature-arista-networks.jpg" />
+    </item>
     
     <item>
       <title>Overlay on overlay - Arista in the underlay</title>

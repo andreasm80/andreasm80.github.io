@@ -6,8 +6,58 @@
     <description>Recent content in Tags on blog.andreasm.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>© 2024 Andreas Marqvardsen</copyright>
-    <lastBuildDate>Fri, 08 Nov 2024 08:56:51 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>© 2025 Andreas Marqvardsen</copyright>
+    <lastBuildDate>Mon, 09 Dec 2024 14:55:58 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Evpn</title>
+      <link>https://blog.andreasm.io/tags/evpn/</link>
+      <pubDate>Mon, 09 Dec 2024 14:55:58 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/tags/evpn/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Multi-Tenancy</title>
+      <link>https://blog.andreasm.io/tags/multi-tenancy/</link>
+      <pubDate>Mon, 09 Dec 2024 14:55:58 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/tags/multi-tenancy/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Networking</title>
+      <link>https://blog.andreasm.io/tags/networking/</link>
+      <pubDate>Mon, 09 Dec 2024 14:55:58 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/tags/networking/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Overlay</title>
+      <link>https://blog.andreasm.io/tags/overlay/</link>
+      <pubDate>Mon, 09 Dec 2024 14:55:58 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/tags/overlay/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Vxlan</title>
+      <link>https://blog.andreasm.io/tags/vxlan/</link>
+      <pubDate>Mon, 09 Dec 2024 14:55:58 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/tags/vxlan/</guid>
+      <description></description>
+      
+    </item>
     
     <item>
       <title>Arista</title>
@@ -35,26 +85,6 @@
       <pubDate>Fri, 08 Nov 2024 08:56:51 +0100</pubDate>
       
       <guid>https://blog.andreasm.io/tags/eos/</guid>
-      <description></description>
-      
-    </item>
-    
-    <item>
-      <title>Networking</title>
-      <link>https://blog.andreasm.io/tags/networking/</link>
-      <pubDate>Fri, 08 Nov 2024 08:56:51 +0100</pubDate>
-      
-      <guid>https://blog.andreasm.io/tags/networking/</guid>
-      <description></description>
-      
-    </item>
-    
-    <item>
-      <title>Overlay</title>
-      <link>https://blog.andreasm.io/tags/overlay/</link>
-      <pubDate>Fri, 08 Nov 2024 08:56:51 +0100</pubDate>
-      
-      <guid>https://blog.andreasm.io/tags/overlay/</guid>
       <description></description>
       
     </item>
@@ -165,16 +195,6 @@
       <pubDate>Mon, 08 Apr 2024 14:56:56 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/tags/loadbalancing/</guid>
-      <description></description>
-      
-    </item>
-    
-    <item>
-      <title>Multi-Tenancy</title>
-      <link>https://blog.andreasm.io/tags/multi-tenancy/</link>
-      <pubDate>Mon, 08 Apr 2024 14:56:56 +0200</pubDate>
-      
-      <guid>https://blog.andreasm.io/tags/multi-tenancy/</guid>
       <description></description>
       
     </item>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>RouteTypes on blog.andreasm.io</title>
+    <link>http://localhost:1313/categories/routetypes/</link>
+    <description>Recent content in RouteTypes on blog.andreasm.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>© 2024 Andreas Marqvardsen</copyright>
+    <lastBuildDate>Mon, 09 Dec 2024 14:55:58 +0100</lastBuildDate><atom:link href="http://localhost:1313/categories/routetypes/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>EVPN introduction</title>
+      <link>http://localhost:1313/2024/12/09/evpn-introduction/</link>
+      <pubDate>Mon, 09 Dec 2024 14:55:58 +0100</pubDate>
+      
+      <guid>http://localhost:1313/2024/12/09/evpn-introduction/</guid>
+      <description>First post in a series of posts covering EVPN and getting to know EVPN</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="http://localhost:1313/2024/12/09/evpn-introduction/feature-arista-networks.jpg" />
+    </item>
+    
+  </channel>
+</rss>
