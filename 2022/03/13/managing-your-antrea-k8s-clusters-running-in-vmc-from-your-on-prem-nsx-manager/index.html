@@ -1752,54 +1752,54 @@ Click trace:</p>
 </p>
 <p>No Yelb pods here&hellip;</p>
 <p>No, there are no yelb pods here. Lets make that a reality. Nothing reported in k8s either:</p>
-<p>andreasm@vmc-k8s-master-01:~/pods$ kubectl get pods -A
-NAMESPACE              NAME                                        READY   STATUS    RESTARTS   AGE
-kube-system            antrea-agent-2pdcr                          2/2     Running   0          3d
-kube-system            antrea-agent-6glpz                          2/2     Running   0          3d
-kube-system            antrea-agent-8zzc4                          2/2     Running   0          3d
-kube-system            antrea-controller-7bdcb9d657-ntwxm          1/1     Running   0          2d22h
-kube-system            coredns-558bd4d5db-2j7jf                    1/1     Running   0          3d
-kube-system            coredns-558bd4d5db-kd2db                    1/1     Running   0          3d
-kube-system            etcd-vmc-k8s-master-01                      1/1     Running   0          3d
-kube-system            kube-apiserver-vmc-k8s-master-01            1/1     Running   0          3d
-kube-system            kube-controller-manager-vmc-k8s-master-01   1/1     Running   0          3d
-kube-system            kube-proxy-rvzs6                            1/1     Running   0          3d
-kube-system            kube-proxy-tnkxv                            1/1     Running   0          3d
-kube-system            kube-proxy-xv77f                            1/1     Running   0          3d
-kube-system            kube-scheduler-vmc-k8s-master-01            1/1     Running   0          3d
-metallb-system         controller-7dcc8764f4-6n49s                 1/1     Running   0          2d23h
-metallb-system         speaker-58s5v                               1/1     Running   0          2d23h
-metallb-system         speaker-7tnhr                               1/1     Running   0          2d23h
-metallb-system         speaker-lcq4n                               1/1     Running   0          2d23h
-vmware-system-antrea   interworking-7889dc5494-clk97               4/4     Running   18         2d23h</p>
-<p>Spin up the Yelb application in my VMC k8s cluster by using the same manifest:<br>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">andreasm@vmc-k8s-master-01:~/pods$ kubectl get pods -A
+</span></span><span class="line"><span class="cl">NAMESPACE              NAME                                        READY   STATUS    RESTARTS   AGE
+</span></span><span class="line"><span class="cl">kube-system            antrea-agent-2pdcr                          2/2     Running   <span class="m">0</span>          3d
+</span></span><span class="line"><span class="cl">kube-system            antrea-agent-6glpz                          2/2     Running   <span class="m">0</span>          3d
+</span></span><span class="line"><span class="cl">kube-system            antrea-agent-8zzc4                          2/2     Running   <span class="m">0</span>          3d
+</span></span><span class="line"><span class="cl">kube-system            antrea-controller-7bdcb9d657-ntwxm          1/1     Running   <span class="m">0</span>          2d22h
+</span></span><span class="line"><span class="cl">kube-system            coredns-558bd4d5db-2j7jf                    1/1     Running   <span class="m">0</span>          3d
+</span></span><span class="line"><span class="cl">kube-system            coredns-558bd4d5db-kd2db                    1/1     Running   <span class="m">0</span>          3d
+</span></span><span class="line"><span class="cl">kube-system            etcd-vmc-k8s-master-01                      1/1     Running   <span class="m">0</span>          3d
+</span></span><span class="line"><span class="cl">kube-system            kube-apiserver-vmc-k8s-master-01            1/1     Running   <span class="m">0</span>          3d
+</span></span><span class="line"><span class="cl">kube-system            kube-controller-manager-vmc-k8s-master-01   1/1     Running   <span class="m">0</span>          3d
+</span></span><span class="line"><span class="cl">kube-system            kube-proxy-rvzs6                            1/1     Running   <span class="m">0</span>          3d
+</span></span><span class="line"><span class="cl">kube-system            kube-proxy-tnkxv                            1/1     Running   <span class="m">0</span>          3d
+</span></span><span class="line"><span class="cl">kube-system            kube-proxy-xv77f                            1/1     Running   <span class="m">0</span>          3d
+</span></span><span class="line"><span class="cl">kube-system            kube-scheduler-vmc-k8s-master-01            1/1     Running   <span class="m">0</span>          3d
+</span></span><span class="line"><span class="cl">metallb-system         controller-7dcc8764f4-6n49s                 1/1     Running   <span class="m">0</span>          2d23h
+</span></span><span class="line"><span class="cl">metallb-system         speaker-58s5v                               1/1     Running   <span class="m">0</span>          2d23h
+</span></span><span class="line"><span class="cl">metallb-system         speaker-7tnhr                               1/1     Running   <span class="m">0</span>          2d23h
+</span></span><span class="line"><span class="cl">metallb-system         speaker-lcq4n                               1/1     Running   <span class="m">0</span>          2d23h
+</span></span><span class="line"><span class="cl">vmware-system-antrea   interworking-7889dc5494-clk97               4/4     Running   <span class="m">18</span>         2d23h
+</span></span></code></pre></div><p>Spin up the Yelb application in my VMC k8s cluster by using the same manifest:<br>
 <code>kubectl apply -f yelb-lb.yaml</code><br>
 The result in my k8s cluster:</p>
-<p>andreasm@vmc-k8s-master-01:~/pods$ kubectl get pods -A
-NAMESPACE              NAME                                        READY   STATUS    RESTARTS   AGE
-kube-system            antrea-agent-2pdcr                          2/2     Running   0          3d
-kube-system            antrea-agent-6glpz                          2/2     Running   0          3d
-kube-system            antrea-agent-8zzc4                          2/2     Running   0          3d
-kube-system            antrea-controller-7bdcb9d657-ntwxm          1/1     Running   0          2d22h
-kube-system            coredns-558bd4d5db-2j7jf                    1/1     Running   0          3d
-kube-system            coredns-558bd4d5db-kd2db                    1/1     Running   0          3d
-kube-system            etcd-vmc-k8s-master-01                      1/1     Running   0          3d
-kube-system            kube-apiserver-vmc-k8s-master-01            1/1     Running   0          3d
-kube-system            kube-controller-manager-vmc-k8s-master-01   1/1     Running   0          3d
-kube-system            kube-proxy-rvzs6                            1/1     Running   0          3d
-kube-system            kube-proxy-tnkxv                            1/1     Running   0          3d
-kube-system            kube-proxy-xv77f                            1/1     Running   0          3d
-kube-system            kube-scheduler-vmc-k8s-master-01            1/1     Running   0          3d
-metallb-system         controller-7dcc8764f4-6n49s                 1/1     Running   0          2d23h
-metallb-system         speaker-58s5v                               1/1     Running   0          2d23h
-metallb-system         speaker-7tnhr                               1/1     Running   0          2d23h
-metallb-system         speaker-lcq4n                               1/1     Running   0          2d23h
-vmware-system-antrea   interworking-7889dc5494-clk97               4/4     Running   18         2d23h
-yelb                   redis-server-74556bbcb7-fk85b               1/1     Running   0          4s
-yelb                   yelb-appserver-6b6dbbddc9-9nkd4             1/1     Running   0          4s
-yelb                   yelb-db-5444d69cd8-dcfcp                    1/1     Running   0          4s
-yelb                   yelb-ui-f74hn                               1/1     Running   0          4s</p>
-<p>What does my on-prem NSX manager reports?</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">andreasm@vmc-k8s-master-01:~/pods$ kubectl get pods -A
+</span></span><span class="line"><span class="cl">NAMESPACE              NAME                                        READY   STATUS    RESTARTS   AGE
+</span></span><span class="line"><span class="cl">kube-system            antrea-agent-2pdcr                          2/2     Running   <span class="m">0</span>          3d
+</span></span><span class="line"><span class="cl">kube-system            antrea-agent-6glpz                          2/2     Running   <span class="m">0</span>          3d
+</span></span><span class="line"><span class="cl">kube-system            antrea-agent-8zzc4                          2/2     Running   <span class="m">0</span>          3d
+</span></span><span class="line"><span class="cl">kube-system            antrea-controller-7bdcb9d657-ntwxm          1/1     Running   <span class="m">0</span>          2d22h
+</span></span><span class="line"><span class="cl">kube-system            coredns-558bd4d5db-2j7jf                    1/1     Running   <span class="m">0</span>          3d
+</span></span><span class="line"><span class="cl">kube-system            coredns-558bd4d5db-kd2db                    1/1     Running   <span class="m">0</span>          3d
+</span></span><span class="line"><span class="cl">kube-system            etcd-vmc-k8s-master-01                      1/1     Running   <span class="m">0</span>          3d
+</span></span><span class="line"><span class="cl">kube-system            kube-apiserver-vmc-k8s-master-01            1/1     Running   <span class="m">0</span>          3d
+</span></span><span class="line"><span class="cl">kube-system            kube-controller-manager-vmc-k8s-master-01   1/1     Running   <span class="m">0</span>          3d
+</span></span><span class="line"><span class="cl">kube-system            kube-proxy-rvzs6                            1/1     Running   <span class="m">0</span>          3d
+</span></span><span class="line"><span class="cl">kube-system            kube-proxy-tnkxv                            1/1     Running   <span class="m">0</span>          3d
+</span></span><span class="line"><span class="cl">kube-system            kube-proxy-xv77f                            1/1     Running   <span class="m">0</span>          3d
+</span></span><span class="line"><span class="cl">kube-system            kube-scheduler-vmc-k8s-master-01            1/1     Running   <span class="m">0</span>          3d
+</span></span><span class="line"><span class="cl">metallb-system         controller-7dcc8764f4-6n49s                 1/1     Running   <span class="m">0</span>          2d23h
+</span></span><span class="line"><span class="cl">metallb-system         speaker-58s5v                               1/1     Running   <span class="m">0</span>          2d23h
+</span></span><span class="line"><span class="cl">metallb-system         speaker-7tnhr                               1/1     Running   <span class="m">0</span>          2d23h
+</span></span><span class="line"><span class="cl">metallb-system         speaker-lcq4n                               1/1     Running   <span class="m">0</span>          2d23h
+</span></span><span class="line"><span class="cl">vmware-system-antrea   interworking-7889dc5494-clk97               4/4     Running   <span class="m">18</span>         2d23h
+</span></span><span class="line"><span class="cl">yelb                   redis-server-74556bbcb7-fk85b               1/1     Running   <span class="m">0</span>          4s
+</span></span><span class="line"><span class="cl">yelb                   yelb-appserver-6b6dbbddc9-9nkd4             1/1     Running   <span class="m">0</span>          4s
+</span></span><span class="line"><span class="cl">yelb                   yelb-db-5444d69cd8-dcfcp                    1/1     Running   <span class="m">0</span>          4s
+</span></span><span class="line"><span class="cl">yelb                   yelb-ui-f74hn                               1/1     Running   <span class="m">0</span>          4s
+</span></span></code></pre></div><p>What does my on-prem NSX manager reports?</p>
 <p>
     <figure>
       <img
