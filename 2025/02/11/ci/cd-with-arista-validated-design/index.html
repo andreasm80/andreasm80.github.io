@@ -1,0 +1,3090 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" class="scroll-smooth" data-default-appearance="dark"
+  data-auto-appearance="true"><head>
+  <meta charset="utf-8" />
+  
+  <meta http-equiv="content-language" content="en" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>CI/CD with Arista Validated Design &middot; blog.andreasm.io</title>
+  <meta name="title" content="CI/CD with Arista Validated Design &middot; blog.andreasm.io" />
+  
+  <meta name="description" content="In this post I will go through how to configure Github Actions in a CI-CD pipeline automating network configurations using Arista AVD and CloudVision" />
+  <meta name="keywords" content="gitops, git, CI/CD, avd, arista, " />
+  
+  
+  <link rel="canonical" href="https://blog.andreasm.io/2025/02/11/ci/cd-with-arista-validated-design/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link type="text/css" rel="stylesheet" href="/css/main.bundle.min.48d290696564c2380c4233780f3fd414aa6e2b0b67ed916e9d918c48c05f5b20b641bf892fadd408e43ec21d2feb2ec1fe6fd1f021df2806a254977fe2f80a64.css"
+    integrity="sha512-SNKQaWVkwjgMQjN4Dz/UFKpuKwtn7ZFunZGMSMBfWyC2Qb&#43;JL63UCOQ&#43;wh0v6y7B/m/R8CHfKAaiVJd/4vgKZA==" />
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.a85bd6dc99d1fecae166deb56a1fee6375588c72533c4b8c690e4a9ec5a04174ff780e41e2ac770382a8e67818cb2b89766afa3e23965c9102424a080dafbb0c.js"
+    integrity="sha512-qFvW3JnR/srhZt61ah/uY3VYjHJTPEuMaQ5KnsWgQXT/eA5B4qx3A4Ko5ngYyyuJdmr6PiOWXJECQkoIDa&#43;7DA=="></script>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <script defer type="text/javascript" id="script-bundle" src="/js/main.bundle.min.a2d78d78672e549fbfc972ece871725b5478ba0b65708dda20cb97ab80a865eae6d247e1b05a4aec6ebbf78647ec3233bad8b2609ed98eee53cd58aa17128bc7.js"
+    integrity="sha512-oteNeGcuVJ&#43;/yXLs6HFyW1R4ugtlcI3aIMuXq4CoZerm0kfhsFpK7G6794ZH7DIzutiyYJ7Zju5TzViqFxKLxw==" data-copy="" data-copied=""></script>
+  
+  
+  
+  <script src="/lib/zoom/zoom.min.37d2094687372da3f7343a221a470f6b8806f7891aa46a5a03966af7f0ebd38b9fe536cb154e6ad28f006d184b294525a7c4054b6bbb4be62d8b453b42db99bd.js" integrity="sha512-N9IJRoc3LaP3NDoiGkcPa4gG94kapGpaA5Zq9/Dr04uf5TbLFU5q0o8AbRhLKUUlp8QFS2u7S&#43;Yti0U7QtuZvQ=="></script>
+  
+  
+  
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:url" content="https://blog.andreasm.io/2025/02/11/ci/cd-with-arista-validated-design/">
+  <meta property="og:site_name" content="blog.andreasm.io">
+  <meta property="og:title" content="CI/CD with Arista Validated Design">
+  <meta property="og:description" content="Creating a CI/CD pipeline using Git, Arista AVD and Arista CloudVision">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-02-11T10:35:40+01:00">
+    <meta property="article:modified_time" content="2025-02-11T10:35:40+01:00">
+    <meta property="article:tag" content="Gitops">
+    <meta property="article:tag" content="Git">
+    <meta property="article:tag" content="CI/CD">
+    <meta property="article:tag" content="Avd">
+    <meta property="article:tag" content="Arista">
+    <meta property="og:image" content="https://blog.andreasm.io/2025/02/11/ci/cd-with-arista-validated-design/feature-arista-networks.jpg">
+
+  
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://blog.andreasm.io/2025/02/11/ci/cd-with-arista-validated-design/feature-arista-networks.jpg">
+  <meta name="twitter:title" content="CI/CD with Arista Validated Design">
+  <meta name="twitter:description" content="Creating a CI/CD pipeline using Git, Arista AVD and Arista CloudVision">
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "CI\/CD with Arista Validated Design",
+    "headline": "CI\/CD with Arista Validated Design",
+    "description": "Creating a CI\/CD pipeline using Git, Arista AVD and Arista CloudVision",
+    "abstract": "In this post I will go through how to configure Github Actions in a CI-CD pipeline automating network configurations using Arista AVD and CloudVision",
+    "inLanguage": "en",
+    "url" : "https:\/\/blog.andreasm.io\/2025\/02\/11\/ci\/cd-with-arista-validated-design\/",
+    "author" : {
+      "@type": "Person",
+      "name": "Andreas Marqvardsen"
+    },
+    "copyrightYear": "2025",
+    "dateCreated": "2025-02-11T10:35:40\u002b01:00",
+    "datePublished": "2025-02-11T10:35:40\u002b01:00",
+    
+    "dateModified": "2025-02-11T10:35:40\u002b01:00",
+    
+    "keywords": ["gitops","git","CI/CD","avd","arista"],
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "4665"
+  }]
+  </script>
+
+
+  
+  
+  <meta name="author" content="Andreas Marqvardsen" />
+  
+  
+  
+  <link href="mailto:andreas.marqvardsen[AT]gmail.com" rel="me" />
+  
+  
+  <link href="https://blog.andreasm.io/" rel="me" />
+  
+  
+  <link href="https://github.com/andreasm80" rel="me" />
+  
+  
+  <link href="https://linkedin.com/in/andreas-marqvardsen" rel="me" />
+  
+  
+  <link href="https://vmst.io/@andreasm" rel="me" />
+  
+  
+  <link href="https://x.com/NATsoFast" rel="me" />
+  
+  
+  
+  
+
+<script src="/lib/jquery/jquery.slim.min.b0dca576e87d7eaa5850ae4e61759c065786cdb6489d68fcc82240539eebd5da522bdb4fda085ffd245808c8fe2acb2516408eb774ef26b5f6015fc6737c0ea8.js" integrity="sha512-sNylduh9fqpYUK5OYXWcBleGzbZInWj8yCJAU57r1dpSK9tP2ghf/SRYCMj&#43;KsslFkCOt3TvJrX2AV/Gc3wOqA=="></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TVPYDVE8KR"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-TVPYDVE8KR');
+</script>
+
+
+
+  
+  
+  <meta name="theme-color"/>
+  
+  
+</head>
+<body
+  class="flex flex-col h-screen px-6 m-auto text-lg leading-7 max-w-7xl bg-neutral text-neutral-900 dark:bg-neutral-800 dark:text-neutral sm:px-14 md:px-24 lg:px-32 scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600">
+  <div id="the-top" class="absolute flex self-center">
+    <a class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 focus:translate-y-0 dark:bg-neutral-600"
+      href="#main-content"><span
+        class="font-bold text-primary-600 ltr:pr-2 rtl:pl-2 dark:text-primary-400">&darr;</span>Skip to main content</a>
+  </div>
+  
+  
+  <div class="min-h-[148px]"></div>
+<div class="fixed inset-x-0 pl-[24px] pr-[24px]" style="z-index:100">
+  <div id="menu-blur" class="absolute opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl shadow-2xl"></div>
+  <div class="relative max-w-[64rem] ml-auto mr-auto">
+    <div style="padding-left:0;padding-right:0;padding-top:2px;padding-bottom:3px"
+    class="main-menu flex items-center justify-between px-4 py-6 sm:px-6 md:justify-start space-x-3">
+    
+    
+    
+    <div>
+        <a href="/" class="flex">
+            <span class="sr-only">blog.andreasm.io</span>
+
+            
+            <img src="/ynwa2.png" width="300" height="342"
+                class="logo max-h-[5rem] max-w-[5rem] object-scale-down object-left nozoom" alt="blog.andreasm.io" />
+            
+
+        </a>
+    </div>
+    
+    <div class="flex flex-1 items-center justify-between">
+        <nav class="flex space-x-3">
+
+            
+            <a href="/" class="text-base font-medium text-gray-500 hover:text-gray-900">blog.andreasm.io</a>
+            
+
+        </nav>
+        <nav class="hidden md:flex items-center space-x-5 md:ml-12 h-12">
+
+            
+            
+            
+  <a href="/posts/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-base font-medium" title="">
+        Posts
+    </p>
+</a>
+
+
+
+            
+            
+  <a href="/about/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-base font-medium" title="">
+        About
+    </p>
+</a>
+
+
+
+            
+            
+  <a href="/categories/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-base font-medium" title="">
+        Categories
+    </p>
+</a>
+
+
+
+            
+            
+  <a href="/tags/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+    
+    <p class="text-base font-medium" title="">
+        Tags
+    </p>
+</a>
+
+
+
+            
+            
+
+            
+
+
+            
+            <button id="search-button" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+
+            
+            
+            <div
+                class="ltr:mr-14 rtl:ml-14 flex items-center">
+                <button id="appearance-switcher" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400">
+                    <div class="flex items-center justify-center dark:hidden">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                    </div>
+                    <div class="items-center justify-center hidden dark:flex">
+                        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                    </div>
+                </button>
+            </div>
+            
+
+        </nav>
+        <div class="flex md:hidden items-center space-x-5 md:ml-12 h-12">
+
+            <span></span>
+
+            
+
+
+            
+            <button id="search-button-mobile" aria-label="Search" class="text-base hover:text-primary-600 dark:hover:text-primary-400"
+                title="">
+                
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+            </button>
+            
+
+            
+            
+            <button id="appearance-switcher-mobile" aria-label="Dark mode switcher" type="button" class="text-base hover:text-primary-600 dark:hover:text-primary-400" style="margin-right:5px">
+                <div class="flex items-center justify-center dark:hidden">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M32 256c0-123.8 100.3-224 223.8-224c11.36 0 29.7 1.668 40.9 3.746c9.616 1.777 11.75 14.63 3.279 19.44C245 86.5 211.2 144.6 211.2 207.8c0 109.7 99.71 193 208.3 172.3c9.561-1.805 16.28 9.324 10.11 16.95C387.9 448.6 324.8 480 255.8 480C132.1 480 32 379.6 32 256z"/></svg>
+
+  </span>
+
+
+                </div>
+                <div class="items-center justify-center hidden dark:flex">
+                    
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M256 159.1c-53.02 0-95.1 42.98-95.1 95.1S202.1 351.1 256 351.1s95.1-42.98 95.1-95.1S309 159.1 256 159.1zM509.3 347L446.1 255.1l63.15-91.01c6.332-9.125 1.104-21.74-9.826-23.72l-109-19.7l-19.7-109c-1.975-10.93-14.59-16.16-23.72-9.824L256 65.89L164.1 2.736c-9.125-6.332-21.74-1.107-23.72 9.824L121.6 121.6L12.56 141.3C1.633 143.2-3.596 155.9 2.736 164.1L65.89 256l-63.15 91.01c-6.332 9.125-1.105 21.74 9.824 23.72l109 19.7l19.7 109c1.975 10.93 14.59 16.16 23.72 9.824L256 446.1l91.01 63.15c9.127 6.334 21.75 1.107 23.72-9.822l19.7-109l109-19.7C510.4 368.8 515.6 356.1 509.3 347zM256 383.1c-70.69 0-127.1-57.31-127.1-127.1c0-70.69 57.31-127.1 127.1-127.1s127.1 57.3 127.1 127.1C383.1 326.7 326.7 383.1 256 383.1z"/></svg>
+
+  </span>
+
+
+                </div>
+            </button>
+            
+
+        </div>
+    </div>
+    <div class="-my-2 -mr-2 md:hidden">
+
+        <label id="menu-button" class="block">
+            
+            <div class="cursor-pointer hover:text-primary-600 dark:hover:text-primary-400">
+                
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/></svg>
+
+  </span>
+
+
+            </div>
+            <div id="menu-wrapper" style="padding-top:5px;"
+                class="fixed inset-0 z-30 invisible w-screen h-screen m-0 overflow-auto transition-opacity opacity-0 cursor-default bg-neutral-100/50 backdrop-blur-sm dark:bg-neutral-900/50">
+                <ul
+                    class="flex space-y-2 mt-3 flex-col items-end w-full px-6 py-6 mx-auto overflow-visible list-none ltr:text-right rtl:text-left max-w-7xl">
+
+                    <li id="menu-close-button">
+                        <span
+                            class="cursor-pointer inline-block align-text-bottom hover:text-primary-600 dark:hover:text-primary-400">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+</span>
+                    </li>
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href="/posts/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            Posts
+        </p>
+    </a>
+</li>
+
+
+
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href="/about/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            About
+        </p>
+    </a>
+</li>
+
+
+
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href="/categories/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            Categories
+        </p>
+    </a>
+</li>
+
+
+
+
+                    
+
+                    
+  <li class="mt-1">
+    <a href="/tags/"  class="flex items-center text-gray-500 hover:text-primary-600 dark:hover:text-primary-400">
+        
+        <p class="text-bg font-bg" title="">
+            Tags
+        </p>
+    </a>
+</li>
+
+
+
+
+                    
+
+                </ul>
+                
+                
+
+            </div>
+        </label>
+    </div>
+</div>
+
+
+
+
+<script>
+    (function () {
+        var $mainmenu = $('.main-menu');
+        var path = window.location.pathname;
+        $mainmenu.find('a[href="' + path + '"]').each(function (i, e) {
+            $(e).children('p').addClass('active');
+        });
+    })();
+</script>
+
+
+  </div>
+</div>
+<script>
+  window.addEventListener('scroll', function (e) {
+    var scroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    var background_blur = document.getElementById('menu-blur');
+    background_blur.style.opacity = (scroll / 300);
+  });
+</script>
+
+  
+  <div class="relative flex flex-col grow">
+    <main id="main-content" class="grow">
+      
+
+
+<article>
+  
+  
+  
+  
+  
+  
+
+
+<div id="hero" class="h-[150px] md:h-[200px]"></div>
+
+
+
+    
+    <div class="fixed inset-x-0 top-0 h-[800px] single_hero_background nozoom"
+    style="background-image:url(/2025/02/11/ci/cd-with-arista-validated-design/feature-arista-networks.jpg);">
+    
+
+
+    <div class="absolute inset-0 bg-gradient-to-t from-neutral dark:from-neutral-800 to-transparent mix-blend-normal">
+    </div>
+    <div
+        class="absolute inset-0 opacity-60 bg-gradient-to-t from-neutral dark:from-neutral-800 to-neutral-100 dark:to-neutral-800 mix-blend-normal">
+    </div>
+</div>
+
+<div id="background-blur" class="fixed opacity-0 inset-x-0 top-0 h-full single_hero_background nozoom backdrop-blur-2xl"></div>
+<script>
+    window.addEventListener('scroll', function (e) {
+        var scroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+        var background_blur = document.getElementById('background-blur');
+        background_blur.style.opacity = (scroll / 300)
+    });
+</script>
+
+  
+  
+
+  <header id="single_header" class="mt-5 max-w-prose">
+    
+    <ol class="text-sm text-neutral-500 dark:text-neutral-400 print:hidden">
+  
+  
+    
+  
+    
+  
+  <li class="inline hidden">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/"
+      >blog.andreasm.io</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline ">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/posts/"
+      >Posts</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline hidden">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/2025/02/11/ci/cd-with-arista-validated-design/"
+      >CI/CD with Arista Validated Design</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+</ol>
+
+
+    
+    <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+      CI/CD with Arista Validated Design
+    </h1>
+    <div class="mt-1 mb-6 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+      
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2025-02-11T10:35:40&#43;01:00">11 February 2025</time><span class="px-2 text-primary-500">&middot;</span><span>4665 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">22 mins</span>
+  
+
+  
+  
+</div>
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/categories/ci/cd/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    CI/CD
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/categories/automation/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Automation
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/categories/gitops/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Gitops
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/categories/avd/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Avd
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/categories/arista/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Arista
+  </span>
+</span>
+  </span>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/gitops/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Gitops
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/git/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Git
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/ci/cd/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    CI/CD
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/avd/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Avd
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/arista/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Arista
+  </span>
+</span>
+  </span>
+  
+  
+  
+  
+</div>
+
+
+
+
+    </div>
+
+    
+    
+    
+    
+    
+
+    
+
+    
+      
+      
+        
+        
+<div class="flex author">
+  
+    
+    
+      
+    
+    
+      
+      <img class="!mt-0 !mb-0 h-24 w-24 rounded-full ltr:mr-4 rtl:ml-4" width="96" height="96"
+      alt="Andreas Marqvardsen" src="/profile.png" />
+    
+  
+  <div class="place-self-center">
+    
+    <div class="text-[0.6rem] uppercase leading-3 text-neutral-500 dark:text-neutral-400">
+      Author
+    </div>
+    <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+      Andreas Marqvardsen
+    </div>
+    
+    
+    <div class="text-sm text-neutral-700 dark:text-neutral-400">Always curious, always learning</div>
+    
+    <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="mailto:andreas.marqvardsen[AT]gmail.com"
+          target="_blank"
+          aria-label="Email"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M207.8 20.73c-93.45 18.32-168.7 93.66-187 187.1c-27.64 140.9 68.65 266.2 199.1 285.1c19.01 2.888 36.17-12.26 36.17-31.49l.0001-.6631c0-15.74-11.44-28.88-26.84-31.24c-84.35-12.98-149.2-86.13-149.2-174.2c0-102.9 88.61-185.5 193.4-175.4c91.54 8.869 158.6 91.25 158.6 183.2l0 16.16c0 22.09-17.94 40.05-40 40.05s-40.01-17.96-40.01-40.05v-120.1c0-8.847-7.161-16.02-16.01-16.02l-31.98 .0036c-7.299 0-13.2 4.992-15.12 11.68c-24.85-12.15-54.24-16.38-86.06-5.106c-38.75 13.73-68.12 48.91-73.72 89.64c-9.483 69.01 43.81 128 110.9 128c26.44 0 50.43-9.544 69.59-24.88c24 31.3 65.23 48.69 109.4 37.49C465.2 369.3 496 324.1 495.1 277.2V256.3C495.1 107.1 361.2-9.332 207.8 20.73zM239.1 304.3c-26.47 0-48-21.56-48-48.05s21.53-48.05 48-48.05s48 21.56 48 48.05S266.5 304.3 239.1 304.3z"/></svg>
+
+  </span>
+
+</span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://blog.andreasm.io/"
+          target="_blank"
+          aria-label="Link"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><path fill="currentColor" d="M172.5 131.1C228.1 75.51 320.5 75.51 376.1 131.1C426.1 181.1 433.5 260.8 392.4 318.3L391.3 319.9C381 334.2 361 337.6 346.7 327.3C332.3 317 328.9 297 339.2 282.7L340.3 281.1C363.2 249 359.6 205.1 331.7 177.2C300.3 145.8 249.2 145.8 217.7 177.2L105.5 289.5C73.99 320.1 73.99 372 105.5 403.5C133.3 431.4 177.3 435 209.3 412.1L210.9 410.1C225.3 400.7 245.3 404 255.5 418.4C265.8 432.8 262.5 452.8 248.1 463.1L246.5 464.2C188.1 505.3 110.2 498.7 60.21 448.8C3.741 392.3 3.741 300.7 60.21 244.3L172.5 131.1zM467.5 380C411 436.5 319.5 436.5 263 380C213 330 206.5 251.2 247.6 193.7L248.7 192.1C258.1 177.8 278.1 174.4 293.3 184.7C307.7 194.1 311.1 214.1 300.8 229.3L299.7 230.9C276.8 262.1 280.4 306.9 308.3 334.8C339.7 366.2 390.8 366.2 422.3 334.8L534.5 222.5C566 191 566 139.1 534.5 108.5C506.7 80.63 462.7 76.99 430.7 99.9L429.1 101C414.7 111.3 394.7 107.1 384.5 93.58C374.2 79.2 377.5 59.21 391.9 48.94L393.5 47.82C451 6.731 529.8 13.25 579.8 63.24C636.3 119.7 636.3 211.3 579.8 267.7L467.5 380z"/></svg>
+
+  </span>
+
+</span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://github.com/andreasm80"
+          target="_blank"
+          aria-label="Github"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
+
+</span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://linkedin.com/in/andreas-marqvardsen"
+          target="_blank"
+          aria-label="Linkedin"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+
+  </span>
+
+</span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://vmst.io/@andreasm"
+          target="_blank"
+          aria-label="Mastodon"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M433 179.11c0-97.2-63.71-125.7-63.71-125.7-62.52-28.7-228.56-28.4-290.48 0 0 0-63.72 28.5-63.72 125.7 0 115.7-6.6 259.4 105.63 289.1 40.51 10.7 75.32 13 103.33 11.4 50.81-2.8 79.32-18.1 79.32-18.1l-1.7-36.9s-36.31 11.4-77.12 10.1c-40.41-1.4-83-4.4-89.63-54a102.54 102.54 0 0 1-.9-13.9c85.63 20.9 158.65 9.1 178.75 6.7 56.12-6.7 105-41.3 111.23-72.9 9.8-49.8 9-121.5 9-121.5zm-75.12 125.2h-46.63v-114.2c0-49.7-64-51.6-64 6.9v62.5h-46.33V197c0-58.5-64-56.6-64-6.9v114.2H90.19c0-122.1-5.2-147.9 18.41-175 25.9-28.9 79.82-30.8 103.83 6.1l11.6 19.5 11.6-19.5c24.11-37.1 78.12-34.8 103.83-6.1 23.71 27.3 18.4 53 18.4 175z"/></svg>
+
+  </span>
+
+</span></a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://x.com/NATsoFast"
+          target="_blank"
+          aria-label="X-Twitter"
+          rel="me noopener noreferrer"
+          ><span class="inline-block align-text-bottom">
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/></svg>
+  </span>
+
+</span></a
+        >
+      
+    
+  </div>
+
+</div>
+  </div>
+</div>
+
+      
+
+      
+
+      
+      <div class="mb-5"></div>
+      
+
+    
+
+  </header>
+  
+  <section class="flex flex-col max-w-full mt-0 prose dark:prose-invert lg:flex-row">
+    
+     <div
+      class="order-first lg:ml-auto px-0 lg:order-last ltr:lg:pl-8 rtl:lg:pr-8">
+      <div class="toc ltr:pl-5 rtl:pr-5 print:hidden lg:sticky lg:top-[140px]">
+
+         <details open id="TOCView"
+  class="toc-right mt-0 overflow-y-scroll overscroll-contain scrollbar-thin scrollbar-track-neutral-200 scrollbar-thumb-neutral-400 dark:scrollbar-track-neutral-800 dark:scrollbar-thumb-neutral-600 rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 hidden lg:block">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    Table of Contents
+  </summary>
+  <div
+    class="min-w-[220px] py-2 border-dotted ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#pre-requirements-and-preparations">Pre-requirements and Preparations</a>
+      <ul>
+        <li><a href="#pre-requirements">Pre-requirements</a></li>
+      </ul>
+    </li>
+    <li><a href="#preparing-my-git-repo">Preparing my Git repo</a></li>
+    <li><a href="#github-actions">Github Actions</a>
+      <ul>
+        <li><a href="#workflow">Workflow</a></li>
+        <li><a href="#runner">Runner</a></li>
+        <li><a href="#linting---automatically-checking-code-for-potential-errors">Linting - automatically checking code for potential errors</a></li>
+        <li><a href="#digital-twin----where-i-can-deploy-my-dev-codeconfig">Digital Twin -  Where I can deploy my dev code/config</a></li>
+        <li><a href="#arista-network-test-automation-anta-framework">Arista Network Test Automation (ANTA) Framework</a></li>
+      </ul>
+    </li>
+    <li><a href="#how-it-is-intended-to-work---from-zero-to-hero-with-cicd">How it is intended to work - from zero to hero with CI/CD</a></li>
+    <li><a href="#workflow-files-used-in-my-git-repo">Workflow files used in my git repo</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+<details class="toc-inside mt-0 overflow-hidden rounded-lg ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 lg:hidden">
+  <summary
+    class="py-1 text-lg font-semibold cursor-pointer bg-neutral-100 text-neutral-800 ltr:-ml-5 ltr:pl-5 rtl:-mr-5 rtl:pr-5 dark:bg-neutral-700 dark:text-neutral-100 lg:hidden">
+    Table of Contents
+  </summary>
+  <div
+    class="py-2 border-dotted border-neutral-300 ltr:-ml-5 ltr:border-l ltr:pl-5 rtl:-mr-5 rtl:border-r rtl:pr-5 dark:border-neutral-600">
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#pre-requirements-and-preparations">Pre-requirements and Preparations</a>
+      <ul>
+        <li><a href="#pre-requirements">Pre-requirements</a></li>
+      </ul>
+    </li>
+    <li><a href="#preparing-my-git-repo">Preparing my Git repo</a></li>
+    <li><a href="#github-actions">Github Actions</a>
+      <ul>
+        <li><a href="#workflow">Workflow</a></li>
+        <li><a href="#runner">Runner</a></li>
+        <li><a href="#linting---automatically-checking-code-for-potential-errors">Linting - automatically checking code for potential errors</a></li>
+        <li><a href="#digital-twin----where-i-can-deploy-my-dev-codeconfig">Digital Twin -  Where I can deploy my dev code/config</a></li>
+        <li><a href="#arista-network-test-automation-anta-framework">Arista Network Test Automation (ANTA) Framework</a></li>
+      </ul>
+    </li>
+    <li><a href="#how-it-is-intended-to-work---from-zero-to-hero-with-cicd">How it is intended to work - from zero to hero with CI/CD</a></li>
+    <li><a href="#workflow-files-used-in-my-git-repo">Workflow files used in my git repo</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+<script>
+
+  var margin = 200;
+  var marginError = 50;
+
+  (function () {
+    var $window = $(window);
+    var $toc = $('#TOCView');
+    var tocHeight = $toc.height();
+
+    function onResize() {
+      var windowAndMarginHeight = $window.height() - margin;
+      if(tocHeight >= windowAndMarginHeight) {
+        $toc.css("overflow-y", "scroll")
+        $toc.css("max-height", (windowAndMarginHeight + marginError) + "px")
+      } else {
+        $toc.css("overflow-y", "hidden")
+        $toc.css("max-height", "9999999px")
+      }
+    }
+
+    $window.on('resize', onResize);
+    $(document).ready(onResize);
+  })();
+
+
+
+  (function () {
+    var $toc = $('#TableOfContents');
+    if ($toc.length > 0) {
+      var $window = $(window);
+
+      function onScroll() {
+        var currentScroll = $window.scrollTop();
+        var h = $('.anchor');
+        var id = "";
+        h.each(function (i, e) {
+          e = $(e);
+          if (e.offset().top - $(window).height()/3 <= currentScroll) {
+            id = decodeURIComponent(e.attr('id'));
+          }
+        });
+        var active = $toc.find('a.active');      
+        if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
+
+        active.each(function (i, e) {
+          
+            $(e).removeClass('active');
+          
+        });
+        $toc.find('a[href="#' + id + '"]').addClass('active')
+        $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+          $(e).children('a').parents('ul').show();          
+        });
+      }
+
+      $window.on('scroll', onScroll);
+      $(document).ready(function () {
+        
+        onScroll();
+      });
+    }
+  })();
+
+
+</script>
+   </div>
+      </div>
+      
+
+      <div class="min-w-0 min-h-0 max-w-fit">
+        
+        
+
+
+        <div class="article-content max-w-prose mb-20">
+          
+
+<h1 class="relative group">CI/CD pipeline 
+    <div id="cicd-pipeline" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#cicd-pipeline" aria-label="Anchor">#</a>
+    </span>        
+    
+</h1>
+<p>What is a CI/CD pipeline, and what is CI and CD? To quickly start with the latter, CI and CD, before explaining the CI/CP pipeline.</p>
+<p>CI stands for Continuous Integration, and CD stands for Continuous Delivery or Continuous Deployment. The key difference between Continuous Delivery and Continuous Deployment is how the integrated code is delivered to production. In Continuous Delivery, the code is tested, validated, and kept in a deployable state but requires manual approval before being pushed into production. In Continuous Deployment, the code is automatically pushed into production after being tested and validated, without any manual intervention.</p>
+<p>Continuous Integration refers to the practice of regularly integrating code changes into the shared codebase. Developers merge their changes into the main code, and automated tests are run to ensure that the new code does not break the existing functionality.</p>
+<p>A <strong>CI/CD pipeline</strong> is a series of automated steps that software goes through from the moment a developer commits code to the point it gets deployed to production. The pipeline is designed to automate the processes of <strong>building</strong>, <strong>testing</strong>, and <strong>deploying</strong> code changes, ensuring faster and more reliable delivery.</p>
+<p>The CI/CD pipeline helps automate repetitive tasks, making development, testing, and deployment more efficient, faster, and less error-prone. It’s an essential part of modern DevOps practices.</p>
+<p>In software development, CI/CD is a common practice today, but applying similar practices to managing network infrastructure is still not as widespread. For many organizations, making the shift can be a steep learning curve, but the benefits are significant and ultimately outweigh the challenges involved in adopting CI/CD for infrastructure.</p>
+<p>In this post I will go through how to get started with CI/CD managing network infrastructure.</p>
+<p>To create a CI/CD pipeline for network automation, several tools needs to be involved, including Git, GitHub Actions, Arista Validated Design, Arista CloudVision, code syntax checking tools (in addition to those already built into Arista Validated Design), and the network testing tool Arista Network Test Automation.</p>
+<p>In the end of this post we should have something that looks like this:</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        src="/2025/02/11/ci/cd-with-arista-validated-design/images/image-20250211144212036.png"
+        alt="ci_cd_pipeline_network_automation"
+      />
+      
+    </figure>
+</p>
+<p>So buckle up this will be exciting! At least this is what I think it is.</p>
+
+
+<h2 class="relative group">Pre-requirements and Preparations 
+    <div id="pre-requirements-and-preparations" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#pre-requirements-and-preparations" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<p>To make this post as focused as possible on the CI/CD pipeline for network automation I will have to assume some tools are already configured and in place. Otherwise it will be yet another lengthy post by me. Then I will cover the steps how to prepare the rest in this post</p>
+
+
+<h3 class="relative group">Pre-requirements 
+    <div id="pre-requirements" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#pre-requirements" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<ul>
+<li>Git cli installed on a Linux machine</li>
+<li>Access to a Github account or Gitea hosted locally, with a runner configured (this is what I am using) <a href="https://docs.gitea.com/" target="_blank">Gitea Docs</a></li>
+<li>A Github/Gitea Repository ready and initialized from the Linux machine and Actions enabled (Default in Github).</li>
+<li>Arista CloudVision</li>
+<li>Containerlab with x instances of Arista cEOS (see this <a href="https://blog.andreasm.io/2024/08/22/arista-cloudvision-and-avd-using-containerlab/" target="_blank">post</a>)</li>
+<li>Arista Validated Design installed on a Linux machine to grab an example just to get started (See this <a href="https://avd.arista.com/5.2/docs/installation/collection-installation.html" target="_blank">post</a>)</li>
+<li>Knowledge about Arista Validated Design</li>
+</ul>
+
+
+<h2 class="relative group">Preparing my Git repo 
+    <div id="preparing-my-git-repo" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#preparing-my-git-repo" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<p>I am using Gitea, a Github compatible self hosted alternative. In Gitea I have created my respository called <em>ci_cd_pipeline_1</em> for this use case here:</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        src="/2025/02/11/ci/cd-with-arista-validated-design/images/image-20250211132321990.png"
+        alt="gitea-repo"
+      />
+      
+    </figure>
+</p>
+<p>I have configured a ssh key on the computer I will be using to interact with the repository above like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ssh-keygen -t ed25519 -C <span class="s2">&#34;your_email@example.com&#34;</span>
+</span></span></code></pre></div><p>The public key is copy and pasted in Gitea so I can interact using SSH without username and password. In Gitea that is done here:</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        src="/2025/02/11/ci/cd-with-arista-validated-design/images/image-20250211134031046.png"
+        alt="ssh-keys"
+      />
+      
+    </figure>
+</p>
+<p>The above repo is empty for now, and I want to initialize it from my local cli. To initialize and connect to my remote repo (created above) I follow these steps:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">touch README.md <span class="c1"># Will be overwritten by the AVD content later</span>
+</span></span><span class="line"><span class="cl">git init
+</span></span><span class="line"><span class="cl">git checkout -b main
+</span></span><span class="line"><span class="cl">git add README.md <span class="c1"># could be just git add .</span>
+</span></span><span class="line"><span class="cl">git commit -m <span class="s2">&#34;first commit&#34;</span>
+</span></span><span class="line"><span class="cl">git remote add origin git@gitea-01.my-domain.net:andreasm/ci_cd_pipeline2.git
+</span></span><span class="line"><span class="cl">git push -u origin main
+</span></span></code></pre></div><p>Now my git repo is connected to my remote repo in Gitea and I can start populate it. The first thing I will do is to copy the content from the AVD examples called &ldquo;Single DC L3LS&rdquo; into my folder where I have initialized my Git repo.</p>
+<p>The content should look like this now:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">➜  ci_cd_pipeline_1.clab git:<span class="o">(</span>main<span class="o">)</span> ll
+</span></span><span class="line"><span class="cl">total <span class="m">224</span>
+</span></span><span class="line"><span class="cl">-rw-r--r--@  <span class="m">1</span> am  staff    36K <span class="m">10</span> feb 11:43 README.md
+</span></span><span class="line"><span class="cl">-rw-r--r--@  <span class="m">1</span> am  staff   109B <span class="m">10</span> feb 11:42 ansible.cfg
+</span></span><span class="line"><span class="cl">-rw-r--r--@  <span class="m">1</span> am  staff   337B <span class="m">10</span> feb 11:42 anta.yml
+</span></span><span class="line"><span class="cl">-rw-r--r--@  <span class="m">1</span> am  staff   8,0K <span class="m">10</span> feb 11:42 app-anta-with-graph.py
+</span></span><span class="line"><span class="cl">-rw-r--r--@  <span class="m">1</span> am  staff   5,7K <span class="m">10</span> feb 11:42 app-anta.py
+</span></span><span class="line"><span class="cl">-rw-r--r--@  <span class="m">1</span> am  staff   422B <span class="m">10</span> feb 11:42 build.yml
+</span></span><span class="line"><span class="cl">-rw-r--r--@  <span class="m">1</span> am  staff   1,4K <span class="m">10</span> feb 11:42 cv-deploy.yml
+</span></span><span class="line"><span class="cl">-rw-r--r--@  <span class="m">1</span> am  staff   368B <span class="m">10</span> feb 11:42 deploy-cvp.yml
+</span></span><span class="line"><span class="cl">-rw-r--r--@  <span class="m">1</span> am  staff   260B <span class="m">10</span> feb 11:42 deploy.yml
+</span></span><span class="line"><span class="cl">drwxr-xr-x@  <span class="m">4</span> am  staff   128B <span class="m">10</span> feb 20:07 documentation
+</span></span><span class="line"><span class="cl">-rw-r--r--@  <span class="m">1</span> am  staff   8,3K <span class="m">10</span> feb 11:42 graph-ok-rest-fail.py
+</span></span><span class="line"><span class="cl">drwxr-xr-x@  <span class="m">9</span> am  staff   288B <span class="m">11</span> feb 13:09 group_vars
+</span></span><span class="line"><span class="cl">drwxr-xr-x@  <span class="m">6</span> am  staff   192B <span class="m">10</span> feb 11:42 images
+</span></span><span class="line"><span class="cl">drwxr-xr-x@  <span class="m">4</span> am  staff   128B <span class="m">10</span> feb 20:07 intended
+</span></span><span class="line"><span class="cl">-rw-r--r--@  <span class="m">1</span> am  staff   1,7K <span class="m">10</span> feb 11:42 inventory.yml
+</span></span><span class="line"><span class="cl">drwxr-xr-x@  <span class="m">7</span> am  staff   224B <span class="m">10</span> feb 11:42 project-files
+</span></span><span class="line"><span class="cl">drwxr-xr-x@  <span class="m">2</span> am  staff    64B <span class="m">10</span> feb 11:47 reports
+</span></span><span class="line"><span class="cl">drwxr-xr-x@  <span class="m">3</span> am  staff    96B <span class="m">10</span> feb 11:42 static
+</span></span><span class="line"><span class="cl">drwxr-xr-x@ <span class="m">14</span> am  staff   448B <span class="m">10</span> feb 11:42 templates
+</span></span><span class="line"><span class="cl">-rw-r--r--@  <span class="m">1</span> am  staff    13K <span class="m">10</span> feb 11:42 web-avd-anta-w-topology.py
+</span></span></code></pre></div><p>Now I just need to do a &ldquo;<em>git add .</em>&rdquo;, &ldquo;<em>commit -s -m &ldquo;avd-contents</em>&rdquo; and &ldquo;<em>git push</em>&rdquo; to get this pushed to my remote repo.</p>
+<p>Which should then be reflected in the Gitea UI:</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        src="/2025/02/11/ci/cd-with-arista-validated-design/images/image-20250211135145179.png"
+        alt="gitea-repo-ui"
+      />
+      
+    </figure>
+</p>
+<p>Now I have my base repo ready and I can begin configure AVD for my needs. But by just having AVD in Git does not really help me that much in terms of CI/CD, I need something to trigger automatically when I push new changes. This is up next.</p>
+
+
+<h2 class="relative group">Github Actions 
+    <div id="github-actions" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#github-actions" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<p>GitHub Actions is a tool that automates workflows directly within GitHub. It allows you to create custom automation for tasks like building, testing, and deploying your code whenever certain events (like pushing code or creating pull requests) occur in your repository. This is what I need, I need something that can automatically do something when something is pushed in my repository or when there is a merge/pull request.</p>
+<p>Lets see how we can do this. To get started with Github actions there are a couple of thing that is needed: A workflow - a file containing the tasks or jobs to be executed on certain criterias. Then a runner to perform these tasks. In Github a runner can be a virtual machine, Ubuntu Linux, MS Windows and MacOS. Github also supports hosting your own runner. For more info read <a href="https://docs.github.com/en/actions/about-github-actions/understanding-github-actions" target="_blank">here</a>. I am using Gitea so I will be using a Docker container as my runner.</p>
+<p>Lets start by defining my workflows</p>
+
+
+<h3 class="relative group">Workflow 
+    <div id="workflow" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#workflow" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p>In my environment I have decided the follow two scenarios:</p>
+<ol>
+<li>In any branch except main, when a push is done AVD needs to build the config and documentation</li>
+<li>If a branch is accepted and merged or a pull request is created into main AVD needs to send the configs to my Arista CloudVision.</li>
+</ol>
+<p>Thats it. Now I may need to explain this a bit more. But it may also explain itself as I proceed in this post.  So stay tuned.</p>
+<p>In Gitea I need to create a folder called <em>.gitea/workflows</em> (in Github it is <em>.github/workflows</em>) in the root of my repository from my local machine where I have a local cache of the repo.</p>
+<p>Inside that folder I will place my two workflows files:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">➜  workflows git:<span class="o">(</span>main<span class="o">)</span> ls
+</span></span><span class="line"><span class="cl">run_ansible_build.yaml      run_ansible_deploy-cvp.yaml
+</span></span><span class="line"><span class="cl">➜  workflows git:<span class="o">(</span>main<span class="o">)</span>
+</span></span></code></pre></div><p>The content of each of these files:</p>
+<p><em>run_ansible_build.yaml</em>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;CI Runner ansible build - all except main&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">on</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">push</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s1">&#39;*&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s1">&#39;!main&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">paths</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s1">&#39;group_vars/*&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">jobs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">run-avd-build</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;registry.mydomain.net/avd/avd-5.2:v2&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Checkout Repository</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v4</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Build Configurations and Documentation</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          . /workspace/ansible-venv/bin/activate
+</span></span></span><span class="line"><span class="cl"><span class="sd">          ansible-playbook -i inventory.yml build.yml</span><span class="w">          
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Commit and Push Generated Files</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          # Make sure any generated files are added to Git
+</span></span></span><span class="line"><span class="cl"><span class="sd">          if [ -d &#34;documentation&#34; ]; then
+</span></span></span><span class="line"><span class="cl"><span class="sd">            git add documentation/
+</span></span></span><span class="line"><span class="cl"><span class="sd">          fi
+</span></span></span><span class="line"><span class="cl"><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          if [ -d &#34;intended&#34; ]; then
+</span></span></span><span class="line"><span class="cl"><span class="sd">            git add intended/
+</span></span></span><span class="line"><span class="cl"><span class="sd">          fi
+</span></span></span><span class="line"><span class="cl"><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          git config user.name &#34;gitea-runner&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">          git config user.email &#34;user.mail@mail.com&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">          # Get the current branch name dynamically
+</span></span></span><span class="line"><span class="cl"><span class="sd">          CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+</span></span></span><span class="line"><span class="cl"><span class="sd">          git commit -s -m &#34;Update generated files from branch $CURRENT_BRANCH&#34; || echo &#34;No changes to commit&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          # Push changes to the current branch
+</span></span></span><span class="line"><span class="cl"><span class="sd">          git push origin $CURRENT_BRANCH</span><span class="w">          
+</span></span></span></code></pre></div><p>This file is triggered only when there is a push on any branches that are not main. And only on changes done in the files under the folder <em>group_vars</em>.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">on</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">push</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s1">&#39;*&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s1">&#39;!main&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">paths</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s1">&#39;group_vars/*&#39;</span><span class="w">
+</span></span></span></code></pre></div><p>The job is called <em>run-avd-build</em> and runs on my runner labeled ubuntu-latest, which in turn starts my own provided container called avd-5.2:v2, hosted at my local image registry. Will go through this later.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">jobs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">run-avd-build</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;registry.mydomain.net/avd/avd-5.2:v2&#34;</span><span class="w">
+</span></span></span></code></pre></div><p>Under steps I define what I want to be done:</p>
+<ul>
+<li><em>name: Checkout Repository</em> - This step allows the workflow to access the the code in this specific branch/repo so the next steps can do something with it.</li>
+<li><em>name: Build Configurations and Documentation</em> - This runs my command ansible-playbook build.yaml using the inventory.yml specified with -i. Build.yaml only generates the configuration and documentation. It does not push anything to either CloudVision or any of my EOS switches.</li>
+<li><em>name: Commit and Push Generated Files</em> - this step commits and pushes back to the current branch the AVD generated documentation and configs.</li>
+</ul>
+<p><em>run_ansible_deploy-cvp.yaml</em>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;CI Runner ansible deploy-cvp - in main&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">on</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">push</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s1">&#39;main&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">paths</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s1">&#39;group_vars/*&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">jobs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">run-avd-build</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;registry.maydomain.net/avd/avd-5.2:v2&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Checkout Repository</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v4</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Build Configurations and Documentation</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          . /workspace/ansible-venv/bin/activate
+</span></span></span><span class="line"><span class="cl"><span class="sd">          ansible-playbook -i inventory.yml deploy-cvp.yml</span><span class="w">          
+</span></span></span></code></pre></div><p>This is a very simple workflow. It will only trigger on push on the main branch, opposite to the first one, though same subfolder.</p>
+<p>Appart from the checkout step this workflow will only run one additional step and that is running the playbook deploy-cvp.yaml.</p>
+<p>Both workflows run the ansible playbooks in a python environment, notice the &lsquo;.&rsquo; before the command.</p>
+
+
+<h3 class="relative group">Runner 
+    <div id="runner" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#runner" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p>For this repository I decided to make and maintain my own container image with the necessary tools pre-installed. To save time on exection, and also getting around some dependencies for my AVD playbooks to run without hassle. To create a docker image is quite straightforward. Below I will provide the Dockerfile used to create my image:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Bash" data-lang="Bash"><span class="line"><span class="cl"><span class="c1"># Use Ubuntu 22.04 as the base image</span>
+</span></span><span class="line"><span class="cl">FROM ubuntu:22.04
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Set environment variables to non-interactive to avoid some prompts during package installation</span>
+</span></span><span class="line"><span class="cl">ENV <span class="nv">DEBIAN_FRONTEND</span><span class="o">=</span>noninteractive
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Install dependencies, Node.js, Python, and related packages</span>
+</span></span><span class="line"><span class="cl">RUN apt-get update <span class="o">&amp;&amp;</span> apt-get install -y <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    curl <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    python3-venv <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    python3-pip <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    git <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="o">&amp;&amp;</span> rm -rf /var/lib/apt/lists/*
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Install the latest stable version of Node.js from NodeSource</span>
+</span></span><span class="line"><span class="cl">RUN curl -fsSL https://deb.nodesource.com/setup_16.x <span class="p">|</span> bash - <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="o">&amp;&amp;</span> apt-get install -y nodejs
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Set up the working directory</span>
+</span></span><span class="line"><span class="cl">WORKDIR /workspace
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Set up Python virtual environment</span>
+</span></span><span class="line"><span class="cl">RUN python3 -m venv ansible-venv <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>    <span class="o">&amp;&amp;</span> . ansible-venv/bin/activate
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Install pyavd[ansible] using pip</span>
+</span></span><span class="line"><span class="cl">RUN . ansible-venv/bin/activate <span class="o">&amp;&amp;</span> pip install <span class="s2">&#34;pyavd[ansible]&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># Install Arista AVD using ansible-galaxy</span>
+</span></span><span class="line"><span class="cl">RUN . ansible-venv/bin/activate <span class="o">&amp;&amp;</span> ansible-galaxy collection install arista.avd
+</span></span></code></pre></div><p>The Dockerfile itself is kind of self-explanatory.</p>
+<p>In Gitea one can decide to deploy the runners on other servers than where Gitea is hosted to overcome resource constraints and performance impacts. I am just running this in my small lab so I decided to keep it simple and have the runners on the same host.</p>
+
+
+<h3 class="relative group">Linting - automatically checking code for potential errors 
+    <div id="linting---automatically-checking-code-for-potential-errors" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#linting---automatically-checking-code-for-potential-errors" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p>Part of my pipeline is also verifying the code, checking the AVD yaml files for structural errors, in combination with the built in syntax checking AVD is doing itself (schema validation).</p>
+<p>To enable linting as part of my pipeline I need to prepare my git repository with an additional file, a &ldquo;<em>.pre-commit-config.yaml</em>&rdquo; in the root of my repo containing some specific parts I want to have a look at in my yaml files before they are passed and merged.</p>
+<p>The content of the <em>.pre-commit-config.yaml</em>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># .pre-commit-config.yaml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># See https://pre-commit.com for more information</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># See https://pre-commit.com/hooks.html for more hooks</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">repos</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">repo</span><span class="p">:</span><span class="w"> </span><span class="l">https://github.com/pre-commit/pre-commit-hooks</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">rev</span><span class="p">:</span><span class="w"> </span><span class="l">v4.4.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">hooks</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l">trailing-whitespace</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">files</span><span class="p">:</span><span class="w"> </span><span class="l">group_vars/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l">end-of-file-fixer</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">exclude_types</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">svg, json]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">files</span><span class="p">:</span><span class="w"> </span><span class="l">group_vars/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l">check-yaml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">files</span><span class="p">:</span><span class="w"> </span><span class="l">group_vars/</span><span class="w">
+</span></span></span></code></pre></div><p>The file above has three hooks configured</p>
+<ul>
+<li>trailing-whitespace -  Will look for unnecessary spaces in my yaml files located in group_vars</li>
+<li>end-of-file-fixer - makes sure files end in a newline and only a newline.</li>
+<li>check-yaml - Attempts to load all yaml files to verify syntax.</li>
+</ul>
+<p><em>Thanks to my collegue Emil for providing this file, and pointing me in the right direction</em></p>
+<p>After adding this file I need to add, commit and push in my main branch:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-zsh" data-lang="zsh"><span class="line"><span class="cl">➜  ci_cd_pipeline_1.clab git:<span class="o">(</span>main<span class="o">)</span> ✗ git add .
+</span></span><span class="line"><span class="cl">➜  ci_cd_pipeline_1.clab git:<span class="o">(</span>main<span class="o">)</span> ✗ git commit -s -m <span class="s2">&#34;pre-commit&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">[</span>main 641ffe7<span class="o">]</span> pre-commit
+</span></span><span class="line"><span class="cl"> <span class="m">1</span> files changed, <span class="m">42</span> insertions<span class="o">(</span>+<span class="o">)</span>
+</span></span><span class="line"><span class="cl"> create mode <span class="m">100644</span> .pre-commit-config.yaml
+</span></span><span class="line"><span class="cl"> ➜  ci_cd_pipeline_1.clab git:<span class="o">(</span>main<span class="o">)</span> git push
+</span></span><span class="line"><span class="cl">Enumerating objects: 9, <span class="k">done</span>.
+</span></span><span class="line"><span class="cl">Counting objects: 100% <span class="o">(</span>9/9<span class="o">)</span>, <span class="k">done</span>.
+</span></span><span class="line"><span class="cl">Delta compression using up to <span class="m">12</span> threads
+</span></span><span class="line"><span class="cl">Compressing objects: 100% <span class="o">(</span>5/5<span class="o">)</span>, <span class="k">done</span>.
+</span></span><span class="line"><span class="cl">Writing objects: 100% <span class="o">(</span>6/6<span class="o">)</span>, <span class="m">995</span> bytes <span class="p">|</span> 995.00 KiB/s, <span class="k">done</span>.
+</span></span><span class="line"><span class="cl">Total <span class="m">6</span> <span class="o">(</span>delta 1<span class="o">)</span>, reused <span class="m">0</span> <span class="o">(</span>delta 0<span class="o">)</span>, pack-reused <span class="m">0</span>
+</span></span><span class="line"><span class="cl">remote: . Processing <span class="m">1</span> references
+</span></span><span class="line"><span class="cl">remote: Processed <span class="m">1</span> references in total
+</span></span><span class="line"><span class="cl">To gitea-01.mydomain.net:andreasm/ci_cd_pipeline_1.git
+</span></span><span class="line"><span class="cl">   0164054..168cc4a  main -&gt; main
+</span></span><span class="line"><span class="cl">➜  ci_cd_pipeline_1.clab git:<span class="o">(</span>main<span class="o">)</span>
+</span></span></code></pre></div><p>For this file to have any effect I also need to install pre-commit locally on my machine where I will be interacting with my git repo.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-zsh" data-lang="zsh"><span class="line"><span class="cl"><span class="c1"># Create a python environment, I do this in folder before my git repo as it may be reused for several other repos</span>
+</span></span><span class="line"><span class="cl">python3 -m venv pre-commit
+</span></span><span class="line"><span class="cl"><span class="c1"># Activate the environment</span>
+</span></span><span class="line"><span class="cl"><span class="nb">source</span> pre-commit/bin/activate
+</span></span><span class="line"><span class="cl"><span class="c1"># Install pre-commit</span>
+</span></span><span class="line"><span class="cl">pip3 install pre-commit
+</span></span><span class="line"><span class="cl"><span class="c1">#The content of the pre-commit folder</span>
+</span></span><span class="line"><span class="cl"><span class="o">(</span>pre-commit<span class="o">)</span> ➜  pre-commit ls
+</span></span><span class="line"><span class="cl">bin        include    lib        pyvenv.cfg
+</span></span></code></pre></div><p>From now on I need to stay in the <em>pre-commit</em> environment. What will now happens is everytime I do a commit the <em>.pre-commit-config.yaml</em> will trigger pre-commit to do a check in my files located under <em>group_vars</em></p>
+<p>Will see this in action later.</p>
+
+
+<h3 class="relative group">Digital Twin -  Where I can deploy my dev code/config 
+    <div id="digital-twin----where-i-can-deploy-my-dev-codeconfig" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#digital-twin----where-i-can-deploy-my-dev-codeconfig" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p>As I am doing this in my lab and dont have access to that many, or any, physical Arista switches I will just re-use my Containerlab topology to spin up an identical environment, just with other management ip addresses. To be able to do that I will need a second copy of my AVD inventory.yml reflecting this. I will call this inventory file <em>dev-inventory.yml</em> and place it in my git repo. To be able to get around the fact that I am using different management ip addreses I need to adjust my group_var file <em>DC1.yml</em> to include variables so the management ip addresses is fetched from the inventory.yml keys.</p>
+<p><em>Again thanks to my colleague Emil for helping out with this</em></p>
+<p>Here is the modified DC1.yml where the variables are added:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c">#Heavily redacted for clarity</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># Default gateway used for the management interface</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># mgmt_gateway: x.x.x.x</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">mgmt_interface</span><span class="p">:</span><span class="w"> </span><span class="l">Management0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">mgmt_interface_description</span><span class="p">:</span><span class="w"> </span><span class="l">oob_management</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># Spine switch group</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spine</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">nodes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">ceos-dc1-spine1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># Management IP to be assigned to the management interface</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">mgmt_ip</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ ansible_host }}/24&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">ceos-dc1-spine2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">mgmt_ip</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ ansible_host }}/24&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># L3 Leaf switch group</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">l3leaf</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">node_groups</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l">DC1_L3_LEAF1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">nodes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">ceos-dc1-leaf1a</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">mgmt_ip</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ ansible_host }}/24&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">ceos-dc1-leaf1b</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">mgmt_ip</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ ansible_host }}/24&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l">DC1_L3_LEAF2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">nodes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">ceos-dc1-leaf2a</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="m">3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">mgmt_ip</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ ansible_host }}/24&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">ceos-dc1-leaf2b</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="m">4</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">mgmt_ip</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ ansible_host }}/24&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l">DC1_L3_LEAF3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">bgp_as</span><span class="p">:</span><span class="w"> </span><span class="m">65103</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">nodes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">ceos-dc1-leaf3a</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="m">5</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">mgmt_ip</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ ansible_host }}/24&#34;</span><span class="w">          
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">ceos-dc1-leaf3b</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="m">6</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">mgmt_ip</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ ansible_host }}/24&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># L2 Leaf switch group</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">l2leaf</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">defaults</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">node_groups</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l">DC1_L2_LEAF1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">nodes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">ceos-dc1-leaf1c</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">mgmt_ip</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ ansible_host }}/24&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l">DC1_L2_LEAF2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">nodes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">ceos-dc1-leaf2c</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="m">2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">mgmt_ip</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ ansible_host }}/24&#34;</span><span class="w">
+</span></span></span></code></pre></div><p>To remediate that I remove the <em>mgmt_gateway</em> key:value in DC1.yml I have added this in the inventory.yml file instead like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="w">    </span><span class="nt">FABRIC</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">children</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">DC1</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">vars</span><span class="p">:</span><span class="w"> </span><span class="c"># Added</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">mgmt_gateway</span><span class="p">:</span><span class="w"> </span><span class="m">172.18.100.2</span><span class="w"> </span><span class="c"># Added</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">children</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">DC1_SPINES</span><span class="p">:</span><span class="w">
+</span></span></span></code></pre></div><p>So now I have two inventory.yml&rsquo;s in my repo and I can select which environment AVD will use by pointing to the respective inventory.yml whether it is production or development. Smooth.</p>
+<p>In my build workflow I have added this additional step to also deploy the generated config to my development environment:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nn">...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Build Dev Configurations and Documentation</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          . /workspace/ansible-venv/bin/activate
+</span></span></span><span class="line"><span class="cl"><span class="sd">          ansible-playbook -i dev-inventory.yml build.yml #modified to use dev-inventory.yml</span><span class="w">          
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Deploy to Dev digital-twin</span><span class="w"> </span><span class="c"># added</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          . /workspace/ansible-venv/bin/activate
+</span></span></span><span class="line"><span class="cl"><span class="sd">          ansible-playbook -i dev-inventory.yml deploy.yml</span><span class="w">          
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">...</span><span class="w">
+</span></span></span></code></pre></div><p>So whenever I am doing a merge from a branch with updates in the config AVD will also apply this configuration to my test/dev environment. This will not deploy any configurations to my CloudVision instance, only directly to the switches themselves.</p>
+
+
+<h3 class="relative group">Arista Network Test Automation (ANTA) Framework 
+    <div id="arista-network-test-automation-anta-framework" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#arista-network-test-automation-anta-framework" aria-label="Anchor">#</a>
+    </span>        
+    
+</h3>
+<p>Another important part in my CI/CD pipeline is the actual network testing of  the fabric after a proposed change is applied. For this I will use Arista Network Test Automation framework. For more information read <a href="https://anta.arista.com/stable/" target="_blank">here</a> and <a href="https://avd.arista.com/5.2/ansible_collections/arista/avd/roles/eos_validate_state/index.html?h=" target="_blank">here</a></p>
+<p>ANTA In short:</p>
+<blockquote>
+<p>ANTA is Python framework that automates tests for Arista devices.</p>
+<ul>
+<li>ANTA provides a <a href="https://anta.arista.com/stable/api/tests/" target="_blank">set of tests</a> to validate the state of your network</li>
+<li>ANTA can be used to:</li>
+<li>Automate NRFU (Network Ready For Use) test on a preproduction network</li>
+<li>Automate tests on a live network (periodically or on demand)</li>
+<li>ANTA can be used with:</li>
+<li>As a <a href="https://anta.arista.com/stable/advanced_usages/as-python-lib/" target="_blank">Python library</a> in your own application</li>
+<li>The <a href="https://anta.arista.com/stable/cli/overview/" target="_blank">ANTA CLI</a></li>
+</ul>
+</blockquote>
+<p>Source: <a href="https://anta.arista.com/stable/" target="_blank">https://anta.arista.com/stable/</a></p>
+<p>I have already laid the groundwork to enable this as part of my pipeline, it is just adding another step in my workflow pointing to a &ldquo;<em>anta.yml</em>&rdquo; I have created and saved in the root of my repo to run a set of tests based on the fabric I have deployed. The content of my anta.yaml:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">validate states on EOS devices using ANTA</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l">FABRIC</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">gather_facts</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">tasks</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">validate states on EOS devices</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">ansible.builtin.import_role</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">arista.avd.eos_validate_state</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">vars</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c"># To enable ANTA</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">use_anta</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c"># To save catalogs</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">save_catalog</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span></code></pre></div><p>This yaml is called upon by using ansible-playbook i &ldquo;inventory.yml&rdquo; anta.yml. So I need to add that as a step in my workflow using my <em>dev-inventory.yml</em>. See below for my updated build workflow:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Run Automated Network Testing in Dev</span><span class="w"> </span><span class="c"># Added using the dev-inventory.yml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          . /workspace/ansible-venv/bin/activate
+</span></span></span><span class="line"><span class="cl"><span class="sd">          ansible-playbook -i dev-inventory.yml anta.yml</span><span class="w">          
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Commit and Push Generated Files</span><span class="w"> </span><span class="c"># updated to reflect an additional folder created by anta, reports</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          # Make sure any generated files are added to Git
+</span></span></span><span class="line"><span class="cl"><span class="sd">          if [ -d &#34;documentation&#34; ]; then
+</span></span></span><span class="line"><span class="cl"><span class="sd">            git add documentation/
+</span></span></span><span class="line"><span class="cl"><span class="sd">          fi
+</span></span></span><span class="line"><span class="cl"><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          if [ -d &#34;intended&#34; ]; then
+</span></span></span><span class="line"><span class="cl"><span class="sd">            git add intended/
+</span></span></span><span class="line"><span class="cl"><span class="sd">          fi
+</span></span></span><span class="line"><span class="cl"><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          if [ -d &#34;reports&#34; ]; then
+</span></span></span><span class="line"><span class="cl"><span class="sd">            git add reports/
+</span></span></span><span class="line"><span class="cl"><span class="sd">          fi
+</span></span></span><span class="line"><span class="cl"><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          git config user.name &#34;gitea-runner&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">          git config user.email &#34;andreas.lastname@gmail.com&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">          # Get the current branch name dynamically
+</span></span></span><span class="line"><span class="cl"><span class="sd">          CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+</span></span></span><span class="line"><span class="cl"><span class="sd">          git commit -s -m &#34;Update generated files from branch $CURRENT_BRANCH&#34; || echo &#34;No changes to commit&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          # Push changes to the current branch
+</span></span></span><span class="line"><span class="cl"><span class="sd">          git push origin $CURRENT_BRANCH</span><span class="w">          
+</span></span></span></code></pre></div><p>When I do a push from any branch except main now my workflow will include the step of running ANTA to test my fabric and give me a full report of the tests performed.</p>
+
+
+<h2 class="relative group">How it is intended to work - from zero to hero with CI/CD 
+    <div id="how-it-is-intended-to-work---from-zero-to-hero-with-cicd" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#how-it-is-intended-to-work---from-zero-to-hero-with-cicd" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<p>Now that all preparations is done, it is time to test the workflows and see if it does whats expected.</p>
+<p>The whole idea is that when a branch is merged or a pull request is approved the code is good to continue to next step. That means my main repo contains a valid and approved code ready for production. The last step is simply to get the code from main pushed to CVP for its last approval either manually or automatic in CVP. There should never be any code changes directly in main, especially related to the folder <em>group_vars/</em>. The only way to get code approved in main is via a &ldquo;dev&rdquo; branch. When merged, its good to go. In CVP we have additional mechanisms to verify and check the config, such as verifying if the config is suitable for the switch its being applied to (feature validation), other validations such as warnings or errors if config will break something when it is applied.</p>
+<p>Without further ado, lets interact with my pipeline and follow the steps being done.</p>
+<p>The context here is that I have two separate environments running, already applied with working configurations. The development environment is an exact copy of my production environment. My two environments are running in their own instance in Containerlab. So no physical switches will be involved in this exercise.</p>
+<p>In my terminal I have placed myself in the folder where I have cloned my git repo and are checkout to the <em>main</em> branch, I have activated the Python environment for <em>pre-commit</em>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="o">(</span>pre-commit<span class="o">)</span> ➜  ci_cd_pipeline_1.clab git:<span class="o">(</span>main<span class="o">)</span>
+</span></span></code></pre></div><p>Now as a &ldquo;developer&rdquo; I need to add a simple change to an Ethernet port on three of my switches. The name is wrong. The first thing I need to do is create a new branch:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-zsh" data-lang="zsh"><span class="line"><span class="cl"><span class="o">(</span>pre-commit<span class="o">)</span> ➜  ci_cd_pipeline_1.clab git:<span class="o">(</span>main<span class="o">)</span> git checkout -b dev_branch
+</span></span><span class="line"><span class="cl">Switched to a new branch <span class="s1">&#39;dev_branch&#39;</span>
+</span></span></code></pre></div><p>Now I can update the AVD yaml file related to this Ethernet port, which is found under <em>group_vars/CONNECTED_ENDPOINT.yml</em></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-zsh" data-lang="zsh"><span class="line"><span class="cl"><span class="o">(</span>pre-commit<span class="o">)</span> ➜  ci_cd_pipeline_1.clab git:<span class="o">(</span>dev_branch<span class="o">)</span> vim group_vars/CONNECTED_ENDPOINTS.yml
+</span></span></code></pre></div><p>There I will change the name of a server connected to this port:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">servers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">dc1-leaf1-server1-anta</span><span class="w"> </span><span class="c"># change this </span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">servers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">dc1-leaf1-server1-production</span><span class="w"> </span><span class="c"># to this</span><span class="w">
+</span></span></span></code></pre></div><p>Write &amp; save</p>
+<p>Now I need to tell git about this change, commit:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-zsh" data-lang="zsh"><span class="line"><span class="cl"><span class="o">(</span>pre-commit<span class="o">)</span> ➜  ci_cd_pipeline_1.clab git:<span class="o">(</span>dev_branch<span class="o">)</span> ✗ git add .
+</span></span><span class="line"><span class="cl"><span class="o">(</span>pre-commit<span class="o">)</span> ➜  ci_cd_pipeline_1.clab git:<span class="o">(</span>dev_branch<span class="o">)</span> ✗ git commit -s -m <span class="s2">&#34;name_update_eth&#34;</span>
+</span></span><span class="line"><span class="cl">trim trailing whitespace.................................................Passed
+</span></span><span class="line"><span class="cl">fix end of files.........................................................Passed
+</span></span><span class="line"><span class="cl">check yaml...............................................................Passed
+</span></span><span class="line"><span class="cl"><span class="o">[</span>dev_branch e2ccc2d<span class="o">]</span> name_update_eth
+</span></span><span class="line"><span class="cl"> <span class="m">1</span> file changed, <span class="m">1</span> insertion<span class="o">(</span>+<span class="o">)</span>, <span class="m">1</span> deletion<span class="o">(</span>-<span class="o">)</span>
+</span></span></code></pre></div><p>It passed my linting check. If it had failed on any of the three it would auto-correct and I just need to do a new git add and commit.</p>
+<p>And now push from the branch <em>dev-branch</em>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-zsh" data-lang="zsh"><span class="line"><span class="cl"><span class="o">(</span>pre-commit<span class="o">)</span> ➜  ci_cd_pipeline_1.clab git:<span class="o">(</span>dev_branch<span class="o">)</span> git push origin dev_branch
+</span></span><span class="line"><span class="cl">Enumerating objects: 7, <span class="k">done</span>.
+</span></span><span class="line"><span class="cl">Counting objects: 100% <span class="o">(</span>7/7<span class="o">)</span>, <span class="k">done</span>.
+</span></span><span class="line"><span class="cl">Delta compression using up to <span class="m">12</span> threads
+</span></span><span class="line"><span class="cl">Compressing objects: 100% <span class="o">(</span>4/4<span class="o">)</span>, <span class="k">done</span>.
+</span></span><span class="line"><span class="cl">Writing objects: 100% <span class="o">(</span>4/4<span class="o">)</span>, <span class="m">393</span> bytes <span class="p">|</span> 393.00 KiB/s, <span class="k">done</span>.
+</span></span><span class="line"><span class="cl">Total <span class="m">4</span> <span class="o">(</span>delta 3<span class="o">)</span>, reused <span class="m">0</span> <span class="o">(</span>delta 0<span class="o">)</span>, pack-reused <span class="m">0</span>
+</span></span><span class="line"><span class="cl">remote:
+</span></span><span class="line"><span class="cl">remote: Create a new pull request <span class="k">for</span> <span class="s1">&#39;dev_branch&#39;</span>:
+</span></span><span class="line"><span class="cl">remote:   https://gitea.mydomain.net/andreasm/ci_cd_pipeline_1/compare/main...dev_branch
+</span></span><span class="line"><span class="cl">remote:
+</span></span><span class="line"><span class="cl">remote: . Processing <span class="m">1</span> references
+</span></span><span class="line"><span class="cl">remote: Processed <span class="m">1</span> references in total
+</span></span><span class="line"><span class="cl">To gitea-01.int.mydomain.net:andreasm/ci_cd_pipeline_1.git
+</span></span><span class="line"><span class="cl"> * <span class="o">[</span>new branch<span class="o">]</span>      dev_branch -&gt; dev_branch
+</span></span></code></pre></div><p>Instantly an action is started in my git repo:</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        src="/2025/02/11/ci/cd-with-arista-validated-design/images/image-20250213114839746.png"
+        alt="an action has started"
+      />
+      
+    </figure>
+</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        src="/2025/02/11/ci/cd-with-arista-validated-design/images/image-20250213114907618.png"
+        alt="success"
+      />
+      
+    </figure>
+</p>
+<p>The steps that run are defined in my <em>run_ansible_build.yaml</em> workflow. Now I can have check in my dev-branch what the config looks like, did the network testing pass, how does it look like in my test-environment. Let see.</p>
+<p>First I will check my digital twin environment, so I will log into dev-leaf1a and check:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">andreasm@linuxmgmt10:~/containerlab/$ ssh ansible@172.18.101.113
+</span></span><span class="line"><span class="cl">ceos-dc1-leaf1a&gt;enable
+</span></span><span class="line"><span class="cl">ceos-dc1-leaf1a#show running-config
+</span></span><span class="line"><span class="cl">!
+</span></span><span class="line"><span class="cl">interface Ethernet5
+</span></span><span class="line"><span class="cl">   description SERVER_dc1-leaf1-server1-production_PCI1 <span class="c1">#There it is!!</span>
+</span></span><span class="line"><span class="cl">   switchport trunk native vlan <span class="m">4092</span>
+</span></span><span class="line"><span class="cl">   switchport trunk allowed vlan 11-12,21-22
+</span></span><span class="line"><span class="cl">   switchport mode trunk
+</span></span></code></pre></div><p><strong>NOTE</strong> My test/dev environment used 172.18.101.x/24 for the management subnet while my production environment uses 172.18.100.x/24</p>
+<p>Lets have a look at the files generated in my dev-branch under documentation, intended and reports:</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        src="/2025/02/11/ci/cd-with-arista-validated-design/images/image-20250213115642165.png"
+        alt="dev-branch"
+      />
+      
+    </figure>
+</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        src="/2025/02/11/ci/cd-with-arista-validated-design/images/image-20250213115719287.png"
+        alt="documentation"
+      />
+      
+    </figure>
+</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        src="/2025/02/11/ci/cd-with-arista-validated-design/images/image-20250213115800700.png"
+        alt="intended"
+      />
+      
+    </figure>
+</p>
+<p>What about my ANTA tests?</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        src="/2025/02/11/ci/cd-with-arista-validated-design/images/image-20250213115853115.png"
+        alt="report"
+      />
+      
+    </figure>
+</p>
+<p>2 failed out 466&hellip; Not bad. I know what caused the two failed tests and that is two interfaces I have on purpose disconnected to not interfere with my production environment.</p>
+<p>I am very satisfied with this. I will approve this pull request and do a merge.</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        src="/2025/02/11/ci/cd-with-arista-validated-design/images/image-20250213120027151.png"
+        alt="new-pr"
+      />
+      
+    </figure>
+</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        src="/2025/02/11/ci/cd-with-arista-validated-design/images/image-20250213120045461.png"
+        alt="select_from_branch"
+      />
+      
+    </figure>
+</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        src="/2025/02/11/ci/cd-with-arista-validated-design/images/image-20250213120112559.png"
+        alt="see_diffs"
+      />
+      
+    </figure>
+</p>
+<p>I can instantly see the diff and check before I actually approve.</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        src="/2025/02/11/ci/cd-with-arista-validated-design/images/image-20250213120210588.png"
+        alt="merge_approve"
+      />
+      
+    </figure>
+</p>
+<p>Merge and delete the branch. Not needed anymore.</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        src="/2025/02/11/ci/cd-with-arista-validated-design/images/image-20250213120247383.png"
+        alt="merge_delete"
+      />
+      
+    </figure>
+</p>
+<p>Now my second workflow kicks in and runs some tasks.</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        src="/2025/02/11/ci/cd-with-arista-validated-design/images/image-20250213120259961.png"
+        alt="build_deploy_cvp_workflow_1"
+      />
+      
+    </figure>
+</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        src="/2025/02/11/ci/cd-with-arista-validated-design/images/image-20250213120315950.png"
+        alt="build_deploy_cvp_workflow_2"
+      />
+      
+    </figure>
+</p>
+<p>Completed.</p>
+<p>Again, this workflow will now merge the changes into main, then AVD will take the new config and push that to my CloudVision instance. As this run was successful, lets log in to CloudVision and see whats waiting for me there:</p>
+<p>In CloudVision:</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        src="/2025/02/11/ci/cd-with-arista-validated-design/images/image-20250213120548914.png"
+        alt="3-tasks"
+      />
+      
+    </figure>
+</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        src="/2025/02/11/ci/cd-with-arista-validated-design/images/image-20250213120612193.png"
+        alt="change_control"
+      />
+      
+    </figure>
+</p>
+<p>Review change:</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        src="/2025/02/11/ci/cd-with-arista-validated-design/images/image-20250213120645778.png"
+        alt="review_change"
+      />
+      
+    </figure>
+</p>
+<p>Approve:</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        src="/2025/02/11/ci/cd-with-arista-validated-design/images/image-20250213120707448.png"
+        alt="approve"
+      />
+      
+    </figure>
+</p>
+<p>Now my production environment is applied with the new config.</p>
+<p>Back to the terminal I need to checkout from my dev-branch and into main. Then delete dev-branch and do a git pull in main to get the latest configs/updates generated there.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-zsh" data-lang="zsh"><span class="line"><span class="cl"><span class="o">(</span>pre-commit<span class="o">)</span> ➜  ci_cd_pipeline_1.clab git:<span class="o">(</span>dev_branch<span class="o">)</span> git checkout main
+</span></span><span class="line"><span class="cl">Switched to branch <span class="s1">&#39;main&#39;</span>
+</span></span><span class="line"><span class="cl">Your branch is up to date with <span class="s1">&#39;origin/main&#39;</span>.
+</span></span><span class="line"><span class="cl"><span class="o">(</span>pre-commit<span class="o">)</span> ➜  ci_cd_pipeline_1.clab git:<span class="o">(</span>main<span class="o">)</span> git pull
+</span></span><span class="line"><span class="cl">remote: Enumerating objects: 172, <span class="k">done</span>.
+</span></span><span class="line"><span class="cl">remote: Counting objects: 100% <span class="o">(</span>124/124<span class="o">)</span>, <span class="k">done</span>.
+</span></span><span class="line"><span class="cl">remote: Compressing objects: 100% <span class="o">(</span>74/74<span class="o">)</span>, <span class="k">done</span>.
+</span></span><span class="line"><span class="cl">remote: Total <span class="m">74</span> <span class="o">(</span>delta 62<span class="o">)</span>, reused <span class="m">0</span> <span class="o">(</span>delta 0<span class="o">)</span>, pack-reused <span class="m">0</span>
+</span></span><span class="line"><span class="cl">Unpacking objects: 100% <span class="o">(</span>74/74<span class="o">)</span>, 9.22 KiB <span class="p">|</span> 95.00 KiB/s, <span class="k">done</span>.
+</span></span><span class="line"><span class="cl">From gitea-01.mydomain.net:andreasm/ci_cd_pipeline_1
+</span></span><span class="line"><span class="cl">   102326a..ac560a6  main       -&gt; origin/main
+</span></span><span class="line"><span class="cl">Updating 102326a..ac560a6
+</span></span><span class="line"><span class="cl">Fast-forward
+</span></span><span class="line"><span class="cl"> documentation/devices/ceos-dc1-leaf1a.md           <span class="p">|</span>  <span class="m">4</span> ++--
+</span></span><span class="line"><span class="cl"> documentation/devices/ceos-dc1-leaf1b.md           <span class="p">|</span>  <span class="m">4</span> ++--
+</span></span><span class="line"><span class="cl"> documentation/devices/ceos-dc1-leaf1c.md           <span class="p">|</span>  <span class="m">4</span> ++--
+</span></span><span class="line"><span class="cl"> group_vars/CONNECTED_ENDPOINTS.yml                 <span class="p">|</span>  <span class="m">2</span> +-
+</span></span><span class="line"><span class="cl"> intended/configs/ceos-dc1-leaf1a.cfg               <span class="p">|</span>  <span class="m">2</span> +-
+</span></span><span class="line"><span class="cl"> intended/configs/ceos-dc1-leaf1b.cfg               <span class="p">|</span>  <span class="m">2</span> +-
+</span></span><span class="line"><span class="cl"> intended/configs/ceos-dc1-leaf1c.cfg               <span class="p">|</span>  <span class="m">2</span> +-
+</span></span><span class="line"><span class="cl"> intended/structured_configs/ceos-dc1-leaf1a.yml    <span class="p">|</span>  <span class="m">4</span> ++--
+</span></span><span class="line"><span class="cl"> intended/structured_configs/ceos-dc1-leaf1b.yml    <span class="p">|</span>  <span class="m">4</span> ++--
+</span></span><span class="line"><span class="cl"> intended/structured_configs/ceos-dc1-leaf1c.yml    <span class="p">|</span>  <span class="m">4</span> ++--
+</span></span><span class="line"><span class="cl"> intended/test_catalogs/ceos-dc1-leaf1a-catalog.yml <span class="p">|</span>  <span class="m">3</span> ++-
+</span></span><span class="line"><span class="cl"> intended/test_catalogs/ceos-dc1-leaf1b-catalog.yml <span class="p">|</span>  <span class="m">3</span> ++-
+</span></span><span class="line"><span class="cl"> intended/test_catalogs/ceos-dc1-leaf1c-catalog.yml <span class="p">|</span>  <span class="m">3</span> ++-
+</span></span><span class="line"><span class="cl"> reports/FABRIC-state.csv                           <span class="p">|</span> <span class="m">26</span> +++++++++++++-------------
+</span></span><span class="line"><span class="cl"> reports/FABRIC-state.md                            <span class="p">|</span> <span class="m">60</span> +++++++++++++++++++++++++-----------------------------------
+</span></span><span class="line"><span class="cl"> reports/test_results/ceos-dc1-leaf1a-results.json  <span class="p">|</span>  <span class="m">7</span> ++-----
+</span></span><span class="line"><span class="cl"> reports/test_results/ceos-dc1-leaf1b-results.json  <span class="p">|</span>  <span class="m">7</span> ++-----
+</span></span><span class="line"><span class="cl"> reports/test_results/ceos-dc1-leaf1c-results.json  <span class="p">|</span>  <span class="m">7</span> ++-----
+</span></span><span class="line"><span class="cl"> reports/test_results/ceos-dc1-leaf2a-results.json  <span class="p">|</span>  <span class="m">5</span> +----
+</span></span><span class="line"><span class="cl"> reports/test_results/ceos-dc1-leaf2b-results.json  <span class="p">|</span>  <span class="m">5</span> +----
+</span></span><span class="line"><span class="cl"> reports/test_results/ceos-dc1-leaf2c-results.json  <span class="p">|</span>  <span class="m">5</span> +----
+</span></span><span class="line"><span class="cl"> reports/test_results/ceos-dc1-leaf3a-results.json  <span class="p">|</span>  <span class="m">5</span> +----
+</span></span><span class="line"><span class="cl"> reports/test_results/ceos-dc1-leaf3b-results.json  <span class="p">|</span>  <span class="m">5</span> +----
+</span></span><span class="line"><span class="cl"> reports/test_results/ceos-dc1-spine1-results.json  <span class="p">|</span>  <span class="m">5</span> +----
+</span></span><span class="line"><span class="cl"> reports/test_results/ceos-dc1-spine2-results.json  <span class="p">|</span>  <span class="m">5</span> +----
+</span></span><span class="line"><span class="cl"> <span class="m">25</span> files changed, <span class="m">73</span> insertions<span class="o">(</span>+<span class="o">)</span>, <span class="m">110</span> deletions<span class="o">(</span>-<span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="o">(</span>pre-commit<span class="o">)</span> ➜  ci_cd_pipeline_1.clab git:<span class="o">(</span>main<span class="o">)</span> git branch -D dev_branch
+</span></span><span class="line"><span class="cl">Deleted branch dev_branch <span class="o">(</span>was e2ccc2d<span class="o">)</span>.
+</span></span></code></pre></div><p>Ofcource this would have been much more interesting if seen live, in a video etc. But I just have to say this is awesome!!</p>
+<p>To refresh our memory of what I just did, below is my before mentioned pipeline:</p>
+<p>
+    <figure>
+      <img
+        class="my-0 rounded-md"
+        loading="lazy"
+        src="/2025/02/11/ci/cd-with-arista-validated-design/images/image-20250213112927049.png"
+        alt="from-beginning_to_end"
+      />
+      
+    </figure>
+</p>
+
+
+<h2 class="relative group">Workflow files used in my git repo 
+    <div id="workflow-files-used-in-my-git-repo" class="anchor"></div>
+    
+    <span
+        class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
+        <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
+            style="text-decoration-line: none !important;" href="#workflow-files-used-in-my-git-repo" aria-label="Anchor">#</a>
+    </span>        
+    
+</h2>
+<p>I have two files still in my .gitea/workflows:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-zsh" data-lang="zsh"><span class="line"><span class="cl"><span class="o">(</span>pre-commit<span class="o">)</span> ➜  ci_cd_pipeline_1.clab git:<span class="o">(</span>main<span class="o">)</span> ls .gitea/workflows
+</span></span><span class="line"><span class="cl">run_ansible_build.yaml            run_ansible_build_deploy-cvp.yaml
+</span></span></code></pre></div><p>And the full content respectively:</p>
+<p><em>run_ansible_build.yaml</em>: (runs only when push on any other branches than main)</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;CI Runner ansible build - all except main&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">on</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">push</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s1">&#39;*&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s1">&#39;!main&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">paths</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s1">&#39;group_vars/*&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">jobs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">run-avd-build</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;registry.mydomain.net/avd/avd-5.2:v2&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Checkout Repository</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v4</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Build Dev Configurations and Documentation</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          . /workspace/ansible-venv/bin/activate
+</span></span></span><span class="line"><span class="cl"><span class="sd">          ansible-playbook -i dev-inventory.yml build.yml</span><span class="w">          
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Deploy to Dev digital-twin</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          . /workspace/ansible-venv/bin/activate
+</span></span></span><span class="line"><span class="cl"><span class="sd">          ansible-playbook -i dev-inventory.yml deploy.yml</span><span class="w">          
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Run Automated Network Testing in Dev</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          . /workspace/ansible-venv/bin/activate
+</span></span></span><span class="line"><span class="cl"><span class="sd">          ansible-playbook -i dev-inventory.yml anta.yml</span><span class="w">          
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Commit and Push Generated Files</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          # Make sure any generated files are added to Git
+</span></span></span><span class="line"><span class="cl"><span class="sd">          if [ -d &#34;documentation&#34; ]; then
+</span></span></span><span class="line"><span class="cl"><span class="sd">            git add documentation/
+</span></span></span><span class="line"><span class="cl"><span class="sd">          fi
+</span></span></span><span class="line"><span class="cl"><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          if [ -d &#34;intended&#34; ]; then
+</span></span></span><span class="line"><span class="cl"><span class="sd">            git add intended/
+</span></span></span><span class="line"><span class="cl"><span class="sd">          fi
+</span></span></span><span class="line"><span class="cl"><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          if [ -d &#34;reports&#34; ]; then
+</span></span></span><span class="line"><span class="cl"><span class="sd">            git add reports/
+</span></span></span><span class="line"><span class="cl"><span class="sd">          fi
+</span></span></span><span class="line"><span class="cl"><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          git config user.name &#34;gitea-runner&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">          git config user.email &#34;andreas.lastname@gmail.com&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">          # Get the current branch name dynamically
+</span></span></span><span class="line"><span class="cl"><span class="sd">          CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+</span></span></span><span class="line"><span class="cl"><span class="sd">          git commit -s -m &#34;Update generated files from branch $CURRENT_BRANCH&#34; || echo &#34;No changes to commit&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          # Push changes to the current branch
+</span></span></span><span class="line"><span class="cl"><span class="sd">          git push origin $CURRENT_BRANCH</span><span class="w">          
+</span></span></span></code></pre></div><p><em>run_ansible_build_deploy-cvp.yaml</em>: (runs only on main)</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;CI Runner ansible deploy-cvp - in main&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">on</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">push</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s1">&#39;main&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">paths</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s1">&#39;group_vars/*&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">jobs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">run-avd-build</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;registry.mydomain.net/avd/avd-5.2:v2&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Checkout Repository</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v4</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Build Prod Configurations and Documentation</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          . /workspace/ansible-venv/bin/activate
+</span></span></span><span class="line"><span class="cl"><span class="sd">          ansible-playbook -i inventory.yml build.yml</span><span class="w">          
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Commit and Push Generated Files</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          # Make sure any generated files are added to Git
+</span></span></span><span class="line"><span class="cl"><span class="sd">          if [ -d &#34;documentation&#34; ]; then
+</span></span></span><span class="line"><span class="cl"><span class="sd">            git add documentation/
+</span></span></span><span class="line"><span class="cl"><span class="sd">          fi
+</span></span></span><span class="line"><span class="cl"><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          if [ -d &#34;intended&#34; ]; then
+</span></span></span><span class="line"><span class="cl"><span class="sd">            git add intended/
+</span></span></span><span class="line"><span class="cl"><span class="sd">          fi
+</span></span></span><span class="line"><span class="cl"><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          if [ -d &#34;reports&#34; ]; then
+</span></span></span><span class="line"><span class="cl"><span class="sd">            git add reports/
+</span></span></span><span class="line"><span class="cl"><span class="sd">          fi
+</span></span></span><span class="line"><span class="cl"><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          git config user.name &#34;gitea-runner&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">          git config user.email &#34;andreas.lastname@gmail.com&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">          # Get the current branch name dynamically
+</span></span></span><span class="line"><span class="cl"><span class="sd">          CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+</span></span></span><span class="line"><span class="cl"><span class="sd">          git commit -s -m &#34;Update generated files from branch $CURRENT_BRANCH&#34; || echo &#34;No changes to commit&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          # Push changes to the current branch
+</span></span></span><span class="line"><span class="cl"><span class="sd">          git push origin $CURRENT_BRANCH</span><span class="w">          
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Deploy changes to CloudVision</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          . /workspace/ansible-venv/bin/activate
+</span></span></span><span class="line"><span class="cl"><span class="sd">          ansible-playbook -i inventory.yml deploy-cvp.yml</span><span class="w">          
+</span></span></span></code></pre></div>
+          
+          
+          
+        </div>
+        
+        
+
+        
+        
+  
+  <section class="flex flex-row flex-wrap justify-center pt-4 text-xl">
+    
+      
+      <a
+      target="_blank"
+      class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+      href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https://blog.andreasm.io/2025/02/11/ci/cd-with-arista-validated-design/&amp;title=CI/CD%20with%20Arista%20Validated%20Design"
+      title="Share on LinkedIn"
+      aria-label="Share on LinkedIn"
+      >
+      
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5 0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9V416z"/></svg>
+
+  </span>
+
+
+    </a>
+      
+    
+      
+      <a
+      target="_blank"
+      class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+      href="https://twitter.com/intent/tweet/?url=https://blog.andreasm.io/2025/02/11/ci/cd-with-arista-validated-design/&amp;text=CI/CD%20with%20Arista%20Validated%20Design"
+      title="Tweet on Twitter"
+      aria-label="Tweet on Twitter"
+      >
+      
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/></svg>
+  </span>
+
+
+    </a>
+      
+    
+      
+      <a
+      target="_blank"
+      class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+      href="https://s2f.kytta.dev/?text=CI/CD%20with%20Arista%20Validated%20Design%20https://blog.andreasm.io/2025/02/11/ci/cd-with-arista-validated-design/"
+      title=""
+      aria-label=""
+      >
+      
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M433 179.11c0-97.2-63.71-125.7-63.71-125.7-62.52-28.7-228.56-28.4-290.48 0 0 0-63.72 28.5-63.72 125.7 0 115.7-6.6 259.4 105.63 289.1 40.51 10.7 75.32 13 103.33 11.4 50.81-2.8 79.32-18.1 79.32-18.1l-1.7-36.9s-36.31 11.4-77.12 10.1c-40.41-1.4-83-4.4-89.63-54a102.54 102.54 0 0 1-.9-13.9c85.63 20.9 158.65 9.1 178.75 6.7 56.12-6.7 105-41.3 111.23-72.9 9.8-49.8 9-121.5 9-121.5zm-75.12 125.2h-46.63v-114.2c0-49.7-64-51.6-64 6.9v62.5h-46.33V197c0-58.5-64-56.6-64-6.9v114.2H90.19c0-122.1-5.2-147.9 18.41-175 25.9-28.9 79.82-30.8 103.83 6.1l11.6 19.5 11.6-19.5c24.11-37.1 78.12-34.8 103.83-6.1 23.71 27.3 18.4 53 18.4 175z"/></svg>
+
+  </span>
+
+
+    </a>
+      
+    
+      
+      <a
+      target="_blank"
+      class="m-1 rounded bg-neutral-300 p-1.5 text-neutral-700 hover:bg-primary-500 hover:text-neutral dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-primary-400 dark:hover:text-neutral-800"
+      href="mailto:?body=https://blog.andreasm.io/2025/02/11/ci/cd-with-arista-validated-design/&amp;subject=CI/CD%20with%20Arista%20Validated%20Design"
+      title="Send via email"
+      aria-label="Send via email"
+      >
+      
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M207.8 20.73c-93.45 18.32-168.7 93.66-187 187.1c-27.64 140.9 68.65 266.2 199.1 285.1c19.01 2.888 36.17-12.26 36.17-31.49l.0001-.6631c0-15.74-11.44-28.88-26.84-31.24c-84.35-12.98-149.2-86.13-149.2-174.2c0-102.9 88.61-185.5 193.4-175.4c91.54 8.869 158.6 91.25 158.6 183.2l0 16.16c0 22.09-17.94 40.05-40 40.05s-40.01-17.96-40.01-40.05v-120.1c0-8.847-7.161-16.02-16.01-16.02l-31.98 .0036c-7.299 0-13.2 4.992-15.12 11.68c-24.85-12.15-54.24-16.38-86.06-5.106c-38.75 13.73-68.12 48.91-73.72 89.64c-9.483 69.01 43.81 128 110.9 128c26.44 0 50.43-9.544 69.59-24.88c24 31.3 65.23 48.69 109.4 37.49C465.2 369.3 496 324.1 495.1 277.2V256.3C495.1 107.1 361.2-9.332 207.8 20.73zM239.1 304.3c-26.47 0-48-21.56-48-48.05s21.53-48.05 48-48.05s48 21.56 48 48.05S266.5 304.3 239.1 304.3z"/></svg>
+
+  </span>
+
+
+    </a>
+      
+    
+  </section>
+
+
+        
+
+
+<h2 class="mt-8 text-2xl font-extrabold mb-10">Related</h2>
+<section class="w-full grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+  
+  
+
+  <a href="/2024/08/22/arista-cloudvision-and-avd-using-containerlab/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/2024/08/22/arista-cloudvision-and-avd-using-containerlab/feature-arista-networks.jpg);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/2024/08/22/arista-cloudvision-and-avd-using-containerlab/">Arista Cloudvision and AVD using Containerlab</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2024-08-22T21:26:33&#43;02:00">22 August 2024</time><span class="px-2 text-primary-500">&middot;</span><span>6812 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">32 mins</span>
+  
+
+  
+  
+</div>
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/categories/networking/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Networking
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/categories/provisioning/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Provisioning
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/categories/automation/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Automation
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/categories/ceos/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    CEOS
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/categories/veos/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    VEOS
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/categories/arista/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Arista
+  </span>
+</span>
+  </span>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/networking/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Networking
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/provisioning/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Provisioning
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/automation/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Automation
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/arista/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Arista
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/veos/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Veos
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/ceos/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Ceos
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/containerlab/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Containerlab
+  </span>
+</span>
+  </span>
+  
+  
+  
+  
+</div>
+
+
+
+
+        </div>
+
+        
+        <div class="py-1 prose dark:prose-invert">
+          Using Containerlab to provision cEOS containers for AVD and CloudVision
+        </div>
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+  
+
+  <a href="/2024/02/04/argo-cd-vsphere-with-tanzu/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/2024/02/04/argo-cd-vsphere-with-tanzu/feature-argocd.png);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/2024/02/04/argo-cd-vsphere-with-tanzu/">Argo CD & vSphere with Tanzu</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2024-02-04T11:28:21&#43;01:00">4 February 2024</time><span class="px-2 text-primary-500">&middot;</span><span>4554 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">22 mins</span>
+  
+
+  
+  
+</div>
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/categories/kubernetes/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Kubernetes
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/categories/tanzu/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Tanzu
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/categories/argocd/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    ArgoCD
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/categories/avi/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    AVI
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/categories/vsphere/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    VSphere
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/categories/gitops/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Gitops
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/categories/automation/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Automation
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/categories/antrea/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Antrea
+  </span>
+</span>
+  </span>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/kubernetes/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Kubernetes
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/gitops/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Gitops
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/argocd/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Argocd
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/vsphere/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Vsphere
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/tanzu/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Tanzu
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/ako/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Ako
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/avi/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Avi
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/antrea/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Antrea
+  </span>
+</span>
+  </span>
+  
+  
+  
+  
+</div>
+
+
+
+
+        </div>
+
+        
+        <div class="py-1 prose dark:prose-invert">
+          In this post I am using ArgoCD bootstrapping Tanzu Kubernetes Clusters with AKO and Antrea configs
+        </div>
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+  
+
+  <a href="/2024/11/08/overlay-on-overlay-arista-in-the-underlay/" class="min-w-full">
+    
+    <div class="min-h-full border border-neutral-200 dark:border-neutral-700 border-2 rounded overflow-hidden shadow-2xl relative">
+        
+        <div class="w-full thumbnail_card_related nozoom" style="background-image:url(/2024/11/08/overlay-on-overlay-arista-in-the-underlay/feature-arista-networks.jpg);"></div>
+        
+      
+
+      <div class="px-6 py-4">
+
+        
+        <div class="font-bold text-xl text-neutral-800 decoration-primary-500 hover:underline hover:underline-offset-2 dark:text-neutral"
+          href="/2024/11/08/overlay-on-overlay-arista-in-the-underlay/">Overlay on overlay - Arista in the underlay</div>
+        
+
+        <div class="text-sm text-neutral-500 dark:text-neutral-400">
+          
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  <time datetime="2024-11-08T08:56:51&#43;01:00">8 November 2024</time><span class="px-2 text-primary-500">&middot;</span><span>10127 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">48 mins</span>
+  
+
+  
+  
+</div>
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+</div>
+
+
+
+
+<div class="flex flex-row flex-wrap items-center">
+  
+  
+  
+  
+  
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/categories/networking/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Networking
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/categories/eos/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    EOS
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/categories/arista/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Arista
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/categories/overlay/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Overlay
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/categories/encapsulation/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Encapsulation
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/categories/topologies/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Topologies
+  </span>
+</span>
+  </span>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/networking/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Networking
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/eos/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    EOS
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/arista/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Arista
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/overlay/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Overlay
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/encapsulation/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Encapsulation
+  </span>
+</span>
+  </span>
+  
+  <span style="margin-top:0.5rem" class="mr-2" onclick="window.open(&#34;/tags/topologies/&#34;,'_self');return false;">
+    <span class="flex" style="cursor: pointer;">
+  <span class="rounded-md border border-primary-400 px-1 py-[1px] text-xs font-normal text-primary-700 dark:border-primary-600 dark:text-primary-400">
+    Topologies
+  </span>
+</span>
+  </span>
+  
+  
+  
+  
+</div>
+
+
+
+
+        </div>
+
+        
+        <div class="py-1 prose dark:prose-invert">
+          Describing typical deployments where we end up with double encapsulation, how to monitor, troubleshoot
+        </div>
+        
+      </div>
+      <div class="px-6 pt-4 pb-2">
+
+      </div>
+    </div>
+  </a>
+
+  
+</section>
+
+  
+      </div>
+     
+      
+      
+        
+        
+          
+          
+        
+      <script>
+        var oid = "views_posts\/2025-02-11-ci-cd-arista-validated-design\/index.md"
+        var oid_likes = "likes_posts\/2025-02-11-ci-cd-arista-validated-design\/index.md"
+      </script>
+      
+      
+      <script type="text/javascript" src="/js/page.min.0860cf4e04fa2d72cc33ddba263083464d48f67de06114529043cb4623319efed4f484fd7f1730df5abea0e2da6f3538855634081d02f2d6e920b956f063e823.js" integrity="sha512-CGDPTgT6LXLMM926JjCDRk1I9n3gYRRSkEPLRiMxnv7U9IT9fxcw31q&#43;oOLabzU4hVY0CB0C8tbpILlW8GPoIw=="></script>
+      
+  
+    </section>
+  <footer class="pt-8 max-w-prose print:hidden">
+
+    
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group mr-3" href="/2024/12/09/evpn-introduction/">
+              <span
+                class="mr-3 text-neutral-700 group-hover:text-primary-600 ltr:inline rtl:hidden dark:text-neutral dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 text-neutral-700 group-hover:text-primary-600 ltr:hidden rtl:inline dark:text-neutral dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >EVPN introduction</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2024-12-09T14:55:58&#43;01:00">9 December 2024</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+    
+  </footer>
+</article>
+
+      <div id="top-scroller" class="pointer-events-none absolute top-[110vh] bottom-0 w-12 ltr:right-0 rtl:left-0">
+  <a href="#the-top"
+    class="pointer-events-auto sticky top-[calc(100vh-5.5rem)] flex h-12 w-12 mb-16 items-center justify-center rounded-full bg-neutral/50 text-xl text-neutral-700 hover:text-primary-600 dark:bg-neutral-800/50 dark:text-neutral dark:hover:text-primary-400"
+    aria-label="Scroll to top" title="Scroll to top">
+    &uarr;
+  </a>
+</div>
+    </main><footer id="site-footer" class="py-10 print:hidden">
+  
+  
+    
+    <nav class="flex flex-row pb-4 text-base font-medium text-neutral-500 dark:text-neutral-400">
+      <ul class="flex flex-col list-none sm:flex-row">
+        
+        <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/tags/"
+            title="">
+            
+            Tags
+          </a>
+        </li>
+        
+        <li class="flex mb-1 ltr:text-right rtl:text-left sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+          <a class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2 flex items-center" href="/categories/"
+            title="">
+            
+            Categories
+          </a>
+        </li>
+        
+      </ul>
+    </nav>
+    
+  
+  <div class="flex items-center justify-between">
+
+    
+    
+    <p class="text-sm text-neutral-500 dark:text-neutral-400">
+      &copy;
+      2025
+      Andreas Marqvardsen
+    </p>
+    
+
+    
+    
+    <p class="text-xs text-neutral-500 dark:text-neutral-400">
+      
+      
+      Powered by <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+        href="https://blowfish.page/" target="_blank" rel="noopener noreferrer">Blowfish</a>
+    </p>
+    
+
+  </div>
+  <script>
+    
+    mediumZoom(document.querySelectorAll("img:not(.nozoom)"), {
+      margin: 24,
+      background: 'rgba(0,0,0,0.5)',
+      scrollOffset: 0,
+    })
+    
+  </script>
+  
+  
+  <script type="text/javascript" src="/js/process.min.ee03488f19c93c2efb199e2e3014ea5f3cb2ce7d45154adb3399a158cac27ca52831db249ede5bb602700ef87eb02434139de0858af1818ab0fb4182472204a4.js" integrity="sha512-7gNIjxnJPC77GZ4uMBTqXzyyzn1FFUrbM5mhWMrCfKUoMdsknt5btgJwDvh&#43;sCQ0E53ghYrxgYqw&#43;0GCRyIEpA=="></script>
+  
+  
+</footer>
+<div
+  id="search-wrapper"
+  class="invisible fixed inset-0 flex h-screen w-screen cursor-default flex-col bg-neutral-500/50 p-4 backdrop-blur-sm dark:bg-neutral-900/50 sm:p-6 md:p-[10vh] lg:p-[12vh]"
+  data-url="https://blog.andreasm.io/"
+  style="z-index:500"
+>
+  <div
+    id="search-modal"
+    class="flex flex-col w-full max-w-3xl min-h-0 mx-auto border rounded-md shadow-lg top-20 border-neutral-200 bg-neutral dark:border-neutral-700 dark:bg-neutral-800"
+  >
+    <header class="relative z-10 flex items-center justify-between flex-none px-2">
+      <form class="flex items-center flex-auto min-w-0">
+        <div class="flex items-center justify-center w-8 h-8 text-neutral-400">
+          
+
+  <span class="relative block icon">
+    <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="search" class="svg-inline--fa fa-search fa-w-16" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M505 442.7L405.3 343c-4.5-4.5-10.6-7-17-7H372c27.6-35.3 44-79.7 44-128C416 93.1 322.9 0 208 0S0 93.1 0 208s93.1 208 208 208c48.3 0 92.7-16.4 128-44v16.3c0 6.4 2.5 12.5 7 17l99.7 99.7c9.4 9.4 24.6 9.4 33.9 0l28.3-28.3c9.4-9.4 9.4-24.6.1-34zM208 336c-70.7 0-128-57.2-128-128 0-70.7 57.2-128 128-128 70.7 0 128 57.2 128 128 0 70.7-57.2 128-128 128z"/></svg>
+
+  </span>
+
+
+        </div>
+        <input
+          type="search"
+          id="search-query"
+          class="flex flex-auto h-12 mx-1 bg-transparent appearance-none focus:outline-dotted focus:outline-2 focus:outline-transparent"
+          placeholder="Search"
+          tabindex="0"
+        />
+      </form>
+      <button
+        id="close-search-button"
+        class="flex items-center justify-center w-8 h-8 text-neutral-700 hover:text-primary-600 dark:text-neutral dark:hover:text-primary-400"
+        title="Close (Esc)"
+      >
+        
+
+  <span class="relative block icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M310.6 361.4c12.5 12.5 12.5 32.75 0 45.25C304.4 412.9 296.2 416 288 416s-16.38-3.125-22.62-9.375L160 301.3L54.63 406.6C48.38 412.9 40.19 416 32 416S15.63 412.9 9.375 406.6c-12.5-12.5-12.5-32.75 0-45.25l105.4-105.4L9.375 150.6c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0L160 210.8l105.4-105.4c12.5-12.5 32.75-12.5 45.25 0s12.5 32.75 0 45.25l-105.4 105.4L310.6 361.4z"/></svg>
+
+  </span>
+
+
+      </button>
+    </header>
+    <section class="flex-auto px-2 overflow-auto">
+      <ul id="search-results">
+        
+      </ul>
+    </section>
+  </div>
+</div>
+
+  </div>
+</body>
+
+</html>

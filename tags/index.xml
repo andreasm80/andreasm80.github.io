@@ -7,7 +7,57 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© 2025 Andreas Marqvardsen</copyright>
-    <lastBuildDate>Mon, 09 Dec 2024 14:55:58 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 11 Feb 2025 10:35:40 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Arista</title>
+      <link>https://blog.andreasm.io/tags/arista/</link>
+      <pubDate>Tue, 11 Feb 2025 10:35:40 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/tags/arista/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Avd</title>
+      <link>https://blog.andreasm.io/tags/avd/</link>
+      <pubDate>Tue, 11 Feb 2025 10:35:40 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/tags/avd/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>CI/CD</title>
+      <link>https://blog.andreasm.io/tags/ci/cd/</link>
+      <pubDate>Tue, 11 Feb 2025 10:35:40 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/tags/ci/cd/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Git</title>
+      <link>https://blog.andreasm.io/tags/git/</link>
+      <pubDate>Tue, 11 Feb 2025 10:35:40 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/tags/git/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Gitops</title>
+      <link>https://blog.andreasm.io/tags/gitops/</link>
+      <pubDate>Tue, 11 Feb 2025 10:35:40 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/tags/gitops/</guid>
+      <description></description>
+      
+    </item>
     
     <item>
       <title>Evpn</title>
@@ -55,16 +105,6 @@
       <pubDate>Mon, 09 Dec 2024 14:55:58 +0100</pubDate>
       
       <guid>https://blog.andreasm.io/tags/vxlan/</guid>
-      <description></description>
-      
-    </item>
-    
-    <item>
-      <title>Arista</title>
-      <link>https://blog.andreasm.io/tags/arista/</link>
-      <pubDate>Fri, 08 Nov 2024 08:56:51 +0100</pubDate>
-      
-      <guid>https://blog.andreasm.io/tags/arista/</guid>
       <description></description>
       
     </item>
@@ -225,16 +265,6 @@
       <pubDate>Sun, 04 Feb 2024 11:28:21 +0100</pubDate>
       
       <guid>https://blog.andreasm.io/tags/argocd/</guid>
-      <description></description>
-      
-    </item>
-    
-    <item>
-      <title>Gitops</title>
-      <link>https://blog.andreasm.io/tags/gitops/</link>
-      <pubDate>Sun, 04 Feb 2024 11:28:21 +0100</pubDate>
-      
-      <guid>https://blog.andreasm.io/tags/gitops/</guid>
       <description></description>
       
     </item>

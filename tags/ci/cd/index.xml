@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CI/CD on blog.andreasm.io</title>
+    <link>https://blog.andreasm.io/tags/ci/cd/</link>
+    <description>Recent content in CI/CD on blog.andreasm.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>© 2025 Andreas Marqvardsen</copyright>
+    <lastBuildDate>Tue, 11 Feb 2025 10:35:40 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/ci/cd/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>CI/CD with Arista Validated Design</title>
+      <link>https://blog.andreasm.io/2025/02/11/ci/cd-with-arista-validated-design/</link>
+      <pubDate>Tue, 11 Feb 2025 10:35:40 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/2025/02/11/ci/cd-with-arista-validated-design/</guid>
+      <description>In this post I will go through how to configure Github Actions in a CI-CD pipeline automating network configurations using Arista AVD and CloudVision</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2025/02/11/ci/cd-with-arista-validated-design/feature-arista-networks.jpg" />
+    </item>
+    
+  </channel>
+</rss>
