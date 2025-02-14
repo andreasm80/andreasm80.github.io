@@ -116,7 +116,7 @@
     "keywords": ["gitops","git","CI/CD","avd","arista"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "4665"
+    "wordCount": "4685"
   }]
   </script>
 
@@ -631,7 +631,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2025-02-11T10:35:40&#43;01:00">11 February 2025</time><span class="px-2 text-primary-500">&middot;</span><span>4665 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">22 mins</span>
+  <time datetime="2025-02-11T10:35:40&#43;01:00">11 February 2025</time><span class="px-2 text-primary-500">&middot;</span><span>4685 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">22 mins</span>
   
 
   
@@ -1132,7 +1132,7 @@
 <li>Git cli installed on a Linux machine</li>
 <li>Access to a Github account or Gitea hosted locally, with a runner configured (this is what I am using) <a href="https://docs.gitea.com/" target="_blank">Gitea Docs</a></li>
 <li>A Github/Gitea Repository ready and initialized from the Linux machine and Actions enabled (Default in Github).</li>
-<li>Arista CloudVision</li>
+<li>Arista CloudVision (not mandatory as AVD can deploy directly to EOS as seen later, but CloudVision do provide som important features)</li>
 <li>Containerlab with x instances of Arista cEOS (see this <a href="https://blog.andreasm.io/2024/08/22/arista-cloudvision-and-avd-using-containerlab/" target="_blank">post</a>)</li>
 <li>Arista Validated Design installed on a Linux machine to grab an example just to get started (See this <a href="https://avd.arista.com/5.2/docs/installation/collection-installation.html" target="_blank">post</a>)</li>
 <li>Knowledge about Arista Validated Design</li>
@@ -1440,7 +1440,7 @@
 <li>end-of-file-fixer - makes sure files end in a newline and only a newline.</li>
 <li>check-yaml - Attempts to load all yaml files to verify syntax.</li>
 </ul>
-<p><em>Thanks to my collegue Emil for providing this file, and pointing me in the right direction</em></p>
+<p><em>Thanks to my collegue Emil Landström for providing this file, and pointing me in the right direction</em></p>
 <p>After adding this file I need to add, commit and push in my main branch:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-zsh" data-lang="zsh"><span class="line"><span class="cl">➜  ci_cd_pipeline_1.clab git:<span class="o">(</span>main<span class="o">)</span> ✗ git add .
 </span></span><span class="line"><span class="cl">➜  ci_cd_pipeline_1.clab git:<span class="o">(</span>main<span class="o">)</span> ✗ git commit -s -m <span class="s2">&#34;pre-commit&#34;</span>
