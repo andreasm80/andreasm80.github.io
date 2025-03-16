@@ -296,7 +296,7 @@
       
       <guid>https://blog.andreasm.io/2023/02/20/antrea-egress/</guid>
       <description>Antrea Egress: # What is Egress when we talk about Kubernetes?</description>
-      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/02/20/antrea-egress/feature-antrea-stacked-color3.webp" />
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/02/20/antrea-egress/feature-antrea-1.png" />
     </item>
     
     <item>
@@ -346,7 +346,7 @@
       
       <guid>https://blog.andreasm.io/2022/10/26/ako-explained/</guid>
       <description>What is AKO?</description>
-      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2022/10/26/ako-explained/feature-avi_networks.png" />
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2022/10/26/ako-explained/feature-avi-networks-now-part-of-vmware.png" />
     </item>
     
     <item>
@@ -356,7 +356,7 @@
       
       <guid>https://blog.andreasm.io/2022/10/23/gslb-with-ako-amko-nsx-advanced-loadbalancer/</guid>
       <description>Global Server LoadBalancing in VMware Tanzu with AMKO # This post will go through how to configure AVI (NSX ALB) with GSLB in vSphere with Tanzu (TKGs) and an upstream k8s cluster in two different physical locations.</description>
-      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2022/10/23/gslb-with-ako-amko-nsx-advanced-loadbalancer/feature-avi_networks.png" />
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2022/10/23/gslb-with-ako-amko-nsx-advanced-loadbalancer/feature-avi-networks-now-part-of-vmware.png" />
     </item>
     
     <item>
@@ -366,7 +366,7 @@
       
       <guid>https://blog.andreasm.io/2022/10/23/we-take-a-look-at-the-ako-crds/</guid>
       <description>AKO settings: # What happens if we need to to this</description>
-      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2022/10/23/we-take-a-look-at-the-ako-crds/feature-avi_networks.png" />
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2022/10/23/we-take-a-look-at-the-ako-crds/feature-avi-networks-now-part-of-vmware.png" />
     </item>
     
     <item>

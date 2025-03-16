@@ -136,7 +136,7 @@
       
       <guid>https://blog.andreasm.io/2022/10/23/gslb-with-ako-amko-nsx-advanced-loadbalancer/</guid>
       <description>Global Server LoadBalancing in VMware Tanzu with AMKO # This post will go through how to configure AVI (NSX ALB) with GSLB in vSphere with Tanzu (TKGs) and an upstream k8s cluster in two different physical locations.</description>
-      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2022/10/23/gslb-with-ako-amko-nsx-advanced-loadbalancer/feature-avi_networks.png" />
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2022/10/23/gslb-with-ako-amko-nsx-advanced-loadbalancer/feature-avi-networks-now-part-of-vmware.png" />
     </item>
     
   </channel>

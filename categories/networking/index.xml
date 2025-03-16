@@ -116,7 +116,7 @@
       
       <guid>https://blog.andreasm.io/2023/02/20/antrea-egress/</guid>
       <description>Antrea Egress: # What is Egress when we talk about Kubernetes?</description>
-      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/02/20/antrea-egress/feature-antrea-stacked-color3.webp" />
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2023/02/20/antrea-egress/feature-antrea-1.png" />
     </item>
     
     <item>
@@ -136,7 +136,7 @@
       
       <guid>https://blog.andreasm.io/2022/10/23/gslb-with-ako-amko-nsx-advanced-loadbalancer/</guid>
       <description>Global Server LoadBalancing in VMware Tanzu with AMKO # This post will go through how to configure AVI (NSX ALB) with GSLB in vSphere with Tanzu (TKGs) and an upstream k8s cluster in two different physical locations.</description>
-      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2022/10/23/gslb-with-ako-amko-nsx-advanced-loadbalancer/feature-avi_networks.png" />
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2022/10/23/gslb-with-ako-amko-nsx-advanced-loadbalancer/feature-avi-networks-now-part-of-vmware.png" />
     </item>
     
     <item>
@@ -177,6 +177,16 @@
       <guid>https://blog.andreasm.io/2022/01/18/vmware-nsx-application-platform/</guid>
       <description>VMware NSX 3.</description>
       <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2022/01/18/vmware-nsx-application-platform/feature-icon-prod-nsx-service-defined-firewall-rgb-400px.svg" />
+    </item>
+    
+    <item>
+      <title>VMware NSX IDS &amp; IPS</title>
+      <link>https://blog.andreasm.io/2021/10/19/vmware-nsx-ids-ips/</link>
+      <pubDate>Tue, 19 Oct 2021 00:00:00 +0000</pubDate>
+      
+      <guid>https://blog.andreasm.io/2021/10/19/vmware-nsx-ids-ips/</guid>
+      <description>This post will go through the IDS/IPS built-in feature of the NSX distributed firewall.</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2021/10/19/vmware-nsx-ids-ips/feature-icon-prod-nsx-ids-ips-rgb-400px.svg" />
     </item>
     
     <item>
