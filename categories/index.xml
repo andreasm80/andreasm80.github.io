@@ -7,12 +7,12 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© 2025 Andreas Marqvardsen</copyright>
-    <lastBuildDate>Tue, 11 Feb 2025 10:35:40 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 13 Mar 2025 10:14:47 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>Arista</title>
       <link>https://blog.andreasm.io/categories/arista/</link>
-      <pubDate>Tue, 11 Feb 2025 10:35:40 +0100</pubDate>
+      <pubDate>Thu, 13 Mar 2025 10:14:47 +0100</pubDate>
       
       <guid>https://blog.andreasm.io/categories/arista/</guid>
       <description></description>
@@ -22,7 +22,7 @@
     <item>
       <title>Automation</title>
       <link>https://blog.andreasm.io/categories/automation/</link>
-      <pubDate>Tue, 11 Feb 2025 10:35:40 +0100</pubDate>
+      <pubDate>Thu, 13 Mar 2025 10:14:47 +0100</pubDate>
       
       <guid>https://blog.andreasm.io/categories/automation/</guid>
       <description></description>
@@ -32,7 +32,7 @@
     <item>
       <title>Avd</title>
       <link>https://blog.andreasm.io/categories/avd/</link>
-      <pubDate>Tue, 11 Feb 2025 10:35:40 +0100</pubDate>
+      <pubDate>Thu, 13 Mar 2025 10:14:47 +0100</pubDate>
       
       <guid>https://blog.andreasm.io/categories/avd/</guid>
       <description></description>
@@ -42,7 +42,7 @@
     <item>
       <title>CI/CD</title>
       <link>https://blog.andreasm.io/categories/ci/cd/</link>
-      <pubDate>Tue, 11 Feb 2025 10:35:40 +0100</pubDate>
+      <pubDate>Thu, 13 Mar 2025 10:14:47 +0100</pubDate>
       
       <guid>https://blog.andreasm.io/categories/ci/cd/</guid>
       <description></description>
@@ -52,9 +52,19 @@
     <item>
       <title>Gitops</title>
       <link>https://blog.andreasm.io/categories/gitops/</link>
-      <pubDate>Tue, 11 Feb 2025 10:35:40 +0100</pubDate>
+      <pubDate>Thu, 13 Mar 2025 10:14:47 +0100</pubDate>
       
       <guid>https://blog.andreasm.io/categories/gitops/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Netbox</title>
+      <link>https://blog.andreasm.io/categories/netbox/</link>
+      <pubDate>Thu, 13 Mar 2025 10:14:47 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/netbox/</guid>
       <description></description>
       
     </item>
