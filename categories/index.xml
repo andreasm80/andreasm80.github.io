@@ -70,19 +70,9 @@
     </item>
     
     <item>
-      <title>Encapsulation</title>
-      <link>https://blog.andreasm.io/categories/encapsulation/</link>
-      <pubDate>Mon, 09 Dec 2024 14:55:58 +0100</pubDate>
-      
-      <guid>https://blog.andreasm.io/categories/encapsulation/</guid>
-      <description></description>
-      
-    </item>
-    
-    <item>
       <title>EVPN</title>
       <link>https://blog.andreasm.io/categories/evpn/</link>
-      <pubDate>Mon, 09 Dec 2024 14:55:58 +0100</pubDate>
+      <pubDate>Thu, 23 Jan 2025 10:17:20 +0100</pubDate>
       
       <guid>https://blog.andreasm.io/categories/evpn/</guid>
       <description></description>
@@ -92,7 +82,7 @@
     <item>
       <title>Networking</title>
       <link>https://blog.andreasm.io/categories/networking/</link>
-      <pubDate>Mon, 09 Dec 2024 14:55:58 +0100</pubDate>
+      <pubDate>Thu, 23 Jan 2025 10:17:20 +0100</pubDate>
       
       <guid>https://blog.andreasm.io/categories/networking/</guid>
       <description></description>
@@ -102,9 +92,19 @@
     <item>
       <title>Overlay</title>
       <link>https://blog.andreasm.io/categories/overlay/</link>
-      <pubDate>Mon, 09 Dec 2024 14:55:58 +0100</pubDate>
+      <pubDate>Thu, 23 Jan 2025 10:17:20 +0100</pubDate>
       
       <guid>https://blog.andreasm.io/categories/overlay/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Encapsulation</title>
+      <link>https://blog.andreasm.io/categories/encapsulation/</link>
+      <pubDate>Mon, 09 Dec 2024 14:55:58 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/encapsulation/</guid>
       <description></description>
       
     </item>

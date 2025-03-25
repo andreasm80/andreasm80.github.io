@@ -27,6 +27,12 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://blog.andreasm.io/2025/01/23/evpn-route-types-2-and-3/</loc>
+    <lastmod>2025-01-23T10:17:20+01:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://blog.andreasm.io/2024/12/09/evpn-introduction/</loc>
     <lastmod>2024-12-09T14:55:58+01:00</lastmod>
     <changefreq>daily</changefreq>

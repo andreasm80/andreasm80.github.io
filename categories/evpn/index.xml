@@ -7,7 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© 2025 Andreas Marqvardsen</copyright>
-    <lastBuildDate>Mon, 09 Dec 2024 14:55:58 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/evpn/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 23 Jan 2025 10:17:20 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/evpn/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>EVPN Route Types 2 and 3 </title>
+      <link>https://blog.andreasm.io/2025/01/23/evpn-route-types-2-and-3/</link>
+      <pubDate>Thu, 23 Jan 2025 10:17:20 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/2025/01/23/evpn-route-types-2-and-3/</guid>
+      <description>Going into details of EVPN route type 2 and 3</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2025/01/23/evpn-route-types-2-and-3/feature-arista-networks.jpg" />
+    </item>
     
     <item>
       <title>EVPN introduction</title>
