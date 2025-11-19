@@ -7,7 +7,47 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© 2025 Andreas Marqvardsen</copyright>
-    <lastBuildDate>Thu, 13 Mar 2025 10:14:47 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 13 Nov 2025 08:17:20 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Microsegmentation</title>
+      <link>https://blog.andreasm.io/tags/microsegmentation/</link>
+      <pubDate>Thu, 13 Nov 2025 08:17:20 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/tags/microsegmentation/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Networking</title>
+      <link>https://blog.andreasm.io/tags/networking/</link>
+      <pubDate>Thu, 13 Nov 2025 08:17:20 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/tags/networking/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Security</title>
+      <link>https://blog.andreasm.io/tags/security/</link>
+      <pubDate>Thu, 13 Nov 2025 08:17:20 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/tags/security/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Zerotrust</title>
+      <link>https://blog.andreasm.io/tags/zerotrust/</link>
+      <pubDate>Thu, 13 Nov 2025 08:17:20 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/tags/zerotrust/</guid>
+      <description></description>
+      
+    </item>
     
     <item>
       <title>Arista</title>
@@ -75,16 +115,6 @@
       <pubDate>Thu, 23 Jan 2025 10:17:20 +0100</pubDate>
       
       <guid>https://blog.andreasm.io/tags/evpn/</guid>
-      <description></description>
-      
-    </item>
-    
-    <item>
-      <title>Networking</title>
-      <link>https://blog.andreasm.io/tags/networking/</link>
-      <pubDate>Thu, 23 Jan 2025 10:17:20 +0100</pubDate>
-      
-      <guid>https://blog.andreasm.io/tags/networking/</guid>
       <description></description>
       
     </item>
@@ -575,16 +605,6 @@
       <pubDate>Wed, 12 Jul 2023 15:22:46 +0200</pubDate>
       
       <guid>https://blog.andreasm.io/tags/tmc-sm/</guid>
-      <description></description>
-      
-    </item>
-    
-    <item>
-      <title>Security</title>
-      <link>https://blog.andreasm.io/tags/security/</link>
-      <pubDate>Wed, 21 Jun 2023 10:01:46 +0200</pubDate>
-      
-      <guid>https://blog.andreasm.io/tags/security/</guid>
       <description></description>
       
     </item>

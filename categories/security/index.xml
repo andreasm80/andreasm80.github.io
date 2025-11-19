@@ -7,7 +7,17 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© 2025 Andreas Marqvardsen</copyright>
-    <lastBuildDate>Mon, 18 Dec 2023 11:49:56 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/security/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 13 Nov 2025 08:17:20 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/security/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Arista MSS - Multi-Domain Segmentation</title>
+      <link>https://blog.andreasm.io/2025/11/13/arista-mss-multi-domain-segmentation/</link>
+      <pubDate>Thu, 13 Nov 2025 08:17:20 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/2025/11/13/arista-mss-multi-domain-segmentation/</guid>
+      <description>Deploying Arista MSS in my lab and seeing it in action</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2025/11/13/arista-mss-multi-domain-segmentation/feature-arista-networks.jpg" />
+    </item>
     
     <item>
       <title>A Quick Glance at Cilium CNI</title>

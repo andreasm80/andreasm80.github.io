@@ -7,7 +7,67 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <copyright>© 2025 Andreas Marqvardsen</copyright>
-    <lastBuildDate>Thu, 13 Mar 2025 10:14:47 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 13 Nov 2025 08:17:20 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Campus</title>
+      <link>https://blog.andreasm.io/categories/campus/</link>
+      <pubDate>Thu, 13 Nov 2025 08:17:20 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/campus/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Datacenter</title>
+      <link>https://blog.andreasm.io/categories/datacenter/</link>
+      <pubDate>Thu, 13 Nov 2025 08:17:20 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/datacenter/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>MicroSegmentation</title>
+      <link>https://blog.andreasm.io/categories/microsegmentation/</link>
+      <pubDate>Thu, 13 Nov 2025 08:17:20 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/microsegmentation/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Networking</title>
+      <link>https://blog.andreasm.io/categories/networking/</link>
+      <pubDate>Thu, 13 Nov 2025 08:17:20 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/networking/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Security</title>
+      <link>https://blog.andreasm.io/categories/security/</link>
+      <pubDate>Thu, 13 Nov 2025 08:17:20 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/security/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>ZeroTrust</title>
+      <link>https://blog.andreasm.io/categories/zerotrust/</link>
+      <pubDate>Thu, 13 Nov 2025 08:17:20 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/zerotrust/</guid>
+      <description></description>
+      
+    </item>
     
     <item>
       <title>Arista</title>
@@ -75,16 +135,6 @@
       <pubDate>Thu, 23 Jan 2025 10:17:20 +0100</pubDate>
       
       <guid>https://blog.andreasm.io/categories/evpn/</guid>
-      <description></description>
-      
-    </item>
-    
-    <item>
-      <title>Networking</title>
-      <link>https://blog.andreasm.io/categories/networking/</link>
-      <pubDate>Thu, 23 Jan 2025 10:17:20 +0100</pubDate>
-      
-      <guid>https://blog.andreasm.io/categories/networking/</guid>
       <description></description>
       
     </item>
@@ -285,16 +335,6 @@
       <pubDate>Mon, 18 Dec 2023 11:49:56 +0100</pubDate>
       
       <guid>https://blog.andreasm.io/categories/monitoring/</guid>
-      <description></description>
-      
-    </item>
-    
-    <item>
-      <title>Security</title>
-      <link>https://blog.andreasm.io/categories/security/</link>
-      <pubDate>Mon, 18 Dec 2023 11:49:56 +0100</pubDate>
-      
-      <guid>https://blog.andreasm.io/categories/security/</guid>
       <description></description>
       
     </item>
