@@ -115,7 +115,7 @@
     "keywords": ["networking","security","microsegmentation","zerotrust"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "8676"
+    "wordCount": "8693"
   }]
   </script>
 
@@ -630,7 +630,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2025-11-13T08:17:20&#43;01:00">13 November 2025</time><span class="px-2 text-primary-500">&middot;</span><span>8676 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">41 mins</span>
+  <time datetime="2025-11-13T08:17:20&#43;01:00">13 November 2025</time><span class="px-2 text-primary-500">&middot;</span><span>8693 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">41 mins</span>
   
 
   
@@ -947,7 +947,7 @@
           <ul>
             <li><a href="#creating-the-virtual-machine-in-proxmox">Creating the virtual machine in Proxmox</a></li>
             <li><a href="#moving-the-cloudeos-to-monitor-mode">Moving the CloudEOS to Monitor Mode</a></li>
-            <li><a href="#basic-configurations---management1-p2p-link-loopback">Basic configurations - Management1-p2p link-loopback</a></li>
+            <li><a href="#basic-configurations---management1-p2p-and-loopback">Basic configurations - Management1, p2p and loopback</a></li>
             <li><a href="#onboarding-the-vztx-to-cloudvision">Onboarding the vZTX to CloudVision</a></li>
           </ul>
         </li>
@@ -1022,7 +1022,7 @@
           <ul>
             <li><a href="#creating-the-virtual-machine-in-proxmox">Creating the virtual machine in Proxmox</a></li>
             <li><a href="#moving-the-cloudeos-to-monitor-mode">Moving the CloudEOS to Monitor Mode</a></li>
-            <li><a href="#basic-configurations---management1-p2p-link-loopback">Basic configurations - Management1-p2p link-loopback</a></li>
+            <li><a href="#basic-configurations---management1-p2p-and-loopback">Basic configurations - Management1, p2p and loopback</a></li>
             <li><a href="#onboarding-the-vztx-to-cloudvision">Onboarding the vZTX to CloudVision</a></li>
           </ul>
         </li>
@@ -1171,9 +1171,9 @@
     </span>        
     
 </h1>
-<p>Before I dive into how I configured and tested Arista MSS in my lab, I feel its kind of necessary to do a short introduction of MSS. What is it?</p>
-<p>On a very high level, Arista Multi-Domain Segmentation Services is a solution to help you achieve Zero-Trust by allowing you to create microsegmention policies in your network fabric. This is regardless whether it is in your Campus, Datacenter or Branch/Edge.</p>
-<p>From Arista&rsquo;s offical MSS <a href="https://www.arista.com/en/products/multi-domain-segmentation" target="_blank">web-page</a>:</p>
+<p>Before diving into the lab configuration and testing, I think a quick introduction to MSS is in order. What is it?</p>
+<p>On a very high level, Arista Multi-Domain Segmentation Services is a solution to help you achieve Zero-Trust by allowing you to create microsegmentation policies in your network fabric. This is regardless whether it is in your Campus, Datacenter or Branch/Edge.</p>
+<p>From Arista&rsquo;s official MSS <a href="https://www.arista.com/en/products/multi-domain-segmentation" target="_blank">webpage</a>:</p>
 <blockquote>
 <p>Arista MSS offers a switch-based microperimeter technology stack that preserves the best attributes of switch-based and host-based firewall micro-segmentation technologies and, at the same time, overcomes their main limitations while delivering a consistent, unified segmentation architecture end-to-end across multiple domains (from the campus/branch to the data center).</p>
 </blockquote>
@@ -1208,8 +1208,8 @@
       
     </figure>
 </p>
-<p>In my previous role at a software vendor as a Solution Engineer for many years helping customers with microsegmentation, zero-trust and microsegmentation is nothing new but an important security solution in todays IT landscape. I find the Arista MSS solution very interesting. The biggest differentiator with MSS is where the enforcement is done and how easy it is to get started and manage. In contrast to other solutions out there MSS will allow you to cover all needs from Campus, Datacenter all the way to the Branch/Edge, not leaving any gaps. MSS enforcement point is your switches, not an agent, not a software layer but right there where the traffic is and on the devices that are responsible for switching and routing your precious data, regardless of what kind and in which part of the network it is. Then there is performance, when using MSS it is actually line-rate performance which means no performance penalty when enabling an important security solution in your fabric.</p>
-<p>So how does it work? Lets dig in and find out.</p>
+<p>In my previous role as a Solutions Engineer at a software vendor I spent many years helping customers to implement microsegmentation and zero trust networking policies. I am familiar with the ins and outs of these concepts and view them as important security solution in todays IT landscape. I find the Arista MSS solution very interesting. The biggest differentiator with MSS is where the enforcement is done and how easy it is to get started and manage. In contrast to other solutions out there MSS will allow you to cover all needs from Campus, Datacenter all the way to the Branch/Edge, not leaving any gaps. The MSS enforcement point is implemented in your switches, not an agent, not a software layer but right there where the traffic is and on the devices that are responsible for switching and routing your precious data, regardless of what kind and in which part of the network it is. Another big advantage is performance: MSS enforces policies at line rate, so there is no performance penalty when enabling an important security solution in your fabric.</p>
+<p>So how does it work? Let&rsquo;s dig in and find out.</p>
 
 
 <h2 class="relative group">What is needed to get started with MSS? 
@@ -1222,7 +1222,7 @@
     </span>        
     
 </h2>
-<p>This blog will only cover three components needed to run MSS, a supported Arista Switch, the ZTX appliance and Arista CloudVision. I will not cover things such as license requirements. For more detailed list of requirements and features see the MSS Data Sheet <a href="https://www.arista.com/assets/data/pdf/Datasheets/Multi-Domain-Segmentation-Services-for-Zero-Trust-Networking.pdf" target="_blank">here</a> (page 5 for hardware and license requirements). Things like Data Sources will not be covered as I dont have things like vSphere (vCenter with VDS) and Arista AGNI (yet) available in my lab.</p>
+<p>This blog will only cover three components needed to run MSS, a supported Arista Switch, the ZTX appliance and Arista CloudVision. I will not cover things such as license requirements. For more detailed list of requirements and features see the MSS Data Sheet <a href="https://www.arista.com/assets/data/pdf/Datasheets/Multi-Domain-Segmentation-Services-for-Zero-Trust-Networking.pdf" target="_blank">here</a> (page 5 for hardware and license requirements). Things like Data Sources will not be covered as I don&rsquo;t have things like vSphere (vCenter with VDS) and Arista AGNI (yet) available in my lab.</p>
 
 
 <h3 class="relative group">The ZTX appliance (monitor node) 
@@ -1250,15 +1250,15 @@
     </figure>
 </p>
 <p>Source: <a href="https://www.arista.com/assets/data/pdf/user-manual/um-books/MSS-Deployment-Guide.pdf" target="_blank">arista.com</a></p>
-<p>The ZTX monitor comes in two flavours, a physical appliance (ZTX-7250S-16S) and a virtual appliance. I will use the virtual appliance, vZTX, in my lab. vZTX can run on ESXi or KVM. In my lab I am using Proxmox which is KVM. Choosing between the physical or virtual in a production environment comes down to scale and performance.</p>
-<p><em>For more information on the ZTX deployment head over <a href="https://www.arista.com/assets/data/pdf/ZTX-7250S-Deployment-Guide.pdf" target="_blank">here</a>, it covers both the ZTX and vZTX and includes different supported toplogies.</em></p>
-<p>There are some initial configurations that needs to be in place for the ZTX to work as intended, the steps below will go through these steps. Here are the things that needs to be done:</p>
+<p>The ZTX monitor comes in two flavours, a physical appliance (ZTX-7250S-16S) and a virtual appliance. I will use the virtual appliance, vZTX, in my lab. vZTX can run on ESXi or KVM. In my lab I am using Proxmox which is KVM based. Choosing between the physical or virtual in a production environment comes down to scale and performance.</p>
+<p><em>For more information on the ZTX deployment head over <a href="https://www.arista.com/assets/data/pdf/ZTX-7250S-Deployment-Guide.pdf" target="_blank">here</a>, it covers both the ZTX and vZTX and includes different supported topologies.</em></p>
+<p>There are some initial configurations that need to be in place for the ZTX to work as intended, the steps below will go through these. Here are the things that need to be done:</p>
 <ul>
 <li>Create the virtual machine in Proxmox with correct configuration so the CloudEOS image will boot</li>
 <li>Moving the CloudEOS image into monitor mode</li>
 <li>Basic configurations like username/password for SSH access and management</li>
 <li>Out of Band Management interface</li>
-<li>Peer to Peer link betwen the vZTX appliance and TOR switches (in my case my only 720XP).</li>
+<li>Peer to Peer link between the vZTX appliance and TOR switches (in my case my only 720XP).</li>
 <li>Loopback interface</li>
 <li>Some static routes (dynamic routing is also possible see <a href="https://www.arista.com/assets/data/pdf/ZTX-7250S-Deployment-Guide.pdf" target="_blank">this</a>) for the loopback addresses between vZTX and TOR switch</li>
 <li>DNS</li>
@@ -1350,7 +1350,7 @@
     </span>        
     
 </h4>
-<p>When the vZTX has been configured in Proxmox its time to power it up. It will boot up with a very simple config. Username defaults to admin, and there is no password or was the password admin? Dont remember.</p>
+<p>When the vZTX has been configured in Proxmox it&rsquo;s time to power it up. It will boot up with a very simple config. Username defaults to admin, and there is no password or was the password admin? Don&rsquo;t remember.</p>
 <p>Before I can use the CloudEOS image as my ZTX appliance the first thing that needs to be done is to move the CloudEOS into monitor mode after first boot. This is done by running the following commands:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Verify the veos-config before</span>
 </span></span><span class="line"><span class="cl">vZTX# bash cat /mnt/flash/veos-config
@@ -1363,23 +1363,23 @@
 </span></span><span class="line"><span class="cl">vZTX<span class="o">(</span>config-firewall-distributed-instance<span class="o">)</span><span class="c1"># end</span>
 </span></span><span class="line"><span class="cl">vZTX# write
 </span></span><span class="line"><span class="cl">vZTX# reload
-</span></span></code></pre></div><p>When the switch boots back up login again and verify veos-config after the config above:</p>
+</span></span></code></pre></div><p>When the appliance boots back up login again and verify veos-config after the config above:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># Verify the veos-config after</span>
 </span></span><span class="line"><span class="cl">vZTX# bash cat /mnt/flash/veos-config
 </span></span><span class="line"><span class="cl"><span class="nv">MODE</span><span class="o">=</span>sfe
 </span></span><span class="line"><span class="cl"><span class="nv">platformRuby</span><span class="o">=</span>True
 </span></span><span class="line"><span class="cl"><span class="nv">maxDatapathCores</span><span class="o">=</span><span class="m">2</span>
 </span></span><span class="line"><span class="cl">vZTX# 
-</span></span></code></pre></div><p>Thats it.</p>
+</span></span></code></pre></div><p>That&rsquo;s it.</p>
 
 
-<h4 class="relative group">Basic configurations - Management1-p2p link-loopback 
-    <div id="basic-configurations---management1-p2p-link-loopback" class="anchor"></div>
+<h4 class="relative group">Basic configurations - Management1, p2p and loopback 
+    <div id="basic-configurations---management1-p2p-and-loopback" class="anchor"></div>
     
     <span
         class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100">
         <a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700"
-            style="text-decoration-line: none !important;" href="#basic-configurations---management1-p2p-link-loopback" aria-label="Anchor">#</a>
+            style="text-decoration-line: none !important;" href="#basic-configurations---management1-p2p-and-loopback" aria-label="Anchor">#</a>
     </span>        
     
 </h4>
@@ -1392,7 +1392,7 @@
 </span></span><span class="line"><span class="cl">!
 </span></span><span class="line"><span class="cl">no aaa root
 </span></span><span class="line"><span class="cl">!
-</span></span><span class="line"><span class="cl">username admin privilege <span class="m">15</span> role network-admin secret sha512 &lt;hash-redacted&gt;
+</span></span><span class="line"><span class="cl">username admin privilege <span class="m">15</span> role network-admin secret sha512 &lt;redacted&gt;
 </span></span><span class="line"><span class="cl">!
 </span></span><span class="line"><span class="cl">management api http-commands
 </span></span><span class="line"><span class="cl">   no shutdown
@@ -1505,7 +1505,7 @@
 </p>
 <p>This may also be done using your preferred ZTP/bootstrap approach.</p>
 <p>*Under the General Requirements it says: <em>Have the Streaming Agent extension installed (minimum version 1.19.5). Click <a href="https://www.arista.com/en/support/software-download" target="_blank">here</a> to download the Streaming Agent extension. If you already have the right minimum terminattr version on your EOS this can be skipped</em></p>
-<p>My vZTX onboarded to CloudVision together with my 720XP:</p>
+<p>Below you can see my vZTX appliance ready and onboarded to CloudVision together with my 720XP:</p>
 <p>
     <figure>
       <img
@@ -1539,7 +1539,7 @@
 </span></span><span class="line"><span class="cl">   ip address 10.255.1.10/32
 </span></span><span class="line"><span class="cl">!
 </span></span><span class="line"><span class="cl">ip route 10.255.1.11/32 172.18.111.2
-</span></span></code></pre></div><p>A Loopback0 interface, a static route pointing to the vZTX Loopback0 interface (Dynamic routing is also possible). Thats it for the actual switch configuration needed on the 720XP.</p>
+</span></span></code></pre></div><p>A Loopback0 interface, a static route pointing to the vZTX Loopback0 interface (Dynamic routing is also possible). That&rsquo;s it for the actual switch configuration needed on the 720XP.</p>
 
   
 
