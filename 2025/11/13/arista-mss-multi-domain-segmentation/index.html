@@ -115,7 +115,7 @@
     "keywords": ["networking","security","microsegmentation","zerotrust"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "8693"
+    "wordCount": "8706"
   }]
   </script>
 
@@ -630,7 +630,7 @@
 <div class="flex flex-row flex-wrap items-center">
   
   
-  <time datetime="2025-11-13T08:17:20&#43;01:00">13 November 2025</time><span class="px-2 text-primary-500">&middot;</span><span>8693 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">41 mins</span>
+  <time datetime="2025-11-13T08:17:20&#43;01:00">13 November 2025</time><span class="px-2 text-primary-500">&middot;</span><span>8706 words</span><span class="px-2 text-primary-500">&middot;</span><span title="Reading time">41 mins</span>
   
 
   
@@ -1465,7 +1465,7 @@
 </span></span><span class="line"><span class="cl">   no shutdown
 </span></span><span class="line"><span class="cl">!
 </span></span></code></pre></div><p>The TerminAttr config will be done as part of the CloudVision onboarding process. Just follow the guide in CloudVision.</p>
-<p>The documentation is not stating that the Management interface MUST be in the default VRF, I created a dedicated MGMT vrf and placed it there. That is the only VRF I have configured. Then I configured interface Ethernet1 as the p2p link to my Arista 720XP switch, and a Loopback0 interface. This loopback interface will be used later when I configure MSS Monitor object in CloudVision later. Then a default route in the default VRF using my 720XP p2p link as gateway. I used a /24 subnet for these p2p links which is unnecessary.</p>
+<p>The documentation is not stating that the Management interface MUST be in the default VRF, I created a dedicated MGMT vrf and placed it there. That is the only VRF I have configured. Then I configured interface Ethernet1 as the p2p link to my Arista 720XP switch, and a Loopback0 interface. This loopback interface will be used later when I configure MSS Monitor object in CloudVision. Then a default route in the default VRF using my 720XP p2p link as gateway. I used a /24 subnet for these p2p links which is unnecessary.</p>
 <p>Now my vZTX is ready configured with its necessary configuration and I can onboard it to CloudVision.</p>
 
 
@@ -1652,7 +1652,7 @@
       
     </figure>
 </p>
-<p>To make sure all the MSS related features in CloudVision is readily available in the UI they may have to be enabled. Head over to settings in CloudVision and Features and enable the following features:</p>
+<p>To make sure all the MSS related features in CloudVision are readily available in the UI they may have to be enabled (if they are missing refer to the <a href="https://www.arista.com/assets/data/pdf/Datasheets/Multi-Domain-Segmentation-Services-for-Zero-Trust-Networking.pdf" target="_blank">Arista MSS Datasheet</a> for CVP supported versions). Head over to settings in CloudVision and Features and enable the following features:</p>
 <ul>
 <li>Network Security- MSS</li>
 <li>Network Security - Fine-Grained Policy Monitor Loading</li>
