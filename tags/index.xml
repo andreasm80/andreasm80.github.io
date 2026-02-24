@@ -6,15 +6,55 @@
     <description>Recent content in Tags on blog.andreasm.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>© 2025 Andreas Marqvardsen</copyright>
-    <lastBuildDate>Thu, 13 Nov 2025 08:17:20 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>© 2026 Andreas Marqvardsen</copyright>
+    <lastBuildDate>Wed, 18 Feb 2026 08:17:20 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>Microsegmentation</title>
-      <link>https://blog.andreasm.io/tags/microsegmentation/</link>
-      <pubDate>Thu, 13 Nov 2025 08:17:20 +0100</pubDate>
+      <title>Agent</title>
+      <link>https://blog.andreasm.io/tags/agent/</link>
+      <pubDate>Wed, 18 Feb 2026 08:17:20 +0100</pubDate>
       
-      <guid>https://blog.andreasm.io/tags/microsegmentation/</guid>
+      <guid>https://blog.andreasm.io/tags/agent/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Ai</title>
+      <link>https://blog.andreasm.io/tags/ai/</link>
+      <pubDate>Wed, 18 Feb 2026 08:17:20 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/tags/ai/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Automation</title>
+      <link>https://blog.andreasm.io/tags/automation/</link>
+      <pubDate>Wed, 18 Feb 2026 08:17:20 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/tags/automation/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Mcp</title>
+      <link>https://blog.andreasm.io/tags/mcp/</link>
+      <pubDate>Wed, 18 Feb 2026 08:17:20 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/tags/mcp/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Netbox</title>
+      <link>https://blog.andreasm.io/tags/netbox/</link>
+      <pubDate>Wed, 18 Feb 2026 08:17:20 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/tags/netbox/</guid>
       <description></description>
       
     </item>
@@ -22,9 +62,19 @@
     <item>
       <title>Networking</title>
       <link>https://blog.andreasm.io/tags/networking/</link>
-      <pubDate>Thu, 13 Nov 2025 08:17:20 +0100</pubDate>
+      <pubDate>Wed, 18 Feb 2026 08:17:20 +0100</pubDate>
       
       <guid>https://blog.andreasm.io/tags/networking/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Microsegmentation</title>
+      <link>https://blog.andreasm.io/tags/microsegmentation/</link>
+      <pubDate>Thu, 13 Nov 2025 08:17:20 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/tags/microsegmentation/</guid>
       <description></description>
       
     </item>
@@ -100,16 +150,6 @@
     </item>
     
     <item>
-      <title>Netbox</title>
-      <link>https://blog.andreasm.io/tags/netbox/</link>
-      <pubDate>Thu, 13 Mar 2025 10:14:47 +0100</pubDate>
-      
-      <guid>https://blog.andreasm.io/tags/netbox/</guid>
-      <description></description>
-      
-    </item>
-    
-    <item>
       <title>EVPN</title>
       <link>https://blog.andreasm.io/tags/evpn/</link>
       <pubDate>Thu, 23 Jan 2025 10:17:20 +0100</pubDate>
@@ -175,16 +215,6 @@
       <pubDate>Fri, 08 Nov 2024 08:56:51 +0100</pubDate>
       
       <guid>https://blog.andreasm.io/tags/topologies/</guid>
-      <description></description>
-      
-    </item>
-    
-    <item>
-      <title>Automation</title>
-      <link>https://blog.andreasm.io/tags/automation/</link>
-      <pubDate>Thu, 22 Aug 2024 21:26:33 +0200</pubDate>
-      
-      <guid>https://blog.andreasm.io/tags/automation/</guid>
       <description></description>
       
     </item>

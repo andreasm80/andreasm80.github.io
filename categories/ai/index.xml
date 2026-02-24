@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>AI on blog.andreasm.io</title>
+    <link>https://blog.andreasm.io/categories/ai/</link>
+    <description>Recent content in AI on blog.andreasm.io</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <copyright>© 2026 Andreas Marqvardsen</copyright>
+    <lastBuildDate>Wed, 18 Feb 2026 08:17:20 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/ai/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>AI driven Network Management &amp; Automation</title>
+      <link>https://blog.andreasm.io/2026/02/18/ai-driven-network-management-automation/</link>
+      <pubDate>Wed, 18 Feb 2026 08:17:20 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/2026/02/18/ai-driven-network-management-automation/</guid>
+      <description>Using MCP and an AI agent to manage, troubleshoot and automate my network</description>
+      <media:content xmlns:media="http://search.yahoo.com/mrss/" url="https://blog.andreasm.io/2026/02/18/ai-driven-network-management-automation/feature-ai_network.png" />
+    </item>
+    
+  </channel>
+</rss>

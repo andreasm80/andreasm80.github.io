@@ -6,8 +6,68 @@
     <description>Recent content in Categories on blog.andreasm.io</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <copyright>© 2025 Andreas Marqvardsen</copyright>
-    <lastBuildDate>Thu, 13 Nov 2025 08:17:20 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    <copyright>© 2026 Andreas Marqvardsen</copyright>
+    <lastBuildDate>Wed, 18 Feb 2026 08:17:20 +0100</lastBuildDate><atom:link href="https://blog.andreasm.io/categories/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>AGENT</title>
+      <link>https://blog.andreasm.io/categories/agent/</link>
+      <pubDate>Wed, 18 Feb 2026 08:17:20 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/agent/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>AI</title>
+      <link>https://blog.andreasm.io/categories/ai/</link>
+      <pubDate>Wed, 18 Feb 2026 08:17:20 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/ai/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Automation</title>
+      <link>https://blog.andreasm.io/categories/automation/</link>
+      <pubDate>Wed, 18 Feb 2026 08:17:20 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/automation/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>MCP</title>
+      <link>https://blog.andreasm.io/categories/mcp/</link>
+      <pubDate>Wed, 18 Feb 2026 08:17:20 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/mcp/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Netbox</title>
+      <link>https://blog.andreasm.io/categories/netbox/</link>
+      <pubDate>Wed, 18 Feb 2026 08:17:20 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/netbox/</guid>
+      <description></description>
+      
+    </item>
+    
+    <item>
+      <title>Networking</title>
+      <link>https://blog.andreasm.io/categories/networking/</link>
+      <pubDate>Wed, 18 Feb 2026 08:17:20 +0100</pubDate>
+      
+      <guid>https://blog.andreasm.io/categories/networking/</guid>
+      <description></description>
+      
+    </item>
     
     <item>
       <title>Campus</title>
@@ -35,16 +95,6 @@
       <pubDate>Thu, 13 Nov 2025 08:17:20 +0100</pubDate>
       
       <guid>https://blog.andreasm.io/categories/microsegmentation/</guid>
-      <description></description>
-      
-    </item>
-    
-    <item>
-      <title>Networking</title>
-      <link>https://blog.andreasm.io/categories/networking/</link>
-      <pubDate>Thu, 13 Nov 2025 08:17:20 +0100</pubDate>
-      
-      <guid>https://blog.andreasm.io/categories/networking/</guid>
       <description></description>
       
     </item>
@@ -80,16 +130,6 @@
     </item>
     
     <item>
-      <title>Automation</title>
-      <link>https://blog.andreasm.io/categories/automation/</link>
-      <pubDate>Thu, 13 Mar 2025 10:14:47 +0100</pubDate>
-      
-      <guid>https://blog.andreasm.io/categories/automation/</guid>
-      <description></description>
-      
-    </item>
-    
-    <item>
       <title>Avd</title>
       <link>https://blog.andreasm.io/categories/avd/</link>
       <pubDate>Thu, 13 Mar 2025 10:14:47 +0100</pubDate>
@@ -115,16 +155,6 @@
       <pubDate>Thu, 13 Mar 2025 10:14:47 +0100</pubDate>
       
       <guid>https://blog.andreasm.io/categories/gitops/</guid>
-      <description></description>
-      
-    </item>
-    
-    <item>
-      <title>Netbox</title>
-      <link>https://blog.andreasm.io/categories/netbox/</link>
-      <pubDate>Thu, 13 Mar 2025 10:14:47 +0100</pubDate>
-      
-      <guid>https://blog.andreasm.io/categories/netbox/</guid>
       <description></description>
       
     </item>
